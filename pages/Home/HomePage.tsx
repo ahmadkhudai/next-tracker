@@ -69,7 +69,9 @@ export function HomePage() {
                         dumdumData.map(expense =>
                             <ExpenseComponent
                                 settings={settings}
-                                expense={expense}/>
+                                expense={expense}
+                                key={expense.id}
+                            />
                         )
                     }
 
