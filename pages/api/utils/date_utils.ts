@@ -38,7 +38,7 @@ export function getDate(date:any){
     return date;
 }
 
-export function isToday(inputDate:Date){
+export function isToday(inputDate:any){
     return getDate(inputDate).setHours(0,0,0,0) === (new Date()).setHours(0,0,0,0);
 }
 

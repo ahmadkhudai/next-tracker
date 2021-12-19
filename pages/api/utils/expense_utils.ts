@@ -1,25 +1,28 @@
 import {getDateString} from "./date_utils";
 import moment from "moment";
 import {Expense} from "../../../Definitions/Expense";
+import {InputTypes} from "../../../Definitions/InputTypes";
+import {SettingLabels} from "../../../Definitions/Setting";
 export function sortfunction(a:Expense,b:Expense){
     // Turn your strings into dates, and then subtract them
     // to get a value that is either negative, positive, or zero.
     return new Date(b.date).valueOf() - new Date(a.date).valueOf();
 };
-export const sumAllExpenses = (previousValue:number, currentValue:Expense) => previousValue + currentValue.price;
+export const sumAllExpenses = (previousValue:number, currentValue:Expense) => previousValue + parseInt(String(currentValue.price));
 
-export function getSortedExpenses(expenses:Expense[]){
+export function getSortedExpenses(inputExpenses:Expense[]){
 
+    let expenses = [...inputExpenses];
     let sortedExpenses:any={};
+
     if(!expenses){
         return sortedExpenses;
     }
     if (expenses.length > 0) {
         expenses = expenses.sort(sortfunction);
-        console.log(expenses[0].date);
         let currentDate:string = getDateString(expenses[0].date);
         sortedExpenses[currentDate] = [];
-        expenses.forEach(expense => {
+        expenses.forEach((expense:Expense) => {
             if (getDateString(expense.date) !== currentDate) {
                 currentDate = getDateString(expense.date);
                 sortedExpenses[currentDate] = [];
@@ -31,18 +34,18 @@ export function getSortedExpenses(expenses:Expense[]){
     return sortedExpenses;
 }
 
-export const  baseSettings = {
+export let baseSettings = {
     "maxAcceptableRange": {
-        type: "number",
-        id: "maxAcceptableRange",
+        type: InputTypes.number,
+        label: SettingLabels.maxAcceptableRange,
         value: 150,
-        label: "Max Value"
+        name: "Max Value"
     },
     "deleteMode": {
-        type: "checkbox",
-        id: "deleteMode",
-        value: false,
-        label: "Delete Mode?"
+        type: InputTypes.checkbox,
+        label: SettingLabels.deleteMode,
+        value: true,
+        name: "Delete Mode?"
     }
 };
 

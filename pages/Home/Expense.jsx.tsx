@@ -8,6 +8,7 @@ import {SettingsObj} from "../../Definitions/SettingsObj";
 type Props = {
  expense:Expense;
  settings:SettingsObj;
+ deleteExpense:any;
 };
 type State = {
 
@@ -16,7 +17,9 @@ type State = {
 export class ExpenseComponent extends React.Component<Props, State> {
     render() {
         let expense = this.props.expense;
-        let onclickHandler:any = ()=>{};
+        let onclickHandler:any = (expense:Expense)=>{
+            this.props.deleteExpense(expense);
+        };
         let settings:SettingsObj = this.props.settings;
         return (
             <div className="p-[3px] font-monospace my-2" id="expense">
