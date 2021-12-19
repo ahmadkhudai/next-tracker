@@ -12,16 +12,25 @@ type Props = {
 type State = {};
 
 export function Backdrop({children, onClick}:Props) {
-    const [height, setHeight] = useState("100%");
+    const [height, setHeight] = useState((window.innerHeight+window.scrollY+100)+"px");
+
+
+
     useEffect(() => {
+        setAllStates();
         return () => {
-            window.onresize = ()=>setHeight(window.innerHeight.toString()+"px");
+            setHeight((window.innerHeight+window.scrollY+100)+"px");
         };
     }, []);
 
+    const setAllStates = () => {
+        window.onresize = ()=>setHeight((window.innerHeight+window.scrollY)+"px");
+        window.onscroll = ()=>setHeight((window.innerHeight+window.scrollY)+"px");
+    }
     return (
        <motion.div
            id={"backdrop"}
+           className={" backdrop-blur-[1px] bg-gray-300/40"}
            onClick={onClick}
            initial={{opacity:0}}
            animate={{opacity:1}}

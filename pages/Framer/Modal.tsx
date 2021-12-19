@@ -42,7 +42,7 @@ export function Modal({handleClose, message, subtitle}:Props) {
                 exit={"exit"}
                 id={"modal"}
 
-                className={" text-center bg-light grid justify-center"}
+                className={" text-center backdrop-blur-[3px] bg-gray-300/40 grid justify-center"}
            >
 
                    <div className={"my-3"}>
