@@ -8,7 +8,7 @@ import {InputTypes} from "../../Definitions/InputTypes";
 import {dumdumData} from "../api/dummy_data/data";
 import AK_SettingsPanel from "./AK_SettingsPanel";
 import HomeHeader from "./HomeHeader";
-import {TPanels} from "./component_config/TPanels";
+import {TPanels} from "../api/component_config/TPanels";
 
 type Props = {};
 type State = {

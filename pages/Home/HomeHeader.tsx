@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {TPanels} from "./component_config/TPanels";
+import {TPanels} from "../api/component_config/TPanels";
 
 type Props = {
     openPanel:any;
