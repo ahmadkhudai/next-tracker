@@ -19,17 +19,20 @@ export default function HomeHeader(props:Props) {
 
     return (
         <nav className="navbar navbar-expand navbar-light bg-light">
-            <div className="navbar-nav container ak_max_600px ">
-                <div className={"flex-row justify-content-evenly container"}>
+            <div className="ak_max_600px flex align-items-center justify-content-between  container">
 
-                    <button className="btn btn-outline-primary my-2" onClick={()=>{openPanel(TPanels.AddExpensePanel)}}>Add Expense</button>
-                    <button className="btn ak_button my-2 mx-4" onClick={()=>{openPanel(TPanels.SettingsPanel)}}>Settings</button>
-                 </div>
-                <div className={"flex-row justify-content-evenly container"}>
-
-                    <button className="btn ak_button my-2 mx-4" onClick={()=>{switchWindow(MainWindows.home)}}>Home</button>
-                    <button className="btn ak_button my-2 mx-4" onClick={()=>{switchWindow(MainWindows.graphs)}}>Graphs</button>
+                <div>
+                    <button className="btn btn-outline-primary mr-3" onClick={()=>{openPanel(TPanels.AddExpensePanel)}}>Add Expense</button>
+                    <button className="btn btn-outline-info" onClick={()=>{openPanel(TPanels.SettingsPanel)}}>Settings</button>
                 </div>
+
+                <div>
+                    <button className="btn btn-outline-dark mr-3" onClick={()=>{switchWindow(MainWindows.home)}}>Home</button>
+                    <button className="btn btn-outline-dark" onClick={()=>{switchWindow(MainWindows.graphs)}}>Graphs</button>
+
+                </div>
+
+
 
                </div>
         </nav>
