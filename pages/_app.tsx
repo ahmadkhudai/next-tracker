@@ -1,16 +1,18 @@
+
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css'
 import type {AppProps} from 'next/app'
 import {HomePage} from "./Home/HomePage";
 import {Provider} from 'react-redux'
 import store from "./api/Data/store";
-import AkGraphs from "./AkGraphs";
+import GraphWindow from "./Graphs/GraphWindow";
 import React, {useState} from "react";
 import {TPanels} from "./api/component_config/TPanels";
 import HomeHeader from "./components/HomeHeader";
-import AK_SettingsPanel from "./Home/Forms/AK_SettingsPanel";
-import AddExpenseForm from "./Home/Forms/AddExpenseForm";
+import AK_SettingsPanel from "./Forms/AK_SettingsPanel";
+import AddExpenseForm from "./Forms/AddExpenseForm";
 import {MainWindows} from "./api/component_config/MainWindows";
+import {ModalContainer} from "./Framer/ModalContainer";
 
 function MyApp({ Component, pageProps }: AppProps) {
     const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(TPanels.none);
@@ -38,13 +40,16 @@ function MyApp({ Component, pageProps }: AppProps) {
           <div className={"h-full p-4 flex items-center flex-col justify-center bg-slate-50"}>
 
           {currentlyOpenPanel===TPanels.SettingsPanel &&
-              <AK_SettingsPanel />
+              <div>
+                  <AK_SettingsPanel />
+              </div>
+
           }
           {currentlyOpenPanel===TPanels.AddExpensePanel &&
               <AddExpenseForm/>
           }
           {currentWindow === MainWindows.graphs &&
-              <AkGraphs/>
+              <GraphWindow/>
           }
           {currentWindow === MainWindows.home &&
           <HomePage/>

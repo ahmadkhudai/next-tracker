@@ -1,9 +1,9 @@
 // @flow
 import * as React from 'react';
-import {SettingLabels} from "../../../Definitions/Setting";
-import {SettingsObj} from "../../../Definitions/SettingsObj";
+import {SettingLabels} from "../../Definitions/Setting";
+import {SettingsObj} from "../../Definitions/SettingsObj";
 import {useDispatch, useSelector} from "react-redux";
-import {modifySettings} from "../../api/features/settings/settingsSlice";
+import {modifySettings} from "../api/features/settings/settingsSlice";
 
 let useState = React.useState;
 // import  from "react";

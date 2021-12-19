@@ -1,14 +1,14 @@
 // @flow
 import * as React from 'react';
 import {useSelector} from "react-redux";
-import GroupedExpensesGraph from "./components/GroupedExpensesGraph";
+import GroupedExpensesGraph from "../components/GroupedExpensesGraph";
 
 type Props = {
 
 };
 type State = {};
 
-function AkGraphs() {
+export default function GraphWindow() {
     const expenses = useSelector((state:any)=>state.expenses.value);
     const settings = useSelector((state:any)=>state.settings.val);
 
@@ -18,5 +18,3 @@ function AkGraphs() {
         </div>
     );
 }
-
-export default AkGraphs;
