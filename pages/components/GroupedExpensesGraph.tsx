@@ -79,6 +79,8 @@ function GroupedExpensesGraph(props:Props) {
                 <Radar name="Money Spent" dataKey="expense" stroke="#7cc3ca" fill="#5ebeca" fillOpacity={0.8}/>
 
 
+                <Legend/>
+
             </RadarChart>
         </div>
     );

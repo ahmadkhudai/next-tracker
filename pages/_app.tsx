@@ -26,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
 
     function switchWindow(window:MainWindows){
+        setCurrentlyOpenPanel(TPanels.none);
         setCurrentWindow(window);
     }
     return (
