@@ -1,0 +1,35 @@
+
+import { v4 as uuidv4 } from 'uuid';
+import {addDays, getRandomItem, randomIntFromInterval} from "../utils/date_utils";
+
+let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
+export const dumdumData = [
+    {id: "1",name: getRandomItem(itemsList), price: 30, description: "chai", date: (addDays(new Date(), 20))},
+    {id: "3",name: getRandomItem(itemsList), price: 170, description: "Shwarma", date: (addDays(new Date()))},
+    {id: "4",name: getRandomItem(itemsList), price: 30, description: "chai", date: (addDays(new Date()))},
+    {id: "5",name: getRandomItem(itemsList), price: 300, description: "Steak Burger", date: (addDays(new Date()))},
+    {id: "7",name: getRandomItem(itemsList), price: 30, description: "chai", date: (addDays(new Date()))},
+    {id: "8",name: getRandomItem(itemsList), price: 520, description: "GB Ginger", date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+    {id: uuidv4(), price: randomIntFromInterval(30,500), description: getRandomItem(itemsList), name: getRandomItem(itemsList), date: (addDays(new Date()))},
+];
