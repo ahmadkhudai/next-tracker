@@ -69,9 +69,11 @@ export function WeekPie({expenses}:Props) {
                     <Pie data={displayData} dataKey="price" name="Money Spent Per Day"  cx="50%" cy="50%" innerRadius={(0.2)*graphWidth}  outerRadius={(0.25)*graphWidth} fill="#c33d49" label/>
                     {/*<Pie data={dates} dataKey="date" name="Money Spent Per Day" cx="50%" cy="50%" innerRadius={(0.3)*graphWidth} outerRadius={(0.35)*graphWidth} fill="#6bc35c" label/>*/}
 
+                    <Tooltip/>
                 </PieChart>
 
             {/*<div>*/}
+
 
 
             {/*        <BarChart*/}
