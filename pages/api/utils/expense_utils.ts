@@ -44,7 +44,7 @@ export let baseSettings = {
     "deleteMode": {
         type: InputTypes.checkbox,
         label: SettingLabels.deleteMode,
-        value: true,
+        value: false,
         name: "Delete Mode?"
     }
 };
@@ -97,6 +97,48 @@ export function getMonthWiseExpenses(sortedExpenses:any){
    return monthWiseExpenses;
 
 
+}
+
+export function groupByWeek(sortedExpenses:any) {
+
+    const moment = require('moment');
+
+    let tempWeekWiseExpenses:any = {};
+
+
+    Object.entries(sortedExpenses).forEach(([date,expense])=>{
+        if(!tempWeekWiseExpenses[moment(date).week()]) {
+            tempWeekWiseExpenses[moment(date).week()] = 0
+            tempWeekWiseExpenses[moment(date).week()] = [];
+        }
+        tempWeekWiseExpenses[moment(date).week()].push(expense);
+
+    })
+
+    // console.log(tempWeekWiseExpenses);
+    let weekWiseExpenses:any = [];
+
+    Object.entries(tempWeekWiseExpenses).forEach(([week, expense], index)=>{
+        weekWiseExpenses[index] = {date:week, expense:expense};
+    })
+    // console.log(weekWiseExpenses);
+
+    return weekWiseExpenses;
+}
+
+
+/**
+ * Returns current week's expenses for graph consumptions
+ * @param sortedExpenses
+ */
+export function getCurrentWeeksExpenses(sortedExpenses:any){
+    let weeklyExpenses = groupByWeek(sortedExpenses);
+    weeklyExpenses =  weeklyExpenses[weeklyExpenses.length-1]["expense"][0];
+    weeklyExpenses.forEach((expense:Expense)=>{
+        expense["date"]  = getDate(expense["date"]);
+    }, weeklyExpenses)
+
+    return weeklyExpenses;
 }
 
 export function getHello(){

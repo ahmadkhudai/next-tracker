@@ -2,39 +2,50 @@
 import * as React from 'react';
 import {Expense} from "../../Definitions/Expense";
 import ExpenseComponent from "./Expense.jsx";
-import {useDispatch, useSelector} from "react-redux";
-import {modifyExpenses} from "../api/features/expenses/expenseSlice";
-import {getSortedExpenses, sumAllExpenses} from "../api/utils/expense_utils";
+// import {useDispatch, useSelector} from "react-redux";
+// import {modifyExpenses} from "../api/features/expenses/expenseSlice";
+import {baseSettings, getSortedExpenses, sumAllExpenses} from "../api/utils/expense_utils";
 import {isToday} from "../api/utils/date_utils";
 import {useEffect, useState} from "react";
+import {SettingsObj} from "../../Definitions/SettingsObj";
 
-type Props = {};
+type Props = {
+    expenses:Expense[];
+    settings:SettingsObj;
+    deleteExpense:any;
+};
 type State = {};
 
-export function DateSortedView() {
+export function DateSortedView({expenses,settings, deleteExpense}:Props) {
     // let expenses = {};
 
-    // const [expenses, setExpenses] = useState([]);
-    const expenses = useSelector((state:any)=>state.expenses.value);
-    const settings = useSelector((state:any)=>state.settings.value);
-    const dispatch = useDispatch();
+     // let expenses:Expense[] = [];
+     // const deleteExpense = props.deleteExpense;
+     // let tempExp:Expense[] = [];
+    const [renderedExpenses, setRenderedExpenses] = useState([] as Expense[]);
+    // // const settings = props.settings;
+    // // const expenses = useSelector((state:any)=>state.expenses.value);
+    // // const settings = useSelector((state:any)=>state.settings.value);
+    // const [settings, setSetting] = useState({} as SettingsObj);
+    // const dispatch = useDispatch();
 
 
+    // console.log(deleteExpense);
 
+    useEffect(() => {
+            setRenderedExpenses(expenses);
+    }, [expenses]);
+    //
     // useEffect(() => {
-    //     return () => {
-    //         console.log("HERE");
-    //     };
-    // }, []);
+    //     setSetting(props.settings);
+    //     console.log("HERE");
+    // }, [props.settings]);
 
 
 
-    function deleteExpense(toDelete:Expense){
-        let newExpenseList = expenses.filter((expense:Expense) => expense.id !==toDelete.id);
-        dispatch(modifyExpenses(newExpenseList));
-    }
 
-    if(expenses.length===0){
+
+    if(renderedExpenses.length===0){
         return (
             <div className={"ak_card"}>
                 <h3>
@@ -44,7 +55,7 @@ export function DateSortedView() {
         )
     }
 
-    const sortedExpenses = getSortedExpenses([...expenses]);
+    const sortedExpenses = getSortedExpenses([...renderedExpenses]);
 
 
 

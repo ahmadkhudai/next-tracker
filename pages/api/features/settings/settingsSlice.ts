@@ -10,14 +10,14 @@ export const settingsSlice = createSlice({
             "maxAcceptableRange": {
                 type: InputTypes.number,
                 label: SettingLabels.maxAcceptableRange,
-                value: 150,
-                name: "Max Value"
+                value: 1,
+                name: "Max Valhjhkue"
             },
             "deleteMode": {
                 type: InputTypes.checkbox,
                 label: SettingLabels.deleteMode,
                 value: true,
-                name: "Delete Mode?"
+                name: "Deletehjhjh"
             },
 
         }
@@ -31,7 +31,7 @@ export const settingsSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { modifySettings } = settingsSlice.actions
+
 
 const settingsReducer =  settingsSlice.reducer;
 export default settingsReducer;

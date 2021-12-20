@@ -10,7 +10,7 @@ export class Index extends React.Component<Props, State> {
     render() {
         return (
             <div>
-                <h1>HELLO WORL</h1>
+                <h1>just here so the compiler can stop shouting obscenities</h1>
             </div>
         );
     };

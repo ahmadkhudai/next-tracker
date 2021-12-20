@@ -14,13 +14,18 @@ import {DateSortedView} from "./DateSortedView";
 import Link from 'next/link'
 import TestModal from "../components/modals/TestModal";
 import {motion} from "framer-motion";
-type Props = {};
+import {Expense} from "../../Definitions/Expense";
+type Props = {
+    expenses:Expense[];
+    deleteExpense:any;
+    settings: SettingsObj;
+};
 type State = {
-   settings: SettingsObj;
+
 };
 
 
-export function HomePage() {
+export function HomePage({expenses, settings, deleteExpense}:Props) {
 
 
 
@@ -31,7 +36,7 @@ export function HomePage() {
 
                 <div className={"p-3"}>
                     <h1 className={"h1 text-center p-2"}>Expense Tracker</h1>
-                    <DateSortedView/>
+                    <DateSortedView settings={settings} expenses={expenses} deleteExpense={deleteExpense}/>
                 </div>
 
             </div>

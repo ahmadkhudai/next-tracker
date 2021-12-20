@@ -1,11 +1,18 @@
 // @flow
 import * as React from 'react';
 import HomePage from "./HomePage";
+import {Expense} from "../../Definitions/Expense";
+import {SettingsObj} from "../../Definitions/SettingsObj";
 
 
-export function Home() {
+type Props = {
+    expenses:Expense[];
+    deleteExpense:any;
+    settings: SettingsObj;
+};
+export function Home({expenses, settings, deleteExpense}:Props) {
     return (
-        <HomePage/>
+        <HomePage settings={settings} expenses={expenses} deleteExpense={deleteExpense}/>
     );
 }
 

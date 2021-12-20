@@ -1,65 +1,36 @@
 // @flow
 import * as React from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {addExpense, modifyExpenses} from '../api/features/expenses/expenseSlice';
-import ExpenseComponent from "../Home/Expense.jsx.js";
 import {useState} from "react";
-import {InputTypes} from "../../Definitions/InputTypes";
-import {SettingLabels} from "../../Definitions/Setting";
-import {Expense} from "../../Definitions/Expense";
-import {SettingsObj} from "../../Definitions/SettingsObj";
-import {dumdumData} from "../api/dummy_data/data";
-import { v4 as uuidv4 } from 'uuid';
 import {addDays, getDate, getISODate, getRandomItem, isGreaterThanToday} from "../api/utils/date_utils";
-import {ModalContainer} from "../Framer/ModalContainer";
-// import {addDays, getRandomItem, randomIntFromInterval} form './'
+
 
 let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
 
  type Props = {
-
+    addNewExpense:any;
 };
 type State = {};
 
-export function AddExpenseForm() {
-    // const expenses = useSelector((state:any)=> state.expenses.value)
-    const settings:SettingsObj = useSelector((state: any) => state.settings.value);
-    const dispatch = useDispatch()
+export function AddExpenseForm({addNewExpense}:Props) {
+
 
     const [newExpense, setNewExpense] = useState( {name: "chai", price: 30, description: "chai", date: new Date()})
 
     function handleFieldChange(fieldName:string, fieldValue:any){
-        console.log("herell");
-
         let tempObj:any = {...newExpense};
         tempObj[fieldName] =fieldValue;
-        tempObj["id"] = ()=>uuidv4();
-        console.log(tempObj);
         setNewExpense(tempObj);
     }
-    const [modalOpen, setModalOpen] = useState(false);
-    const close = () => setModalOpen(false);
-    const open = ()=> setModalOpen(true);
 
-    function addNewExpense(){
-        let tempObj:any = {...newExpense};
-        tempObj["id"] = ()=>uuidv4();
-        if(isGreaterThanToday(tempObj.date)){
-            setModalOpen(true);
-            return;
-        }
-        tempObj.date = tempObj.date.toString();
-        dispatch(addExpense(tempObj));
-    }
+
+
 
 
 
     return (
 
         <div className={"ak_card w-full ak_max_600px my-3"}>
-            {modalOpen &&
-                <ModalContainer handleClose={close} message={"Cannot predict future (yet)."} subtitle={"Please try an earlier date."}/>
-            }
+
          <h1>Add New expense</h1>
             <div id="expense_form" className="pt-3 " >
                 <div className="form-group">
@@ -94,7 +65,7 @@ export function AddExpenseForm() {
 
 
                 <div className="form-group">
-                    <button  className="btn btn-outline-primary w-100 h-100" onClick={()=>{addNewExpense();}} >ADD EXPENSE</button>
+                    <button  className="btn btn-outline-primary w-100 h-100" onClick={()=>{addNewExpense(newExpense);}} >ADD EXPENSE</button>
                 </div>
 
             </div>

@@ -10,7 +10,7 @@ type State = {};
 class Tempcomp extends React.Component<Props, State> {
     render() {
         return (
-            <GraphWindow/>
+            <div></div>
         );
     };
 }

@@ -2,71 +2,46 @@
 import * as React from 'react';
 import {SettingLabels} from "../../Definitions/Setting";
 import {SettingsObj} from "../../Definitions/SettingsObj";
-import {useDispatch, useSelector} from "react-redux";
-import {modifySettings} from "../api/features/settings/settingsSlice";
+import {useEffect} from "react";
+// import {useDispatch, useSelector} from "react-redux";
+// import {modifySettings} from "../api/features/settings/settingsSlice";
 
 let useState = React.useState;
 // import  from "react";
 
 type Props = {
-
-
-
+    settings:SettingsObj;
+    modifySettings:any;
 };
 type State = {};
 
-export default function AK_SettingsPanel() {
-    // let {settings, updateSettings} = props;
-    const settings:SettingsObj = useSelector((state: any) => state.settings.value);
-    // console.log(settings);
-    const dispatch = useDispatch()
-    // console.log(settings);
+export default function AK_SettingsPanel({settings, modifySettings}:Props) {
+
     let visibilityStyle = {};
 
     const [newSettings, setNewSettings] = useState(settings);
 
-    // console.log(newSettings);
+
+
 
     function handleSettingsChange(fieldName: SettingLabels, fieldValue: any) {
-        // let nSettings = {...newSettings};
-        // let testSettins = {...settings1};
-        // // testSettins["deleteMode"].value = true;
-        console.log("YES", {
-            ...settings, ...{
-                [fieldName]: {
-                    ...settings[fieldName], ...{
-                        value: fieldValue
-                    }
-                }
-            }
-        })
-        let newSettingsState =  {
-            ...settings, ...{
-                [fieldName]: {
-                    ...settings[fieldName], ...{
-                        value: fieldValue
-                    }
-                }
-            }
-        };
-        dispatch(modifySettings(newSettingsState));
+        let nSettings = {...newSettings};
+        nSettings[fieldName].value =fieldValue;
+        setNewSettings(nSettings);
 
+        modifySettings(nSettings);
     }
 
 
     return (
         <div className={"container ak_max_600px text-center ak_card my-3"} id={"settingsPanel"}
              style={visibilityStyle}
-             onClick={(e)=>{if(e.target===e.currentTarget){
-                 console.log("SETINGS PANEL CLICKED");
-             }}}
         >
             <h3>Settings</h3>
             <div className={"grid "}>
 
-                {Object.values(settings).map(setting => {
+                {Object.values(newSettings).map(setting => {
 
-                    console.log(setting);
                     return (
                         <div className={"m-2 flex align-items-center justify-content-between"} key={setting.label}>
                             <label className="col-form-label p-2"

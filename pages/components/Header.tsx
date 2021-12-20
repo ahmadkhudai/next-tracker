@@ -23,6 +23,7 @@ export default function Header(props:Props) {
 
                 <div>
                     <button className="btn btn-outline-dark mr-3" onClick={()=>{openPanel(GraphPanels.grouped)}}>Grouped Expenses</button>
+                    <button className="btn btn-outline-dark mr-3" onClick={()=>{openPanel(GraphPanels.weekReport)}}>Weekly Report</button>
                     {/*<button className="btn btn-outline-info" onClick={()=>{openPanel(TPanels.SettingsPanel)}}>Settings</button>*/}
                 </div>
 

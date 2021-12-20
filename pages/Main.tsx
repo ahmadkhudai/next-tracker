@@ -3,21 +3,25 @@ import * as React from 'react';
 import {useState} from "react";
 import {TPanels} from "./api/component_config/Main/TPanels";
 import {MainWindows} from "./api/component_config/MainWindows";
-import {Provider} from "react-redux";
-import store from "./api/Data/store";
 import HomeHeader from "./components/HomeHeader";
 import AK_SettingsPanel from "./Forms/AK_SettingsPanel";
 import AddExpenseForm from "./Forms/AddExpenseForm";
 import Graphs from "./graphs";
 import Home from "./Home/home";
+import {Expense} from "../Definitions/Expense";
+import {v4 as uuidv4} from "uuid";
+import {isGreaterThanToday} from "./api/utils/date_utils";
+import ModalContainer from "./Framer/ModalContainer";
+import {SettingsObj} from "../Definitions/SettingsObj";
 
 type Props = {
-
+    stateObj:any;
 };
 type State = {};
 
-export function Main() {
+export function Main({stateObj}:Props) {
 
+    const [{expenses, setExpenses}, {settings, setSettings}] = stateObj;
     const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(TPanels.none);
 
 
@@ -30,6 +34,9 @@ export function Main() {
         }
 
     }
+    const [modalOpen, setModalOpen] = useState(false);
+    const close = () => setModalOpen(false);
+    const open = ()=> setModalOpen(true);
 
     function switchWindow(window:MainWindows){
         setCurrentlyOpenPanel(TPanels.none);
@@ -41,27 +48,55 @@ export function Main() {
             setCurrentlyOpenPanel(TPanels.none);
         }
     }
+
+    function addNewExpense(newExpense:Expense){
+        let tempObj:Expense = {...newExpense};
+        tempObj["id"] = uuidv4();
+        if(isGreaterThanToday(tempObj.date)){
+            setModalOpen(true);
+            return;
+        }
+        tempObj.date = tempObj.date.toString();
+        let newExpenseList = [...expenses, tempObj];
+        setExpenses(newExpenseList);
+    }
+
+    function deleteExpense(toDelete:Expense){
+        let newExpenseList = expenses.filter((expense:Expense) => expense.id !==toDelete.id);
+        setExpenses(newExpenseList);
+    }
+
+    function modifySettings(nSettings:SettingsObj){
+        console.log("BOFORE", nSettings);
+        setSettings(nSettings);
+        console.log("AFTER", settings);
+    }
     return (
         <div>
             <HomeHeader switchWindow={switchWindow} openPanel={openPanel}/>
+            {modalOpen &&
+                <ModalContainer handleClose={close} message={"Cannot predict future (yet)."} subtitle={"Please try an earlier date."}/>
+            }
             <div className={"h-full p-4 flex items-center flex-col justify-center bg-slate-50"}
                  onClick={(e)=> {closeOptionsPanels(e)}}
             >
 
                 {currentlyOpenPanel===TPanels.SettingsPanel &&
-                    <AK_SettingsPanel/>
+                    <AK_SettingsPanel settings={settings} modifySettings={modifySettings}/>
 
                 }
                 {currentlyOpenPanel===TPanels.AddExpensePanel &&
-                    <AddExpenseForm/>
+                    <AddExpenseForm addNewExpense={addNewExpense}/>
                 }
                 {currentWindow === MainWindows.graphs &&
-                    <Graphs/>
+                    <Graphs expenses={expenses}/>
 
                 }
                 {currentWindow === MainWindows.home &&
-                    <Home/>
+                    <Home settings={settings} expenses={expenses} deleteExpense={deleteExpense}/>
                 }
+
+
 
 
             </div>

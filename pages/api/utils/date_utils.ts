@@ -43,6 +43,6 @@ export function isToday(inputDate:any){
 }
 
 
-export function isGreaterThanToday(inputDate:Date){
+export function isGreaterThanToday(inputDate:Date|String){
     return getDate(inputDate).setHours(0,0,0,0) > (new Date()).setHours(0,0,0,0);
 }
