@@ -59,7 +59,7 @@ export function AddExpenseForm({addNewExpense}:Props) {
                     <label htmlFor="Date" className="">Date</label>
                     <div className="">
                         <input type="datetime-local" className="form-control border-0" id="Date" value={getISODate(newExpense.date)} onChange={(e)=>{
-                            handleFieldChange("date",e.target.value)}}/>
+                            handleFieldChange("date",e.target.value);console.log(e.target.value)}}/>
                     </div>
                 </div>
 

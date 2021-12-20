@@ -42,15 +42,15 @@ export function Modal({handleClose, message, subtitle}:Props) {
                 exit={"exit"}
                 id={"modal"}
 
-                className={" text-center bg-white/80 grid justify-center"}
+                className={" text-center bg-red-800/90 grid justify-center"}
            >
 
                    <div className={"my-3"}>
-                       <h2 className={"text-2xl font-normal leading-normal mt-0 mb-2 text-red-600"}>{message}</h2>
-                       <h3 className={"h3 text-center h-auto"}>{subtitle}</h3>
+                       <h2 className={"text-xl font-normal leading-normal  text-white"}>{message}</h2>
+                       <h3 className={"text-white text-center h-auto"}>{subtitle}</h3>
                    </div>
                    <div className={""}>
-                       <button className={"btn btn-dark"} onClick={()=> handleClose()}>
+                       <button className={"text-white"} onClick={()=> handleClose()}>
                            Close
                        </button>
                    </div>

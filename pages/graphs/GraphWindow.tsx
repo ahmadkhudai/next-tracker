@@ -1,12 +1,12 @@
 // @flow
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {useSelector} from "react-redux";
 import GroupedExpensesGraph from "./GroupedExpensesGraph";
 import {GraphPanels} from "../api/component_config/graphs/GraphPanels";
 import Header from "../components/Header";
 import {Expense} from "../../Definitions/Expense";
 import {WeekPie} from "./WeekPie";
+import NoData from "../components/_partials/NoData";
 
 
 type Props = {
@@ -25,6 +25,7 @@ export default function GraphWindow({expenses}:Props) {
     // }, [props.expenses]);
 
 
+
     const [openedPanel, setOpenPanel] = useState(GraphPanels.weekReport);
 
     function openPanel(panel:GraphPanels){
@@ -33,6 +34,12 @@ export default function GraphWindow({expenses}:Props) {
         }else{
             setOpenPanel(panel);
         }
+    }
+
+    if(expenses.length===0){
+        return (
+            <NoData/>
+        )
     }
     return (
         <div>
@@ -46,15 +53,10 @@ export default function GraphWindow({expenses}:Props) {
                 </div>
                 }
                 {openedPanel === GraphPanels.weekReport &&
-                    <div className={""}>
+                    <div>
                         <WeekPie expenses={expenses}/>
                     </div>
                 }
-
-
-                <div>
-
-                </div>
 
 
 

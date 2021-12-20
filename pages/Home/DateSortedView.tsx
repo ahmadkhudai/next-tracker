@@ -8,6 +8,7 @@ import {baseSettings, getSortedExpenses, sumAllExpenses} from "../api/utils/expe
 import {isToday} from "../api/utils/date_utils";
 import {useEffect, useState} from "react";
 import {SettingsObj} from "../../Definitions/SettingsObj";
+import {NoData} from "../components/_partials/NoData";
 
 type Props = {
     expenses:Expense[];
@@ -47,11 +48,7 @@ export function DateSortedView({expenses,settings, deleteExpense}:Props) {
 
     if(renderedExpenses.length===0){
         return (
-            <div className={"ak_card"}>
-                <h3>
-                    Nothing to display. Please add expenses.
-                </h3>
-            </div>
+           <NoData/>
         )
     }
 

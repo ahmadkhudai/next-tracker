@@ -1,16 +1,12 @@
 // @flow
 import * as React from 'react';
-import {
-    getCurrentWeeksExpenses,
-    getDayWiseExpenses,
-    getMonthWiseExpenses,
-    getSortedExpenses,
-    getWeekWiseExpenses, groupByWeek
-} from "../api/utils/expense_utils";
-import {useEffect, useState} from "react";
+import {useEffect, useState} from 'react';
+import {getCurrentWeeksExpenses, getSortedExpenses} from "../api/utils/expense_utils";
 import {Expense} from "../../Definitions/Expense";
-import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Label, ResponsiveContainer} from 'recharts';
-import {getDate, getDateString, getISODate} from "../api/utils/date_utils";
+import {Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis,ComposedChart, Line} from 'recharts';
+import {getDate} from "../api/utils/date_utils";
+import NoData from "../components/_partials/NoData";
+import {Messages} from "../api/component_config/utils/Messages";
 
 type Props = {
     expenses:Expense[];
@@ -21,79 +17,82 @@ export function WeekPie({expenses}:Props) {
 
     // const expenses = useSelector((state:any)=>state.expenses.value);
     const sortedExpenses = getSortedExpenses(expenses);
-    const [displayData, setDisplayData] = useState(getCurrentWeeksExpenses(sortedExpenses));
-    const [currentOption, setCurrentOption] = useState(1);
+    const [displayData, setDisplayData] = useState([]);
     const [graphWidth, setGraphWidth] = useState(window.innerWidth<700?(0.8*window.innerWidth):500);
 
 
+    useEffect(() => {
+        setDisplayData(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
+        window.onresize = ()=>{
+            setGraphWidth(window.innerWidth<700?(0.8*window.innerWidth):500);
 
+        }
+    }, []);
 
-
-
-    window.onresize = ()=>{
-        setGraphWidth(window.innerWidth<700?(0.8*window.innerWidth):500);
-    }
 
     useEffect(() => {
-        return () => {
-            // @ts-ignore
             setDisplayData(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
-        };
     }, [expenses]);
 
 
-    // getWeekWiseExpenses(sortedExpenses).forEach(exp => {
-    //     console.log(exp.date);
-    // })
-    // displayData.forEach(ddd => {
-    //     ddd["date"] = (ddd["date"]).getDay();
-    //     console.log(typeof ddd.date);
-    // }, displayData)
 
-    // let dates:any = [];
-    // displayData.forEach(ddd => {
-    //     dates.push({"date":getDateString(ddd.date)});
-    // })
-    //
-    //
-    // console.log(dates);
+    function getDatesArray(dataArray:any){
+        let dates:any = [];
+        dataArray.forEach((ddd:any) => {
+            dates.push({"date":getDate(ddd.date).getDay()});
+        })
+        return dates;
+    }
+
+    if(displayData.length<=1){
+        return (
+            <NoData customMessage={Messages.NotEnoughData} />
+        )
+    }
+
     return (
-        <div className="container py-2 card my-4 flex justify-content-center align-items-center">
+        <div className="container py-2 card my-4 flex justify-content-center align-items-center px-1 mx-0">
 
                 <div className={"pt-2 text-center"}>
-                    <h3 className={"h3"}>Week&apos; Report</h3>
+                    <h3 className={"h3"}>Week&apos;s Report</h3>
                 </div>
 
-                <PieChart width={graphWidth} height={(0.8)*graphWidth} margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
+            <ComposedChart  width={graphWidth * (1)} height={graphWidth*(0.70)} data={displayData} margin={{top: 25, right: 20, left: 5, bottom: 5}}>
 
-                    <Pie data={displayData} dataKey="price" name="Money Spent Per Day"  cx="50%" cy="50%" innerRadius={(0.2)*graphWidth}  outerRadius={(0.25)*graphWidth} fill="#c33d49" label/>
-                    {/*<Pie data={dates} dataKey="date" name="Money Spent Per Day" cx="50%" cy="50%" innerRadius={(0.3)*graphWidth} outerRadius={(0.35)*graphWidth} fill="#6bc35c" label/>*/}
+                <defs>
+                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="10%" stopColor="#8454ff" stopOpacity={0.9}/>
+                        <stop offset="85%" stopColor="#23ffd0" stopOpacity={0.3}/>
+                    </linearGradient>
+                </defs>
 
-                    <Tooltip/>
-                </PieChart>
+                <XAxis dataKey="date"  reversed={true}/>
+                <YAxis />
+                <Tooltip/>
+                {/*<CartesianGrid vertical={false} stroke="#DDD" />*/}
 
-            {/*<div>*/}
+                <Line type="monotone"  strokeLinecap="round" strokeWidth={2}
+                      style={{ strokeDasharray: `40% 60%` }}
+                      dataKey="date"
+                      stroke="#d9dcfa"
+                      dot={false}
+                      legendType="none"
+                />
+                <Line type="monotone" strokeLinecap="round" strokeWidth={2}
+                      style={{ strokeDasharray: `0 60% 40%` }}
+                      stroke="#7A58BF"
+                      dot={false}
+                      legendType="none"
+                />
+                <Area type="monotone" dataKey="expense" strokeWidth={2} fillOpacity={1} fill="url(#colorUv)" />
+            </ComposedChart>
+            <div>
+            </div>
+            <div>
 
-
-
-            {/*        <BarChart*/}
-            {/*            data={getCurrentWeeksExpenses(sortedExpenses)}*/}
-            {/*            width={graphWidth}*/}
-            {/*            height={graphWidth}*/}
-            {/*        >*/}
-            {/*            <XAxis dataKey="price" />*/}
-            {/*            <YAxis />*/}
-            {/*            <CartesianGrid strokeDasharray="3 3" />*/}
-            {/*            <Tooltip />*/}
-            {/*            <Legend />*/}
-            {/*            <Bar dataKey="price" fill="#82ca9d" />*/}
-            {/*            <Bar dataKey="name" fill="#82ca9d" />*/}
-            {/*        </BarChart>*/}
-            {/*</div>*/}
-
+            </div>
 
         </div>
-
 
     );
 }

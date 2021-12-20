@@ -18,6 +18,7 @@ import {
     getWeekWiseExpenses
 } from "../api/utils/expense_utils";
 import {Expense} from "../../Definitions/Expense";
+import SubliminalMessage from "../components/_partials/SubliminalMessage";
 
 type Props = {
     expenses:Expense[];
@@ -66,6 +67,7 @@ function GroupedExpensesGraph({expenses}:Props) {
         <div className="container card my-4 justify-content-center align-items-center">
             <div className={"p-4 text-center"}>
                 <h3 className={"h3"}>Money Spent Each {graphLabel}</h3>
+                <SubliminalMessage message={"This is only useful when you have been using this app for at least a month."}/>
             </div>
 
             <div className="form-group">

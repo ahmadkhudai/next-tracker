@@ -2,7 +2,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css'
 import React from "react";
 import App from "next/app";
-import StateManagedApp from "./api/Data/StateManagedApp";
+import StateManagedApp from "./StateManagedApp";
 
 class MyApp extends App {
     render() {

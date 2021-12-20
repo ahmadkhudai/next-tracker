@@ -56,7 +56,6 @@ export function Main({stateObj}:Props) {
             setModalOpen(true);
             return;
         }
-        tempObj.date = tempObj.date.toString();
         let newExpenseList = [...expenses, tempObj];
         setExpenses(newExpenseList);
     }

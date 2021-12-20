@@ -133,12 +133,19 @@ export function groupByWeek(sortedExpenses:any) {
  */
 export function getCurrentWeeksExpenses(sortedExpenses:any){
     let weeklyExpenses = groupByWeek(sortedExpenses);
-    weeklyExpenses =  weeklyExpenses[weeklyExpenses.length-1]["expense"][0];
-    weeklyExpenses.forEach((expense:Expense)=>{
-        expense["date"]  = getDate(expense["date"]);
-    }, weeklyExpenses)
+    console.log("WEELY", weeklyExpenses);
+    weeklyExpenses =  weeklyExpenses[weeklyExpenses.length-1]["expense"];
+    let weeksExpenses:Expense[] =[];
+    weeklyExpenses.forEach((expenses:Expense[])=>{
+       expenses.forEach(expense => {
+           // expense["date"] = momentexpense["date"];
 
-    return weeklyExpenses;
+           weeksExpenses.push({...expense, date:getDateString(expense.date)});
+       })
+    })
+
+
+    return getDayWiseExpenses(getSortedExpenses(weeksExpenses));
 }
 
 export function getHello(){
