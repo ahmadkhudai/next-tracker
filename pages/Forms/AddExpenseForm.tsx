@@ -22,7 +22,7 @@ let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
 type State = {};
 
 export function AddExpenseForm() {
-    const expenses = useSelector((state:any)=> state.expenses.value)
+    // const expenses = useSelector((state:any)=> state.expenses.value)
     const settings:SettingsObj = useSelector((state: any) => state.settings.value);
     const dispatch = useDispatch()
 
@@ -42,13 +42,13 @@ export function AddExpenseForm() {
     const open = ()=> setModalOpen(true);
 
     function addNewExpense(){
-        console.log(newExpense.date);
         let tempObj:any = {...newExpense};
         tempObj["id"] = ()=>uuidv4();
         if(isGreaterThanToday(tempObj.date)){
             setModalOpen(true);
             return;
         }
+        tempObj.date = tempObj.date.toString();
         dispatch(addExpense(tempObj));
     }
 
@@ -56,7 +56,7 @@ export function AddExpenseForm() {
 
     return (
 
-        <div className={"ak_card w-full ak_max_600px"}>
+        <div className={"ak_card w-full ak_max_600px my-3"}>
             {modalOpen &&
                 <ModalContainer handleClose={close} message={"Cannot predict future (yet)."} subtitle={"Please try an earlier date."}/>
             }

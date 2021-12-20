@@ -20,6 +20,7 @@ export const expenseSlice = createSlice({
         addExpense: (state, action) => {
             state.value = [...state.value, action.payload];
         },
+
         // incrementByAmount: (state, action) => {
         //     state.value += action.payload
         // },

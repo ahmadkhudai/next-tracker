@@ -42,11 +42,11 @@ export function Modal({handleClose, message, subtitle}:Props) {
                 exit={"exit"}
                 id={"modal"}
 
-                className={" text-center backdrop-blur-[3px] bg-gray-300/40 grid justify-center"}
+                className={" text-center bg-white/80 grid justify-center"}
            >
 
                    <div className={"my-3"}>
-                       <h2 className={"text-3xl font-normal leading-normal mt-0 mb-2 text-red-600"}>{message}</h2>
+                       <h2 className={"text-2xl font-normal leading-normal mt-0 mb-2 text-red-600"}>{message}</h2>
                        <h3 className={"h3 text-center h-auto"}>{subtitle}</h3>
                    </div>
                    <div className={""}>

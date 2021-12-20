@@ -7,7 +7,7 @@ let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
 
 function randomExpense(): Expense {
     return {...{id: uuidv4(), price:randomIntFromInterval(30, 500), description: getRandomItem(itemsList),
-            name:getRandomItem(itemsList), date: (addDays(new Date(), randomIntFromInterval(1,2090)))}};
+            name:getRandomItem(itemsList), date: (addDays(new Date(), randomIntFromInterval(1,2090))).toString()}};
 }
 
 function getRandomExpenses(amount:number):Expense[]{
@@ -18,7 +18,7 @@ function getRandomExpenses(amount:number):Expense[]{
     return expenses;
 }
 
-export const dumdumData = getRandomExpenses(5);
+export const dumdumData = getRandomExpenses(30);
 // export const dumdumData = [
 //     {id: "1", name: getRandomItem(itemsList), price: 30, description: "chai", date: (addDays(new Date(), 20))},
 //     {id: "3", name: getRandomItem(itemsList), price: 170, description: "Shwarma", date: (addDays(new Date()))},

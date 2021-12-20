@@ -8,7 +8,7 @@ import {InputTypes} from "../../Definitions/InputTypes";
 import {dumdumData} from "../api/dummy_data/data";
 import AK_SettingsPanel from "../Forms/AK_SettingsPanel";
 import HomeHeader from "../components/HomeHeader";
-import {TPanels} from "../api/component_config/TPanels";
+import {TPanels} from "../api/component_config/Main/TPanels";
 import AddExpenseForm from "../Forms/AddExpenseForm";
 import {DateSortedView} from "./DateSortedView";
 import Link from 'next/link'

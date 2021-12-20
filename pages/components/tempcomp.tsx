@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import GraphWindow from "../Graphs/GraphWindow";
+import GraphWindow from "../graphs/GraphWindow";
 
 type Props = {
 

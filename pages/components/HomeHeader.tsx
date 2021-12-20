@@ -1,8 +1,8 @@
 // @flow
 import * as React from 'react';
-import {TPanels} from "../api/component_config/TPanels";
+import {TPanels} from "../api/component_config/Main/TPanels";
 import Link from 'next/link'
-import GraphWindow from "../Graphs/GraphWindow";
+import GraphWindow from "../graphs/GraphWindow";
 import {useRouter} from "next/router";
 import {MainWindows} from "../api/component_config/MainWindows";
 type Props = {

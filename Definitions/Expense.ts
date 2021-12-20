@@ -4,5 +4,5 @@ export interface Expense {
     description:string;
     price:number;
     location?:any;
-    date:Date;
+    date:String;
 }

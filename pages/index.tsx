@@ -1,16 +1,17 @@
 // @flow
 import * as React from 'react';
-import GraphWindow from "./GraphWindow";
-import exp from "constants";
 
 type Props = {
+
 };
 type State = {};
 
-class Index extends React.Component<Props, State> {
+export class Index extends React.Component<Props, State> {
     render() {
         return (
-           <GraphWindow/>
+            <div>
+                <h1>HELLO WORL</h1>
+            </div>
         );
     };
 }

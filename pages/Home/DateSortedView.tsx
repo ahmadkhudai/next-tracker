@@ -6,16 +6,27 @@ import {useDispatch, useSelector} from "react-redux";
 import {modifyExpenses} from "../api/features/expenses/expenseSlice";
 import {getSortedExpenses, sumAllExpenses} from "../api/utils/expense_utils";
 import {isToday} from "../api/utils/date_utils";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 type Props = {};
 type State = {};
 
 export function DateSortedView() {
     // let expenses = {};
+
+    // const [expenses, setExpenses] = useState([]);
     const expenses = useSelector((state:any)=>state.expenses.value);
     const settings = useSelector((state:any)=>state.settings.value);
     const dispatch = useDispatch();
+
+
+
+    // useEffect(() => {
+    //     return () => {
+    //         console.log("HERE");
+    //     };
+    // }, []);
+
 
 
     function deleteExpense(toDelete:Expense){
@@ -34,6 +45,15 @@ export function DateSortedView() {
     }
 
     const sortedExpenses = getSortedExpenses([...expenses]);
+
+
+
+
+    function loadExpenses(){
+        // let tempObj = useSelector((state:any)=>state.expenses.value);
+        // setExpenses(tempObj);
+    }
+
     return (
         <div>
             {

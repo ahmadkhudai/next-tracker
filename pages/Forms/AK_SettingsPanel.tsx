@@ -55,7 +55,12 @@ export default function AK_SettingsPanel() {
 
 
     return (
-        <div className={"container ak_max_600px text-center ak_card"} id={"settingsPanel"} style={visibilityStyle}>
+        <div className={"container ak_max_600px text-center ak_card my-3"} id={"settingsPanel"}
+             style={visibilityStyle}
+             onClick={(e)=>{if(e.target===e.currentTarget){
+                 console.log("SETINGS PANEL CLICKED");
+             }}}
+        >
             <h3>Settings</h3>
             <div className={"grid "}>
 

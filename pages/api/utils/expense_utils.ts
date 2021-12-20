@@ -1,4 +1,4 @@
-import {getDateString} from "./date_utils";
+import {getDate, getDateString} from "./date_utils";
 import moment from "moment";
 import {Expense} from "../../../Definitions/Expense";
 import {InputTypes} from "../../../Definitions/InputTypes";
@@ -6,7 +6,7 @@ import {SettingLabels} from "../../../Definitions/Setting";
 export function sortfunction(a:Expense,b:Expense){
     // Turn your strings into dates, and then subtract them
     // to get a value that is either negative, positive, or zero.
-    return new Date(b.date).valueOf() - new Date(a.date).valueOf();
+    return getDate(b.date).valueOf() - getDate(a.date).valueOf();
 };
 export const sumAllExpenses = (previousValue:number, currentValue:Expense) => previousValue + parseInt(String(currentValue.price));
 
