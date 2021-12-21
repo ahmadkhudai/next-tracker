@@ -5,7 +5,7 @@ import {GraphPanels} from "../api/component_config/graphs/GraphPanels";
 import {TPanelLabels, TPanels} from "../api/component_config/Main/TPanels";
 type Props = {
     openSubPanel:any;
-    panels?:[{ panelLabel: TPanelLabels, panel: TPanels }]
+    panels?:{ panelLabel: TPanelLabels, panel: TPanels }[]
 };
 type State = {};
 
