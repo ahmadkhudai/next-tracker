@@ -4,7 +4,7 @@ import {Expense} from "../../Definitions/Expense";
 import ExpenseComponent from "./Expense.jsx";
 // import {useDispatch, useSelector} from "react-redux";
 // import {modifyExpenses} from "../api/features/expenses/expenseSlice";
-import {baseSettings, getSortedExpenses, sumAllExpenses} from "../api/utils/expense_utils";
+import {getSortedExpenses, sumAllExpenses} from "../api/utils/expense_utils";
 import {isToday} from "../api/utils/date_utils";
 import {useEffect, useState} from "react";
 import {SettingsObj} from "../../Definitions/SettingsObj";
@@ -45,7 +45,7 @@ export function DateSortedView({expenses,settings, deleteExpense}:Props) {
                 Object.entries(sortedExpenses).map(function ([date, expenses]:[any,any], index) {
 
                         return (
-                            <div key={expenses[0].id} className={"ak_slow_transition"}>
+                            <div key={expenses[0].id} className={""}>
                                 <div className="text-center">
                                     <p className={"font-monospace"}>{isToday(date)?"TODAY":date} | Subtotal <span className={"ak_highlight"}>{expenses.reduce(sumAllExpenses,0)}</span></p>
                                 </div>

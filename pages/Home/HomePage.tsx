@@ -3,20 +3,18 @@ import React, {useEffect, useState} from 'react';
 import {SettingsObj} from "../../Definitions/SettingsObj";
 import {Expense} from "../../Definitions/Expense";
 import CurrentWeekView from "../graphs/CurrentWeekView";
-import NoData from "../components/_partials/NoData";
 import HomeHeader from "../components/HomeHeader";
-import {baseSettings, getRenderableCurrentWeeksExpenses, sortfunction} from "../api/utils/expense_utils";
+import {baseSettings, sortfunction} from "../api/utils/expense_utils";
 import {dumdumData} from "../api/dummy_data/data";
 import {v4 as uuidv4} from "uuid";
 import {isGreaterThanToday} from "../api/utils/date_utils";
 import {TPanelLabels, TPanels} from "../api/component_config/Main/TPanels";
-import Backdrop from "../Framer/Backdrop";
 import AK_SettingsPanel from "../Forms/AK_SettingsPanel";
 import AddExpenseForm from "../Forms/AddExpenseForm";
-import {MainWindows} from "../api/component_config/MainWindows";
 import ModalContainer from "../Framer/ModalContainer";
 import Header from "../components/Header";
 import DateSortedView from "./DateSortedView";
+
 type Props = {
     switchWindow:any;
 };
@@ -93,31 +91,27 @@ export function HomePage({switchWindow}:Props) {
     }, [expenses]);
 
 
-    //
-    // if(renderedExpenses.length===0){
-    //     return (
-    //         <NoData/>
-    //     )
-    // }
 
     return (
-        <div >
 
+        <div className={"w-full p-0 m-0"}>
             <HomeHeader switchWindow={switchWindow} openPanel={openPanel}/>
+
+
+            <div className={"w-full flex items-center justify-center flex-column p-0"}  onClick={(e: any) => {
+                closeAllPanels(e)
+            }}>
+
             {currentlyOpenPanel===TPanels.err &&
                 <ModalContainer handleClose={(e:any)=>{closeAllPanels(e)}} message={"Cannot predict future (yet)."} subtitle={"Please try an earlier date."}/>
             }
 
             {currentlyOpenPanel===TPanels.SettingsPanel &&
-                <Backdrop onClick={(e:any)=>{closeAllPanels(e)}}>
                     <AK_SettingsPanel settings={settings} modifySettings={modifySettings}/>
-                </Backdrop>
-
             }
             {currentlyOpenPanel===TPanels.AddExpensePanel &&
-                <Backdrop onClick={(e:any)=>{if(e.target===e.currentTarget){setCurrentlyOpenPanel(TPanels.none)}}}>
                     <AddExpenseForm addNewExpense={addNewExpense}/>
-                </Backdrop>
+
             }
             <div className={"h-full p-4 flex items-center flex-column justify-center "}>
 
@@ -128,26 +122,26 @@ export function HomePage({switchWindow}:Props) {
                         <CurrentWeekView expenses={renderedExpenses} settings={settings} deleteExpense={deleteExpense}/>
                     }
                      </div>
-                <div>
+                <div className={" p-3 m-0 ak_max_600px w-100"}>
                     <Header openSubPanel={openPanel} panels={[{panelLabel:TPanelLabels.AllExpensesPanel,panel:TPanels.AllExpensesPanel}]}/>
 
-                    {/*{currentlyOpenPanel===TPanels.AllExpensesPanel &&*/}
-                    {/*    <div className={"p-3"}>*/}
-                    {/*        <h1 className={"h1 text-center p-2"}>Previously...</h1>*/}
-                    {/*        <div  className={"w-full p-3 bg-gray-200/30 rounded current-expenses gradient"}>*/}
-                    {/*            <div className={"p-4 scrollable  rounded"} style={{"height":"300px", "overflowY":"scroll", overflowX:"hidden", msScrollbarArrowColor:"transparent" ,"scrollbarWidth":"thin"}}>*/}
-                    {/*                <DateSortedView expenses={expenses} settings={settings} deleteExpense={deleteExpense} />*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*        /!*<DateSortedView />*!/*/}
-                    {/*    </div>*/}
+                    {currentlyOpenPanel===TPanels.AllExpensesPanel &&
+                        <div >
+                            <h1 className={"h1 text-center p-2"}>Previously...</h1>
 
-                    {/*}*/}
+                                <div className={" p-4 scrollable  rounded"} style={{"height":"300px", "overflowY":"scroll", overflowX:"hidden", msScrollbarArrowColor:"transparent" ,"scrollbarWidth":"thin"}}>
+                                    <DateSortedView expenses={expenses} settings={settings} deleteExpense={deleteExpense} />
+                                </div>
+
+                            {/*<DateSortedView />*/}
+                        </div>
+
+                    }
                 </div>
 
             </div>
         </div>
-
+        </div>
 
 
     );

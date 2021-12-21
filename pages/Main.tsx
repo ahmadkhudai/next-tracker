@@ -20,32 +20,22 @@ export function Main() {
 
 
     const [currentWindow, setCurrentWindow] = useState(MainWindows.home);
-    function openPanel(panel:TPanels){
-        if(currentlyOpenPanel===panel){
+
+    function openPanel(panel: TPanels) {
+        if (currentlyOpenPanel === panel) {
             setCurrentlyOpenPanel(TPanels.none);
-        }else{
+        } else {
             setCurrentlyOpenPanel(panel);
         }
 
     }
 
-    function closeAllPanels(e:MouseEvent){
-        console.log(e);
-        if(e.target===e.currentTarget){
-            setCurrentlyOpenPanel(TPanels.none)
-        }
-    }
 
 
-
-
-    function switchWindow(window:MainWindows){
+    function switchWindow(window: MainWindows) {
         setCurrentlyOpenPanel(TPanels.none);
         setCurrentWindow(window);
     }
-
-
-
 
 
     // function modifySettings(nSettings:SettingsObj){
@@ -53,28 +43,22 @@ export function Main() {
     // }
 
 
-
     return (
-        <div className={"m-0 p-0"}>
+        <div className={"h-full p-0"}
+        >
+
+            {currentWindow === MainWindows.graphs &&
+                <GraphWindow switchWindow={switchWindow}/>
+
+            }
+            {currentWindow === MainWindows.home &&
+                <HomePage switchWindow={switchWindow}/>
+            }
 
 
-            <div className={"h-full p-4 flex items-center flex-col justify-center"}
-                 onClick={(e:any)=> {closeAllPanels(e)}}
-            >
+        </div>
 
 
-                {currentWindow === MainWindows.graphs &&
-                    <GraphWindow switchWindow={switchWindow}/>
-
-                }
-                {currentWindow === MainWindows.home &&
-                    <HomePage switchWindow={switchWindow}/>
-                }
-
-
-            </div>
-
-    </div>
     )
 }
 

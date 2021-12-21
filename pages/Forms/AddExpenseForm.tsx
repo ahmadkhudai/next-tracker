@@ -3,8 +3,8 @@ import * as React from 'react';
 import {useState} from "react";
 import moment from "moment";
 
-
-let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
+//
+// let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
 
  type Props = {
     addNewExpense:any;
@@ -31,7 +31,7 @@ export function AddExpenseForm({addNewExpense}:Props) {
 
     return (
 
-        <div className={" w-full ak_max_600px my-3 ak_slow_transition bg-white/90 hover:bg-white p-3"}>
+        <div className={" w-full ak_max_600px my-3 bg-white/90 bg-gray-300/30 p-3"}>
 
          <h4 className={"h4 text-teal-700 hover:text-purple-700 text-center p-2"}>Add New expense</h4>
             <div id="expense_form" className="pt-3 " >
