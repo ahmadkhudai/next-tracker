@@ -149,17 +149,13 @@ export function getCurrentWeeksExpenses(sortedExpenses:any){
 }
 export function getRenderableCurrentWeeksExpenses(sortedExpenses:any){
     let weeklyExpenses = groupByWeek(sortedExpenses);
-    console.log("WEELY", weeklyExpenses);
     weeklyExpenses =  weeklyExpenses[weeklyExpenses.length-1]["expense"];
     let weeksExpenses:Expense[] =[];
     weeklyExpenses.forEach((expenses:Expense[])=>{
         expenses.forEach(expense => {
-            // expense["date"] = momentexpense["date"];
-
-            weeksExpenses.push({...expense, date:getDateString(expense.date)});
+            weeksExpenses.push({...expense, date:expense.date});
         })
     })
-
 
     return weeksExpenses;
 }
