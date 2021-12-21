@@ -104,7 +104,7 @@ export function CurrentWeekView({expenses, settings, deleteExpense}:Props) {
             <div  className={" py-3 my-3 bg-gray-200/30 rounded current-expenses gradient ak_max_600px"}>
                 <p className={"text-center  font-monospace font-bold p-1 h5"}>Your Expenses This Week</p>
                 <div className={"p-4 scrollable  rounded"} style={{"height":"300px", "overflowY":"scroll", overflowX:"hidden", msScrollbarArrowColor:"transparent" ,"scrollbarWidth":"thin"}}>
-                    <DateSortedView expenses={getRenderableCurrentWeeksExpenses(sortedExpenses)} settings={settings} deleteExpense={deleteExpense} />
+                    <DateSortedView expenses={getRenderableCurrentWeeksExpenses(sortedExpenses)}  />
                 </div>
             </div>
 

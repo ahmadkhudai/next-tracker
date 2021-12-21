@@ -98,7 +98,7 @@ export function HomePage({switchWindow}:Props) {
             <HomeHeader switchWindow={switchWindow} openPanel={openPanel}/>
 
 
-            <div className={"w-100 flex items-center justify-center flex-column"}  onClick={(e: any) => {
+            <div className={"w-100 flex items-center justify-center flex-column px-3"}  onClick={(e: any) => {
                 closeAllPanels(e)
             }}>
 
