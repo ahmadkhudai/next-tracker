@@ -25,10 +25,10 @@ export function CurrentWeekView({expenses}:Props) {
     useEffect(() => {
         setDisplayData(expenses);
         // setDisplayData(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
-        // window.onresize = ()=>{
+        window.onresize = ()=>{
             setGraphWidth(window.innerWidth<700?(0.8*window.innerWidth):500);
 
-        // }
+        }
     }, []);
 
 
@@ -53,7 +53,7 @@ export function CurrentWeekView({expenses}:Props) {
                     className="ak_max_600px bg-transparent border-0 container py-2 px-3 card my-4 flex justify-content-center align-items-center px-1 mx-1">
 
                     <ComposedChart className={"py-2 px-2"} width={graphWidth} height={graphWidth}
-                                   data={displayData} margin={{top: 25, right: 10, left: 10, bottom: 1}}>
+                                   data={displayData} margin={{top: 25, right: 30, left: 40, bottom: 1}}>
 
                         <defs>
                             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

@@ -26,7 +26,7 @@ export class ExpenseComponent extends React.Component<Props, State> {
         }
         let settings:any = this.props.settings || baseSettings;
         return (
-            <div className=" bg-white/90 py-1 rounded font-monospace my-2 " >
+            <div className=" bg-white/90 py-1 rounded font-monospace my-2" >
                 <ul className=" justify-content-between border-0 m-2 p-1 flex items-center">
                     <li className="list-group-item border-0  ak_black" style={expense.price>settings[SettingLabels.maxAcceptableRange].value?{  color: "#bb0a0a",
                         "fontWeight": "normal"}:{}}>{expense.price}</li>

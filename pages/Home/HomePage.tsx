@@ -30,7 +30,7 @@ type State = {};
 
 export function HomePage({switchWindow}: Props) {
 
-    const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(TPanels.AddExpensePanel);
+    const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(TPanels.none);
 
 
     function openPanel(panel: TPanels) {
@@ -135,25 +135,26 @@ export function HomePage({switchWindow}: Props) {
                 }
                 <div className={"h-full  flex items-center flex-column justify-center "}>
 
-                    {graphableExpenses.length > 1 &&
-                        <Header openSubPanel={openPanel}
-                                panels={[{panelLabel: TPanelLabels.AllExpensesPanel, panel: TPanels.AllExpensesPanel},{panelLabel: TPanelLabels.Visualize, panel: TPanels.Visualize}]}/>
-                    }
-
                     <div className={"py-4"}>
                         <div>
                             <h1 className={"h3 text-center w-auto "}>Expense Tracker</h1>
                             <h3 className={"ak_accent_text text-center font-monospace w-auto"}>Your week so far...</h3>
                         </div>
 
-                        {expenses.length  > 0 && currentlyOpenPanel === TPanels.Visualize&&
+                        {expenses.length  > 0 &&
                             <CurrentWeekView expenses={graphableExpenses}/>
                         }
                     </div>
-                    {expenses.length > 0 &&
-                        <div className={" p-3 m-0 ak_max_600px w-100 bg-gray-200"}>
+                    {graphableExpenses.length > 1 &&
+                        <Header openSubPanel={openPanel}
+                                panels={[{panelLabel: TPanelLabels.AllExpensesPanel, panel: TPanels.AllExpensesPanel},
+                                    // {panelLabel: TPanelLabels.Visualize, panel: TPanels.Visualize}
+                                ]
+                                }/>
+                    }
+                    {expenses.length > 0 && (currentlyOpenPanel === TPanels.AllExpensesPanel || graphableExpenses.length <= 1) &&
+                        <div className={" p-3 m-0 ak_max_600px w-100 bg-purple-100/60"}>
 
-                            {(currentlyOpenPanel === TPanels.AllExpensesPanel || graphableExpenses.length <= 1) || currentlyOpenPanel !== TPanels.Visualize &&
                                 <div>
                                     <h1 className={"h3 text-center p-2"}>Your Weekly Expenses</h1>
                                     <div className={" p-4 scrollable  rounded"} style={{
@@ -167,7 +168,7 @@ export function HomePage({switchWindow}: Props) {
 
                                 </div>
 
-                            }
+
                         </div>
                     }
                     {expenses.length < 1 &&
