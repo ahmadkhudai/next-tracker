@@ -40,7 +40,7 @@ export function DateSortedView({expenses,settings, deleteExpense}:Props) {
 
 
     return (
-        <div className={"bg-gray-200/40 p-3 rounded "}>
+        <div className={""}>
             {
                 Object.entries(sortedExpenses).map(function ([date, expenses]:[any,any], index) {
 
@@ -50,15 +50,18 @@ export function DateSortedView({expenses,settings, deleteExpense}:Props) {
                                     <p className={"font-monospace"}>{isToday(date)?"TODAY":date} | Subtotal <span className={"ak_highlight"}>{expenses.reduce(sumAllExpenses,0)}</span></p>
                                 </div>
 
-
+                                <div className={" my-3 "}>
                                 {expenses.map((expense: Expense) =>
-                                    <ExpenseComponent
+
+                                        <ExpenseComponent
                                         deleteExpense={deleteExpense}
                                         settings={settings}
                                         expense={expense}
                                         key={expense.id}
-                                    />)}
+                                    />
 
+                                   )}
+                                </div>
                             </div>)
                     })}
 

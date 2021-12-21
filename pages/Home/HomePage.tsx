@@ -151,17 +151,14 @@ export function HomePage({switchWindow}: Props) {
                         }
                     </div>
                     {expenses.length > 0 &&
-                        <div className={" p-3 m-0 ak_max_600px w-100"}>
+                        <div className={" p-3 m-0 ak_max_600px w-100 bg-gray-200"}>
 
                             {(currentlyOpenPanel === TPanels.AllExpensesPanel || graphableExpenses.length <= 1) || currentlyOpenPanel !== TPanels.Visualize &&
                                 <div>
                                     <h1 className={"h3 text-center p-2"}>Your Weekly Expenses</h1>
                                     <div className={" p-4 scrollable  rounded"} style={{
                                         "height": "300px",
-                                        "overflowY": "scroll",
-                                        overflowX: "hidden",
-                                        msScrollbarArrowColor: "transparent",
-                                        "scrollbarWidth": "thin"
+                                        overflowX: "hidden"
                                     }}>
                                         <DateSortedView
                                             expenses={getRenderableCurrentWeeksExpenses(getSortedExpenses(expenses))}
