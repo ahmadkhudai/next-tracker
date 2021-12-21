@@ -16,12 +16,12 @@ import {SettingsObj} from "../../Definitions/SettingsObj";
 
 type Props = {
     expenses:Expense[];
-    settings:SettingsObj;
-    deleteExpense:any;
+    // settings:SettingsObj;
+    // deleteExpense:any;
 };
 type State = {};
 
-export function CurrentWeekView({expenses, settings, deleteExpense}:Props) {
+export function CurrentWeekView({expenses}:Props) {
 
     // const expenses = useSelector((state:any)=>state.expenses.value);
     const sortedExpenses = getSortedExpenses(expenses);
@@ -31,10 +31,10 @@ export function CurrentWeekView({expenses, settings, deleteExpense}:Props) {
 
     useEffect(() => {
         setDisplayData(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
-        window.onresize = ()=>{
-            setGraphWidth(window.innerWidth<700?(0.8*window.innerWidth):500);
-
-        }
+        // window.onresize = ()=>{
+        //     setGraphWidth(window.innerWidth<700?(0.8*window.innerWidth):500);
+        //
+        // }
     }, []);
 
 
@@ -58,7 +58,6 @@ export function CurrentWeekView({expenses, settings, deleteExpense}:Props) {
     //     )
     // }
 
-    console.log(getRenderableCurrentWeeksExpenses(sortedExpenses));
     return (
         <div className={"container flex flex-column flex-xl-row align-items-center w-[900x] bg-white/10"}>
 
@@ -107,7 +106,7 @@ export function CurrentWeekView({expenses, settings, deleteExpense}:Props) {
             <div  className={"mx-3 w-full p-3 bg-gray-200/30 rounded current-expenses gradient"}>
                 <p className={"text-center  font-monospace font-bold p-1 h5"}>Your Expenses This Week</p>
                 <div className={"p-4 scrollable  rounded"} style={{"height":"300px", "overflowY":"scroll", overflowX:"hidden", msScrollbarArrowColor:"transparent" ,"scrollbarWidth":"thin"}}>
-                    <DateSortedView expenses={getRenderableCurrentWeeksExpenses(sortedExpenses)} settings={settings} deleteExpense={deleteExpense}/>
+                    <DateSortedView expenses={getRenderableCurrentWeeksExpenses(sortedExpenses)} />
                 </div>
             </div>
 

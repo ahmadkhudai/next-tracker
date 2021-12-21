@@ -19,12 +19,6 @@
   background: #a9a9a9;
 }
 
-.ak_slow_transition, #expense_form:hover .form-group input, #expense_form:hover, .ak_hover_shadow:hover {
-  transition: all;
-  transition-duration: 200ms;
-  transition-timing-function: ease-in-out;
-}
-
 .ak_hover_shadow:hover {
   box-shadow: 1px 3px #b5d9cc;
 }
