@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.ak_accent_text {
+  color: #17a589;
+}
+
 .ak_black {
   color: black;
 }
@@ -27,7 +31,6 @@
 
 #expense_form .form-group input {
   margin-bottom: 30px;
-  background-color: #f3f3f3;
 }
 
 #expense_form:hover {
@@ -35,7 +38,6 @@
 }
 #expense_form:hover .form-group input {
   transition-duration: 400ms;
-  background-color: #ffffff;
 }
 
 #expense li {

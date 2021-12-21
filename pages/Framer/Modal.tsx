@@ -50,7 +50,7 @@ export function Modal({handleClose, message, subtitle}:Props) {
                        <h3 className={"text-white text-center h-auto"}>{subtitle}</h3>
                    </div>
                    <div className={""}>
-                       <button className={"text-white"} onClick={()=> handleClose()}>
+                       <button className={"text-white"} onClick={(e:any)=> handleClose(e)}>
                            Close
                        </button>
                    </div>

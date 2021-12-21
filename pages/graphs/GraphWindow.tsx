@@ -5,7 +5,7 @@ import GroupedExpensesGraph from "./GroupedExpensesGraph";
 import {GraphPanels} from "../api/component_config/graphs/GraphPanels";
 import Header from "../components/Header";
 import {Expense} from "../../Definitions/Expense";
-import {WeekPie} from "./WeekPie";
+import {CurrentWeekView} from "./CurrentWeekView";
 import NoData from "../components/_partials/NoData";
 import DateSortedView from "../Home/DateSortedView";
 
@@ -27,7 +27,7 @@ export default function GraphWindow({expenses}:Props) {
 
 
 
-    const [openedPanel, setOpenPanel] = useState(GraphPanels.weekReport);
+    const [openedPanel, setOpenPanel] = useState(GraphPanels.grouped);
 
     function openPanel(panel:GraphPanels){
         if(openedPanel==panel){
@@ -52,11 +52,6 @@ export default function GraphWindow({expenses}:Props) {
                         <GroupedExpensesGraph expenses={expenses} />
 
                 </div>
-                }
-                {openedPanel === GraphPanels.weekReport &&
-                    <div>
-                        <WeekPie expenses={expenses}/>
-                    </div>
                 }
 
 

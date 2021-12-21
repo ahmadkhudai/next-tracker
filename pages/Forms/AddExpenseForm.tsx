@@ -1,14 +1,6 @@
 // @flow
 import * as React from 'react';
 import {useState} from "react";
-import {
-    addDays,
-    getDate,
-    getISODate,
-    getLocaleTimeString,
-    getRandomItem,
-    isGreaterThanToday
-} from "../api/utils/date_utils";
 import moment from "moment";
 
 
@@ -21,66 +13,62 @@ type State = {};
 
 export function AddExpenseForm({addNewExpense}:Props) {
 
-    // @ts-ignore
-    Date.prototype.toDateInputValue = (function() {
-        var local = new Date(this);
-        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-        return local.toJSON().slice(0,10);
-    });
-    const [newExpense, setNewExpense] = useState( {name: "chai", price: 30, description: "chai", date: new Date()})
+
+    const defaultExpense = {name: "chai", price: 30, description: "Chai from Khana Pena. Very Good👍", date: new Date()};
+    const [newExpense, setNewExpense] = useState(defaultExpense);
 
     function handleFieldChange(fieldName:string, fieldValue:any){
+
         let tempObj:any = {...newExpense};
+
         tempObj[fieldName] =fieldValue;
+        console.log(fieldValue);
         setNewExpense(tempObj);
     }
 
 
 
 
-
-
     return (
 
-        <div className={"ak_card w-full ak_max_600px my-3"}>
+        <div className={" w-full ak_max_600px my-3 ak_slow_transition bg-white/90 hover:bg-white p-3"}>
 
-         <h1>Add New expense</h1>
+         <h4 className={"h4 text-teal-700 hover:text-purple-700 text-center p-2"}>Add New expense</h4>
             <div id="expense_form" className="pt-3 " >
-                <div className="form-group">
-                    <label htmlFor="name" className="">Name</label>
+                <div className="form-group  hover:font-bold">
+                    <label htmlFor="name" className="text-teal-700 hover:text-purple-700">Name</label>
                     <div className="">
-                        <input type="text" className="form-control border-0" id="name" placeholder="Chai"
+                        <input type="text" className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]" id="name" placeholder="Chai"
                                value={newExpense.name} onChange={e=> {handleFieldChange("name", e.target.value)}}/>
                     </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="Description" className="">Description</label>
+                <div className="form-group hover:font-bold">
+                    <label htmlFor="Description" className="text-teal-700 hover:text-purple-700">Description</label>
                     <div className="">
-                        <input type="text" className="form-control border-0" id="Description" placeholder="Chai"
+                        <input type="text" className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]" id="Description" placeholder="Chai"
                                value={newExpense.description} onChange={e=> {handleFieldChange("description", e.target.value)}}/>
                     </div>
                 </div>
-                <div className="form-group ">
-                    <label htmlFor="amountSpent" className="">Amount Spent</label>
+                <div className="form-group hover:font-bold">
+                    <label htmlFor="amountSpent" className="text-teal-700 hover:text-purple-700">Amount Spent</label>
                     <div className="">
-                        <input type="number" className="form-control border-0" id="amountSpent" placeholder="30" min="0"
+                        <input type="number" className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]" id="amountSpent" placeholder="30" min="0"
                                value={newExpense.price} onChange={(e)=>{
                             handleFieldChange("price", e.target.value)}}/>
                     </div>
                 </div>
-                <div className="form-group ">
-                    <label htmlFor="Date" className="">Date</label>
+                <div className="form-group hover:font-bold">
+                    <label htmlFor="Date" className="text-teal-700 hover:text-purple-700">Date</label>
                     <div className="">
-                        <input type="datetime-local" className="form-control border-0" id="Date" value={moment(new Date(newExpense.date)).format("YYYY-MM-DDTHH:mm")} onChange={(e)=>{
+                        <input type="datetime-local" className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]" id="Date" value={moment(new Date(newExpense.date)).format("YYYY-MM-DDTHH:mm")} onChange={(e)=>{
 
-                            handleFieldChange("date",e.target.value);
-                            console.log(e.target.value)}}/>
+                            handleFieldChange("date", new Date(e.target.value));}}/>
                     </div>
                 </div>
 
 
                 <div className="form-group">
-                    <button  className="btn btn-outline-primary w-100 h-100" onClick={()=>{addNewExpense(newExpense);}} >ADD EXPENSE</button>
+                    <button  className="btn hover:text-white hover:font-bold hover:bg-teal-400 border-teal-300 w-100 h-100" onClick={()=>{addNewExpense(newExpense); setNewExpense(defaultExpense);}} >ADD EXPENSE</button>
                 </div>
 
             </div>

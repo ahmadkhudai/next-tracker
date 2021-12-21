@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {useState} from "react";
+import {useEffect, useState} from 'react';
 import {TPanels} from "./api/component_config/Main/TPanels";
 import {MainWindows} from "./api/component_config/MainWindows";
 import HomeHeader from "./components/HomeHeader";
@@ -13,6 +13,7 @@ import {v4 as uuidv4} from "uuid";
 import {isGreaterThanToday} from "./api/utils/date_utils";
 import ModalContainer from "./Framer/ModalContainer";
 import {SettingsObj} from "../Definitions/SettingsObj";
+import Backdrop from "./Framer/Backdrop";
 
 type Props = {
     stateObj:any;
@@ -34,9 +35,16 @@ export function Main({stateObj}:Props) {
         }
 
     }
-    const [modalOpen, setModalOpen] = useState(false);
-    const close = () => setModalOpen(false);
-    const open = ()=> setModalOpen(true);
+
+    function closeAllPanels(e:MouseEvent){
+        console.log(e);
+        if(e.target===e.currentTarget){
+            setCurrentlyOpenPanel(TPanels.none)
+        }
+    }
+
+
+
 
     function switchWindow(window:MainWindows){
         setCurrentlyOpenPanel(TPanels.none);
@@ -52,8 +60,9 @@ export function Main({stateObj}:Props) {
     function addNewExpense(newExpense:Expense){
         let tempObj:Expense = {...newExpense};
         tempObj["id"] = uuidv4();
-        if(isGreaterThanToday(tempObj.date)){
-            setModalOpen(true);
+        //todo never forget
+        if(isGreaterThanToday(tempObj.date.toString())){
+            openPanel(TPanels.err);
             return;
         }
         let newExpenseList = [...expenses, tempObj];
@@ -66,26 +75,35 @@ export function Main({stateObj}:Props) {
     }
 
     function modifySettings(nSettings:SettingsObj){
-        console.log("BOFORE", nSettings);
         setSettings(nSettings);
-        console.log("AFTER", settings);
     }
+
+    useEffect(() => {
+        if(expenses.length===0){
+            openPanel(TPanels.AddExpensePanel);
+        }
+    }, [expenses]);
+
     return (
         <div>
             <HomeHeader switchWindow={switchWindow} openPanel={openPanel}/>
-            {modalOpen &&
-                <ModalContainer handleClose={close} message={"Cannot predict future (yet)."} subtitle={"Please try an earlier date."}/>
+            {currentlyOpenPanel===TPanels.err &&
+                <ModalContainer handleClose={(e:any)=>{closeAllPanels(e)}} message={"Cannot predict future (yet)."} subtitle={"Please try an earlier date."}/>
             }
-            <div className={"h-full p-4 flex items-center flex-col justify-center bg-slate-50"}
-                 onClick={(e)=> {closeOptionsPanels(e)}}
+            <div className={"h-full p-4 flex items-center flex-col justify-center"}
+                 onClick={(e:any)=> {closeAllPanels(e)}}
             >
 
                 {currentlyOpenPanel===TPanels.SettingsPanel &&
-                    <AK_SettingsPanel settings={settings} modifySettings={modifySettings}/>
+                    <Backdrop onClick={(e:any)=>{closeAllPanels(e)}}>
+                        <AK_SettingsPanel settings={settings} modifySettings={modifySettings}/>
+                    </Backdrop>
 
                 }
                 {currentlyOpenPanel===TPanels.AddExpensePanel &&
+                    <Backdrop onClick={(e:any)=>{if(e.target===e.currentTarget){setCurrentlyOpenPanel(TPanels.none)}}}>
                     <AddExpenseForm addNewExpense={addNewExpense}/>
+                    </Backdrop>
                 }
                 {currentWindow === MainWindows.graphs &&
                     <Graphs expenses={expenses}/>

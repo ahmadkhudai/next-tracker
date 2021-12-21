@@ -15,7 +15,7 @@ export function getSortedExpenses(inputExpenses:Expense[]){
     let expenses = [...inputExpenses];
     let sortedExpenses:any={};
 
-    if(!expenses){
+    if(!expenses || expenses.length===0){
         return sortedExpenses;
     }
     if (expenses.length > 0) {
@@ -133,7 +133,6 @@ export function groupByWeek(sortedExpenses:any) {
  */
 export function getCurrentWeeksExpenses(sortedExpenses:any){
     let weeklyExpenses = groupByWeek(sortedExpenses);
-    console.log("WEELY", weeklyExpenses);
     weeklyExpenses =  weeklyExpenses[weeklyExpenses.length-1]["expense"];
     let weeksExpenses:Expense[] =[];
     weeklyExpenses.forEach((expenses:Expense[])=>{

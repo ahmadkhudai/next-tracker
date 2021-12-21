@@ -1,20 +1,9 @@
 // @flow
-import React, {useState} from 'react';
-import {getHello} from '../api/utils/expense_utils';
-import {ExpenseComponent} from "./Expense.jsx.js";
+import React, {useEffect, useState} from 'react';
 import {SettingsObj} from "../../Definitions/SettingsObj";
-import {SettingLabels} from "../../Definitions/Setting";
-import {InputTypes} from "../../Definitions/InputTypes";
-import {dumdumData} from "../api/dummy_data/data";
-import AK_SettingsPanel from "../Forms/AK_SettingsPanel";
-import HomeHeader from "../components/HomeHeader";
-import {TPanels} from "../api/component_config/Main/TPanels";
-import AddExpenseForm from "../Forms/AddExpenseForm";
-import {DateSortedView} from "./DateSortedView";
-import Link from 'next/link'
-import TestModal from "../components/modals/TestModal";
-import {motion} from "framer-motion";
 import {Expense} from "../../Definitions/Expense";
+import CurrentWeekView from "../graphs/CurrentWeekView";
+import NoData from "../components/_partials/NoData";
 type Props = {
     expenses:Expense[];
     deleteExpense:any;
@@ -27,16 +16,30 @@ type State = {
 
 export function HomePage({expenses, settings, deleteExpense}:Props) {
 
+    const [renderedExpenses, setRenderedExpenses] = useState([] as Expense[]);
 
+
+    useEffect(() => {
+        setRenderedExpenses(expenses);
+    }, [expenses]);
+
+
+
+    if(renderedExpenses.length===0){
+        return (
+            <NoData/>
+        )
+    }
 
     return (
         <div >
 
-            <div className={"h-full p-4 flex items-center flex-col justify-center bg-slate-50"}>
+            <div className={"h-full p-4 flex items-center flex-col justify-center "}>
 
                 <div className={"p-3"}>
                     <h1 className={"h1 text-center p-2"}>Expense Tracker</h1>
-                    <DateSortedView settings={settings} expenses={expenses} deleteExpense={deleteExpense}/>
+                    <h3 className={"ak_accent_text text-center font-monospace"}>Your week so far...</h3>
+                    <CurrentWeekView expenses={renderedExpenses} settings={settings} deleteExpense={deleteExpense}/>
                 </div>
 
             </div>

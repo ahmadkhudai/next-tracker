@@ -18,30 +18,13 @@ type Props = {
 type State = {};
 
 export function DateSortedView({expenses,settings, deleteExpense}:Props) {
-    // let expenses = {};
 
-
-     // let expenses:Expense[] = [];
-     // const deleteExpense = props.deleteExpense;
-     // let tempExp:Expense[] = [];
     const [renderedExpenses, setRenderedExpenses] = useState([] as Expense[]);
-    // // const settings = props.settings;
-    // // const expenses = useSelector((state:any)=>state.expenses.value);
-    // // const settings = useSelector((state:any)=>state.settings.value);
-    // const [settings, setSetting] = useState({} as SettingsObj);
-    // const dispatch = useDispatch();
 
-
-    // console.log(deleteExpense);
 
     useEffect(() => {
             setRenderedExpenses(expenses);
     }, [expenses]);
-    //
-    // useEffect(() => {
-    //     setSetting(props.settings);
-    //     console.log("HERE");
-    // }, [props.settings]);
 
 
 
@@ -56,20 +39,13 @@ export function DateSortedView({expenses,settings, deleteExpense}:Props) {
     const sortedExpenses = getSortedExpenses([...renderedExpenses]);
 
 
-
-
-    function loadExpenses(){
-        // let tempObj = useSelector((state:any)=>state.expenses.value);
-        // setExpenses(tempObj);
-    }
-
     return (
-        <div>
+        <div className={""}>
             {
                 Object.entries(sortedExpenses).map(function ([date, expenses]:[any,any], index) {
 
                         return (
-                            <div key={expenses[0].id}>
+                            <div key={expenses[0].id} className={"ak_slow_transition"}>
                                 <div className="text-center">
                                     <p className={"font-monospace"}>{isToday(date)?"TODAY":date} | Subtotal <span className={"ak_highlight"}>{expenses.reduce(sumAllExpenses,0)}</span></p>
                                 </div>
