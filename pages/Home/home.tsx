@@ -6,13 +6,11 @@ import {SettingsObj} from "../../Definitions/SettingsObj";
 
 
 type Props = {
-    expenses:Expense[];
-    deleteExpense:any;
-    settings: SettingsObj;
+   switchWindow:any;
 };
-export function Home({expenses, settings, deleteExpense}:Props) {
+export function Home({switchWindow}:Props) {
     return (
-        <HomePage settings={settings} expenses={expenses} deleteExpense={deleteExpense}/>
+        <HomePage switchWindow={switchWindow}/>
     );
 }
 

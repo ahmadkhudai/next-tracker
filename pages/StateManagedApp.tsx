@@ -18,33 +18,9 @@ type State = {};
  * @constructor
  */
 export function StateManagedApp() {
-    let loadedExpenses:Expense[] = [];
-    let loadedSettings:SettingsObj = baseSettings;
-    const [expenses, setExpenses] = useState(loadedExpenses);
-    const [settings, setSettings] = useState(loadedSettings);
-    useEffect(() => {
-            modifyExpenses(JSON.parse(localStorage.getItem("ak_expenses") as string) || dumdumData);
-            modifySettings(JSON.parse(localStorage.getItem("ak_settings") as string) || baseSettings);
-    }, []);
 
-
-
-    function modifyExpenses(modifiedExpenses:Expense[]){
-        modifiedExpenses = modifiedExpenses.sort(sortfunction);
-        setExpenses(modifiedExpenses);
-        localStorage.setItem("ak_expenses", JSON.stringify(modifiedExpenses));
-    }
-    function modifySettings(modifiedSettings:SettingsObj){
-        console.log("YELLO");
-        setSettings(modifiedSettings);
-        localStorage.setItem("ak_settings", JSON.stringify(modifiedSettings));
-    }
     return (
-        <div>
-            <Main stateObj={[{expenses, setExpenses:modifyExpenses}, {settings, setSettings:modifySettings}]}/>
-        </div>
-
-
+            <Main />
     );
 }
 

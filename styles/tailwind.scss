@@ -35,9 +35,9 @@ $accent_color:#17a589;
 }
 
 .ak_slow_transition{
-  //transition: all;
-  //transition-duration: 200ms;
-  //transition-timing-function: ease-in-out;
+  transition: all;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
 }
 .ak_hover_shadow:hover{
   @extend .ak_slow_transition;

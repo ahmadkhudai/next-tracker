@@ -12,6 +12,7 @@ export const sumAllExpenses = (previousValue:number, currentValue:Expense) => pr
 
 export function getSortedExpenses(inputExpenses:Expense[]){
 
+    if(!inputExpenses){return {}};
     let expenses = [...inputExpenses];
     let sortedExpenses:any={};
 

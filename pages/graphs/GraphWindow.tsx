@@ -8,23 +8,39 @@ import {Expense} from "../../Definitions/Expense";
 import {CurrentWeekView} from "./CurrentWeekView";
 import NoData from "../components/_partials/NoData";
 import DateSortedView from "../Home/DateSortedView";
+import {baseSettings, sortfunction} from "../api/utils/expense_utils";
+import {SettingsObj} from "../../Definitions/SettingsObj";
+import {dumdumData} from "../api/dummy_data/data";
+import HomeHeader from "../components/HomeHeader";
 
 
 type Props = {
-    expenses:Expense[];
+    switchWindow:any;
 };
 type State = {};
 
-export default function GraphWindow({expenses}:Props) {
-    // const expenses = (useSelector((state:any)=>state.expenses.value));
-    // const settings = useSelector((state:any)=>state.settings.val);
+export default function GraphWindow({switchWindow}:Props) {
+    let loadedExpenses:Expense[] = [];
+    let loadedSettings:SettingsObj = baseSettings;
+    const [expenses, setExpenses] = useState(loadedExpenses);
+    const [settings, setSettings] = useState(loadedSettings);
+    useEffect(() => {
+        modifyExpenses(JSON.parse(localStorage.getItem("ak_expenses") as string) || dumdumData);
+        modifySettings(JSON.parse(localStorage.getItem("ak_settings") as string) || baseSettings);
+    }, []);
 
-    // const [expenses, setExpenses] = useState(props.expenses);
-    //
-    // useEffect(() => {
-    //     setExpenses(props.expenses);
-    // }, [props.expenses]);
 
+
+    function modifyExpenses(modifiedExpenses:Expense[]){
+        modifiedExpenses = modifiedExpenses.sort(sortfunction);
+        setExpenses(modifiedExpenses);
+        localStorage.setItem("ak_expenses", JSON.stringify(modifiedExpenses));
+    }
+    function modifySettings(modifiedSettings:SettingsObj){
+        console.log("YELLO");
+        setSettings(modifiedSettings);
+        localStorage.setItem("ak_settings", JSON.stringify(modifiedSettings));
+    }
 
 
     const [openedPanel, setOpenPanel] = useState(GraphPanels.grouped);
@@ -44,7 +60,9 @@ export default function GraphWindow({expenses}:Props) {
     }
     return (
         <div>
-            <Header openPanel={openPanel}/>
+            <HomeHeader switchWindow={switchWindow}/>
+
+            <Header openSubPanel={openPanel}/>
             <div className={"container  w-full h-full"}>
                 {openedPanel === GraphPanels.grouped &&
                 <div className={"flex align-items-center justify-content-center"}>
