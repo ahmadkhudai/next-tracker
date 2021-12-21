@@ -37,7 +37,6 @@ export default function GraphWindow({switchWindow}:Props) {
         localStorage.setItem("ak_expenses", JSON.stringify(modifiedExpenses));
     }
     function modifySettings(modifiedSettings:SettingsObj){
-        console.log("YELLO");
         setSettings(modifiedSettings);
         localStorage.setItem("ak_settings", JSON.stringify(modifiedSettings));
     }
@@ -66,9 +65,7 @@ export default function GraphWindow({switchWindow}:Props) {
             <div className={"container  w-full h-full"}>
                 {openedPanel === GraphPanels.grouped &&
                 <div className={"flex align-items-center justify-content-center"}>
-
                         <GroupedExpensesGraph expenses={expenses} />
-
                 </div>
                 }
 

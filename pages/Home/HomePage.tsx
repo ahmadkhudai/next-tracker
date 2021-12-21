@@ -23,35 +23,34 @@ import DateSortedView from "./DateSortedView";
 import NoData from "../components/_partials/NoData";
 
 type Props = {
-    switchWindow:any;
+    switchWindow: any;
 };
-type State = {
-
-};
+type State = {};
 
 
-export function HomePage({switchWindow}:Props) {
+export function HomePage({switchWindow}: Props) {
 
-    const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(TPanels.none);
+    const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(TPanels.AddExpensePanel);
 
 
-    function openPanel(panel:TPanels){
-        if(currentlyOpenPanel===panel){
+    function openPanel(panel: TPanels) {
+        if (currentlyOpenPanel === panel) {
             setCurrentlyOpenPanel(TPanels.none);
-        }else{
+        } else {
             setCurrentlyOpenPanel(panel);
         }
 
     }
 
-    function closeAllPanels(e:MouseEvent){
+    function closeAllPanels(e: MouseEvent) {
         console.log(e);
-        if(e.target===e.currentTarget){
+        if (e.target === e.currentTarget) {
             setCurrentlyOpenPanel(TPanels.none)
         }
     }
-    let loadedExpenses:Expense[] = [];
-    let loadedSettings:SettingsObj = baseSettings;
+
+    let loadedExpenses: Expense[] = [];
+    let loadedSettings: SettingsObj = baseSettings;
     const [expenses, setExpenses] = useState(loadedExpenses);
     const [settings, setSettings] = useState(loadedSettings);
     useEffect(() => {
@@ -60,22 +59,23 @@ export function HomePage({switchWindow}:Props) {
     }, []);
 
 
-
-    function modifyExpenses(modifiedExpenses:Expense[]){
+    function modifyExpenses(modifiedExpenses: Expense[]) {
         modifiedExpenses = modifiedExpenses.sort(sortfunction);
         setExpenses(modifiedExpenses);
         localStorage.setItem("ak_expenses", JSON.stringify(modifiedExpenses));
     }
-    function modifySettings(modifiedSettings:SettingsObj){
+
+    function modifySettings(modifiedSettings: SettingsObj) {
         console.log("YELLO");
         setSettings(modifiedSettings);
         localStorage.setItem("ak_settings", JSON.stringify(modifiedSettings));
     }
-    function addNewExpense(newExpense:Expense){
-        let tempObj:Expense = {...newExpense};
+
+    function addNewExpense(newExpense: Expense) {
+        let tempObj: Expense = {...newExpense};
         tempObj["id"] = uuidv4();
         //todo never forget
-        if(isGreaterThanToday(tempObj.date.toString())){
+        if (isGreaterThanToday(tempObj.date.toString())) {
             openPanel(TPanels.err);
             return;
         }
@@ -84,21 +84,31 @@ export function HomePage({switchWindow}:Props) {
         localStorage.setItem("ak_expenses", JSON.stringify(newExpenseList));
     }
 
-    function deleteExpense(toDelete:Expense){
-        let newExpenseList = expenses.filter((expense:Expense) => expense.id !==toDelete.id);
+    function deleteExpense(toDelete: Expense) {
+        let newExpenseList = expenses.filter((expense: Expense) => expense.id !== toDelete.id);
         setExpenses(newExpenseList);
         localStorage.setItem("ak_expenses", JSON.stringify(newExpenseList));
 
     }
-    const [renderedExpenses, setRenderedExpenses] = useState([] as Expense[]);
 
+
+
+    const [graphableExpenses, setGraphableExpenses] = useState([]);
 
     useEffect(() => {
-        setRenderedExpenses(expenses);
+
+        if(expenses.length>1){
+            setGraphableExpenses(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
+        }else {
+            setGraphableExpenses([]);
+        }
     }, [expenses]);
 
 
-
+    //
+    // return (
+    //     <NoData/>
+    // )
 
     return (
 
@@ -106,66 +116,70 @@ export function HomePage({switchWindow}:Props) {
             <HomeHeader switchWindow={switchWindow} openPanel={openPanel}/>
 
 
-            <div className={"w-100 flex items-center justify-center flex-column px-3"}  onClick={(e: any) => {
+            <div className={"w-100 flex items-center justify-center flex-column px-3"} onClick={(e: any) => {
                 closeAllPanels(e)
             }}>
 
-            {currentlyOpenPanel===TPanels.err &&
-                <ModalContainer handleClose={(e:any)=>{closeAllPanels(e)}} message={"Cannot predict future (yet)."} subtitle={"Please try an earlier date."}/>
-            }
+                {currentlyOpenPanel === TPanels.err &&
+                    <ModalContainer handleClose={(e: any) => {
+                        closeAllPanels(e)
+                    }} message={"Cannot predict future (yet)."} subtitle={"Please try an earlier date."}/>
+                }
 
-            {currentlyOpenPanel===TPanels.SettingsPanel &&
+                {currentlyOpenPanel === TPanels.SettingsPanel &&
                     <AK_SettingsPanel settings={settings} modifySettings={modifySettings}/>
-            }
-            {currentlyOpenPanel===TPanels.AddExpensePanel &&
+                }
+                {currentlyOpenPanel === TPanels.AddExpensePanel &&
                     <AddExpenseForm addNewExpense={addNewExpense}/>
 
-            }
-            <div className={"h-full  flex items-center flex-column justify-center "}>
+                }
+                <div className={"h-full  flex items-center flex-column justify-center "}>
 
-                <div className={"py-4"}>
-                    <div>
-                        <h1 className={"h3 text-center w-auto "}>Expense Tracker</h1>
-                        <h3 className={"ak_accent_text text-center font-monospace w-auto"}>Your week so far...</h3>
-                    </div>
-
-                    {renderedExpenses.length>0 &&
-                        <CurrentWeekView expenses={renderedExpenses} settings={settings} deleteExpense={deleteExpense}/>
-                    }
-                     </div>
-                {renderedExpenses.length > 0 && <div className={" p-3 m-0 ak_max_600px w-100"}>
-                    {getCurrentWeeksExpenses(getSortedExpenses(renderedExpenses)).length > 1 && <Header openSubPanel={openPanel}
-                                                                                                panels={[{
-                                                                                                    panelLabel: TPanelLabels.AllExpensesPanel,
-                                                                                                    panel: TPanels.AllExpensesPanel
-                                                                                                }]}/>
-                    }
-
-                    {(currentlyOpenPanel === TPanels.AllExpensesPanel || getCurrentWeeksExpenses(getSortedExpenses(renderedExpenses)).length <= 1) &&
+                    <div className={"py-4"}>
                         <div>
-                            <h1 className={"h1 text-center p-2"}>Your Weekly Expenses</h1>
-                            <div className={" p-4 scrollable  rounded"} style={{
-                                "height": "300px",
-                                "overflowY": "scroll",
-                                overflowX: "hidden",
-                                msScrollbarArrowColor: "transparent",
-                                "scrollbarWidth": "thin"
-                            }}>
-                                <DateSortedView
-                                    expenses={getRenderableCurrentWeeksExpenses(getSortedExpenses(renderedExpenses))}
-                                    settings={settings} deleteExpense={deleteExpense}/>
-                            </div>
-
+                            <h1 className={"h3 text-center w-auto "}>Expense Tracker</h1>
+                            <h3 className={"ak_accent_text text-center font-monospace w-auto"}>Your week so far...</h3>
                         </div>
 
+                        {expenses.length > 0 &&
+                            <CurrentWeekView expenses={graphableExpenses}/>
+                        }
+                    </div>
+                    {expenses.length > 0 &&
+                        <div className={" p-3 m-0 ak_max_600px w-100"}>
+                            {graphableExpenses.length > 1 &&
+                                <Header openSubPanel={openPanel}
+                                        panels={[{
+                                            panelLabel: TPanelLabels.AllExpensesPanel,
+                                            panel: TPanels.AllExpensesPanel
+                                        }]}/>
+                            }
+
+                            {(currentlyOpenPanel === TPanels.AllExpensesPanel || graphableExpenses.length <= 1) &&
+                                <div>
+                                    <h1 className={"h1 text-center p-2"}>Your Weekly Expenses</h1>
+                                    <div className={" p-4 scrollable  rounded"} style={{
+                                        "height": "300px",
+                                        "overflowY": "scroll",
+                                        overflowX: "hidden",
+                                        msScrollbarArrowColor: "transparent",
+                                        "scrollbarWidth": "thin"
+                                    }}>
+                                        <DateSortedView
+                                            expenses={getRenderableCurrentWeeksExpenses(getSortedExpenses(expenses))}
+                                            settings={settings} deleteExpense={deleteExpense}/>
+                                    </div>
+
+                                </div>
+
+                            }
+                        </div>
+                    }
+                    {expenses.length < 1 &&
+                        <NoData/>
                     }
                 </div>
-                }
-                {renderedExpenses.length<1 &&
-                    <NoData/>
-                }
             </div>
-        </div>
         </div>
 
 

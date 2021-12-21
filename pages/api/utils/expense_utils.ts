@@ -133,6 +133,7 @@ export function groupByWeek(sortedExpenses:any) {
  * @param sortedExpenses
  */
 export function getCurrentWeeksExpenses(sortedExpenses:any){
+
     let weeklyExpenses = groupByWeek(sortedExpenses);
     weeklyExpenses =  weeklyExpenses[weeklyExpenses.length-1]["expense"];
     let weeksExpenses:Expense[] =[];
@@ -147,6 +148,11 @@ export function getCurrentWeeksExpenses(sortedExpenses:any){
 
     return getDayWiseExpenses(getSortedExpenses(weeksExpenses));
 }
+
+/**
+ * Returns weeks expenses for Date Sorted View
+ * @param sortedExpenses
+ */
 export function getRenderableCurrentWeeksExpenses(sortedExpenses:any){
     let weeklyExpenses = groupByWeek(sortedExpenses);
     weeklyExpenses =  weeklyExpenses[weeklyExpenses.length-1]["expense"];

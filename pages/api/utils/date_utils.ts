@@ -13,6 +13,9 @@ export function getRandomItem(items:any[]){
     return items[Math.floor(Math.random()*items.length)]
 }
 export const addDays = (givenDate:Date, days:any=null)=>{
+    if(days===0){
+        return givenDate;
+    }
     if(!days){
         days = randomIntFromInterval(-1,-30);
     }

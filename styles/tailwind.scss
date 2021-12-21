@@ -385,8 +385,11 @@ a{
 
 
 
-div.scrollable::-webkit-scrollbar {display:none;}
-
+//div.scrollable
+div.scrollable{
+  //overflow;
+  &::-webkit-scrollbar {display:none;}
+}
 .current-expenses{
   //background: linear-gradient(white, #cffff7);
 

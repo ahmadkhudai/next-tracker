@@ -8,24 +8,23 @@ import {
 import {Expense} from "../../Definitions/Expense";
 import {Area, CartesianGrid, Tooltip, XAxis, YAxis,ComposedChart, Line} from 'recharts';
 import {SettingsObj} from "../../Definitions/SettingsObj";
+import exp from "constants";
 
 type Props = {
-    expenses:Expense[];
-    settings:SettingsObj;
-    deleteExpense:any;
+    expenses:any;
 };
 type State = {};
 
-export function CurrentWeekView({expenses, settings, deleteExpense}:Props) {
+export function CurrentWeekView({expenses}:Props) {
 
-    // const expenses = useSelector((state:any)=>state.expenses.value);
-    // const sortedExpenses = getSortedExpenses(expenses);
-    const [displayData, setDisplayData] = useState([]);
+
+    const [displayData, setDisplayData] = useState([] as Expense[]);
     const [graphWidth, setGraphWidth] = useState(500);
 
 
     useEffect(() => {
-        setDisplayData(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
+        setDisplayData(expenses);
+        // setDisplayData(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
         // window.onresize = ()=>{
             setGraphWidth(window.innerWidth<700?(0.8*window.innerWidth):500);
 
@@ -34,7 +33,8 @@ export function CurrentWeekView({expenses, settings, deleteExpense}:Props) {
 
 
     useEffect(() => {
-            setDisplayData(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
+        setDisplayData(expenses);
+            // setDisplayData(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
     }, [expenses]);
 
 
