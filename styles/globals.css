@@ -282,4 +282,8 @@ a {
   font-family: "Montserrat", sans-serif;
 }
 
+div.scrollable::-webkit-scrollbar {
+  display: none;
+}
+
 /*# sourceMappingURL=globals.css.map */

@@ -4,11 +4,12 @@ import {Expense} from "../../Definitions/Expense";
 import {getLocaleTimeString} from "../api/utils/date_utils";
 import {Setting, SettingLabels} from "../../Definitions/Setting";
 import {SettingsObj} from "../../Definitions/SettingsObj";
+import {baseSettings} from "../api/utils/expense_utils";
 
 type Props = {
  expense:Expense;
- settings:SettingsObj;
- deleteExpense:any;
+ settings?:SettingsObj;
+ deleteExpense?:any;
 };
 type State = {
 
@@ -20,7 +21,10 @@ export class ExpenseComponent extends React.Component<Props, State> {
         let onclickHandler:any = (expense:Expense)=>{
             this.props.deleteExpense(expense);
         };
-        let settings:SettingsObj = this.props.settings;
+        if(!this.props.deleteExpense){
+            onclickHandler=null;
+        }
+        let settings:any = this.props.settings || baseSettings;
         return (
             <div className="p-[3px] font-monospace my-2" id="expense">
                 <ul className="list-group list-group-horizontal justify-content-between m-2 p-1 flex items-center">

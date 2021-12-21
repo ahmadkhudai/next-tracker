@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import {Expense} from "../../Definitions/Expense";
 import {WeekPie} from "./WeekPie";
 import NoData from "../components/_partials/NoData";
+import DateSortedView from "../Home/DateSortedView";
 
 
 type Props = {
@@ -44,7 +45,7 @@ export default function GraphWindow({expenses}:Props) {
     return (
         <div>
             <Header openPanel={openPanel}/>
-            <div className={"container  w-full h-full ak_max_600px"}>
+            <div className={"container  w-full h-full"}>
                 {openedPanel === GraphPanels.grouped &&
                 <div className={"flex align-items-center justify-content-center"}>
 
@@ -57,6 +58,7 @@ export default function GraphWindow({expenses}:Props) {
                         <WeekPie expenses={expenses}/>
                     </div>
                 }
+
 
 
 

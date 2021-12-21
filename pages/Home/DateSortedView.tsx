@@ -12,13 +12,14 @@ import {NoData} from "../components/_partials/NoData";
 
 type Props = {
     expenses:Expense[];
-    settings:SettingsObj;
-    deleteExpense:any;
+    settings?:SettingsObj;
+    deleteExpense?:any;
 };
 type State = {};
 
 export function DateSortedView({expenses,settings, deleteExpense}:Props) {
     // let expenses = {};
+
 
      // let expenses:Expense[] = [];
      // const deleteExpense = props.deleteExpense;
