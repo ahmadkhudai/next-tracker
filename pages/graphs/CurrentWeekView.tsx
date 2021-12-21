@@ -3,13 +3,10 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import {
     getCurrentWeeksExpenses,
-    getRenderableCurrentWeeksExpenses,
     getSortedExpenses
 } from "../api/utils/expense_utils";
 import {Expense} from "../../Definitions/Expense";
-import {Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis,ComposedChart, Line} from 'recharts';
-import {getDate} from "../api/utils/date_utils";
-import DateSortedView from "../Home/DateSortedView";
+import {Area, CartesianGrid, Tooltip, XAxis, YAxis,ComposedChart, Line} from 'recharts';
 import {SettingsObj} from "../../Definitions/SettingsObj";
 
 type Props = {
@@ -22,17 +19,17 @@ type State = {};
 export function CurrentWeekView({expenses, settings, deleteExpense}:Props) {
 
     // const expenses = useSelector((state:any)=>state.expenses.value);
-    const sortedExpenses = getSortedExpenses(expenses);
+    // const sortedExpenses = getSortedExpenses(expenses);
     const [displayData, setDisplayData] = useState([]);
     const [graphWidth, setGraphWidth] = useState(500);
 
 
     useEffect(() => {
         setDisplayData(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
-        window.onresize = ()=>{
+        // window.onresize = ()=>{
             setGraphWidth(window.innerWidth<700?(0.8*window.innerWidth):500);
 
-        }
+        // }
     }, []);
 
 
@@ -42,13 +39,6 @@ export function CurrentWeekView({expenses, settings, deleteExpense}:Props) {
 
 
 
-    function getDatesArray(dataArray:any){
-        let dates:any = [];
-        dataArray.forEach((ddd:any) => {
-            dates.push({"date":getDate(ddd.date).getDay()});
-        })
-        return dates;
-    }
 
     // if(displayData.length<=1){
     //     return (
@@ -62,8 +52,8 @@ export function CurrentWeekView({expenses, settings, deleteExpense}:Props) {
                 <div
                     className="ak_max_600px bg-transparent border-0 container py-2 px-3 card my-4 flex justify-content-center align-items-center px-1 mx-1">
 
-                    <ComposedChart className={"py-2 px-2"} width={graphWidth * (0.9)} height={graphWidth * (0.70)}
-                                   data={displayData} margin={{top: 25, right: 30, left: 40, bottom: 1}}>
+                    <ComposedChart className={"py-2 px-2"} width={graphWidth} height={graphWidth}
+                                   data={displayData} margin={{top: 25, right: 10, left: 10, bottom: 1}}>
 
                         <defs>
                             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -101,12 +91,12 @@ export function CurrentWeekView({expenses, settings, deleteExpense}:Props) {
 
                 </div>
             }
-            <div  className={" py-3 my-3 bg-gray-200/30 rounded current-expenses gradient ak_max_600px"}>
-                <p className={"text-center  font-monospace font-bold p-1 h5"}>Your Expenses This Week</p>
-                <div className={"p-4 scrollable  rounded"} style={{"height":"300px", "overflowY":"scroll", overflowX:"hidden", msScrollbarArrowColor:"transparent" ,"scrollbarWidth":"thin"}}>
-                    <DateSortedView expenses={getRenderableCurrentWeeksExpenses(sortedExpenses)}  />
-                </div>
-            </div>
+            {/*<div  className={" py-3 my-3 bg-gray-200/30 rounded current-expenses gradient ak_max_600px"}>*/}
+            {/*    <p className={"text-center  font-monospace font-bold p-1 h5"}>Your Expenses This Week</p>*/}
+            {/*    <div className={"p-4 scrollable  rounded"} style={{"height":"300px", "overflowY":"scroll", overflowX:"hidden", msScrollbarArrowColor:"transparent" ,"scrollbarWidth":"thin"}}>*/}
+            {/*        <DateSortedView expenses={getRenderableCurrentWeeksExpenses(sortedExpenses)}  />*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
 
         </div>

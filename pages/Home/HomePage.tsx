@@ -4,7 +4,13 @@ import {SettingsObj} from "../../Definitions/SettingsObj";
 import {Expense} from "../../Definitions/Expense";
 import CurrentWeekView from "../graphs/CurrentWeekView";
 import HomeHeader from "../components/HomeHeader";
-import {baseSettings, sortfunction} from "../api/utils/expense_utils";
+import {
+    baseSettings,
+    getCurrentWeeksExpenses,
+    getRenderableCurrentWeeksExpenses,
+    getSortedExpenses,
+    sortfunction
+} from "../api/utils/expense_utils";
 import {dumdumData} from "../api/dummy_data/data";
 import {v4 as uuidv4} from "uuid";
 import {isGreaterThanToday} from "../api/utils/date_utils";
@@ -14,6 +20,7 @@ import AddExpenseForm from "../Forms/AddExpenseForm";
 import ModalContainer from "../Framer/ModalContainer";
 import Header from "../components/Header";
 import DateSortedView from "./DateSortedView";
+import NoData from "../components/_partials/NoData";
 
 type Props = {
     switchWindow:any;
@@ -92,6 +99,7 @@ export function HomePage({switchWindow}:Props) {
 
 
 
+
     return (
 
         <div className={""}>
@@ -125,23 +133,37 @@ export function HomePage({switchWindow}:Props) {
                         <CurrentWeekView expenses={renderedExpenses} settings={settings} deleteExpense={deleteExpense}/>
                     }
                      </div>
-                {/*<div className={" p-3 m-0 ak_max_600px w-100"}>*/}
-                {/*    <Header openSubPanel={openPanel} panels={[{panelLabel:TPanelLabels.AllExpensesPanel,panel:TPanels.AllExpensesPanel}]}/>*/}
+                {renderedExpenses.length > 0 && <div className={" p-3 m-0 ak_max_600px w-100"}>
+                    {getCurrentWeeksExpenses(getSortedExpenses(renderedExpenses)).length > 1 && <Header openSubPanel={openPanel}
+                                                                                                panels={[{
+                                                                                                    panelLabel: TPanelLabels.AllExpensesPanel,
+                                                                                                    panel: TPanels.AllExpensesPanel
+                                                                                                }]}/>
+                    }
 
-                {/*    {currentlyOpenPanel===TPanels.AllExpensesPanel &&*/}
-                {/*        <div >*/}
-                {/*            <h1 className={"h1 text-center p-2"}>Previously...</h1>*/}
+                    {(currentlyOpenPanel === TPanels.AllExpensesPanel || getCurrentWeeksExpenses(getSortedExpenses(renderedExpenses)).length <= 1) &&
+                        <div>
+                            <h1 className={"h1 text-center p-2"}>Your Weekly Expenses</h1>
+                            <div className={" p-4 scrollable  rounded"} style={{
+                                "height": "300px",
+                                "overflowY": "scroll",
+                                overflowX: "hidden",
+                                msScrollbarArrowColor: "transparent",
+                                "scrollbarWidth": "thin"
+                            }}>
+                                <DateSortedView
+                                    expenses={getRenderableCurrentWeeksExpenses(getSortedExpenses(renderedExpenses))}
+                                    settings={settings} deleteExpense={deleteExpense}/>
+                            </div>
 
-                {/*                <div className={" p-4 scrollable  rounded"} style={{"height":"300px", "overflowY":"scroll", overflowX:"hidden", msScrollbarArrowColor:"transparent" ,"scrollbarWidth":"thin"}}>*/}
-                {/*                    <DateSortedView expenses={expenses} settings={settings} deleteExpense={deleteExpense} />*/}
-                {/*                </div>*/}
+                        </div>
 
-                {/*            /!*<DateSortedView />*!/*/}
-                {/*        </div>*/}
-
-                {/*    }*/}
-                {/*</div>*/}
-
+                    }
+                </div>
+                }
+                {renderedExpenses.length<1 &&
+                    <NoData/>
+                }
             </div>
         </div>
         </div>
