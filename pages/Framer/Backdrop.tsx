@@ -30,7 +30,8 @@ export function Backdrop({children, onClick}:Props) {
     return (
        <motion.div
            id={"backdrop"}
-           className={" backdrop-blur-[1px] bg-gray-300/40"}
+           className={"bg-gray-300/40"}
+           // className={" backdrop-blur-[1px] bg-gray-300/40"}
            onClick={onClick}
            initial={{opacity:0}}
            animate={{opacity:1}}
