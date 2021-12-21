@@ -57,10 +57,10 @@ export function CurrentWeekView({expenses, settings, deleteExpense}:Props) {
     // }
 
     return (
-        <div className={"container flex flex-column flex-xl-row align-items-center w-[900x] bg-white/10"}>
+        <div className={"container flex flex-column flex-xl-row align-items-center  bg-white/10"}>
             {displayData.length > 1 &&
                 <div
-                    className="ak_max_600px bg-transparent border-0 container py-2 px-3 card my-4 flex justify-content-center align-items-center px-1 mx-2">
+                    className="ak_max_600px bg-transparent border-0 container py-2 px-3 card my-4 flex justify-content-center align-items-center px-1 mx-1">
 
                     <ComposedChart className={"py-2 px-2"} width={graphWidth * (0.9)} height={graphWidth * (0.70)}
                                    data={displayData} margin={{top: 25, right: 30, left: 40, bottom: 1}}>
@@ -101,7 +101,7 @@ export function CurrentWeekView({expenses, settings, deleteExpense}:Props) {
 
                 </div>
             }
-            <div  className={"mx-3 w-full p-3 bg-gray-200/30 rounded current-expenses gradient"}>
+            <div  className={" py-3 my-3 bg-gray-200/30 rounded current-expenses gradient ak_max_600px"}>
                 <p className={"text-center  font-monospace font-bold p-1 h5"}>Your Expenses This Week</p>
                 <div className={"p-4 scrollable  rounded"} style={{"height":"300px", "overflowY":"scroll", overflowX:"hidden", msScrollbarArrowColor:"transparent" ,"scrollbarWidth":"thin"}}>
                     <DateSortedView expenses={getRenderableCurrentWeeksExpenses(sortedExpenses)} settings={settings} deleteExpense={deleteExpense} />

@@ -27,8 +27,8 @@ export default function HomeHeader(props:Props) {
 
 
     return (
-        <nav className="navbar navbar-expand navbar-light bg-light">
-            <div className="ak_max_600px flex flex-column flex-md-row align-items-center justify-content-center  container">
+        <nav className=" navbar navbar-expand navbar-light bg-light">
+            <div className=" flex flex-column flex-md-row align-items-center justify-content-center container">
 
                 {openPanel &&
                     <div className={"w-100 flex align-items-center justify-content-center py-2"}>

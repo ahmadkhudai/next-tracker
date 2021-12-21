@@ -94,11 +94,11 @@ export function HomePage({switchWindow}:Props) {
 
     return (
 
-        <div className={"w-full p-0 m-0"}>
+        <div className={""}>
             <HomeHeader switchWindow={switchWindow} openPanel={openPanel}/>
 
 
-            <div className={"w-full flex items-center justify-center flex-column p-0"}  onClick={(e: any) => {
+            <div className={"w-100 flex items-center justify-center flex-column"}  onClick={(e: any) => {
                 closeAllPanels(e)
             }}>
 
@@ -113,31 +113,34 @@ export function HomePage({switchWindow}:Props) {
                     <AddExpenseForm addNewExpense={addNewExpense}/>
 
             }
-            <div className={"h-full p-4 flex items-center flex-column justify-center "}>
+            <div className={"h-full  flex items-center flex-column justify-center "}>
 
-                <div className={"p-3"}>
-                    <h1 className={"h1 text-center p-2"}>Expense Tracker</h1>
-                    <h3 className={"ak_accent_text text-center font-monospace"}>Your week so far...</h3>
+                <div className={"py-4"}>
+                    <div>
+                        <h1 className={"h3 text-center w-auto "}>Expense Tracker</h1>
+                        <h3 className={"ak_accent_text text-center font-monospace w-auto"}>Your week so far...</h3>
+                    </div>
+
                     {renderedExpenses.length>0 &&
                         <CurrentWeekView expenses={renderedExpenses} settings={settings} deleteExpense={deleteExpense}/>
                     }
                      </div>
-                <div className={" p-3 m-0 ak_max_600px w-100"}>
-                    <Header openSubPanel={openPanel} panels={[{panelLabel:TPanelLabels.AllExpensesPanel,panel:TPanels.AllExpensesPanel}]}/>
+                {/*<div className={" p-3 m-0 ak_max_600px w-100"}>*/}
+                {/*    <Header openSubPanel={openPanel} panels={[{panelLabel:TPanelLabels.AllExpensesPanel,panel:TPanels.AllExpensesPanel}]}/>*/}
 
-                    {currentlyOpenPanel===TPanels.AllExpensesPanel &&
-                        <div >
-                            <h1 className={"h1 text-center p-2"}>Previously...</h1>
+                {/*    {currentlyOpenPanel===TPanels.AllExpensesPanel &&*/}
+                {/*        <div >*/}
+                {/*            <h1 className={"h1 text-center p-2"}>Previously...</h1>*/}
 
-                                <div className={" p-4 scrollable  rounded"} style={{"height":"300px", "overflowY":"scroll", overflowX:"hidden", msScrollbarArrowColor:"transparent" ,"scrollbarWidth":"thin"}}>
-                                    <DateSortedView expenses={expenses} settings={settings} deleteExpense={deleteExpense} />
-                                </div>
+                {/*                <div className={" p-4 scrollable  rounded"} style={{"height":"300px", "overflowY":"scroll", overflowX:"hidden", msScrollbarArrowColor:"transparent" ,"scrollbarWidth":"thin"}}>*/}
+                {/*                    <DateSortedView expenses={expenses} settings={settings} deleteExpense={deleteExpense} />*/}
+                {/*                </div>*/}
 
-                            {/*<DateSortedView />*/}
-                        </div>
+                {/*            /!*<DateSortedView />*!/*/}
+                {/*        </div>*/}
 
-                    }
-                </div>
+                {/*    }*/}
+                {/*</div>*/}
 
             </div>
         </div>
