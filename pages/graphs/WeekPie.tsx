@@ -57,14 +57,14 @@ export function WeekPie({expenses}:Props) {
 
     console.log(getRenderableCurrentWeeksExpenses(sortedExpenses));
     return (
-        <div className={"container flex flex-column flex-xl-row align-items-center w-[900x]"}>
+        <div className={"container flex flex-column flex-xl-row align-items-center w-[900x] bg-white/50"}>
 
-        <div className="ak_max_600px container py-2 card my-4 flex justify-content-center align-items-center px-1 mx-2">
+        <div className="ak_max_600px bg-transparent border-0 container py-2 px-3 card my-4 flex justify-content-center align-items-center px-1 mx-2">
                 <div className={"pt-2 text-center"}>
                     <h3 className={"h3"}>Week&apos;s Report</h3>
                 </div>
 
-                <ComposedChart  width={graphWidth} height={graphWidth*(0.70)} data={displayData} margin={{top: 25, right: 50, left: 40, bottom: 5}}>
+                <ComposedChart  className={"py-2 px-2"} width={graphWidth*(0.9)} height={graphWidth*(0.70)} data={displayData} margin={{top: 25, right: 10, left: 40, bottom: 1}}>
 
                     <defs>
                         <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -73,10 +73,10 @@ export function WeekPie({expenses}:Props) {
                         </linearGradient>
                     </defs>
 
-                    <XAxis dataKey="date"  reversed={true} />
-                    {/*<YAxis />*/}
+                    <XAxis dataKey="date" axisLine={false}  reversed={true} height={30}   />
+                    <CartesianGrid vertical={false}/>
+                    <YAxis  width={10} axisLine={false} />
                     <Tooltip/>
-                    {/*<CartesianGrid vertical={false} stroke="#DDD" />*/}
 
                     <Line type="monotone"  strokeLinecap="round" strokeWidth={2}
                           style={{ strokeDasharray: `40% 60%` }}
@@ -95,7 +95,7 @@ export function WeekPie({expenses}:Props) {
                           legendType="none"
                     />
                     <Area type="monotone"
-                          name={"Money Spent"} dataKey="expense" strokeWidth={2} fillOpacity={1} fill="url(#colorUv)" />
+                          name={"Money Spent"}  dataKey="expense" strokeWidth={2} fillOpacity={1} fill="url(#colorUv)" />
                 </ComposedChart>
 
 
