@@ -1,7 +1,15 @@
 // @flow
 import * as React from 'react';
 import {useState} from "react";
-import {addDays, getDate, getISODate, getRandomItem, isGreaterThanToday} from "../api/utils/date_utils";
+import {
+    addDays,
+    getDate,
+    getISODate,
+    getLocaleTimeString,
+    getRandomItem,
+    isGreaterThanToday
+} from "../api/utils/date_utils";
+import moment from "moment";
 
 
 let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
@@ -13,7 +21,12 @@ type State = {};
 
 export function AddExpenseForm({addNewExpense}:Props) {
 
-
+    // @ts-ignore
+    Date.prototype.toDateInputValue = (function() {
+        var local = new Date(this);
+        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+        return local.toJSON().slice(0,10);
+    });
     const [newExpense, setNewExpense] = useState( {name: "chai", price: 30, description: "chai", date: new Date()})
 
     function handleFieldChange(fieldName:string, fieldValue:any){
@@ -58,8 +71,10 @@ export function AddExpenseForm({addNewExpense}:Props) {
                 <div className="form-group ">
                     <label htmlFor="Date" className="">Date</label>
                     <div className="">
-                        <input type="datetime-local" className="form-control border-0" id="Date" value={getISODate(newExpense.date)} onChange={(e)=>{
-                            handleFieldChange("date",e.target.value);console.log(e.target.value)}}/>
+                        <input type="datetime-local" className="form-control border-0" id="Date" value={moment(new Date(newExpense.date)).format("YYYY-MM-DDTHH:mm")} onChange={(e)=>{
+
+                            handleFieldChange("date",e.target.value);
+                            console.log(e.target.value)}}/>
                     </div>
                 </div>
 

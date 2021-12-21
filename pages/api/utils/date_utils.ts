@@ -1,3 +1,6 @@
+// @ts-ignore
+
+
 export const addHours = (givenTime:Date, hours:number)=>{
     return new Date(((givenTime).setHours(givenTime.getHours() + hours)));
 }
@@ -18,8 +21,8 @@ export const addDays = (givenDate:Date, days:any=null)=>{
 
 
 
-export function getISODate(date=(new Date())) {
-    return (getDate(date)).toISOString().split('.')[0];
+export function getISODate(date:Date) {
+    return date.toISOString().split('.')[0];
 }
 
 export function getDateString(date:any){
