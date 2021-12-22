@@ -40,7 +40,7 @@ export function DateSortedView({expenses,settings, deleteExpense}:Props) {
 
 
     return (
-        <div className={""}>
+        <div className={"px-3 mx-2"}>
             {
                 Object.entries(sortedExpenses).map(function ([date, expenses]:[any,any], index) {
 

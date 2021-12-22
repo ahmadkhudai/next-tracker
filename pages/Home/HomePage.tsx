@@ -153,11 +153,11 @@ export function HomePage({switchWindow}: Props) {
                                 }/>
                     }
                     {expenses.length > 0 && (currentlyOpenPanel === TPanels.AllExpensesPanel || graphableExpenses.length <= 1) &&
-                        <div className={" p-3 m-0 ak_max_600px w-100 bg-purple-100/60"}>
+                        <div className={" p-3 m-0 ak_max_600px w-100 bg-teal-100/60"}>
 
                                 <div>
-                                    <h1 className={"h3 text-center p-2"}>Your Weekly Expenses</h1>
-                                    <div className={" p-4 scrollable  rounded"} style={{
+                                    <h1 className={"font-monospace h5 text-center pt-2"}>your expenses this week</h1>
+                                    <div className={" p-4 pt-3 scrollable  rounded"} style={{
                                         "height": "300px",
                                         overflowX: "hidden"
                                     }}>

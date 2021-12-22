@@ -52,25 +52,11 @@ export function AddExpenseForm({addNewExpense}:Props) {
     // let weekSelector = false;
     return (
 
-        <div className={" w-full ak_max_600px my-3 bg-white/90 bg-gray-300/30 p-3"}>
+        <div className={" w-full ak_max_600px my-3 bg-white/90 hover:bg-gray-200/30 ak_slow_transition p-3 "}>
 
-         <h4 className={"h4 text-teal-700 hover:text-purple-700 text-center p-2"}>Add New expense</h4>
+         <h4 className={"h4 text-teal-700 hover:text-purple-700 text-center p-2"}>new expense</h4>
             <div id="expense_form" className="pt-3 " >
 
-                <div className="form-group  hover:font-bold">
-                    <label htmlFor="name" className="text-teal-700 hover:text-purple-700">Name</label>
-                    <div className="">
-                        <input type="text" className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]" id="name" placeholder="Chai"
-                               value={newExpense.name} onChange={e=> {handleFieldChange("name", e.target.value)}}/>
-                    </div>
-                </div>
-                <div className="form-group hover:font-bold">
-                    <label htmlFor="Description" className="text-teal-700 hover:text-purple-700">Description</label>
-                    <div className="">
-                        <input type="text" className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]" id="Description" placeholder="Chai"
-                               value={newExpense.description} onChange={e=> {handleFieldChange("description", e.target.value)}}/>
-                    </div>
-                </div>
                 <div className="form-group hover:font-bold">
                     <label htmlFor="amountSpent" className="text-teal-700 hover:text-purple-700">Amount Spent</label>
                     <div className="">
@@ -79,6 +65,22 @@ export function AddExpenseForm({addNewExpense}:Props) {
                             handleFieldChange("price", e.target.value)}}/>
                     </div>
                 </div>
+                <div className="form-group  hover:font-bold">
+                    <label htmlFor="name" className="text-teal-700 hover:text-purple-700">Spent on (clothing, food, etc...)</label>
+                    <div className="">
+                        <input type="text" className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]" id="name" placeholder="Chai"
+                               value={newExpense.name} onChange={e=> {handleFieldChange("name", e.target.value)}}/>
+                    </div>
+                </div>
+                <div className="form-group hover:font-bold">
+                    <label htmlFor="Description" className="text-teal-700 hover:text-purple-700">Anything more?</label>
+                    <div className="">
+                        <textarea   className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]" id="Description" placeholder="Chai"
+                                   value={newExpense.description} onChange={e=> {handleFieldChange("description", e.target.value)}}/>
+
+                         </div>
+                </div>
+
 
                 <div className={"py-3"}>
                 {dateSelector!==dateSelectors.custom &&
@@ -86,8 +88,8 @@ export function AddExpenseForm({addNewExpense}:Props) {
                         <div className={"w-50 flex flex-column justify-content-between mx-2 "}>
                             <button className={"my-1 mx-2 w-50 btn bg-teal-400 text-white"} onClick={()=>{handleFieldChange("date", new Date())}}>today</button>
                             <button className={"my-1 mx-2 w-50 btn border-teal-500 hover:bg-teal-400 hover:text-white"} onClick={()=>{handleFieldChange("date", addDays(newExpense.date, -1))}}>earlier</button>
-                            <button className={"my-1 mx-2 w-50 btn border-teal-500 hover:bg-teal-400 hover:text-white"} onClick={()=>{openSelector(dateSelectors.custom)}}>select</button>
                             <button className={"my-1 mx-2 w-50 btn bg-purple-500 hover:font-bold hover:bg-teal-400 text-white"} onClick={()=>{openSelector(dateSelectors.thisWeek)}}>this week</button>
+                            <button className={"my-1 mx-2 w-50 btn border-black hover:bg-black hover:text-white"} onClick={()=>{openSelector(dateSelectors.custom)}}>specific date</button>
                         </div>
 
 
