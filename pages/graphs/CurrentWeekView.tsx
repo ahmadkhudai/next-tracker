@@ -25,10 +25,10 @@ export function CurrentWeekView({expenses}:Props) {
     useEffect(() => {
         setDisplayData(expenses);
         // setDisplayData(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
-        window.onresize = ()=>{
+        // window.onresize = ()=>{
             setGraphWidth(window.innerWidth<700?(0.8*window.innerWidth):500);
 
-        }
+        // }
     }, []);
 
 

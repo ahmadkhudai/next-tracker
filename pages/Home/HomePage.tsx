@@ -141,18 +141,23 @@ export function HomePage({switchWindow}: Props) {
                             <h3 className={"ak_accent_text text-center font-monospace w-auto"}>Your week so far...</h3>
                         </div>
 
-                        {expenses.length  > 0 &&
+                        {expenses.length  > 0 && currentlyOpenPanel===TPanels.Visualize &&
                             <CurrentWeekView expenses={graphableExpenses}/>
                         }
                     </div>
-                    {graphableExpenses.length > 1 &&
+                    {graphableExpenses.length > 1  &&
                         <Header openSubPanel={openPanel}
                                 panels={[{panelLabel: TPanelLabels.AllExpensesPanel, panel: TPanels.AllExpensesPanel},
-                                    // {panelLabel: TPanelLabels.Visualize, panel: TPanels.Visualize}
+                                    {panelLabel: TPanelLabels.Visualize, panel: TPanels.Visualize}
                                 ]
                                 }/>
                     }
-                    {expenses.length > 0 && (currentlyOpenPanel === TPanels.AllExpensesPanel || graphableExpenses.length <= 1) &&
+                    {/*{graphableExpenses.length > 1 &&*/}
+                    {/*    <Header openSubPanel={openPanel}*/}
+                    {/*            panels={[{panelLabel: TPanelLabels.AllExpensesPanel, panel: TPanels.AllExpensesPanel},{panelLabel: TPanelLabels.Visualize, panel: TPanels.Visualize}]}/>*/}
+                    {/*}*/}
+
+                    {expenses.length > 0 && (currentlyOpenPanel === TPanels.AllExpensesPanel || graphableExpenses.length <= 1 || currentlyOpenPanel!==TPanels.Visualize) &&
                         <div className={" p-3 m-0 ak_max_600px w-100 bg-teal-100/60"}>
 
                                 <div>

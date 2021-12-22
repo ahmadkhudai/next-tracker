@@ -83,13 +83,13 @@ export function AddExpenseForm({addNewExpense}:Props) {
 
 
                 <div className={"py-3"}>
-                {dateSelector!==dateSelectors.custom &&
+                {/*{dateSelector!==dateSelectors.custom &&*/}
                     <div className={"flex justify-content-between pb-3"}>
                         <div className={"w-50 flex flex-column justify-content-between mx-2 "}>
                             <button className={"my-1 mx-2 w-50 btn bg-teal-400 text-white"} onClick={()=>{handleFieldChange("date", new Date())}}>today</button>
                             <button className={"my-1 mx-2 w-50 btn border-teal-500 hover:bg-teal-400 hover:text-white"} onClick={()=>{handleFieldChange("date", addDays(newExpense.date, -1))}}>earlier</button>
                             <button className={"my-1 mx-2 w-50 btn bg-purple-500 hover:font-bold hover:bg-teal-400 text-white"} onClick={()=>{openSelector(dateSelectors.thisWeek)}}>this week</button>
-                            <button className={"my-1 mx-2 w-50 btn border-black hover:bg-black hover:text-white"} onClick={()=>{openSelector(dateSelectors.custom)}}>specific date</button>
+                            {/*<button className={"my-1 mx-2 w-50 btn border-black hover:bg-black hover:text-white"} onClick={()=>{openSelector(dateSelectors.custom)}}>specific date</button>*/}
                         </div>
 
 
@@ -108,8 +108,8 @@ export function AddExpenseForm({addNewExpense}:Props) {
                         </div> }
 
                     </div>
-                }
-                {dateSelector===dateSelectors.custom &&
+                {/*}*/}
+                {/*{dateSelector===dateSelectors.custom &&*/}
                     <div className="form-group hover:font-bold ">
                         <label htmlFor="Date" className="text-teal-700 hover:text-purple-700">Date</label>
                         <div className="">
@@ -117,9 +117,9 @@ export function AddExpenseForm({addNewExpense}:Props) {
 
                                 handleFieldChange("date", new Date(e.target.value));}}/>
                         </div>
-                        <button className={"btn border-purple-500 hover:bg-purple-500 hover:text-white hover:font-bold"} onClick={()=>{openSelector(dateSelectors.none)}}>simple menu</button>
+                        {/*<button className={"btn border-purple-500 hover:bg-purple-500 hover:text-white hover:font-bold"} onClick={()=>{openSelector(dateSelectors.none)}}>simple menu</button>*/}
                     </div>
-                }
+                {/*}*/}
 
                 </div>
 
