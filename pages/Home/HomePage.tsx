@@ -31,10 +31,12 @@ type State = {};
 
 export function HomePage({switchWindow}: Props) {
 
+    //data state
     let loadedExpenses: Expense[] = [];
     let loadedSettings: SettingsObj = baseSettings;
     const [expenses, setExpenses] = useState(loadedExpenses);
     const [settings, setSettings] = useState(loadedSettings);
+
     useEffect(() => {
         modifyExpenses(JSON.parse(localStorage.getItem("ak_expenses") as string) || dumdumData);
         modifySettings(JSON.parse(localStorage.getItem("ak_settings") as string) || baseSettings);
@@ -74,21 +76,10 @@ export function HomePage({switchWindow}: Props) {
     }
 
 
-
+    //visual state
     const [graphAbleExpenses, setGraphAbleExpenses] = useState([]);
     const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(OptionsPanels.none);
     const [currentHomePanel, setCurrentHomePanel] = useState(HomePanels.Visualize);
-
-    useEffect(() => {
-
-        if(expenses.length>1){
-            setGraphAbleExpenses(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
-        }else {
-            setGraphAbleExpenses([]);
-        }
-    }, [expenses]);
-
-
 
 
 
@@ -102,7 +93,6 @@ export function HomePage({switchWindow}: Props) {
 
     }
 
-
     function closeAllPanels(e: MouseEvent) {
         if (e.target === e.currentTarget) {
             setCurrentlyOpenPanel(OptionsPanels.none)
@@ -113,6 +103,14 @@ export function HomePage({switchWindow}: Props) {
         setCurrentHomePanel(panel);
 
     }
+    useEffect(() => {
+
+        if(expenses.length>1){
+            setGraphAbleExpenses(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
+        }else {
+            setGraphAbleExpenses([]);
+        }
+    }, [expenses]);
     return (
 
         <div className={""}>
@@ -133,7 +131,7 @@ export function HomePage({switchWindow}: Props) {
                     <AK_SettingsPanel settings={settings} modifySettings={modifySettings}/>
                 }
                 {currentlyOpenPanel === OptionsPanels.AddExpensePanel &&
-                    <AddExpenseForm addNewExpense={addNewExpense}/>
+                    <AddExpenseForm addNewExpense={addNewExpense} handleClose={()=>openPanel(OptionsPanels.AddExpensePanel)}/>
 
                 }
                 <div className={"h-full  flex items-center flex-column justify-center "}>

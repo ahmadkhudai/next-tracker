@@ -19,6 +19,7 @@ export const addDays = (givenDate:Date, days:any=null)=>{
     if(!days){
         days = randomIntFromInterval(-1,-30);
     }
+    let tempDate = givenDate;
     return new Date((givenDate).setHours(givenDate.getDay() +(days * 24)));
 }
 

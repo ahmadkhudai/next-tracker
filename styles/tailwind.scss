@@ -398,8 +398,18 @@ div.scrollable{
 }
 
 
+$finalHeight: 100px;
+$finalWidth: $finalHeight*2;
 
-
+//::-webkit-scrollbar {
+//  width: $scrollBarHeight;
+//  height: $scrollBarHeight;
+//}
+//
+//::-webkit-scrollbar-button {
+//  width: $scrollBarHeight;
+//  height: $scrollBarHeight;
+//}
 
 
 
