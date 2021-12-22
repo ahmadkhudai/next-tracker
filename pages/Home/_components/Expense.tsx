@@ -27,7 +27,7 @@ export function ExpenseComponent(props: Props) {
     let settings: any = props.settings || baseSettings;
     const [desc, setDesc] = useState(false);
     return (
-        <div className=" py-1 rounded font-monospace my-1 rounded" onClick={()=>{setDesc(!desc)}} onMouseEnter={()=>{setDesc(true)}} onMouseLeave={()=>{setDesc(false)}}>
+        <div className=" py-1 rounded font-monospace my-1 rounded" onClick={(e)=>{e.stopPropagation();setDesc(!desc)}} onMouseEnter={()=>{setDesc(true)}} onMouseLeave={()=>{setDesc(false)}}>
             <ul className="bg-white p-3 justify-content-between border-0 m-2 p-1 flex items-center rounded-2">
                 <li className="list-group-item border-0  ak_black"
                     style={expense.price > settings[SettingLabels.maxAcceptableRange].value ? {
