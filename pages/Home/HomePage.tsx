@@ -58,6 +58,10 @@ export function HomePage({switchWindow}: Props) {
     function addNewExpense(newExpense: Expense) {
         let tempObj: Expense = {...newExpense};
         tempObj["id"] = uuidv4();
+        if((tempObj.date).toString().includes("Invalid Date")){
+            openPanel(OptionsPanels.err);
+            return;
+        }
         //todo never forget
         if (isGreaterThanToday(tempObj.date.toString())) {
             openPanel(OptionsPanels.err);

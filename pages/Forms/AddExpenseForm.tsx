@@ -180,7 +180,9 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                            className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
                                            id="Date" value={moment(new Date(newExpense.date)).format("YYYY-MM-DDTHH:mm")}
                                            onChange={(e) => {
-                                               handleFieldChange("date", new Date(e.target.value));
+                                               if((e.target.value)!==""){
+                                                   handleFieldChange("date", new Date(e.target.value));
+                                               }
                                            }}/>
                                 </div>
                             </div>
@@ -197,7 +199,9 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                    className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
                                    id="Time" value={moment(newExpense.date).format("HH:mm")}
                                    onChange={(e) => {
-                                       handleFieldChange("date", new Date(concat(newExpense.date, e.target.value)));
+                                       if((e.target.value)!==""){
+                                           handleFieldChange("date", new Date(concat(newExpense.date, e.target.value)));
+                                       }
                                    }}/>
                         </div>
                     </div>
