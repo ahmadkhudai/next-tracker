@@ -155,9 +155,10 @@ export function HomePage({switchWindow}: Props) {
                             </div>
                             </div>
                         }
+                    </div>
 
 
-                    {expenses.length > 0 && (currentHomePanel === HomePanels.ExpensesPanel || graphAbleExpenses.length <= 1) &&
+                    {expenses.length > 0 && (currentHomePanel === HomePanels.ExpensesPanel) &&
                         <div className={" ak_max_600px w-100 bg-teal-100/60 h-100"}>
 
                                 <div className={"p-1"}>
@@ -186,7 +187,6 @@ export function HomePage({switchWindow}: Props) {
                     {expenses.length < 1 &&
                         <NoData/>
                     }
-                </div>
                 </div>
             </div>
         </div>
