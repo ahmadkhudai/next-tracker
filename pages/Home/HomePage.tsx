@@ -138,7 +138,7 @@ export function HomePage({switchWindow}: Props) {
                     <AddExpenseForm addNewExpense={addNewExpense} handleClose={()=>openPanel(OptionsPanels.AddExpensePanel)}/>
 
                 }
-                <div className={"h-full  flex items-center flex-column justify-center "}>
+                <div className={"flex items-center flex-column justify-center "}>
 
                     <div className={"py-4"}>
                         <div>
@@ -147,7 +147,7 @@ export function HomePage({switchWindow}: Props) {
                         </div>
 
 
-                        {expenses.length  > 0 && currentHomePanel===HomePanels.Visualize &&
+                        {graphAbleExpenses.length > 1 && currentHomePanel===HomePanels.Visualize &&
                             <div className={" ak_max_600px w-100 h-[65vh]"}>
 
                             <div className={"h-[55vh] "}>
@@ -155,17 +155,16 @@ export function HomePage({switchWindow}: Props) {
                             </div>
                             </div>
                         }
-                    </div>
 
 
                     {expenses.length > 0 && (currentHomePanel === HomePanels.ExpensesPanel || graphAbleExpenses.length <= 1) &&
-                        <div className={" ak_max_600px w-100 bg-teal-100/60 h-[65vh]"}>
+                        <div className={" ak_max_600px w-100 bg-teal-100/60 h-100"}>
 
-                                <div className={"h-[55vh] "}>
+                                <div className={"p-1"}>
                                     <h1 className={"font-monospace h5 text-center pt-2"}>your expenses this week</h1>
-                                    <div className={"  pt-3 scrollable h-100 py-3 rounded  flex justify-content-center align-items-center"} style={{
-                                        "height": "300px",
-                                        overflowX: "hidden"
+                                    <div className={"scrollable py-3 rounded flex justify-content-center align-items-center"} style={{
+                                        "height": "500px",
+                                        overflowX: "hidden",
                                     }}>
                                         <DateSortedView
                                             expenses={getRenderableCurrentWeeksExpenses(getSortedExpenses(expenses))}
@@ -187,6 +186,7 @@ export function HomePage({switchWindow}: Props) {
                     {expenses.length < 1 &&
                         <NoData/>
                     }
+                </div>
                 </div>
             </div>
         </div>

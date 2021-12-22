@@ -47,6 +47,12 @@ export let baseSettings = {
         label: SettingLabels.deleteMode,
         value: false,
         name: "Delete Mode?"
+    },
+    "showDesc":{
+        type: InputTypes.checkbox,
+        label: SettingLabels.showDesc,
+        value: true,
+        name:"Show expense description?"
     }
 };
 

@@ -10,6 +10,7 @@ import {baseSettings, sortfunction} from "../api/utils/expense_utils";
 import {SettingsObj} from "../../Definitions/SettingsObj";
 import {dumdumData} from "../api/dummy_data/data";
 import HomeHeader from "../components/HomeHeader";
+import {MainWindows} from "../api/component_config/MainWindows";
 
 
 type Props = {
@@ -53,7 +54,7 @@ export default function GraphWindow({switchWindow}: Props) {
 
     return (
         <div>
-            <HomeHeader switchWindow={switchWindow}/>
+            <HomeHeader switchWindow={switchWindow} currentlyOpenWindow={MainWindows.graphs}/>
             <div className={"container  w-full h-full ak_max_600px"}>
             {expenses.length == 0 && <NoData/>}
             {expenses.length > 0 &&

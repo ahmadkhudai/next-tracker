@@ -9,5 +9,6 @@ export interface Setting{
 
 export enum SettingLabels {
     "maxAcceptableRange"="maxAcceptableRange",
-    "deleteMode"="deleteMode"
+    "deleteMode"="deleteMode",
+    "showDesc"="showDesc"
 }

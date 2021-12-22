@@ -69,10 +69,10 @@ export default function AK_SettingsPanel({settings, modifySettings}:Props) {
                             {setting.type === "checkbox" &&
                                 <div className="d-inline-block flex items-center justify-content-center">
                                     <div className="toggle colour">
-                                        <input id="check3" className="toggle-checkbox hidden" type="checkbox"
+                                        <input id={setting.label} className="toggle-checkbox hidden" type="checkbox"
                                                checked={setting.value}
                                                onChange={(e) => handleSettingsChange(setting.label, !setting.value)}/>
-                                        <label htmlFor="check3"
+                                        <label htmlFor={setting.label}
                                                className="toggle-label block w-12 h-6 rounded-full transition-color duration-150 ease-out"></label>
                                     </div>
                                 </div>
