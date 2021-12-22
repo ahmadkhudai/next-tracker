@@ -1,14 +1,14 @@
 // @flow
 import * as React from 'react';
-import {Expense} from "../../Definitions/Expense";
-import ExpenseComponent from "./Expense.jsx";
+import {Expense} from "../../../Definitions/Expense";
+import ExpenseComponent from "./Expense";
 // import {useDispatch, useSelector} from "react-redux";
 // import {modifyExpenses} from "../api/features/expenses/expenseSlice";
-import {getSortedExpenses, sumAllExpenses} from "../api/utils/expense_utils";
-import {isToday} from "../api/utils/date_utils";
+import {getSortedExpenses, sumAllExpenses} from "../../api/utils/expense_utils";
+import {isToday} from "../../api/utils/date_utils";
 import {useEffect, useState} from "react";
-import {SettingsObj} from "../../Definitions/SettingsObj";
-import {NoData} from "../components/_partials/NoData";
+import {SettingsObj} from "../../../Definitions/SettingsObj";
+import {NoData} from "../../components/_partials/NoData";
 
 type Props = {
     expenses:Expense[];

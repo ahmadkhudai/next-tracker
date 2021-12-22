@@ -2,10 +2,18 @@
 import * as React from 'react';
 import {useRouter} from "next/router";
 import {GraphPanels} from "../api/component_config/graphs/GraphPanels";
-import {TPanelLabels, TPanels} from "../api/component_config/Main/TPanels";
+import {OptionPanelLabels, OptionsPanels} from "../api/component_config/Main/OptionsPanels";
+import {HomePanelLabels, HomePanels} from "../api/component_config/HomePanels";
+
+
 type Props = {
+    /**
+     * Open sub-panel is the function that will switch between panels
+     * #IMPORTANT:
+     * it must be able to accept the panels passed
+     */
     openSubPanel:any;
-    panels?:{ panelLabel: TPanelLabels, panel: TPanels }[]
+    panels?:{ panelLabel: OptionPanelLabels|HomePanelLabels, panel: OptionsPanels|HomePanels }[]
 };
 type State = {};
 

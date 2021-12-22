@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import {useState} from 'react';
-import {TPanels} from "./api/component_config/Main/TPanels";
+import {OptionsPanels} from "./api/component_config/Main/OptionsPanels";
 import {MainWindows} from "./api/component_config/MainWindows";
 import GraphWindow from "./graphs/GraphWindow";
 import HomePage from "./Home/HomePage";
@@ -16,14 +16,14 @@ export function Main() {
 
 
     // const [{expenses, setExpenses}, {settings, setSettings}] = stateObj;
-    const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(TPanels.none);
+    const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(OptionsPanels.none);
 
 
     const [currentWindow, setCurrentWindow] = useState(MainWindows.home);
 
-    function openPanel(panel: TPanels) {
+    function openPanel(panel: OptionsPanels) {
         if (currentlyOpenPanel === panel) {
-            setCurrentlyOpenPanel(TPanels.none);
+            setCurrentlyOpenPanel(OptionsPanels.none);
         } else {
             setCurrentlyOpenPanel(panel);
         }
@@ -33,7 +33,7 @@ export function Main() {
 
 
     function switchWindow(window: MainWindows) {
-        setCurrentlyOpenPanel(TPanels.none);
+        setCurrentlyOpenPanel(OptionsPanels.none);
         setCurrentWindow(window);
     }
 

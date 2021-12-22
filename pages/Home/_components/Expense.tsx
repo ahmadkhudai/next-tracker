@@ -1,9 +1,9 @@
 // @flow
 import * as React from 'react';
-import {Expense} from "../../Definitions/Expense";
-import {SettingLabels} from "../../Definitions/Setting";
-import {SettingsObj} from "../../Definitions/SettingsObj";
-import {baseSettings} from "../api/utils/expense_utils";
+import {Expense} from "../../../Definitions/Expense";
+import {SettingLabels} from "../../../Definitions/Setting";
+import {SettingsObj} from "../../../Definitions/SettingsObj";
+import {baseSettings} from "../../api/utils/expense_utils";
 import moment from "moment";
 
 type Props = {

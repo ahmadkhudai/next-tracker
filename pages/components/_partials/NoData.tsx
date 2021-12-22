@@ -10,7 +10,7 @@ export class NoData extends React.Component<Props, State> {
     render() {
         const message = this.props.customMessage?this.props.customMessage:" Nothing to display. Please add expenses.";
         return (
-            <div className={"ak_card"}>
+            <div className={"ak_card text-center my-2"}>
                 <h3>
                     {message}
                 </h3>

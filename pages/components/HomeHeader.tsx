@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {TPanels} from "../api/component_config/Main/TPanels";
+import {OptionsPanels} from "../api/component_config/Main/OptionsPanels";
 import Link from 'next/link'
 import GraphWindow from "../graphs/GraphWindow";
 import {useRouter} from "next/router";
@@ -32,8 +32,8 @@ export default function HomeHeader(props:Props) {
 
                 {openPanel &&
                     <div className={"w-100 flex align-items-center justify-content-center py-2"}>
-                    <button className="btn hover:bg-teal-400 text-white bg-purple-500 hover:font-black mr-3" onClick={()=>{openPanel(TPanels.AddExpensePanel)}}>add +</button>
-                    <button className="btn border-teal-500 text-teal-700 hover:bg-purple-500 hover:font-bold hover:text-white" onClick={()=>{openPanel(TPanels.SettingsPanel)}}>Settings</button>
+                    <button className="btn hover:bg-teal-400 text-white bg-purple-500 hover:font-black mr-3" onClick={()=>{openPanel(OptionsPanels.AddExpensePanel)}}>add +</button>
+                    <button className="btn border-teal-500 text-teal-700 hover:bg-purple-500 hover:font-bold hover:text-white" onClick={()=>{openPanel(OptionsPanels.SettingsPanel)}}>Settings</button>
                     </div>
                 }
 

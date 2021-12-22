@@ -2,7 +2,6 @@
 import React, {useEffect, useState} from 'react';
 import {SettingsObj} from "../../Definitions/SettingsObj";
 import {Expense} from "../../Definitions/Expense";
-import CurrentWeekView from "../graphs/CurrentWeekView";
 import HomeHeader from "../components/HomeHeader";
 import {
     baseSettings,
@@ -14,13 +13,15 @@ import {
 import {dumdumData} from "../api/dummy_data/data";
 import {v4 as uuidv4} from "uuid";
 import {isGreaterThanToday} from "../api/utils/date_utils";
-import {TPanelLabels, TPanels} from "../api/component_config/Main/TPanels";
+import {OptionsPanels} from "../api/component_config/Main/OptionsPanels";
 import AK_SettingsPanel from "../Forms/AK_SettingsPanel";
 import AddExpenseForm from "../Forms/AddExpenseForm";
 import ModalContainer from "../Framer/ModalContainer";
 import Header from "../components/Header";
-import DateSortedView from "./DateSortedView";
+import DateSortedView from "./_components/DateSortedView";
 import NoData from "../components/_partials/NoData";
+import {HomePanelLabels, HomePanels} from "../api/component_config/HomePanels";
+import CurrentWeekView from "../graphs/CurrentWeekView";
 
 type Props = {
     switchWindow: any;
@@ -29,25 +30,6 @@ type State = {};
 
 
 export function HomePage({switchWindow}: Props) {
-
-    const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(TPanels.none);
-
-
-    function openPanel(panel: TPanels) {
-        if (currentlyOpenPanel === panel) {
-            setCurrentlyOpenPanel(TPanels.none);
-        } else {
-            setCurrentlyOpenPanel(panel);
-        }
-
-    }
-
-    function closeAllPanels(e: MouseEvent) {
-        console.log(e);
-        if (e.target === e.currentTarget) {
-            setCurrentlyOpenPanel(TPanels.none)
-        }
-    }
 
     let loadedExpenses: Expense[] = [];
     let loadedSettings: SettingsObj = baseSettings;
@@ -76,7 +58,7 @@ export function HomePage({switchWindow}: Props) {
         tempObj["id"] = uuidv4();
         //todo never forget
         if (isGreaterThanToday(tempObj.date.toString())) {
-            openPanel(TPanels.err);
+            openPanel(OptionsPanels.err);
             return;
         }
         let newExpenseList = [...expenses, tempObj];
@@ -93,23 +75,44 @@ export function HomePage({switchWindow}: Props) {
 
 
 
-    const [graphableExpenses, setGraphableExpenses] = useState([]);
+    const [graphAbleExpenses, setGraphAbleExpenses] = useState([]);
+    const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(OptionsPanels.none);
+    const [currentHomePanel, setCurrentHomePanel] = useState(HomePanels.Visualize);
 
     useEffect(() => {
 
         if(expenses.length>1){
-            setGraphableExpenses(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
+            setGraphAbleExpenses(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
         }else {
-            setGraphableExpenses([]);
+            setGraphAbleExpenses([]);
         }
     }, [expenses]);
 
 
-    //
-    // return (
-    //     <NoData/>
-    // )
 
+
+
+
+    function openPanel(panel: OptionsPanels) {
+        if (currentlyOpenPanel === panel) {
+            setCurrentlyOpenPanel(OptionsPanels.none);
+        } else {
+            setCurrentlyOpenPanel(panel);
+        }
+
+    }
+
+
+    function closeAllPanels(e: MouseEvent) {
+        if (e.target === e.currentTarget) {
+            setCurrentlyOpenPanel(OptionsPanels.none)
+        }
+    }
+
+    function openHomePanel(panel: HomePanels) {
+        setCurrentHomePanel(panel);
+
+    }
     return (
 
         <div className={""}>
@@ -120,16 +123,16 @@ export function HomePage({switchWindow}: Props) {
                 closeAllPanels(e)
             }}>
 
-                {currentlyOpenPanel === TPanels.err &&
+                {currentlyOpenPanel === OptionsPanels.err &&
                     <ModalContainer handleClose={(e: any) => {
                         closeAllPanels(e)
                     }} message={"Cannot predict future (yet)."} subtitle={"Please try an earlier date."}/>
                 }
 
-                {currentlyOpenPanel === TPanels.SettingsPanel &&
+                {currentlyOpenPanel === OptionsPanels.SettingsPanel &&
                     <AK_SettingsPanel settings={settings} modifySettings={modifySettings}/>
                 }
-                {currentlyOpenPanel === TPanels.AddExpensePanel &&
+                {currentlyOpenPanel === OptionsPanels.AddExpensePanel &&
                     <AddExpenseForm addNewExpense={addNewExpense}/>
 
                 }
@@ -141,23 +144,19 @@ export function HomePage({switchWindow}: Props) {
                             <h3 className={"ak_accent_text text-center font-monospace w-auto"}>Your week so far...</h3>
                         </div>
 
-                        {expenses.length  > 0 && currentlyOpenPanel===TPanels.Visualize &&
-                            <CurrentWeekView expenses={graphableExpenses}/>
+                        {expenses.length  > 0 && currentHomePanel===HomePanels.Visualize &&
+                            <CurrentWeekView expenses={graphAbleExpenses}/>
                         }
                     </div>
-                    {graphableExpenses.length > 1  &&
-                        <Header openSubPanel={openPanel}
-                                panels={[{panelLabel: TPanelLabels.AllExpensesPanel, panel: TPanels.AllExpensesPanel},
-                                    {panelLabel: TPanelLabels.Visualize, panel: TPanels.Visualize}
+                    {graphAbleExpenses.length > 1  &&
+                        <Header openSubPanel={openHomePanel}
+                                panels={[{panelLabel: HomePanelLabels.ExpensesPanel, panel: HomePanels.ExpensesPanel},
+                                    {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize}
                                 ]
                                 }/>
                     }
-                    {/*{graphableExpenses.length > 1 &&*/}
-                    {/*    <Header openSubPanel={openPanel}*/}
-                    {/*            panels={[{panelLabel: TPanelLabels.AllExpensesPanel, panel: TPanels.AllExpensesPanel},{panelLabel: TPanelLabels.Visualize, panel: TPanels.Visualize}]}/>*/}
-                    {/*}*/}
 
-                    {expenses.length > 0 && (currentlyOpenPanel === TPanels.AllExpensesPanel || graphableExpenses.length <= 1 || currentlyOpenPanel!==TPanels.Visualize) &&
+                    {expenses.length > 0 && (currentHomePanel === HomePanels.ExpensesPanel || graphAbleExpenses.length <= 1) &&
                         <div className={" p-3 m-0 ak_max_600px w-100 bg-teal-100/60"}>
 
                                 <div>
