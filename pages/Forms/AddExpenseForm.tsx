@@ -75,7 +75,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
     return (
 
         <div className={" w-full ak_max_600px flex flex-column my-3 bg-white/90 hover:bg-gray-200/30 ak_slow_transition p-3 "}>
-            <button className={"btn absolute align-self-end ak_close_button"} onClick={()=>{handleClose()}}>X</button>
+            <button className={"btn absolute align-self-end ak_close_button hover:bg-teal-300"} onClick={()=>{handleClose()}}>X</button>
 
             <h4 className={"h4 text-teal-700 hover:text-purple-700 text-center p-2"}>new expense</h4>
             <div id="expense_form" className="pt-3 ">
@@ -209,7 +209,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
                 <div className="form-group">
                     <button
-                        className="h2 text-4xl btn text-white hover:font-bold bg-teal-400 border-teal-300 w-100 h-100 py-4"
+                        className=" text-3xl btn text-white hover:font-bold bg-teal-400 border-teal-300 w-100 h-100 py-4"
                         onClick={() => {
                             addNewExpense(newExpense);
                             setNewExpense(defaultExpense);

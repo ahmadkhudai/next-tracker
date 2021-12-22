@@ -57,8 +57,8 @@ export function CurrentWeekView({expenses}:Props) {
 
                         <defs>
                             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="10%" stopColor="#8454ff" stopOpacity={0.9}/>
-                                <stop offset="85%" stopColor="#23ffd0" stopOpacity={0.3}/>
+                                <stop offset="10%" stopColor="#a855f7" stopOpacity={0.9}/>
+                                <stop offset="85%" stopColor="#2dd4bf" stopOpacity={0.3}/>
                             </linearGradient>
                         </defs>
 

@@ -143,27 +143,27 @@ export function HomePage({switchWindow}: Props) {
                     <div className={"py-4"}>
                         <div>
                             <h1 className={"h3 text-center w-auto "}>Expense Tracker</h1>
-                            <h3 className={"ak_accent_text text-center font-monospace w-auto"}>Your week so far...</h3>
+                            <h3 className={"ak_accent_text text-center font-monospace w-auto "}>Your week so far...</h3>
                         </div>
 
+
                         {expenses.length  > 0 && currentHomePanel===HomePanels.Visualize &&
+                            <div className={" ak_max_600px w-100 h-[65vh]"}>
+
+                            <div className={"h-[55vh] "}>
                             <CurrentWeekView expenses={graphAbleExpenses}/>
+                            </div>
+                            </div>
                         }
                     </div>
-                    {graphAbleExpenses.length > 1  &&
-                        <Header openSubPanel={openHomePanel}
-                                panels={[{panelLabel: HomePanelLabels.ExpensesPanel, panel: HomePanels.ExpensesPanel},
-                                    {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize}
-                                ]
-                                }/>
-                    }
+
 
                     {expenses.length > 0 && (currentHomePanel === HomePanels.ExpensesPanel || graphAbleExpenses.length <= 1) &&
-                        <div className={" p-3 m-0 ak_max_600px w-100 bg-teal-100/60"}>
+                        <div className={" ak_max_600px w-100 bg-teal-100/60 h-[65vh]"}>
 
-                                <div>
+                                <div className={"h-[55vh] "}>
                                     <h1 className={"font-monospace h5 text-center pt-2"}>your expenses this week</h1>
-                                    <div className={" p-4 pt-3 scrollable  rounded"} style={{
+                                    <div className={"  pt-3 scrollable h-100 py-3 rounded  flex justify-content-center align-items-center"} style={{
                                         "height": "300px",
                                         overflowX: "hidden"
                                     }}>
@@ -176,6 +176,13 @@ export function HomePage({switchWindow}: Props) {
 
 
                         </div>
+                    }
+                    {graphAbleExpenses.length > 1  &&
+                        <Header openSubPanel={openHomePanel}
+                                panels={[{panelLabel: HomePanelLabels.ExpensesPanel, panel: HomePanels.ExpensesPanel},
+                                    {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize}
+                                ]
+                                }/>
                     }
                     {expenses.length < 1 &&
                         <NoData/>
