@@ -209,11 +209,11 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
                 <div className="form-group">
                     <button
-                        className="btn hover:text-white hover:font-bold hover:bg-teal-400 border-teal-300 w-100 h-100 py-4"
+                        className="h2 text-4xl btn text-white hover:font-bold bg-teal-400 border-teal-300 w-100 h-100 py-4"
                         onClick={() => {
                             addNewExpense(newExpense);
                             setNewExpense(defaultExpense);
-                        }}>ADD EXPENSE
+                        }}>add expense
                     </button>
                 </div>
 

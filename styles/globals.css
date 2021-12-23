@@ -43,12 +43,10 @@
 #expense li {
   color: black;
   border: none;
-  background-color: #f1f1f1;
 }
 
 #expense {
   border-radius: 5px;
-  background-color: #f1f1f1;
 }
 
 .red_text {
