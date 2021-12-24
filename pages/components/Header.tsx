@@ -26,16 +26,16 @@ export default function Header(props:Props) {
 
     return (
 
-            <div className=" container flex justify-content-center py-5 position-sticky bottom-0 bg-white ">
+            <div className=" container flex justify-content-center py-4 position-fixed bottom-0  w-100 align-items-center ">
 
-                <div className={"py-3  bg-red-100"}>
+                <div className={"h-100 100 bg-gray-200 p-4 rounded-2"}>
                     {!panels &&
-                        <button className="btn btn-outline-dark mr-3" onClick={()=>{openSubPanel(GraphPanels.grouped)}}>Grouped Expenses</button>
+                        <button className="btn btn-outline-dark bg-white mr-3" onClick={()=>{openSubPanel(GraphPanels.grouped)}}>Grouped Expenses</button>
                     }
 
                     {panels &&
                         panels.map(panel =>
-                            <button key={panel.panelLabel} className="btn btn-outline-dark mr-3" onClick={()=>{openSubPanel(panel.panel)}}>{panel.panelLabel}</button>
+                            <button key={panel.panelLabel} className="btn btn-outline-dark bg-white mr-3" onClick={()=>{openSubPanel(panel.panel)}}>{panel.panelLabel}</button>
                         )
                          }
 
