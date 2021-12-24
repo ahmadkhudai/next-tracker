@@ -267,6 +267,9 @@ export function HomePage({switchWindow}: Props) {
                 {currentHomePanel===HomePanels.none && (graphAbleExpenses.length < 1) &&
                 <NoData customMessage={"Nothing to show here."}/>
             }
+
+            <div className={"h-25 py-2 bg-white"}></div>
+            </div>
             {graphAbleExpenses.length > 1  &&
                 <Header openSubPanel={openHomePanel}
                         panels={[{panelLabel: HomePanelLabels.ExpensesPanel, panel: HomePanels.ExpensesPanel},
@@ -274,8 +277,6 @@ export function HomePage({switchWindow}: Props) {
                         ]
                         }/>
             }
-            </div>
-
         </div>
 
 
