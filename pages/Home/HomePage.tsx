@@ -194,7 +194,7 @@ export function HomePage({switchWindow}: Props) {
             <HomeHeader switchWindow={switchWindow} openPanel={openPanel}/>
 
 
-            <div className={"w-100 flex items-center justify-center flex-column px-3"} onClick={(e: any) => {
+            <div className={"wrapper w-100 flex items-center justify-center flex-column px-3"} onClick={(e: any) => {
                 closeAllPanels(e)
             }}>
 
@@ -211,7 +211,7 @@ export function HomePage({switchWindow}: Props) {
                     <AddExpenseForm addNewExpense={addNewExpense} handleClose={()=>openPanel(OptionsPanels.AddExpensePanel)}/>
 
                 }
-                <div className={"flex items-center flex-column justify-center ak_max_600px w-100 "}>
+                <div className={"wrapper_inner scrollable flex items-center flex-column justify-center ak_max_600px w-100 "}>
 
 
 
@@ -261,19 +261,20 @@ export function HomePage({switchWindow}: Props) {
 
                         </div>
                     }
-                    {graphAbleExpenses.length > 1  &&
-                        <Header openSubPanel={openHomePanel}
-                                panels={[{panelLabel: HomePanelLabels.ExpensesPanel, panel: HomePanels.ExpensesPanel},
-                                    {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize}
-                                ]
-                                }/>
-                    }
+
 
                 </div>
                 {currentHomePanel===HomePanels.none && (graphAbleExpenses.length < 1) &&
                 <NoData customMessage={"Nothing to show here."}/>
             }
             </div>
+            {graphAbleExpenses.length > 1  &&
+            <Header openSubPanel={openHomePanel}
+                    panels={[{panelLabel: HomePanelLabels.ExpensesPanel, panel: HomePanels.ExpensesPanel},
+                        {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize}
+                    ]
+                    }/>
+        }
         </div>
 
 

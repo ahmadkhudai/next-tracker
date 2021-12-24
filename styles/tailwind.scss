@@ -411,7 +411,15 @@ $finalWidth: $finalHeight*2;
 //  height: $scrollBarHeight;
 //}
 
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
+.wrapper_inner{
+  overflow: auto;
+}
 
 
 

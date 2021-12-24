@@ -26,7 +26,7 @@ export default function Header(props:Props) {
 
     return (
 
-            <div className="my-3 container flex justify-content-center">
+            <div className="my-3 container flex justify-content-center py-2 position-sticky bottom-0 bg-white z-[1000]">
 
                 <div>
                     {!panels &&

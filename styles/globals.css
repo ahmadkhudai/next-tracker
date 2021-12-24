@@ -286,4 +286,14 @@ div.scrollable::-webkit-scrollbar {
   display: none;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.wrapper_inner {
+  overflow: auto;
+}
+
 /*# sourceMappingURL=globals.css.map */

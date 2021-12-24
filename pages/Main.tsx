@@ -44,7 +44,7 @@ export function Main() {
 
 
     return (
-        <div className={"h-full p-0"}
+        <div className={"h-[100vh] overflow-y-scroll p-0"}
         >
 
             {currentWindow === MainWindows.graphs &&
