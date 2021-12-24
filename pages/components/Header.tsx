@@ -4,6 +4,7 @@ import {useRouter} from "next/router";
 import {GraphPanels} from "../api/component_config/graphs/GraphPanels";
 import {OptionPanelLabels, OptionsPanels} from "../api/component_config/Main/OptionsPanels";
 import {HomePanelLabels, HomePanels} from "../api/component_config/HomePanels";
+import TealButton from "./buttons/TealButton";
 
 
 type Props = {
@@ -28,14 +29,14 @@ export default function Header(props:Props) {
 
             <div id={"footer"} className=" container flex justify-content-center py-4  bottom-0  w-100 align-items-center bg-white/90 ">
 
-                <div className={""}>
+                <div className={"container flex w-100 justify-content-center align-items-center"}>
                     {!panels &&
                         <button className="btn btn-outline-dark bg-white/50 hover:bg-black  mr-3" onClick={()=>{openSubPanel(GraphPanels.grouped)}}>Grouped Expenses</button>
                     }
 
                     {panels &&
                         panels.map(panel =>
-                            <button key={panel.panelLabel} className="btn btn-outline-dark bg-white/50 hover:bg-black mr-3" onClick={()=>{openSubPanel(panel.panel)}}>{panel.panelLabel}</button>
+                            <TealButton key={panel.panelLabel} styleClasses=" font-bold  mr-3" onClick={()=>{openSubPanel(panel.panel)}} text={panel.panelLabel}/>
                         )
                          }
 

@@ -223,7 +223,7 @@ export function HomePage({switchWindow}: Props) {
                         <div className={"flex align-items-center justify-content-center m-2 mt-3"} >
                             <div className={"flex align-items-center justify-end bg-gray-100    rounded w-75 "}>
                                 <div className={"flex align-items-center justify-content-center w-75"}>
-                                    <LabelPurple styleClasses={" font-bold text-xl w-100 text-center   "} text={viewMode}/>
+                                    <LabelPurple styleClasses={" font-bold text-xl w-75 text-center   "} text={viewMode}/>
                                 </div>
                                 <TealButton styleClasses={" px-2 py-2 w-25 align-self-end text-sm"} text={ViewModesDir[nextViewMode] } onClick={()=>{updateViewMode()}}/>
 
