@@ -2,7 +2,7 @@ import {Expense} from "./Expense";
 
 type SummaryExpense = {
     valueX:string|number,
-    valueY:Expense[]
+    valueY:Expense
 }
 
 export default SummaryExpense;

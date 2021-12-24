@@ -6,8 +6,8 @@ import HomeHeader from "../components/HomeHeader";
 import {
     baseSettings, getCurrentMonthsExpenses,
     getCurrentWeeksExpenses, getRenderableCurrentMONTHsExpenses,
-    getRenderableCurrentWeeksExpenses,
-    getSortedExpenses,
+    getRenderableCurrentWeeksExpenses, getRenderableTODAYsExpenses,
+    getSortedExpenses, getTodaysExpenses,
     sortfunction
 } from "../api/utils/expense_utils";
 import {dumdumData} from "../api/dummy_data/data";
@@ -25,6 +25,8 @@ import CurrentVisual from "../graphs/CurrentVisual";
 import {ViewModes, ViewModesDir} from "../api/component_config/ViewModes";
 import TealButton from "../components/buttons/TealButton";
 import LabelPurple from "../components/labels/LabelPurple";
+import moment from "moment";
+import {Day} from "../../constants/day";
 
 type Props = {
     switchWindow: any;
@@ -118,15 +120,31 @@ export function HomePage({switchWindow}: Props) {
     useEffect(() => {
         if(expenses.length>1){
         if(viewMode===ViewModes.today){
+            if(moment(expenses[0].date).date()===moment(new Date()).date()){
+                setCurrentExpenses(getRenderableTODAYsExpenses(getSortedExpenses(expenses)));
+                setGraphAbleExpenses(getTodaysExpenses(getSortedExpenses(expenses)));
+            }else{
+                setCurrentExpenses([]);
+                setGraphAbleExpenses([]);
+            }
 
+            console.log(graphAbleExpenses);
         }
         if(viewMode===ViewModes.month){
             setCurrentExpenses(getRenderableCurrentMONTHsExpenses(getSortedExpenses(expenses)));
             setGraphAbleExpenses(getCurrentMonthsExpenses(getSortedExpenses(expenses)));
+            console.log(graphAbleExpenses);
         }
         if(viewMode===ViewModes.week){
-            setCurrentExpenses(getRenderableCurrentWeeksExpenses(getSortedExpenses(expenses)));
-            setGraphAbleExpenses(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
+            if(moment(expenses[0].date).format("YYYY-MM")===moment(new Date()).format("YYYY-MM")
+                && moment(expenses[0].date).week()===moment(new Date()).week()){
+                setCurrentExpenses(getRenderableCurrentWeeksExpenses(getSortedExpenses(expenses)));
+                setGraphAbleExpenses(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
+            }else{
+                setCurrentExpenses([]);
+                setGraphAbleExpenses([]);
+            }
+
         }
 
 
@@ -186,7 +204,7 @@ export function HomePage({switchWindow}: Props) {
                                 <div className={"flex align-items-center justify-content-center w-75"}>
                                     <LabelPurple styleClasses={" font-bold text-xl w-100 text-center   "} text={viewMode}/>
                                 </div>
-                                <TealButton styleClasses={" px-2 py-2 w-25 align-self-end"} text={ViewModesDir[nextViewMode] } onClick={()=>{updateViewMode()}}/>
+                                <TealButton styleClasses={" px-2 py-2 w-25 align-self-end"} text={"switch to " + ViewModesDir[nextViewMode] } onClick={()=>{updateViewMode()}}/>
 
                             </div>
                         </div>
@@ -207,7 +225,7 @@ export function HomePage({switchWindow}: Props) {
                         <div className={" w-100 bg-teal-100/60 h-100"}>
 
                                 <div className={"p-1"}>
-                                    <h1 className={"font-monospace h5 text-center pt-2"}>your expenses this week</h1>
+                                    <h1 className={"font-monospace h5 text-center pt-2"}>your expenses this {viewMode===ViewModes.today?"day":viewMode}</h1>
                                     <div className={"scrollable py-3 rounded flex justify-content-center align-items-center"} style={{
                                         "height": "500px",
                                         overflowX: "hidden",
@@ -229,7 +247,7 @@ export function HomePage({switchWindow}: Props) {
                                 ]
                                 }/>
                     }
-                    {currentExpenses.length < 1 &&
+                    {currentExpenses.length < 1 && !(viewMode===ViewModes.today && currentExpenses.length==1) &&
                         <NoData customMessage={"Nothing to show here."}/>
                     }
                 </div>

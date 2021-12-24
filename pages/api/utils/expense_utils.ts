@@ -9,6 +9,7 @@ import GroupedSummaryExpenses from "../../../Definitions/GroupedSummaryExpenses"
 import SummaryExpense from "../../../Definitions/SummaryExpense";
 import expense from "../../Home/_components/Expense";
 import exp from "constants";
+import summaryExpense from "../../../Definitions/SummaryExpense";
 export function sortfunction(a:Expense,b:Expense){
     // Turn your strings into dates, and then subtract them
     // to get a value that is either negative, positive, or zero.
@@ -231,8 +232,8 @@ export function getCurrentMonthsExpenses(groupedExpenses:GroupedExpenses):Expens
         return [];
     }
 
-
 }
+
 
 export function getRenderableCurrentMONTHsExpenses(groupedExpenses:GroupedExpenses):Expense[]{
     let currentMonth = moment(new Date()).month();
@@ -241,7 +242,6 @@ export function getRenderableCurrentMONTHsExpenses(groupedExpenses:GroupedExpens
     let monthlyExpenses = groupByMonth(groupedExpenses);
     let expenseLists:any = [];
     expenseLists= monthlyExpenses[monthlyExpenses.length-1][currentMonth];
-    // console.log(expenseLists);
     let mergedExpenseList:Expense[] = [];
     if(expenseLists){
         expenseLists.forEach((expenseList:Expense[]) => {
@@ -249,12 +249,53 @@ export function getRenderableCurrentMONTHsExpenses(groupedExpenses:GroupedExpens
                 mergedExpenseList.push({...expense, date:getDateString(expense.date)});
             })
         })
-        console.log("HERERE", mergedExpenseList);
         return  mergedExpenseList;
     }else {
         return [];
     }
 }
-export function getHello(){
-    return "Yellow";
+
+export function getTodaysExpenses(groupedExpenses:GroupedExpenses){
+    //todo add proper typing
+    let testExpenses:any = {};
+
+    let expensesList = groupedExpenses[(new Date()).toDateString()];
+    expensesList.forEach(expense => {
+        let currHour = moment(expense.date).format("hh:mm a");
+        if(!testExpenses[currHour]){
+            testExpenses[currHour] = {date:currHour, expense:expense.price}
+        }else{
+            testExpenses[currHour].expense+=expense.price;
+        }
+
+    })
+
+    let todaysExpenses:any = [];
+    Object.values(testExpenses).forEach((summaryExpense:any) => {
+        todaysExpenses.push(summaryExpense)
+    })
+    console.log(todaysExpenses);
+    return todaysExpenses;
+}
+
+export function getRenderableTODAYsExpenses(groupedExpenses:GroupedExpenses):Expense[]{
+    let expenses:Expense[] = [];
+
+
+    let expensesList = groupedExpenses[(new Date()).toDateString()];
+    // expensesList.forEach(expense => {
+    //     let currHour:string = moment(expense.date).format("hh a");
+    //     if(!expenses[currHour]){
+    //         testExpenses[currHour] = {date:currHour, expense:expense.price}
+    //     }else{
+    //         testExpenses[currHour].expense+=expense.price;
+    //     }
+    //
+    // })
+    // return testExpenses;
+    if(expensesList){
+        return expensesList;
+    }
+
+    return expenses;
 }
