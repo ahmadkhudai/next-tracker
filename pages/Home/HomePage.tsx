@@ -269,12 +269,12 @@ export function HomePage({switchWindow}: Props) {
             }
             </div>
             {graphAbleExpenses.length > 1  &&
-            <Header openSubPanel={openHomePanel}
-                    panels={[{panelLabel: HomePanelLabels.ExpensesPanel, panel: HomePanels.ExpensesPanel},
-                        {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize}
-                    ]
-                    }/>
-        }
+                <Header openSubPanel={openHomePanel}
+                        panels={[{panelLabel: HomePanelLabels.ExpensesPanel, panel: HomePanels.ExpensesPanel},
+                            {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize}
+                        ]
+                        }/>
+            }
         </div>
 
 
