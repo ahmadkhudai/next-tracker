@@ -26,9 +26,9 @@ export default function Header(props:Props) {
 
     return (
 
-            <div className=" container flex justify-content-center py-5 position-sticky bottom-0 bg-white h-[10px]">
+            <div className=" container flex justify-content-center py-5 position-sticky bottom-0 bg-white ">
 
-                <div>
+                <div className={"py-3  bg-red-100"}>
                     {!panels &&
                         <button className="btn btn-outline-dark mr-3" onClick={()=>{openSubPanel(GraphPanels.grouped)}}>Grouped Expenses</button>
                     }
