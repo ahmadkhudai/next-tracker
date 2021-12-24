@@ -176,7 +176,7 @@ export function HomePage({switchWindow}: Props) {
 
 
 
-                    <div className={"py-4 w-75"}>
+                    <div className={"py-4"}>
                         <div>
                             <h1 className={"h3 text-center w-auto "}>Expense Tracker</h1>
                             <h3 className={"ak_accent_text text-center font-monospace w-auto "}>Your {viewMode===ViewModes.today?"day":viewMode} so far...</h3>
