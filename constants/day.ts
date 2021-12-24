@@ -1,7 +1,7 @@
-type numberIndexedStrings ={
+export type NumberIndexedStrings ={
     [key:number]:string;
 }
-export const Day: numberIndexedStrings = {
+export const Day: NumberIndexedStrings = {
     0: "sunday",
     1: "monday",
     2: "tuesday",

@@ -4,8 +4,8 @@ import {SettingsObj} from "../../Definitions/SettingsObj";
 import {Expense} from "../../Definitions/Expense";
 import HomeHeader from "../components/HomeHeader";
 import {
-    baseSettings,
-    getCurrentWeeksExpenses,
+    baseSettings, getCurrentMonthsExpenses,
+    getCurrentWeeksExpenses, getRenderableCurrentMONTHsExpenses,
     getRenderableCurrentWeeksExpenses,
     getSortedExpenses,
     sortfunction
@@ -21,7 +21,10 @@ import Header from "../components/Header";
 import DateSortedView from "./_components/DateSortedView";
 import NoData from "../components/_partials/NoData";
 import {HomePanelLabels, HomePanels} from "../api/component_config/HomePanels";
-import CurrentWeekView from "../graphs/CurrentWeekView";
+import CurrentVisual from "../graphs/CurrentVisual";
+import {ViewModes, ViewModesDir} from "../api/component_config/ViewModes";
+import TealButton from "../components/buttons/TealButton";
+import LabelPurple from "../components/labels/LabelPurple";
 
 type Props = {
     switchWindow: any;
@@ -35,6 +38,7 @@ export function HomePage({switchWindow}: Props) {
     let loadedExpenses: Expense[] = [];
     let loadedSettings: SettingsObj = baseSettings;
     const [expenses, setExpenses] = useState(loadedExpenses);
+    const [currentExpenses, setCurrentExpenses] = useState([] as Expense[]);
     const [settings, setSettings] = useState(loadedSettings);
 
     useEffect(() => {
@@ -81,10 +85,12 @@ export function HomePage({switchWindow}: Props) {
 
 
     //visual state
-    const [graphAbleExpenses, setGraphAbleExpenses] = useState([]);
+    const [graphAbleExpenses, setGraphAbleExpenses] = useState([] as Expense[]);
     const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(OptionsPanels.none);
     const [currentHomePanel, setCurrentHomePanel] = useState(HomePanels.Visualize);
 
+    const [viewMode, setViewMode] = useState(ViewModes.week);
+    const [nextViewMode, setNextViewMode] = useState(1);
 
 
 
@@ -107,14 +113,42 @@ export function HomePage({switchWindow}: Props) {
         setCurrentHomePanel(panel);
 
     }
-    useEffect(() => {
 
+    //react to change
+    useEffect(() => {
         if(expenses.length>1){
+        if(viewMode===ViewModes.today){
+
+        }
+        if(viewMode===ViewModes.month){
+            setCurrentExpenses(getRenderableCurrentMONTHsExpenses(getSortedExpenses(expenses)));
+            setGraphAbleExpenses(getCurrentMonthsExpenses(getSortedExpenses(expenses)));
+        }
+        if(viewMode===ViewModes.week){
+            setCurrentExpenses(getRenderableCurrentWeeksExpenses(getSortedExpenses(expenses)));
             setGraphAbleExpenses(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
+        }
+
+
         }else {
             setGraphAbleExpenses([]);
         }
-    }, [expenses]);
+    }, [expenses, viewMode]);
+
+
+    function updateViewMode() {
+
+        setViewMode(ViewModesDir[nextViewMode] as ViewModes);
+        setNextViewMode((nextViewMode+1)%3);
+    }
+
+    function getGraphY(viewMode:ViewModes){
+        if(viewMode==ViewModes.today){
+            return "Hour"
+        }
+
+            return "Day"
+    }
     return (
 
         <div className={""}>
@@ -138,12 +172,23 @@ export function HomePage({switchWindow}: Props) {
                     <AddExpenseForm addNewExpense={addNewExpense} handleClose={()=>openPanel(OptionsPanels.AddExpensePanel)}/>
 
                 }
-                <div className={"flex items-center flex-column justify-center "}>
+                <div className={"flex items-center flex-column justify-center ak_max_600px w-100 "}>
 
-                    <div className={"py-4"}>
+
+
+                    <div className={"py-4 w-75"}>
                         <div>
                             <h1 className={"h3 text-center w-auto "}>Expense Tracker</h1>
-                            <h3 className={"ak_accent_text text-center font-monospace w-auto "}>Your week so far...</h3>
+                            <h3 className={"ak_accent_text text-center font-monospace w-auto "}>Your {viewMode===ViewModes.today?"day":viewMode} so far...</h3>
+                        </div>
+                        <div className={"flex align-items-center justify-content-center m-2 mt-3"} >
+                            <div className={"flex align-items-center justify-end bg-gray-100    rounded w-75 "}>
+                                <div className={"flex align-items-center justify-content-center w-75"}>
+                                    <LabelPurple styleClasses={" font-bold text-xl w-100 text-center   "} text={viewMode}/>
+                                </div>
+                                <TealButton styleClasses={" px-2 py-2 w-25 align-self-end"} text={ViewModesDir[nextViewMode] } onClick={()=>{updateViewMode()}}/>
+
+                            </div>
                         </div>
 
 
@@ -151,15 +196,15 @@ export function HomePage({switchWindow}: Props) {
                             <div className={" ak_max_600px w-100 h-[65vh]"}>
 
                             <div className={"h-[55vh] "}>
-                            <CurrentWeekView expenses={graphAbleExpenses}/>
+                            <CurrentVisual nameOfX={"Money Spent"} nameOfY={getGraphY(viewMode)} expenses={graphAbleExpenses}/>
                             </div>
                             </div>
                         }
                     </div>
 
 
-                    {expenses.length > 0 && (currentHomePanel === HomePanels.ExpensesPanel) &&
-                        <div className={" ak_max_600px w-100 bg-teal-100/60 h-100"}>
+                    {currentExpenses.length > 0 && (currentHomePanel === HomePanels.ExpensesPanel) &&
+                        <div className={" w-100 bg-teal-100/60 h-100"}>
 
                                 <div className={"p-1"}>
                                     <h1 className={"font-monospace h5 text-center pt-2"}>your expenses this week</h1>
@@ -168,7 +213,7 @@ export function HomePage({switchWindow}: Props) {
                                         overflowX: "hidden",
                                     }}>
                                         <DateSortedView
-                                            expenses={getRenderableCurrentWeeksExpenses(getSortedExpenses(expenses))}
+                                            expenses={currentExpenses}
                                             settings={settings} deleteExpense={deleteExpense}/>
                                     </div>
 
@@ -184,8 +229,8 @@ export function HomePage({switchWindow}: Props) {
                                 ]
                                 }/>
                     }
-                    {expenses.length < 1 &&
-                        <NoData/>
+                    {currentExpenses.length < 1 &&
+                        <NoData customMessage={"Nothing to show here."}/>
                     }
                 </div>
             </div>

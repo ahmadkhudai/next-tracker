@@ -1,24 +1,22 @@
 // @flow
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {
-    getCurrentWeeksExpenses,
-    getSortedExpenses
-} from "../api/utils/expense_utils";
-import {Expense} from "../../Definitions/Expense";
 import {Area, CartesianGrid, Tooltip, XAxis, YAxis,ComposedChart, Line} from 'recharts';
-import {SettingsObj} from "../../Definitions/SettingsObj";
-import exp from "constants";
+import SummaryExpense from "../../Definitions/SummaryExpense";
+import {Expense} from "../../Definitions/Expense";
+
 
 type Props = {
-    expenses:any;
+    nameOfX:string;
+    nameOfY:string;
+    expenses:Expense[];
 };
 type State = {};
 
-export function CurrentWeekView({expenses}:Props) {
+export function CurrentVisual({expenses, nameOfX, nameOfY}:Props) {
 
 
-    const [displayData, setDisplayData] = useState([] as Expense[]);
+    const [displayData, setDisplayData] = useState([] as  Expense[]);
     const [graphWidth, setGraphWidth] = useState(500);
 
 
@@ -34,7 +32,6 @@ export function CurrentWeekView({expenses}:Props) {
 
     useEffect(() => {
         setDisplayData(expenses);
-            // setDisplayData(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
     }, [expenses]);
 
 
@@ -70,7 +67,7 @@ export function CurrentWeekView({expenses}:Props) {
                         <Line type="monotone" strokeLinecap="round" strokeWidth={2}
                               style={{strokeDasharray: `40% 60%`}}
                               dataKey="date"
-                              name={"Day"}
+                              name={nameOfY}
                               stroke="#932bfa"
                               dot={false}
                               legendType="none"
@@ -79,12 +76,12 @@ export function CurrentWeekView({expenses}:Props) {
                               style={{strokeDasharray: `0 60% 40%`}}
 
                               stroke="#7A58BF"
-                              name={"Money Spent"}
+                              name={nameOfX}
                               dot={false}
                               legendType="none"
                         />
                         <Area type="monotone"
-                              name={"Money Spent"} dataKey="expense" strokeWidth={2} fillOpacity={1}
+                              name={nameOfX} dataKey="expense" strokeWidth={2} fillOpacity={1}
                               fill="url(#colorUv)"/>
                     </ComposedChart>
 
@@ -103,4 +100,4 @@ export function CurrentWeekView({expenses}:Props) {
     );
 }
 
-export default CurrentWeekView;
+export default CurrentVisual;
