@@ -173,6 +173,7 @@ export function getCurrentWeeksExpenses(groupedExpenses:GroupedExpenses){
  */
 export function getRenderableCurrentWeeksExpenses(groupedExpenses:GroupedExpenses){
     let currentWeek = moment(new Date()).week();
+
     let weeklyExpenses = groupByWeek(groupedExpenses);
     let expenseLists:any = [];
     expenseLists= weeklyExpenses[weeklyExpenses.length-1][currentWeek];
@@ -216,7 +217,6 @@ return monthWiseExpenses;
 export function getCurrentMonthsExpenses(groupedExpenses:GroupedExpenses):Expense[]{
     let currentMonth = moment(new Date()).month();
 
-
     let monthlyExpenses = groupByMonth(groupedExpenses);
     let expenseLists:any = [];
     expenseLists= monthlyExpenses[monthlyExpenses.length-1][currentMonth];
@@ -257,20 +257,25 @@ export function getRenderableCurrentMONTHsExpenses(groupedExpenses:GroupedExpens
 
 export function getTodaysExpenses(groupedExpenses:GroupedExpenses){
     //todo add proper typing
+    let todaysExpenses:any = [];
     let testExpenses:any = {};
 
+
     let expensesList = groupedExpenses[(new Date()).toDateString()];
+    if(!expensesList){
+        return todaysExpenses;
+    }
     expensesList.forEach(expense => {
         let currHour = moment(expense.date).format("hh:mm a");
         if(!testExpenses[currHour]){
-            testExpenses[currHour] = {date:currHour, expense:expense.price}
+            testExpenses[currHour] = {date:moment(expense.date).format("dd/MM hh:mm a"), expense:expense.price}
         }else{
             testExpenses[currHour].expense+=expense.price;
         }
 
     })
 
-    let todaysExpenses:any = [];
+
     Object.values(testExpenses).forEach((summaryExpense:any) => {
         todaysExpenses.push(summaryExpense)
     })

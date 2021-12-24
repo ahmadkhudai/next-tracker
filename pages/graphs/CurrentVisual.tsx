@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 import {Area, CartesianGrid, Tooltip, XAxis, YAxis,ComposedChart, Line} from 'recharts';
 import SummaryExpense from "../../Definitions/SummaryExpense";
 import {Expense} from "../../Definitions/Expense";
+import moment from "moment";
 
 
 type Props = {
@@ -59,7 +60,7 @@ export function CurrentVisual({expenses, nameOfX, nameOfY}:Props) {
                             </linearGradient>
                         </defs>
 
-                        <XAxis dataKey="date" axisLine={false} reversed={true} height={30}/>
+                        <XAxis dataKey={obj => moment(obj.date).format("MM/DD")} axisLine={false} reversed={true} height={30}/>
                         <CartesianGrid vertical={false} opacity={0.4}/>
                         <YAxis width={10} axisLine={false}/>
                         <Tooltip/>
@@ -74,7 +75,6 @@ export function CurrentVisual({expenses, nameOfX, nameOfY}:Props) {
                         />
                         <Line type="monotone" strokeLinecap="round" strokeWidth={2}
                               style={{strokeDasharray: `0 60% 40%`}}
-
                               stroke="#7A58BF"
                               name={nameOfX}
                               dot={false}

@@ -4,10 +4,14 @@ import {SettingsObj} from "../../Definitions/SettingsObj";
 import {Expense} from "../../Definitions/Expense";
 import HomeHeader from "../components/HomeHeader";
 import {
-    baseSettings, getCurrentMonthsExpenses,
-    getCurrentWeeksExpenses, getRenderableCurrentMONTHsExpenses,
-    getRenderableCurrentWeeksExpenses, getRenderableTODAYsExpenses,
-    getSortedExpenses, getTodaysExpenses,
+    baseSettings,
+    getCurrentMonthsExpenses,
+    getCurrentWeeksExpenses,
+    getRenderableCurrentMONTHsExpenses,
+    getRenderableCurrentWeeksExpenses,
+    getRenderableTODAYsExpenses,
+    getSortedExpenses,
+    getTodaysExpenses,
     sortfunction
 } from "../api/utils/expense_utils";
 import {dumdumData} from "../api/dummy_data/data";
@@ -25,7 +29,6 @@ import CurrentVisual from "../graphs/CurrentVisual";
 import {ViewModes, ViewModesDir} from "../api/component_config/ViewModes";
 import TealButton from "../components/buttons/TealButton";
 import LabelPurple from "../components/labels/LabelPurple";
-import moment from "moment";
 import {Day} from "../../constants/day";
 
 type Props = {
@@ -50,7 +53,11 @@ export function HomePage({switchWindow}: Props) {
 
 
     function modifyExpenses(modifiedExpenses: Expense[]) {
+        console.log("before sort: ", modifiedExpenses);
         modifiedExpenses = modifiedExpenses.sort(sortfunction);
+        console.log("after sort: ", modifiedExpenses);
+
+        console.log(modifiedExpenses.length);
         setExpenses(modifiedExpenses);
         localStorage.setItem("ak_expenses", JSON.stringify(modifiedExpenses));
     }
@@ -73,15 +80,23 @@ export function HomePage({switchWindow}: Props) {
             openPanel(OptionsPanels.err);
             return;
         }
+        tempObj.date = tempObj.date.toString();
         let newExpenseList = [...expenses, tempObj];
-        setExpenses(newExpenseList);
-        localStorage.setItem("ak_expenses", JSON.stringify(newExpenseList));
+        modifyExpenses(newExpenseList);
+        // setExpenses(newExpenseList);
+        // localStorage.setItem("ak_expenses", JSON.stringify(newExpenseList));
     }
 
     function deleteExpense(toDelete: Expense) {
+
+        if(expenses.length===1){
+            modifyExpenses([]);
+            setExpenses([]);
+            return;
+        }
         let newExpenseList = expenses.filter((expense: Expense) => expense.id !== toDelete.id);
-        setExpenses(newExpenseList);
-        localStorage.setItem("ak_expenses", JSON.stringify(newExpenseList));
+        modifyExpenses(newExpenseList);
+        // localStorage.setItem("ak_expenses", JSON.stringify(newExpenseList));
 
     }
 
@@ -89,7 +104,7 @@ export function HomePage({switchWindow}: Props) {
     //visual state
     const [graphAbleExpenses, setGraphAbleExpenses] = useState([] as Expense[]);
     const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(OptionsPanels.none);
-    const [currentHomePanel, setCurrentHomePanel] = useState(HomePanels.Visualize);
+    const [currentHomePanel, setCurrentHomePanel] = useState(HomePanels.none);
 
     const [viewMode, setViewMode] = useState(ViewModes.week);
     const [nextViewMode, setNextViewMode] = useState(1);
@@ -118,40 +133,46 @@ export function HomePage({switchWindow}: Props) {
 
     //react to change
     useEffect(() => {
+        let stateUpdated = false;
         if(expenses.length>1){
         if(viewMode===ViewModes.today){
-            if(moment(expenses[0].date).date()===moment(new Date()).date()){
                 setCurrentExpenses(getRenderableTODAYsExpenses(getSortedExpenses(expenses)));
                 setGraphAbleExpenses(getTodaysExpenses(getSortedExpenses(expenses)));
-            }else{
-                setCurrentExpenses([]);
-                setGraphAbleExpenses([]);
-            }
 
-            console.log(graphAbleExpenses);
+                stateUpdated = true;
         }
         if(viewMode===ViewModes.month){
             setCurrentExpenses(getRenderableCurrentMONTHsExpenses(getSortedExpenses(expenses)));
             setGraphAbleExpenses(getCurrentMonthsExpenses(getSortedExpenses(expenses)));
-            console.log(graphAbleExpenses);
+            stateUpdated = true;
+
         }
         if(viewMode===ViewModes.week){
-            if(moment(expenses[0].date).format("YYYY-MM")===moment(new Date()).format("YYYY-MM")
-                && moment(expenses[0].date).week()===moment(new Date()).week()){
+
                 setCurrentExpenses(getRenderableCurrentWeeksExpenses(getSortedExpenses(expenses)));
                 setGraphAbleExpenses(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
-            }else{
-                setCurrentExpenses([]);
-                setGraphAbleExpenses([]);
-            }
+                stateUpdated = true;
 
         }
-
+        if(stateUpdated){
+            if(currentHomePanel===HomePanels.none){
+                if(graphAbleExpenses.length>1){
+                    openHomePanel(HomePanels.Visualize);
+                }else {
+                    openHomePanel(HomePanels.ExpensesPanel);
+                }
+            }
+        }
 
         }else {
             setGraphAbleExpenses([]);
+            setCurrentExpenses([]);
         }
     }, [expenses, viewMode]);
+
+
+
+
 
 
     function updateViewMode() {
@@ -204,13 +225,13 @@ export function HomePage({switchWindow}: Props) {
                                 <div className={"flex align-items-center justify-content-center w-75"}>
                                     <LabelPurple styleClasses={" font-bold text-xl w-100 text-center   "} text={viewMode}/>
                                 </div>
-                                <TealButton styleClasses={" px-2 py-2 w-25 align-self-end"} text={"switch to " + ViewModesDir[nextViewMode] } onClick={()=>{updateViewMode()}}/>
+                                <TealButton styleClasses={" px-2 py-2 w-25 align-self-end text-sm"} text={ViewModesDir[nextViewMode] } onClick={()=>{updateViewMode()}}/>
 
                             </div>
                         </div>
 
 
-                        {graphAbleExpenses.length > 1 && currentHomePanel===HomePanels.Visualize &&
+                        {currentHomePanel===HomePanels.Visualize &&
                             <div className={" ak_max_600px w-100 h-[65vh]"}>
 
                             <div className={"h-[55vh] "}>
@@ -221,7 +242,7 @@ export function HomePage({switchWindow}: Props) {
                     </div>
 
 
-                    {currentExpenses.length > 0 && (currentHomePanel === HomePanels.ExpensesPanel) &&
+                    {(currentHomePanel === HomePanels.ExpensesPanel) &&
                         <div className={" w-100 bg-teal-100/60 h-100"}>
 
                                 <div className={"p-1"}>
@@ -247,10 +268,11 @@ export function HomePage({switchWindow}: Props) {
                                 ]
                                 }/>
                     }
-                    {currentExpenses.length < 1 && !(viewMode===ViewModes.today && currentExpenses.length==1) &&
-                        <NoData customMessage={"Nothing to show here."}/>
-                    }
+
                 </div>
+                {currentHomePanel===HomePanels.none && (graphAbleExpenses.length < 1) &&
+                <NoData customMessage={"Nothing to show here."}/>
+            }
             </div>
         </div>
 
