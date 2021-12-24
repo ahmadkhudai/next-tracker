@@ -7,7 +7,7 @@ let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
 
 function randomExpense(): Expense {
     return {...{id: uuidv4(), price:randomIntFromInterval(30, 500), description: getRandomItem(itemsList),
-            name:getRandomItem(itemsList), date: new Date()}};
+            name:getRandomItem(itemsList), date: (new Date()).toString()}};
 }
 
 function getRandomExpenses(amount:number):Expense[]{
