@@ -3,6 +3,8 @@ import * as React from 'react';
 import {SettingLabels} from "../../Definitions/Setting";
 import {SettingsObj} from "../../Definitions/SettingsObj";
 import {useEffect} from "react";
+import RedButton from "../components/buttons/RedButton";
+import LabelPurple from "../components/labels/LabelPurple";
 // import {useDispatch, useSelector} from "react-redux";
 // import {modifySettings} from "../api/features/settings/settingsSlice";
 
@@ -12,10 +14,11 @@ let useState = React.useState;
 type Props = {
     settings:SettingsObj;
     modifySettings:any;
+    handleClose:any;
 };
 type State = {};
 
-export default function AK_SettingsPanel({settings, modifySettings}:Props) {
+export default function AK_SettingsPanel({settings, modifySettings, handleClose}:Props) {
 
     let visibilityStyle = {};
 
@@ -37,13 +40,21 @@ export default function AK_SettingsPanel({settings, modifySettings}:Props) {
         <div className={"container ak_max_600px text-center ak_card my-3"} id={"settingsPanel"}
              style={visibilityStyle}
         >
-            <h3>Settings</h3>
+            <div className={"w-100  flex justify-content-between align-items-center my-2 "}>
+            <LabelPurple text={"settings "} styleClasses={" font-bold text-3xl p-3 w-75 "}/>
+                <div className={" w-25 "}>
+                    <RedButton styleClasses={"  rounded-full w-50 h-100"} text={"X"} onClick={handleClose}/>
+                </div>
+
+
+        </div>
             <div className={"grid "}>
 
                 {Object.values(newSettings).map(setting => {
 
                     return (
                         <div className={"m-2 flex align-items-center justify-content-between"} key={setting.label}>
+
                             <label className="col-form-label p-2"
                                    htmlFor={setting.label}>{setting.name}</label>
                             {setting.type === "number" &&

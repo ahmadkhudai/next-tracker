@@ -132,21 +132,34 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
             {!expenseAdded &&
                 <div>
                     <div
-                        className="bg-white p-2 form-group position-sticky top-0 flex flex-column align-items-end w-100">
+                        className=" p-2 form-group position-sticky top-0 flex  align-items-center justify-content-between shadow-sm rounded-full bg-white/95 px-4 p-2 py-2 w-100">
                         {/*<DateSortedView mode={Modes.create}*/}
                         {/*                styleClasses={" w-100  pt-3  rounded-2  h-auto"}*/}
                         {/*                expenseStyleClasses={" bg-teal-200 m-0 p-0 "}*/}
                         {/*                expenses={[{...newExpense, id: "1", date: newExpense.date.toString()}]}/>*/}
 
 
-                        <div className={"flex justify-between w-100"}><p
-                            className={" h4 text-teal-700 hover:text-purple-700 p-2"}>add new expense</p>
+                        {/*<div className={"flex justify-between align-items-center w-100  w-100"}>*/}
+                            <p className={" text-xl text-teal-700 hover:text-purple-700"}>Add Expense</p>
 
-                            <RedButton styleClasses={"    text-sm m-1 rounded-[50%] h-50  "} text={"X"}
-                                       onClick={() => {
-                                           handleClose()
-                                       }}/>
-                        </div>
+                                <OutlineRoundedButton
+                                    styleClasses={"w-25 bg-gradient-to-r from-teal-500 py-1  via-indigo-400  to-purple-500  text-white   text-sm m-0 p-0 "}
+                                    text={showCurrentExpense ? "hide" : "show"}
+                                    onClick={() => {
+                                        setShowCurrentExpense(!showCurrentExpense);
+                                    }}/>
+
+
+
+
+
+                                <RedButton styleClasses={"    text-sm  rounded-[50%] h-50  "} text={"X"}
+                                           onClick={() => {
+                                               handleClose()
+                                           }}/>
+
+
+                        {/*</div>*/}
 
                     </div>
                     <div id={"add_expense_form h-100 wrapper wrapper_inner "}
@@ -345,21 +358,6 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
                         }
-                        <div className={"flex w-100 justify-content-center"}>
-                            <OutlineRoundedButton
-                                styleClasses={"w-50 bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500  text-white   text-sm m-1 "}
-                                text={showCurrentExpense ? "hide" : "show"}
-                                onClick={() => {
-                                    setShowCurrentExpense(!showCurrentExpense);
-                                }}/>
-                            {/*{showCurrentExpense &&*/}
-                            {/*    <OutlineRoundedButton styleClasses={"w-50 bg-gradient-to-l from-teal-300   to-purple-500  text-white   text-sm m-1 "} text={"create!"}*/}
-                            {/*                          onClick={() => {*/}
-                            {/*                              handleAddExpense();*/}
-                            {/*                          }}/>*/}
-                            {/*}*/}
-
-                        </div>
 
                     </div>
 

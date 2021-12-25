@@ -305,7 +305,7 @@ export function HomePage({switchWindow}: Props) {
 
                 {currentlyOpenPanel === OptionsPanels.SettingsPanel &&
                     <Backdrop onClick={(e:any)=>closeAllPanels(e)}>
-                        <AK_SettingsPanel settings={settings} modifySettings={modifySettings}/>
+                        <AK_SettingsPanel handleClose={(e:any)=>closeAllPanels(e)} settings={settings} modifySettings={modifySettings}/>
                     </Backdrop>
                       }
                 {/*{currentlyOpenPanel === OptionsPanels.AddExpensePanel &&*/}
