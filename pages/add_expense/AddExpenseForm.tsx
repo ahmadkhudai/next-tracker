@@ -11,6 +11,7 @@ import Modal from "../Framer/Modal";
 import Expense from "../Home/_components/Expense";
 import TealButton from "../components/buttons/TealButton";
 import LabelPurple from "../components/labels/LabelPurple";
+import {searchWholeWord, startsWithSpace} from "../api/utils/string_utils";
 
 //
 // let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
@@ -25,10 +26,11 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
     const [currentlySelectedDate, setCurrentlySelectedDate] = useState(new Date());
+    const [expenseName, setExpenseName] = useState("chai");
     const defaultExpense = {
-        name: "chai",
+        name: expenseName,
         price: 30,
-        description: "Chai from Khana Pena. Very Good👍",
+        description: expenseName + " from Khana Pena. Very Good👍",
         date: currentlySelectedDate
     };
     const [newExpense, setNewExpense] = useState(defaultExpense);
@@ -37,6 +39,24 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
         // if(fieldValue)
         let tempObj: any = {...newExpense};
+
+        if(fieldName==="name"){
+
+            //we are looking if the descriptoin has PERVIOUS expense name
+            //first check if the description actually contains the name before cliping
+            let description = newExpense.description;
+            console.log(description.slice(expenseName.length, description.length-1));
+            if(descriptionModified||description.startsWith(expenseName)){
+                description = description.slice(expenseName.length)
+            }
+            if(!startsWithSpace(description)){
+                description = " "+description;
+            }
+            tempObj.description = fieldValue +description;
+            // console.log(newExpense.description.includes(expenseName));
+
+            setExpenseName(fieldValue);
+        }
 
         tempObj[fieldName] = fieldValue;
         if (fieldName === "date") {
@@ -82,6 +102,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
     const [expenseAdded, setExpenseAdded] = useState(false);
+    const [descriptionModified, setDescriptionModified] = useState(false);
 
     function handleAddExpense() {
         setLastExpense({...newExpense});
@@ -97,11 +118,11 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
             <div className="bg-white p-2 form-group position-sticky top-0 flex flex-column align-items-center">
-                <DateSortedView mode={Modes.create} styleClasses={ " w-75 bg-teal-100 py-2 my-2 rounded-2  h-auto"}  expenses={[{...newExpense, id:"1", date:newExpense.date.toString()}]}/>
+                <DateSortedView mode={Modes.create} styleClasses={ " w-100 bg-gray-200  py-1 my-2 rounded-2  h-auto"}  expenses={[{...newExpense, id:"1", date:newExpense.date.toString()}]}/>
 
                <PurpleButton
-                   styleClasses={"w-80 py-2 text-2xl"}
-                   text={"add expense"} onClick={()=>handleAddExpense()}/>
+                   styleClasses={"w-25 py-1 text-xl"}
+                   text={"ok!"} onClick={()=>handleAddExpense()}/>
             </div>
             <div id={"add_expense_form"} className={" my-6 flex flex-column bg-white/90 hover:bg-white ak_slow_transition p-3 "} style={{"marginBottom":"4rem"}}>
                 <button className={"btn fixed align-self-end ak_close_button hover:bg-teal-300"} onClick={()=>{handleClose()}}>X</button>
@@ -128,6 +149,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                    className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
                                    id="name" placeholder="Chai"
                                    value={newExpense.name} onChange={e => {
+                                       // setExpenseName(e.target.value);
                                 handleFieldChange("name", e.target.value)
                             }}/>
                         </div>
@@ -139,7 +161,9 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                             className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
                             id="Description" placeholder="Chai"
                             value={newExpense.description} onChange={e => {
-                            handleFieldChange("description", e.target.value)
+                                setDescriptionModified(true);
+                                handleFieldChange("description", e.target.value)
+
                         }}/>
 
                         </div>
@@ -251,7 +275,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                         <div className={"w-100 ak_max_600px  flex flex-column align-items-center bg-white p-3"}>
 
                             <LabelPurple text={"Expense Added!"} styleClasses={" h1 text-4xl"}/>
-                            <DateSortedView mode={Modes.create} styleClasses={ " bg-teal-100 py-2 my-2 rounded-2  h-auto w-75 "}  expenses={[{...lastCreatedExpense, id:"1", date:newExpense.date.toString()}]}/>
+                            <DateSortedView mode={Modes.create} styleClasses={ " w-100 bg-gray-200  py-1 my-2 rounded-2  h-auto"}  expenses={[{...lastCreatedExpense, id:"1", date:newExpense.date.toString()}]}/>
 
                             <div className={"w-75 flex flex-column"}>
                                 <TealButton styleClasses={" my-2 py-3 text-xl"} text={"add more!"} onClick={()=>{setExpenseAdded(false);setLastExpense(newExpense);}}/>

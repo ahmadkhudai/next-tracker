@@ -19,7 +19,7 @@ import {v4 as uuidv4} from "uuid";
 import {isGreaterThanToday} from "../api/utils/date_utils";
 import {OptionsPanels} from "../api/component_config/Main/OptionsPanels";
 import AK_SettingsPanel from "../Forms/AK_SettingsPanel";
-import AddExpenseForm from "../Forms/AddExpenseForm";
+import AddExpenseForm from "../add_expense/AddExpenseForm";
 import ModalContainer from "../Framer/ModalContainer";
 import Header from "../components/Header";
 import DateSortedView from "./_components/DateSortedView";
@@ -138,21 +138,33 @@ export function HomePage({switchWindow}: Props) {
         if(expenses.length>1){
         if(viewMode===ViewModes.today){
                 setCurrentExpenses(getRenderableTODAYsExpenses(getSortedExpenses(expenses)));
-                setGraphAbleExpenses(getTodaysExpenses(getSortedExpenses(expenses)));
+                if(currentExpenses.length==0){
+                    openHomePanel(HomePanels.none);
+                }else{
+                    setGraphAbleExpenses(getTodaysExpenses(getSortedExpenses(expenses)));
+
+                }
 
                 stateUpdated = true;
         }
         if(viewMode===ViewModes.month){
             setCurrentExpenses(getRenderableCurrentMONTHsExpenses(getSortedExpenses(expenses)));
-            setGraphAbleExpenses(getCurrentMonthsExpenses(getSortedExpenses(expenses)));
+            if(currentExpenses.length==0){
+                openHomePanel(HomePanels.none);
+            }else {
+                setGraphAbleExpenses(getCurrentMonthsExpenses(getSortedExpenses(expenses)));
+            }
             stateUpdated = true;
 
         }
         if(viewMode===ViewModes.week){
 
                 setCurrentExpenses(getRenderableCurrentWeeksExpenses(getSortedExpenses(expenses)));
+            if(currentExpenses.length==0){
+                openHomePanel(HomePanels.none);
+            }else {
                 setGraphAbleExpenses(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
-                stateUpdated = true;
+            } stateUpdated = true;
 
         }
         if(stateUpdated){
@@ -195,9 +207,81 @@ export function HomePage({switchWindow}: Props) {
             <HomeHeader switchWindow={switchWindow} openPanel={openPanel}/>
 
 
+
             <div className={" w-100 flex items-center justify-center flex-column px-3"} onClick={(e: any) => {
                 closeAllPanels(e)
             }}>
+                {currentlyOpenPanel=== OptionsPanels.AddExpensePanel &&
+                    <AddExpenseForm addNewExpense={addNewExpense} handleClose={()=>openPanel(OptionsPanels.AddExpensePanel)}/>
+                }
+                {currentlyOpenPanel !== OptionsPanels.AddExpensePanel &&
+                    <div className={" flex items-center flex-column justify-center ak_max_600px w-100 "}>
+
+
+                        <div className={"py-4 w-100"}>
+                            <div>
+                                <h1 className={"h3 text-center w-auto "}>Expense Tracker</h1>
+                                <h3 className={"ak_accent_text text-center font-monospace w-auto "}>Your {viewMode === ViewModes.today ? "day" : viewMode} so
+                                    far...</h3>
+                            </div>
+                            <div className={"flex align-items-center justify-content-center m-2 mt-3"}>
+                                <div className={"flex align-items-center justify-end bg-gray-100    rounded w-75 "}>
+                                    <div className={"flex align-items-center justify-content-center w-75"}>
+                                        <LabelPurple styleClasses={" font-bold text-xl w-75 text-center   "}
+                                                     text={viewMode}/>
+                                    </div>
+                                    <TealButton styleClasses={" px-2 py-2 w-25 align-self-end text-sm"}
+                                                text={ViewModesDir[nextViewMode]} onClick={() => {
+                                        updateViewMode()
+                                    }}/>
+
+                                </div>
+                            </div>
+
+
+                            {currentHomePanel === HomePanels.Visualize &&
+                                <div className={" ak_max_600px w-100 h-[65vh]"}>
+
+                                    <div className={"h-[55vh] "}>
+                                        <CurrentVisual nameOfX={"Money Spent"} nameOfY={getGraphY(viewMode)}
+                                                       expenses={graphAbleExpenses}/>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+
+                        {(currentHomePanel === HomePanels.ExpensesPanel) &&
+                            <div className={" w-100 bg-teal-100/60 h-100"}>
+
+                                <div className={"p-1"}>
+                                    <h1 className={"font-monospace h5 text-center pt-2"}>your expenses
+                                        this {viewMode === ViewModes.today ? "day" : viewMode}</h1>
+                                    <div
+                                        className={"scrollable py-3 rounded flex justify-content-center align-items-center"}
+                                        style={{
+                                            "height": "500px",
+                                            overflowX: "hidden",
+                                        }}>
+                                        <DateSortedView
+                                            expenses={currentExpenses}
+                                            settings={settings} deleteExpense={deleteExpense}/>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        }
+
+
+                    </div>
+                }
+                {currentHomePanel===HomePanels.none && (graphAbleExpenses.length < 1) &&
+                    <NoData customMessage={"Nothing to show here."}/>
+                }
+
+
 
                 {currentlyOpenPanel === OptionsPanels.err &&
                     <ModalContainer handleClose={(e: any) => {
@@ -210,67 +294,12 @@ export function HomePage({switchWindow}: Props) {
                         <AK_SettingsPanel settings={settings} modifySettings={modifySettings}/>
                     </Backdrop>
                       }
-                {currentlyOpenPanel === OptionsPanels.AddExpensePanel &&
-                    <Backdrop onClick={()=>{}}>
-                    <AddExpenseForm addNewExpense={addNewExpense} handleClose={()=>openPanel(OptionsPanels.AddExpensePanel)}/>
-                    </Backdrop>
-                }
-                <div className={" flex items-center flex-column justify-center ak_max_600px w-100 "}>
+                {/*{currentlyOpenPanel === OptionsPanels.AddExpensePanel &&*/}
+                {/*    // <Backdrop onClick={()=>{}}>*/}
+                {/*    <AddExpenseForm addNewExpense={addNewExpense} handleClose={()=>openPanel(OptionsPanels.AddExpensePanel)}/>*/}
 
+                {/*}*/}
 
-
-                    <div className={"py-4 w-100"}>
-                        <div>
-                            <h1 className={"h3 text-center w-auto "}>Expense Tracker</h1>
-                            <h3 className={"ak_accent_text text-center font-monospace w-auto "}>Your {viewMode===ViewModes.today?"day":viewMode} so far...</h3>
-                        </div>
-                        <div className={"flex align-items-center justify-content-center m-2 mt-3"} >
-                            <div className={"flex align-items-center justify-end bg-gray-100    rounded w-75 "}>
-                                <div className={"flex align-items-center justify-content-center w-75"}>
-                                    <LabelPurple styleClasses={" font-bold text-xl w-75 text-center   "} text={viewMode}/>
-                                </div>
-                                <TealButton styleClasses={" px-2 py-2 w-25 align-self-end text-sm"} text={ViewModesDir[nextViewMode] } onClick={()=>{updateViewMode()}}/>
-
-                            </div>
-                        </div>
-
-
-                        {currentHomePanel===HomePanels.Visualize &&
-                            <div className={" ak_max_600px w-100 h-[65vh]"}>
-
-                            <div className={"h-[55vh] "}>
-                            <CurrentVisual nameOfX={"Money Spent"} nameOfY={getGraphY(viewMode)} expenses={graphAbleExpenses}/>
-                            </div>
-                            </div>
-                        }
-                    </div>
-
-
-                    {(currentHomePanel === HomePanels.ExpensesPanel) &&
-                        <div className={" w-100 bg-teal-100/60 h-100"}>
-
-                                <div className={"p-1"}>
-                                    <h1 className={"font-monospace h5 text-center pt-2"}>your expenses this {viewMode===ViewModes.today?"day":viewMode}</h1>
-                                    <div className={"scrollable py-3 rounded flex justify-content-center align-items-center"} style={{
-                                        "height": "500px",
-                                        overflowX: "hidden",
-                                    }}>
-                                        <DateSortedView
-                                            expenses={currentExpenses}
-                                            settings={settings} deleteExpense={deleteExpense}/>
-                                    </div>
-
-                                </div>
-
-
-                        </div>
-                    }
-
-
-                </div>
-                {currentHomePanel===HomePanels.none && (graphAbleExpenses.length < 1) &&
-                <NoData customMessage={"Nothing to show here."}/>
-            }
 
             <div className={"h-25 py-2 bg-white"}></div>
             </div>

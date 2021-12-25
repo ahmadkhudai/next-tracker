@@ -1,6 +1,7 @@
 export enum HomePanels{
     "ExpensesPanel"="ExpensesPanel",
     "Visualize"="Visualize",
+    "AddExpenseForm"="AddExpenseForm",
     "none"="none"
 }
 
