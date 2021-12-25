@@ -69,7 +69,7 @@ export function getDayWiseExpenses(groupedExpenses:GroupedExpenses){
     Object.entries(groupedExpenses).forEach(function ([date,expenses]:[date:any,expenses:any], index){
         dayWiseExpenses[index] = {date:getDateString(date), expense: expenses.reduce(sumAllExpenses,0)}
     });
-    console.log(dayWiseExpenses);
+    ////console.log(dayWiseExpenses);
     return dayWiseExpenses;
 }
 
@@ -279,7 +279,7 @@ export function getTodaysExpenses(groupedExpenses:GroupedExpenses){
     Object.values(testExpenses).forEach((summaryExpense:any) => {
         todaysExpenses.push(summaryExpense)
     })
-    console.log(todaysExpenses);
+    //console.log(todaysExpenses);
     return todaysExpenses;
 }
 

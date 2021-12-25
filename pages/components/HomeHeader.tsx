@@ -30,7 +30,7 @@ export default function HomeHeader(props:Props) {
             <div className=" flex flex-column flex-md-row align-items-center justify-content-center container">
 
 
-                <div className={"w-100 flex align-items-center justify-content-center py-2"}>
+                <div className={"w-100 flex align-items-center justify-content-center py-2 "}>
                     {currentWindow=== MainWindows.home &&   <p className={"h3 p-2"}>home/</p>}
 
                     {currentWindow !== MainWindows.home  && <button className={"btn bg-teal-400 text-white hover:bg-purple-500  hover:font-black  mr-3 w-50"} onClick={()=>{goTo(MainWindows.home)}}>home</button>

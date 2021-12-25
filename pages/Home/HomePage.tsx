@@ -135,45 +135,38 @@ export function HomePage({switchWindow}: Props) {
     //react to change
     useEffect(() => {
         let stateUpdated = false;
+        let tempgraphAbleExpenses:any = [];
+        let tempcurrentExpenses:any = [];
         if(expenses.length>1){
         if(viewMode===ViewModes.today){
-                setCurrentExpenses(getRenderableTODAYsExpenses(getSortedExpenses(expenses)));
-                if(currentExpenses.length==0){
-                    openHomePanel(HomePanels.none);
-                }else{
-                    setGraphAbleExpenses(getTodaysExpenses(getSortedExpenses(expenses)));
-
-                }
+            tempcurrentExpenses = getRenderableTODAYsExpenses(getSortedExpenses(expenses));
+            tempgraphAbleExpenses = getTodaysExpenses(getSortedExpenses(expenses));
 
                 stateUpdated = true;
         }
         if(viewMode===ViewModes.month){
-            setCurrentExpenses(getRenderableCurrentMONTHsExpenses(getSortedExpenses(expenses)));
-            if(currentExpenses.length==0){
-                openHomePanel(HomePanels.none);
-            }else {
-                setGraphAbleExpenses(getCurrentMonthsExpenses(getSortedExpenses(expenses)));
-            }
+            tempcurrentExpenses = getRenderableCurrentMONTHsExpenses(getSortedExpenses(expenses));
+            tempgraphAbleExpenses = getCurrentMonthsExpenses(getSortedExpenses(expenses));
+
             stateUpdated = true;
 
         }
         if(viewMode===ViewModes.week){
-
-                setCurrentExpenses(getRenderableCurrentWeeksExpenses(getSortedExpenses(expenses)));
-            if(currentExpenses.length==0){
-                openHomePanel(HomePanels.none);
-            }else {
-                setGraphAbleExpenses(getCurrentWeeksExpenses(getSortedExpenses(expenses)));
-            } stateUpdated = true;
-
+              tempcurrentExpenses = getRenderableCurrentWeeksExpenses(getSortedExpenses(expenses));
+              tempgraphAbleExpenses = getCurrentWeeksExpenses(getSortedExpenses(expenses));
+              stateUpdated = true;
         }
         if(stateUpdated){
-            if(currentHomePanel===HomePanels.none){
-                if(graphAbleExpenses.length>1){
+            setCurrentExpenses(tempcurrentExpenses);
+            setGraphAbleExpenses(tempgraphAbleExpenses);
+            if(tempcurrentExpenses.length==0){
+                openHomePanel(HomePanels.none);
+            }else if(tempgraphAbleExpenses.length>1){
+                if(currentHomePanel===HomePanels.none) {
                     openHomePanel(HomePanels.Visualize);
-                }else {
-                    openHomePanel(HomePanels.ExpensesPanel);
                 }
+            }else {
+                openHomePanel(HomePanels.ExpensesPanel);
             }
         }
 
@@ -203,17 +196,24 @@ export function HomePage({switchWindow}: Props) {
     }
     return (
 
-        <div className={"wrapper wrapper_inner scrollable "}>
-            <HomeHeader switchWindow={switchWindow} openPanel={openPanel}/>
+        <div className={"wrapper wrapper_inner scrollable "}> {currentlyOpenPanel=== OptionsPanels.AddExpensePanel &&
+            <div className={" w-100 flex items-center justify-center flex-column px-3 h-100"} onClick={(e: any) => {
+                closeAllPanels(e)
+            }}>
 
+                    <AddExpenseForm addNewExpense={addNewExpense} handleClose={()=>openPanel(OptionsPanels.AddExpensePanel)}/>
+
+            </div>
+        }
+            {currentlyOpenPanel !== OptionsPanels.AddExpensePanel &&
+                <HomeHeader switchWindow={switchWindow} openPanel={openPanel}/>
+            }
 
 
             <div className={" w-100 flex items-center justify-center flex-column px-3"} onClick={(e: any) => {
                 closeAllPanels(e)
             }}>
-                {currentlyOpenPanel=== OptionsPanels.AddExpensePanel &&
-                    <AddExpenseForm addNewExpense={addNewExpense} handleClose={()=>openPanel(OptionsPanels.AddExpensePanel)}/>
-                }
+
                 {currentlyOpenPanel !== OptionsPanels.AddExpensePanel &&
                     <div className={" flex items-center flex-column justify-center ak_max_600px w-100 "}>
 
@@ -277,7 +277,7 @@ export function HomePage({switchWindow}: Props) {
 
                     </div>
                 }
-                {currentHomePanel===HomePanels.none && (graphAbleExpenses.length < 1) &&
+                {currentHomePanel===HomePanels.none &&
                     <NoData customMessage={"Nothing to show here."}/>
                 }
 
@@ -302,14 +302,16 @@ export function HomePage({switchWindow}: Props) {
 
 
             <div className={"h-25 py-2 bg-white"}></div>
-            </div>
-            {graphAbleExpenses.length > 1  &&
-                <Header openSubPanel={openHomePanel}
-                        panels={[{panelLabel: HomePanelLabels.ExpensesPanel, panel: HomePanels.ExpensesPanel},
-                            {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize}
-                        ]
-                        }/>
+                {graphAbleExpenses.length > 1  && currentlyOpenPanel!==OptionsPanels.AddExpensePanel &&
+                <Header
+                    openSubPanel={openHomePanel}
+                    panels={[{panelLabel: HomePanelLabels.ExpensesPanel, panel: HomePanels.ExpensesPanel},
+                        {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize}
+                    ]
+                    }/>
             }
+            </div>
+
         </div>
 
 

@@ -27,7 +27,7 @@ export default function Header(props:Props) {
 
     return (
 
-            <div id={"footer"} className=" container flex justify-content-center py-4  bottom-0  w-100 align-items-center bg-white/90 ">
+            <div id={"ak_footer"} className=" flex justify-content-center py-4  bottom-0  w-100 align-items-center bg-white/90 ">
 
                 <div className={"container flex w-100 justify-content-center align-items-center"}>
                     {!panels &&

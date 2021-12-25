@@ -422,14 +422,19 @@ $finalWidth: $finalHeight*2;
   margin-bottom: 4.5rem;
  }
 
-#footer{
+#ak_footer{
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 9999;
-  width: 100%;
+  width: 100vw;
   height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+
 
 
 

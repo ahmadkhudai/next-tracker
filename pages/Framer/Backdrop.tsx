@@ -14,21 +14,21 @@ type Props = {
 type State = {};
 
 export function Backdrop({children, onClick, styleClasses="", blurBackdrop}:Props) {
-    const [height, setHeight] = useState((window.innerHeight+window.scrollY+100)+"px");
+    // const [height, setHeight] = useState();
 
 
-
-    useEffect(() => {
-        setAllStates();
-        return () => {
-            setHeight((window.innerHeight+window.scrollY+100)+"px");
-        };
-    }, []);
-
-    const setAllStates = () => {
-        window.onresize = ()=>setHeight((window.innerHeight+window.scrollY)+"px");
-        window.onscroll = ()=>setHeight((window.innerHeight+window.scrollY)+"px");
-    }
+    //
+    // useEffect(() => {
+    //     setAllStates();
+    //     return () => {
+    //         setHeight((window.innerHeight+window.scrollY+100)+"px");
+    //     };
+    // }, []);
+    //
+    // const setAllStates = () => {
+    //     window.onresize = ()=>setHeight((window.innerHeight+window.scrollY)+"px");
+    //     window.onscroll = ()=>setHeight((window.innerHeight+window.scrollY)+"px");
+    // }
     return (
        <motion.div
            id={"backdrop"}
@@ -38,7 +38,7 @@ export function Backdrop({children, onClick, styleClasses="", blurBackdrop}:Prop
            initial={{opacity:0}}
            animate={{opacity:1}}
            exit={{opacity:0}}
-           style={{ height: height,
+           style={{ height: "100%",
                width: "100%"}}
        >
            {children}

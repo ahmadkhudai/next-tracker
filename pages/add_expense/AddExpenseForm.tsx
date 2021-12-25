@@ -120,9 +120,13 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
             <div className="bg-white p-2 form-group position-sticky top-0 flex flex-column align-items-center">
                 <DateSortedView mode={Modes.create} styleClasses={ " w-100 bg-gray-200  py-1 my-2 rounded-2  h-auto"}  expenses={[{...newExpense, id:"1", date:newExpense.date.toString()}]}/>
 
-               <PurpleButton
-                   styleClasses={"w-25 py-1 text-xl"}
-                   text={"ok!"} onClick={()=>handleAddExpense()}/>
+                <div className={"w-100 flex justify-center"}>
+                    <PurpleButton
+                        styleClasses={"w-50 p-2  text-xl m-1"}
+                        text={"ok!"} onClick={()=>handleAddExpense()}/>
+                    <PurpleButton styleClasses={"w-25  p-2  text-xl bg-red-600 m-1 "} text={"back"} onClick={()=>{handleClose()}}/>
+                </div>
+
             </div>
             <div id={"add_expense_form"} className={" my-6 flex flex-column bg-white/90 hover:bg-white ak_slow_transition p-3 "} style={{"marginBottom":"4rem"}}>
                 <button className={"btn fixed align-self-end ak_close_button hover:bg-teal-300"} onClick={()=>{handleClose()}}>X</button>
@@ -272,10 +276,10 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                 </div>
                 {expenseAdded &&
                     <Backdrop onClick={()=>{}}>
-                        <div className={"w-100 ak_max_600px  flex flex-column align-items-center bg-white p-3"}>
+                        <div className={"w-100 ak_max_600px   flex flex-column align-items-center bg-white p-3"}>
 
                             <LabelPurple text={"Expense Added!"} styleClasses={" h1 text-4xl"}/>
-                            <DateSortedView mode={Modes.create} styleClasses={ " w-100 bg-gray-200  py-1 my-2 rounded-2  h-auto"}  expenses={[{...lastCreatedExpense, id:"1", date:newExpense.date.toString()}]}/>
+                            <DateSortedView mode={Modes.create} styleClasses={ " w-100 bg-gray-200  py-1  rounded-2 h-auto "}  expenses={[{...lastCreatedExpense, id:"1", date:newExpense.date.toString()}]}/>
 
                             <div className={"w-75 flex flex-column"}>
                                 <TealButton styleClasses={" my-2 py-3 text-xl"} text={"add more!"} onClick={()=>{setExpenseAdded(false);setLastExpense(newExpense);}}/>
