@@ -51,7 +51,7 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
                 <div
                     className="ak_max_600px bg-transparent border-0 container py-2 px-3 card my-4 flex justify-content-center align-items-center px-1 mx-1">
 
-                    <ComposedChart className={"py-2 px-2"} width={graphWidth} height={graphWidth}
+                    <ComposedChart className={"py-2 px-2 overflow-visible"} width={graphWidth} height={graphWidth}
                                    data={displayData} margin={{top: 25, right: 30, left: 40, bottom: 1}}>
 
                         <defs>
@@ -61,9 +61,9 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
                             </linearGradient>
                         </defs>
 
-                        <XAxis dataKey={dateFunction} axisLine={false} reversed={true} height={30}/>
-                        <CartesianGrid vertical={false} opacity={0.4}/>
-                        <YAxis width={10} axisLine={false}/>
+                        <XAxis dataKey={dateFunction} axisLine={false} reversed={true} />
+                        <CartesianGrid vertical={false} opacity={0.5}/>
+                        <YAxis  axisLine={false}/>
                         <Tooltip/>
 
                         <Line type="monotone" strokeLinecap="round" strokeWidth={2}
