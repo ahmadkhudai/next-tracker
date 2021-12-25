@@ -22,8 +22,6 @@ export default function Header(props:Props) {
     const {openSubPanel, panels} = props;
 
 
-    const router = useRouter()
-
 
     return (
 

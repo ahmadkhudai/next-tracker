@@ -1,5 +1,6 @@
 import {NumberIndexedStrings} from "../../../constants/day";
 import exp from "constants";
+import moment from "moment";
 
 
 export enum ViewModes{
@@ -13,6 +14,12 @@ export const ViewModesDir:NumberIndexedStrings={
     2:ViewModes.week
 }
 
+export const dateFunctions={
+
+    [ViewModes.today]:(obj:any) => moment(obj.date).format("hh:mm a"),
+    [ViewModes.week]:(obj:any) => obj.date,
+    [ViewModes.month]:(obj:any) => moment(obj.date).format("MM/DD")
+}
 
 //
 export function getNextViewMode(currentViewMode:number):ViewModes{

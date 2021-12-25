@@ -26,11 +26,12 @@ import DateSortedView from "./_components/DateSortedView";
 import NoData from "../components/_partials/NoData";
 import {HomePanelLabels, HomePanels} from "../api/component_config/HomePanels";
 import CurrentVisual from "../graphs/CurrentVisual";
-import {ViewModes, ViewModesDir} from "../api/component_config/ViewModes";
+import {dateFunctions, ViewModes, ViewModesDir} from "../api/component_config/ViewModes";
 import TealButton from "../components/buttons/TealButton";
 import LabelPurple from "../components/labels/LabelPurple";
 import {Day} from "../../constants/day";
 import Backdrop from "../Framer/Backdrop";
+import moment from "moment";
 
 type Props = {
     switchWindow: any;
@@ -54,11 +55,10 @@ export function HomePage({switchWindow}: Props) {
 
 
     function modifyExpenses(modifiedExpenses: Expense[]) {
-        console.log("before sort: ", modifiedExpenses);
         modifiedExpenses = modifiedExpenses.sort(sortfunction);
-        console.log("after sort: ", modifiedExpenses);
 
         console.log(modifiedExpenses.length);
+        console.log("MODIFIED EXPENSES", modifiedExpenses);
         setExpenses(modifiedExpenses);
         localStorage.setItem("ak_expenses", JSON.stringify(modifiedExpenses));
     }
@@ -90,11 +90,11 @@ export function HomePage({switchWindow}: Props) {
 
     function deleteExpense(toDelete: Expense) {
 
-        if(expenses.length===1){
-            modifyExpenses([]);
-            setExpenses([]);
-            return;
-        }
+        // if(expenses.length===1){
+        //     modifyExpenses([]);
+        //     setExpenses([]);
+        //     return;
+        // }
         let newExpenseList = expenses.filter((expense: Expense) => expense.id !== toDelete.id);
         modifyExpenses(newExpenseList);
         // localStorage.setItem("ak_expenses", JSON.stringify(newExpenseList));
@@ -137,7 +137,7 @@ export function HomePage({switchWindow}: Props) {
         let stateUpdated = false;
         let tempgraphAbleExpenses:any = [];
         let tempcurrentExpenses:any = [];
-        if(expenses.length>1){
+        if(expenses.length>=1){
         if(viewMode===ViewModes.today){
             tempcurrentExpenses = getRenderableTODAYsExpenses(getSortedExpenses(expenses));
             tempgraphAbleExpenses = getTodaysExpenses(getSortedExpenses(expenses));
@@ -158,6 +158,7 @@ export function HomePage({switchWindow}: Props) {
         }
         if(stateUpdated){
             setCurrentExpenses(tempcurrentExpenses);
+            console.log(tempcurrentExpenses);
             setGraphAbleExpenses(tempgraphAbleExpenses);
             if(tempcurrentExpenses.length==0){
                 openHomePanel(HomePanels.none);
@@ -244,7 +245,7 @@ export function HomePage({switchWindow}: Props) {
 
                                     <div className={"h-[55vh] "}>
                                         <CurrentVisual nameOfX={"Money Spent"} nameOfY={getGraphY(viewMode)}
-                                                       expenses={graphAbleExpenses}/>
+                                                       expenses={graphAbleExpenses} dateFunction={dateFunctions[viewMode]}/>
                                     </div>
                                 </div>
                             }

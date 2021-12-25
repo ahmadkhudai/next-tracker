@@ -11,10 +11,11 @@ type Props = {
     nameOfX:string;
     nameOfY:string;
     expenses:Expense[];
+    dateFunction?:any;
 };
 type State = {};
 
-export function CurrentVisual({expenses, nameOfX, nameOfY}:Props) {
+export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:Props) {
 
 
     const [displayData, setDisplayData] = useState([] as  Expense[]);
@@ -60,7 +61,7 @@ export function CurrentVisual({expenses, nameOfX, nameOfY}:Props) {
                             </linearGradient>
                         </defs>
 
-                        <XAxis dataKey={obj => moment(obj.date).format("MM/DD")} axisLine={false} reversed={true} height={30}/>
+                        <XAxis dataKey={dateFunction} axisLine={false} reversed={true} height={30}/>
                         <CartesianGrid vertical={false} opacity={0.4}/>
                         <YAxis width={10} axisLine={false}/>
                         <Tooltip/>

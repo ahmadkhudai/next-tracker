@@ -18,10 +18,11 @@ type Props = {
     styleClasses?:string;
     hardStyles?:any;
     mode?:Modes;
+    expenseStyleClasses?:string;
 };
 type State = {};
 
-export function DateSortedView({expenses,settings, deleteExpense, styleClasses="", hardStyles={}, mode=Modes.none}:Props) {
+export function DateSortedView({expenses,settings, deleteExpense, expenseStyleClasses="" ,styleClasses="", hardStyles={}, mode=Modes.none}:Props) {
 
     const [renderedExpenses, setRenderedExpenses] = useState([] as Expense[]);
 
@@ -58,6 +59,7 @@ export function DateSortedView({expenses,settings, deleteExpense, styleClasses="
                                 {expenses.map((expense: Expense) =>
 
                                         <ExpenseComponent
+                                            styleClasses={expenseStyleClasses}
                                         deleteExpense={deleteExpense}
                                         settings={settings}
                                         expense={expense}
