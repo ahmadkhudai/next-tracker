@@ -33,6 +33,7 @@ import {Day} from "../../constants/day";
 import Backdrop from "../Framer/Backdrop";
 import moment from "moment";
 import PurpleButton from "../components/buttons/PurpleButton";
+import OutlineRoundedButton from "../components/buttons/OutlineRoundedButton";
 
 type Props = {
     switchWindow: any;
@@ -230,16 +231,16 @@ export function HomePage({switchWindow}: Props) {
                                     far...</h3>
                             </div>
                             <div className={"flex align-items-center justify-content-center m-2 mt-3"}>
-                                <div className={"flex align-items-center justify-end bg-gray-100  px-2   rounded-3 w-75 "}>
-                                    <div className={"flex align-items-center w-100 justify-content-between"}>
+                                <div className={"ak_slow_transition flex align-items-center justify-end bg-gray-100  px-0   rounded-full w-75 "}>
+                                    <div className={" flex align-items-center w-100 justify-content-between"}>
 
 
-                                        <TealButton styleClasses={" rounded-3 w-25"}
+                                        <OutlineRoundedButton styleClasses={"   px-4 text-center  border-teal-400 text-teal-500  "}
                                                     text={ViewModesDir[nextViewMode]} onClick={() => {
                                             updateViewMode()
-                                        }}/><LabelPurple styleClasses={" font-bold text-xl w-50 text-center   "}
+                                        }}/><LabelPurple styleClasses={" font-bold text-xl   px-0 text-center   "}
                                                          text={viewMode}/>
-                                        <PurpleButton onClick={()=>{updateViewMode(2)}} styleClasses={"  w-25 text-center rounded-3   "}
+                                        <OutlineRoundedButton onClick={()=>{updateViewMode(2)}} styleClasses={"   px-4 text-center hover:text-white  text-purple-500 hover:border-teal-300 "}
                                                      text={ViewModesDir[(nextViewMode+1)%3]}/>
                                     </div>
 
