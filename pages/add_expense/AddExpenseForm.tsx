@@ -104,6 +104,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
     const [descriptionModified, setDescriptionModified] = useState(false);
 
     function handleAddExpense() {
+        //todo allow user to chose if they want to edit the expense before adding it
         setLastExpense({...newExpense});
         addNewExpense(newExpense);
         setExpenseAdded(true);
@@ -118,31 +119,24 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
             {!expenseAdded &&
                 <div>
-                    <div className="bg-white p-2 form-group position-sticky top-0 flex flex-column align-items-center" >
-                        <DateSortedView mode={Modes.create}
-                                        styleClasses={" w-100  pt-3  rounded-2  h-auto"}
-                                        expenseStyleClasses={" bg-teal-200 m-0 p-0 "}
-                                        expenses={[{...newExpense, id: "1", date: newExpense.date.toString()}]}/>
+                    <div className="bg-white p-2 form-group position-sticky top-0 flex flex-column align-items-end w-100" >
+                        {/*<DateSortedView mode={Modes.create}*/}
+                        {/*                styleClasses={" w-100  pt-3  rounded-2  h-auto"}*/}
+                        {/*                expenseStyleClasses={" bg-teal-200 m-0 p-0 "}*/}
+                        {/*                expenses={[{...newExpense, id: "1", date: newExpense.date.toString()}]}/>*/}
 
-                        <div className={"w-100 flex justify-center"}>
-                            <PurpleButton
-                                styleClasses={"w-50   text-sm m-1"}
-                                text={"add!"} onClick={() => handleAddExpense()}/>
-                            <RedButton styleClasses={"w-25    text-sm m-1 "} text={"back"}
-                                          onClick={() => {
-                                              handleClose()
-                                          }}/>
+                        <div className={"flex justify-end w-50"}>
+                            <RedButton styleClasses={"    text-sm m-1 rounded-[50%] h-50  "} text={"X"}
+                                       onClick={() => {
+                                           handleClose()
+                                       }}/>
                         </div>
 
                     </div>
                     <div id={"add_expense_form"}
                          className={" my-6 flex flex-column bg-white/90 hover:bg-white ak_slow_transition p-3 "}
                          style={{"marginBottom": "4rem"}}>
-                        <button className={"btn fixed align-self-end ak_close_button hover:bg-teal-300"}
-                                onClick={() => {
-                                    handleClose()
-                                }}>X
-                        </button>
+
 
                         <h4 className={"h4 text-teal-700 hover:text-purple-700 text-center p-2"}>new expense</h4>
                         <div id="expense_form" className="pt-3 ">
@@ -302,6 +296,10 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                         handleAddExpense();
                                     }}>add expense
                                 </button>
+                                <RedButton styleClasses={"w-25    text-sm m-1 "} text={"back"}
+                                           onClick={() => {
+                                               handleClose()
+                                           }}/>
                             </div>
 
                         </div>
