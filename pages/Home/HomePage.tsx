@@ -240,7 +240,7 @@ export function HomePage({switchWindow}: Props) {
                                             updateViewMode()
                                         }}/><LabelPurple styleClasses={" font-bold text-xl text-white   px-0 text-center   "}
                                                          text={viewMode}/>
-                                        <OutlineRoundedButton onClick={()=>{updateViewMode(2)}} styleClasses={"   px-4 text-center hover:text-white hover:bg-purple-500  text-purple-500  "}
+                                        <OutlineRoundedButton onClick={()=>{updateViewMode(2)}} styleClasses={"   px-4 text-center border-purple-500 hover:text-white hover:bg-purple-500  text-purple-500  "}
                                                      text={ViewModesDir[(nextViewMode+1)%3]}/>
                                     </div>
 
