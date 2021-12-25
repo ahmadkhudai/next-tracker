@@ -10,6 +10,7 @@ import TealButton from "../components/buttons/TealButton";
 import LabelPurple from "../components/labels/LabelPurple";
 import {startsWithSpace} from "../api/utils/string_utils";
 import RedButton from "../components/buttons/RedButton";
+import OutlineRoundedButton from "../components/buttons/OutlineRoundedButton";
 
 //
 // let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
@@ -102,6 +103,11 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
     const [expenseAdded, setExpenseAdded] = useState(false);
     const [descriptionModified, setDescriptionModified] = useState(false);
+    const [showCurrentExpense, setShowCurrentExpense] = useState(false);
+
+    function dontShowCurrentExpense(){
+        setShowCurrentExpense(false);
+    }
 
     function handleAddExpense() {
         //todo allow user to chose if they want to edit the expense before adding it
@@ -302,12 +308,20 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                                handleClose()
                                            }}/>
                             </div>
-                            <div className={"bg-gray-100/90 form-group my-3 border-gray-300 position-sticky bottom-1"}>
-                                <DateSortedView mode={Modes.create}
+                            <div className={"bg-gray-100/90 py-1 mb-0 form-group my-3 border-gray-300 position-sticky bottom-0 flex flex-column align-items-center"}>
+
+
+                        {showCurrentExpense &&
+                               <DateSortedView mode={Modes.create}
                                                 styleClasses={" w-100  pb-3  rounded-2  h-auto"}
                                                 expenseStyleClasses={"  m-0 pb-3 "}
                                                 expenses={[{...newExpense, id: "1", date: newExpense.date.toString()}]}/>
 
+
+                            }<OutlineRoundedButton styleClasses={"w-50 bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500  text-white   text-sm m-1 "} text={showCurrentExpense?"hide":"show"}
+                                                   onClick={() => {
+                                                       setShowCurrentExpense(!showCurrentExpense);
+                                                   }}/>
                             </div>
 
                         </div>
