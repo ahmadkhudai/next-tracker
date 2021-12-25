@@ -231,16 +231,16 @@ export function HomePage({switchWindow}: Props) {
                                     far...</h3>
                             </div>
                             <div className={"flex align-items-center justify-content-center m-2 mt-3"}>
-                                <div className={"ak_slow_transition flex align-items-center justify-end bg-gray-100  px-0   rounded-full w-75 "}>
+                                <div className={"ak_slow_transition flex align-items-center justify-end bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500  px-0   rounded-full w-75 "}>
                                     <div className={" flex align-items-center w-100 justify-content-between"}>
 
 
-                                        <OutlineRoundedButton styleClasses={"   px-4 text-center  border-teal-400 text-teal-500  "}
+                                        <OutlineRoundedButton styleClasses={"   px-4 text-center hover:bg-teal-400  border-teal-400 text-teal-500  "}
                                                     text={ViewModesDir[nextViewMode]} onClick={() => {
                                             updateViewMode()
-                                        }}/><LabelPurple styleClasses={" font-bold text-xl   px-0 text-center   "}
+                                        }}/><LabelPurple styleClasses={" font-bold text-xl text-white   px-0 text-center   "}
                                                          text={viewMode}/>
-                                        <OutlineRoundedButton onClick={()=>{updateViewMode(2)}} styleClasses={"   px-4 text-center hover:text-white  text-purple-500 hover:border-teal-300 "}
+                                        <OutlineRoundedButton onClick={()=>{updateViewMode(2)}} styleClasses={"   px-4 text-center hover:text-white hover:bg-purple-500  text-purple-500  "}
                                                      text={ViewModesDir[(nextViewMode+1)%3]}/>
                                     </div>
 
@@ -266,13 +266,13 @@ export function HomePage({switchWindow}: Props) {
 
 
                         {(currentHomePanel === HomePanels.ExpensesPanel) &&
-                            <div className={" w-100 bg-teal-100/60 h-100"}>
+                            <div className={" w-100  h-100"}>
 
                                 <div className={"p-1"}>
                                     <h1 className={"font-monospace h5 text-center pt-2"}>your expenses
                                         this {viewMode === ViewModes.today ? "day" : viewMode}</h1>
                                     <div
-                                        className={"scrollable py-3 rounded flex justify-content-center align-items-center"}
+                                        className={"scrollable py-3  shadow-inner  rounded flex justify-content-center align-items-center"}
                                         style={{
                                             "height": "500px",
                                             overflowX: "hidden",

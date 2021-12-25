@@ -315,7 +315,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
                     <LabelPurple text={"Expense Added!"} styleClasses={" h1 text-4xl"}/>
                     <DateSortedView mode={Modes.create}
-                                    styleClasses={" w-100 bg-gray-200 pt-3  py-2 px-0  rounded-2 h-auto "}
+                                    styleClasses={" w-100 bg-gradient-to-l from-gray-100   via-teal-50  to-purple-200 pt-3  py-2 px-0  rounded-2 h-auto "}
                                     expenses={[{...lastCreatedExpense, id: "1", date: newExpense.date.toString()}]}/>
 
                     <div className={"w-75 flex flex-column"}>
