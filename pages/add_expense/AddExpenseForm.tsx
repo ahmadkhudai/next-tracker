@@ -9,6 +9,7 @@ import PurpleButton from "../components/buttons/PurpleButton";
 import TealButton from "../components/buttons/TealButton";
 import LabelPurple from "../components/labels/LabelPurple";
 import {startsWithSpace} from "../api/utils/string_utils";
+import RedButton from "../components/buttons/RedButton";
 
 //
 // let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
@@ -126,8 +127,8 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                         <div className={"w-100 flex justify-center"}>
                             <PurpleButton
                                 styleClasses={"w-50 p-2  text-xl m-1"}
-                                text={"ok!"} onClick={() => handleAddExpense()}/>
-                            <PurpleButton styleClasses={"w-25  p-2  text-xl bg-red-600 m-1 "} text={"back"}
+                                text={"add!"} onClick={() => handleAddExpense()}/>
+                            <RedButton styleClasses={"w-25  p-2  text-xl m-1 "} text={"back"}
                                           onClick={() => {
                                               handleClose()
                                           }}/>
