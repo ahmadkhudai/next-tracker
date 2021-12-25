@@ -32,7 +32,7 @@ export function ExpenseComponent(props: Props) {
         <div className={" py-1  rounded font-monospace my-1 rounded "+styleClasses}
              // onClick={(e)=>{e.stopPropagation();setDesc(!desc)}} onMouseEnter={()=>{setDesc(true)}} onMouseLeave={()=>{setDesc(false)}}
         >
-            <ul className="bg-gradient-to-br from-teal-200    to-purple-300 shadow-sm rounded-full p-3 justify-content-between border-0 m-2 p-1 flex items-center rounded-2">
+            <ul className="bg-gradient-to-br from-teal-200    to-purple-300 shadow-sm  p-3 justify-content-between border-0 m-2 p-1 flex items-center rounded-[10px]">
                 <li className="list-group-item border-0  ak_black  bg-transparent"
                     style={expense.price > settings[SettingLabels.maxAcceptableRange].value ? {
                         color: "#bb0a0a",
@@ -51,7 +51,7 @@ export function ExpenseComponent(props: Props) {
                     </button>
                 </li>
             </ul>
-            {settings[SettingLabels.showDesc].value && expense.description.length>0 && <div className={"p-3 mx-2 px-3  bg-gradient-to-br from-gray-100   via-gray-100  to-white  ak_slow_transition mb-0 rounded-3"}><p>{expense.description}</p></div>}
+            {settings[SettingLabels.showDesc].value && expense.description.length>0 && <div className={"p-3 mx-2 px-3  bg-gradient-to-br from-gray-100    via-gray-100  to-white  ak_slow_transition mb-0 rounded-[10px]"}><p>{expense.description}</p></div>}
 
         </div>
     );

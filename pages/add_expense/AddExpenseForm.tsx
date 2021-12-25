@@ -11,6 +11,7 @@ import LabelPurple from "../components/labels/LabelPurple";
 import {startsWithSpace} from "../api/utils/string_utils";
 import RedButton from "../components/buttons/RedButton";
 import OutlineRoundedButton from "../components/buttons/OutlineRoundedButton";
+import NewExpenseContainer from "../components/modals/currentExpense/NewExpenseContainer";
 
 //
 // let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
@@ -129,6 +130,32 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
         <div className={" w-full ak_max_600px h-100 overflow-y-scroll scrollable  "}>
             {/*<Expense styleClasses={""} expense={{...newExpense, id:"1"}}/>*/}
 
+            {showCurrentExpense &&
+                <NewExpenseContainer handleClose={()=>{dontShowCurrentExpense()}}>
+                <div className=" bg-gradient-to-r from-teal-300/90 via-purple-300 to-purple-400  rounded-[10px]  shadow-sm p-2 form-group position-sticky bottom-0 flex flex-column align-items-end w-100">
+
+                        <div className={"w-100 flex flex-column align-items-center pb-3"}>
+                            <DateSortedView mode={Modes.create}
+                                            styleClasses={" w-100    rounded-2  h-auto "}
+                                            expenseStyleClasses={"  m-0 pb-3 "}
+                                            expenses={[{
+                                                ...newExpense,
+                                                id: "1",
+                                                date: newExpense.date.toString()
+                                            }]}/>
+                            <TealButton styleClasses={" d-block w-25 rounded-full  text-white   text-sm m-1 "}
+                                        text={"create!"}
+                                        onClick={() => {
+                                            handleAddExpense();
+                                        }}/>
+                        </div>
+
+
+
+
+                </div>
+
+            </NewExpenseContainer>}
             {!expenseAdded &&
                 <div>
                     <div
@@ -337,29 +364,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                         </div>
 
                     </div>
-                    <div
-                        className="bg-white p-2 form-group position-sticky bottom-0 flex flex-column align-items-end w-100">
-                        {showCurrentExpense &&
-                            <div className={"w-100 flex flex-column align-items-center pb-3"}>
-                                <DateSortedView mode={Modes.create}
-                                                styleClasses={" w-100    rounded-2  h-auto"}
-                                                expenseStyleClasses={"  m-0 pb-3 "}
-                                                expenses={[{
-                                                    ...newExpense,
-                                                    id: "1",
-                                                    date: newExpense.date.toString()
-                                                }]}/>
-                                <TealButton styleClasses={" d-block w-25 rounded-full  text-white   text-sm m-1 "}
-                                            text={"create!"}
-                                            onClick={() => {
-                                                handleAddExpense();
-                                            }}/>
-                            </div>
 
-
-                        }
-
-                    </div>
 
                 </div>
             }
