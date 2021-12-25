@@ -226,8 +226,8 @@ export function HomePage({switchWindow}: Props) {
 
                         <div className={"py-4 w-100"}>
                             <div>
-                                <h1 className={"h3 text-center w-auto "}>Expense Tracker</h1>
-                                <h3 className={"ak_accent_text text-center font-monospace w-auto "}>Your {viewMode === ViewModes.today ? "day" : viewMode} so
+                                <h1 className={"h3 text-center w-auto text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 text-3xl"}>Expense Tracker</h1>
+                                <h3 className={"text-teal-500 text-center font-monospace w-auto "}>Your {viewMode === ViewModes.today ? "day" : viewMode} so
                                     far...</h3>
                             </div>
                             <div className={"flex align-items-center justify-content-center m-2 mt-3"}>
@@ -266,10 +266,10 @@ export function HomePage({switchWindow}: Props) {
 
 
                         {(currentHomePanel === HomePanels.ExpensesPanel) &&
-                            <div className={" w-100  h-100"}>
+                            <div className={" w-100 h-100"}>
 
                                 <div className={"p-1"}>
-                                    <h1 className={"font-monospace h5 text-center pt-2"}>your expenses
+                                    <h1 className={"font-monospace text-2xl  font-bold  py-3 align-items-center flex justify-content-center h5 text-center "}>your expenses
                                         this {viewMode === ViewModes.today ? "day" : viewMode}</h1>
                                     <div
                                         className={"scrollable py-3  shadow-inner  rounded flex justify-content-center align-items-center"}
