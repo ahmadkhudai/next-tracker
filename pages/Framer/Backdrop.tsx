@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import * as React from 'react';
 import {useEffect, useState} from "react";
 import exp from "constants";
+import {randomIntFromInterval} from "../api/utils/date_utils";
 
 type Props = {
     children:any;
@@ -32,8 +33,8 @@ export function Backdrop({children, onClick, styleClasses="", blurBackdrop}:Prop
     return (
        <motion.div
            id={"backdrop"}
-           // className={"bg-gray-200/10"}
-           className={" "+styleClasses}
+           className={randomIntFromInterval(1,100)<50?"bg-teal-200/20":"bg-purple-400/20"}
+           // className={" "+styleClasses}
            onClick={onClick}
            initial={{opacity:0}}
            animate={{opacity:1}}

@@ -131,8 +131,9 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
             {/*<Expense styleClasses={""} expense={{...newExpense, id:"1"}}/>*/}
 
             {showCurrentExpense &&
+
                 <NewExpenseContainer handleClose={()=>{dontShowCurrentExpense()}}>
-                <div className=" bg-gradient-to-r from-teal-300/90 via-purple-300 to-purple-400  rounded-[10px]  shadow-sm p-2 form-group position-sticky bottom-0 flex flex-column align-items-end w-100">
+                <div className=" bg-gradient-to-r from-teal-300/90 via-purple-300 to-purple-400  rounded-[10px]  shadow-sm p-2 form-group position-sticky bottom-0 px-0 pb-0 flex flex-column align-items-end w-100">
 
                         <div className={"w-100 flex flex-column align-items-center pb-3"}>
                             <DateSortedView mode={Modes.create}
@@ -143,12 +144,16 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                                 id: "1",
                                                 date: newExpense.date.toString()
                                             }]}/>
-                            <TealButton styleClasses={" d-block w-25 rounded-full  text-white   text-sm m-1 "}
-                                        text={"create!"}
-                                        onClick={() => {
-                                            handleAddExpense();
-                                        }}/>
-                        </div>
+                            <div className={"flex w-75 align-items-center justify-content-center "}>
+                                <TealButton styleClasses={" d-block w-50 rounded-full  text-white   text-sm m-1 "}
+                                            text={"create!"}
+                                            onClick={() => {
+                                                handleAddExpense();
+                                            }}/>
+                                <RedButton styleClasses={" rounded-full py-1 w-25"} text={"X"} onClick={()=>{dontShowCurrentExpense()}}/>
+
+                            </div>
+                           </div>
 
 
 
@@ -159,7 +164,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
             {!expenseAdded &&
                 <div>
                     <div
-                        className=" p-2 form-group position-sticky top-0 flex  align-items-center justify-content-between shadow-sm rounded-full bg-white/95 px-4 p-2 py-2 w-100">
+                        className="  form-group position-sticky top-0 flex  align-items-center justify-content-between shadow-sm rounded-full bg-white/95 px-4 p-2 py-2 my-3 w-100">
                         {/*<DateSortedView mode={Modes.create}*/}
                         {/*                styleClasses={" w-100  pt-3  rounded-2  h-auto"}*/}
                         {/*                expenseStyleClasses={" bg-teal-200 m-0 p-0 "}*/}
@@ -199,8 +204,8 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                             dontShowCurrentExpense()
                         }}>
 
-                            <div className="form-group hover:font-bold">
-                                <label htmlFor="amountSpent" className="h3 text-teal-700 hover:text-purple-700">Amount
+                            <div className="form-group hover:font-bold ak_slow_transition">
+                                <label htmlFor="amountSpent" className="text-xl text-teal-700 hover:text-purple-700">Amount
                                     Spent</label>
                                 <div className="">
                                     <input type="number"
@@ -211,8 +216,8 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                     }}/>
                                 </div>
                             </div>
-                            <div className="form-group  hover:font-bold">
-                                <label htmlFor="name" className="h3 text-teal-700 hover:text-purple-700">Spent on
+                            <div className="form-group  hover:font-bold ak_slow_transition">
+                                <label htmlFor="name" className="text-xl text-teal-700 hover:text-purple-700">Spent on
                                     (clothing, food,
                                     etc...)</label>
                                 <div className="">
@@ -225,12 +230,11 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                     }}/>
                                 </div>
                             </div>
-                            <div className="form-group hover:font-bold">
-                                <label htmlFor="Description" className="h3 text-teal-700 hover:text-purple-700">Anything
-                                    more?</label>
-                                <div className="">
+                            <div className="form-group hover:font-bold ak_slow_transition">
+                                <label htmlFor="Description" className="text-xl text-teal-700 hover:text-purple-700">Any Details?</label>
+
                 <textarea
-                    className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
+                    className="ak_slow_transition form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
                     id="Description" placeholder="Chai"
                     value={newExpense.description} onChange={e => {
                     setDescriptionModified(true);
@@ -238,7 +242,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
                 }}/>
 
-                                </div>
+
                             </div>
 
 
@@ -349,12 +353,12 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
                             <div className="form-group">
                                 <button
-                                    className=" text-3xl btn text-white hover:font-bold bg-teal-400 border-teal-300 w-100 h-100 py-4"
+                                    className=" text-2xl btn text-white hover:font-bold bg-teal-400 border-teal-300 w-100 h-100 py-2"
                                     onClick={() => {
                                         handleAddExpense();
                                     }}>add expense
                                 </button>
-                                <RedButton styleClasses={"w-25    text-sm m-1 "} text={"back"}
+                                <RedButton styleClasses={"w-25 py-1   text-sm m-1 "} text={"back"}
                                            onClick={() => {
                                                handleClose()
                                            }}/>
