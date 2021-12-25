@@ -8,10 +8,12 @@ import exp from "constants";
 type Props = {
     children:any;
     onClick:any;
+    styleClasses?:any;
+    blurBackdrop?:boolean;
 };
 type State = {};
 
-export function Backdrop({children, onClick}:Props) {
+export function Backdrop({children, onClick, styleClasses="", blurBackdrop}:Props) {
     const [height, setHeight] = useState((window.innerHeight+window.scrollY+100)+"px");
 
 
@@ -31,7 +33,7 @@ export function Backdrop({children, onClick}:Props) {
        <motion.div
            id={"backdrop"}
            // className={"bg-gray-200/10"}
-           className={" backdrop-blur-[1px] bg-gray-300/40"}
+           className={" bg-gray-300/40 "+blurBackdrop?" backdrop-blur-[1px] ":""+styleClasses}
            onClick={onClick}
            initial={{opacity:0}}
            animate={{opacity:1}}
