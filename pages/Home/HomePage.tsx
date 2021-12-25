@@ -26,12 +26,13 @@ import DateSortedView from "./_components/DateSortedView";
 import NoData from "../components/_partials/NoData";
 import {HomePanelLabels, HomePanels} from "../api/component_config/HomePanels";
 import CurrentVisual from "../graphs/CurrentVisual";
-import {dateFunctions, ViewModes, ViewModesDir} from "../api/component_config/ViewModes";
+import {dateFunctions, getNextViewMode, ViewModes, ViewModesDir} from "../api/component_config/ViewModes";
 import TealButton from "../components/buttons/TealButton";
 import LabelPurple from "../components/labels/LabelPurple";
 import {Day} from "../../constants/day";
 import Backdrop from "../Framer/Backdrop";
 import moment from "moment";
+import PurpleButton from "../components/buttons/PurpleButton";
 
 type Props = {
     switchWindow: any;
@@ -182,10 +183,15 @@ export function HomePage({switchWindow}: Props) {
 
 
 
-    function updateViewMode() {
+    function updateViewMode(param:number = 1) {
 
-        setViewMode(ViewModesDir[nextViewMode] as ViewModes);
-        setNextViewMode((nextViewMode+1)%3);
+        let tempvar = nextViewMode;
+        if(param>1){
+            tempvar = (nextViewMode+1)%3;
+            setNextViewMode(tempvar);
+        }
+        setViewMode(ViewModesDir[tempvar] as ViewModes);
+        setNextViewMode((tempvar+1)%3);
     }
 
     function getGraphY(viewMode:ViewModes){
@@ -198,9 +204,7 @@ export function HomePage({switchWindow}: Props) {
     return (
 
         <div className={"wrapper wrapper_inner scrollable "}> {currentlyOpenPanel=== OptionsPanels.AddExpensePanel &&
-            <div className={" w-100 flex items-center justify-center flex-column px-3 h-100"} onClick={(e: any) => {
-                closeAllPanels(e)
-            }}>
+            <div className={" w-100 flex items-center justify-center flex-column px-3 h-100"}>
 
                     <AddExpenseForm addNewExpense={addNewExpense} handleClose={()=>openPanel(OptionsPanels.AddExpensePanel)}/>
 
@@ -226,15 +230,23 @@ export function HomePage({switchWindow}: Props) {
                                     far...</h3>
                             </div>
                             <div className={"flex align-items-center justify-content-center m-2 mt-3"}>
-                                <div className={"flex align-items-center justify-end bg-gray-100    rounded w-75 "}>
-                                    <div className={"flex align-items-center justify-content-center w-75"}>
-                                        <LabelPurple styleClasses={" font-bold text-xl w-75 text-center   "}
-                                                     text={viewMode}/>
+                                <div className={"flex align-items-center justify-end bg-gray-100  px-2   rounded-3 w-75 "}>
+                                    <div className={"flex align-items-center w-100 justify-content-between"}>
+
+
+                                        <TealButton styleClasses={" rounded-3 w-25"}
+                                                    text={ViewModesDir[nextViewMode]} onClick={() => {
+                                            updateViewMode()
+                                        }}/><LabelPurple styleClasses={" font-bold text-xl w-50 text-center   "}
+                                                         text={viewMode}/>
+                                        <PurpleButton onClick={()=>{updateViewMode(2)}} styleClasses={"  w-25 text-center rounded-3   "}
+                                                     text={ViewModesDir[(nextViewMode+1)%3]}/>
                                     </div>
-                                    <TealButton styleClasses={" px-2 py-2 w-25 align-self-end text-sm"}
-                                                text={ViewModesDir[nextViewMode]} onClick={() => {
-                                        updateViewMode()
-                                    }}/>
+
+                                    {/*<TealButton styleClasses={" px-2 py-2 w-25 align-self-end text-sm"}*/}
+                                    {/*            text={} onClick={() => {*/}
+                                    {/*    updateViewMode()*/}
+                                    {/*}}/>*/}
 
                                 </div>
                             </div>
