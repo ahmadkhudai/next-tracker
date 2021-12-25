@@ -434,8 +434,22 @@ $finalWidth: $finalHeight*2;
   justify-content: center;
 }
 
+.scale-test{
+//transform:scale(0.7);
 
+  //-webkit-transform: scale(0.1);
+  //-webkit-transform: scale(0.1);
+}
 
+@media screen and (max-width: 500px){
+  .scale-test{
+
+    //transform:scale(0.6);
+
+    //-webkit-transform: scale(0.1);
+    //-webkit-transform: scale(0.1);
+  }
+}
 
 
 

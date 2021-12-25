@@ -118,7 +118,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
             {!expenseAdded &&
                 <div>
-                    <div className="bg-white p-2 form-group position-sticky top-0 flex flex-column align-items-center">
+                    <div className="bg-white p-2 form-group position-sticky top-0 flex flex-column align-items-center" >
                         <DateSortedView mode={Modes.create}
                                         styleClasses={" w-100  pt-3  rounded-2  h-auto"}
                                         expenseStyleClasses={" bg-teal-200 m-0 p-0 "}
@@ -126,9 +126,9 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
                         <div className={"w-100 flex justify-center"}>
                             <PurpleButton
-                                styleClasses={"w-50 p-2  text-xl m-1"}
+                                styleClasses={"w-50   text-sm m-1"}
                                 text={"add!"} onClick={() => handleAddExpense()}/>
-                            <RedButton styleClasses={"w-25  p-2  text-xl m-1 "} text={"back"}
+                            <RedButton styleClasses={"w-25    text-sm m-1 "} text={"back"}
                                           onClick={() => {
                                               handleClose()
                                           }}/>
