@@ -1,10 +1,11 @@
 // @flow
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {Area, CartesianGrid, Tooltip, XAxis, YAxis,ComposedChart, Line} from 'recharts';
+import {Area, CartesianGrid, Tooltip, Label, XAxis, YAxis,ComposedChart, Line} from 'recharts';
 import SummaryExpense from "../../Definitions/SummaryExpense";
 import {Expense} from "../../Definitions/Expense";
 import moment from "moment";
+import {nFormatter} from "../api/utils/num_utils";
 
 
 type Props = {
@@ -44,7 +45,14 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
     //         <NoData customMessage={Messages.NotEnoughData} />
     //     )
     // }
+    let renderLabel = function(entry:any) {
+        return nFormatter(entry);
+    }
 
+    // console.log(displayData);
+    // displayData.forEach((data:any) =>{
+    //     console.log(nFormatter(data.expense));
+    // })
     return (
         <div className={"container flex flex-column flex-xl-row align-items-center  bg-white/10"}>
             {displayData.length > 1 &&
@@ -63,7 +71,7 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
 
                         <XAxis dataKey={dateFunction} axisLine={false} reversed={true} />
                         <CartesianGrid vertical={false} opacity={0.5}/>
-                        <YAxis  axisLine={false}/>
+                        <YAxis  width={10}  tickFormatter={renderLabel}  axisLine={false} />
                         <Tooltip/>
 
                         <Line type="monotone" strokeLinecap="round" strokeWidth={2}
@@ -78,11 +86,14 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
                               style={{strokeDasharray: `0 60% 40%`}}
                               stroke="#7A58BF"
                               name={nameOfX}
+
                               dot={false}
                               legendType="none"
                         />
                         <Area type="monotone"
-                              name={nameOfX} dataKey="expense" strokeWidth={2} fillOpacity={1}
+
+                              // label={(obj:any) => nFormatter(obj.expense)}
+                              name={nameOfX} dataKey="expense" strokeWidth={2} fillOpacity={1} label={renderLabel}
                               fill="url(#colorUv)"/>
                     </ComposedChart>
 
