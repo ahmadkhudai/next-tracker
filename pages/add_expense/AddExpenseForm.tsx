@@ -322,44 +322,45 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
                         </div>
-                        <div
-                            className="bg-white p-2 form-group position-sticky bottom-0 flex flex-column align-items-end w-100">
-                            {showCurrentExpense &&
-                                <div className={"w-100 flex flex-column align-items-center pb-3"}>
-                                    <DateSortedView mode={Modes.create}
-                                                    styleClasses={" w-100    rounded-2  h-auto"}
-                                                    expenseStyleClasses={"  m-0 pb-3 "}
-                                                    expenses={[{
-                                                        ...newExpense,
-                                                        id: "1",
-                                                        date: newExpense.date.toString()
-                                                    }]}/>
-                                    <TealButton styleClasses={" d-block w-25 rounded-full  text-white   text-sm m-1 "}
-                                                text={"create!"}
-                                                onClick={() => {
-                                                    handleAddExpense();
-                                                }}/>
-                                </div>
 
-
-                            }
-                            <div className={"flex w-100 justify-content-center"}>
-                                <OutlineRoundedButton
-                                    styleClasses={"w-50 bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500  text-white   text-sm m-1 "}
-                                    text={showCurrentExpense ? "hide" : "show"}
-                                    onClick={() => {
-                                        setShowCurrentExpense(!showCurrentExpense);
-                                    }}/>
-                                {/*{showCurrentExpense &&*/}
-                                {/*    <OutlineRoundedButton styleClasses={"w-50 bg-gradient-to-l from-teal-300   to-purple-500  text-white   text-sm m-1 "} text={"create!"}*/}
-                                {/*                          onClick={() => {*/}
-                                {/*                              handleAddExpense();*/}
-                                {/*                          }}/>*/}
-                                {/*}*/}
-
+                    </div>
+                    <div
+                        className="bg-white p-2 form-group position-sticky bottom-0 flex flex-column align-items-end w-100">
+                        {showCurrentExpense &&
+                            <div className={"w-100 flex flex-column align-items-center pb-3"}>
+                                <DateSortedView mode={Modes.create}
+                                                styleClasses={" w-100    rounded-2  h-auto"}
+                                                expenseStyleClasses={"  m-0 pb-3 "}
+                                                expenses={[{
+                                                    ...newExpense,
+                                                    id: "1",
+                                                    date: newExpense.date.toString()
+                                                }]}/>
+                                <TealButton styleClasses={" d-block w-25 rounded-full  text-white   text-sm m-1 "}
+                                            text={"create!"}
+                                            onClick={() => {
+                                                handleAddExpense();
+                                            }}/>
                             </div>
 
+
+                        }
+                        <div className={"flex w-100 justify-content-center"}>
+                            <OutlineRoundedButton
+                                styleClasses={"w-50 bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500  text-white   text-sm m-1 "}
+                                text={showCurrentExpense ? "hide" : "show"}
+                                onClick={() => {
+                                    setShowCurrentExpense(!showCurrentExpense);
+                                }}/>
+                            {/*{showCurrentExpense &&*/}
+                            {/*    <OutlineRoundedButton styleClasses={"w-50 bg-gradient-to-l from-teal-300   to-purple-500  text-white   text-sm m-1 "} text={"create!"}*/}
+                            {/*                          onClick={() => {*/}
+                            {/*                              handleAddExpense();*/}
+                            {/*                          }}/>*/}
+                            {/*}*/}
+
                         </div>
+
                     </div>
 
                 </div>
