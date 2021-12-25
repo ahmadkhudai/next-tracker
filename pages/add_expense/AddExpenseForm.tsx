@@ -118,6 +118,12 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
         // document.getElementById("add_expense_form")?.focus();
     }
 
+    function resetState(){
+        setExpenseAdded(false);
+        setLastExpense(newExpense);
+        setShowCurrentExpense(false);
+    }
+
     return (
 
         <div className={" w-full ak_max_600px h-100 overflow-y-scroll scrollable  "}>
@@ -141,12 +147,13 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                         </div>
 
                     </div>
-                    <div id={"add_expense_form"}
+                    <div id={"add_expense_form h-100 "}
                          className={" my-6 flex flex-column bg-white/90 hover:bg-white ak_slow_transition p-3 "}
-                         style={{"marginBottom": "4rem"}}>
+                         style={{"marginBottom": "4rem"}}
+                    >
 
 
-                        <div id="expense_form" className="pt-3 ">
+                        <div id="expense_form" className="pt-3 " onClick={()=>{dontShowCurrentExpense()}}>
 
                             <div className="form-group hover:font-bold">
                                 <label htmlFor="amountSpent" className="h3 text-teal-700 hover:text-purple-700">Amount
@@ -308,25 +315,43 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                                handleClose()
                                            }}/>
                             </div>
-                            <div className={"bg-gray-100/90 py-1 mb-0 form-group my-3 border-gray-300 position-sticky bottom-0 flex flex-column align-items-center"}>
 
 
-                        {showCurrentExpense &&
-                               <DateSortedView mode={Modes.create}
-                                                styleClasses={" w-100  pb-3  rounded-2  h-auto"}
-                                                expenseStyleClasses={"  m-0 pb-3 "}
-                                                expenses={[{...newExpense, id: "1", date: newExpense.date.toString()}]}/>
+                        </div>
+                        <div className={"bg-gray-100/90 py-1 mb-0 form-group my-3 border-gray-300 position-sticky bottom-0 flex flex-column align-items-center"}>
+
+                            {showCurrentExpense &&
+                                <div className={"w-100 flex flex-column align-items-center pb-3"}>
+                                    <DateSortedView mode={Modes.create}
+                                                    styleClasses={" w-100    rounded-2  h-auto"}
+                                                    expenseStyleClasses={"  m-0 pb-3 "}
+                                                    expenses={[{...newExpense, id: "1", date: newExpense.date.toString()}]}/>
+                                    <TealButton styleClasses={" d-block w-25 rounded-full  text-white   text-sm m-1 "} text={"create!"}
+                                                onClick={() => {
+                                                    handleAddExpense();
+                                                }}/>
+                                </div>
 
 
-                            }<OutlineRoundedButton styleClasses={"w-50 bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500  text-white   text-sm m-1 "} text={showCurrentExpense?"hide":"show"}
-                                                   onClick={() => {
-                                                       setShowCurrentExpense(!showCurrentExpense);
-                                                   }}/>
+
+                            }
+                            <div className={"flex w-100 justify-content-center"}>
+                                <OutlineRoundedButton styleClasses={"w-50 bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500  text-white   text-sm m-1 "} text={showCurrentExpense?"hide":"show"}
+                                                      onClick={() => {
+                                                          setShowCurrentExpense(!showCurrentExpense);
+                                                      }}/>
+                                {/*{showCurrentExpense &&*/}
+                                {/*    <OutlineRoundedButton styleClasses={"w-50 bg-gradient-to-l from-teal-300   to-purple-500  text-white   text-sm m-1 "} text={"create!"}*/}
+                                {/*                          onClick={() => {*/}
+                                {/*                              handleAddExpense();*/}
+                                {/*                          }}/>*/}
+                                {/*}*/}
+
                             </div>
 
                         </div>
-
                     </div>
+
                 </div>
             }
 
@@ -342,8 +367,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
                     <div className={"w-75 flex flex-column"}>
                         <TealButton styleClasses={" my-2 py-3 text-xl"} text={"add more!"} onClick={() => {
-                            setExpenseAdded(false);
-                            setLastExpense(newExpense);
+                            resetState();
                         }}/>
                         <PurpleButton styleClasses={" p-2 my-1 "} text={"take me home."} onClick={() => {
                             handleClose()
@@ -353,7 +377,10 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                 </div>
 
 
+
             }
+
+
         </div>
     )
 }
