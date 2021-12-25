@@ -1,8 +1,16 @@
 // @flow
 import * as React from 'react';
-import {useEffect, useRef, useState} from 'react';
+import {useState} from 'react';
 import moment from "moment";
 import {Day, getSubtractableDays} from "../../constants/day";
+import DateSortedView from "../Home/_components/DateSortedView";
+import {Modes} from "../api/component_config/Modes";
+import PurpleButton from "../components/buttons/PurpleButton";
+import Backdrop from "../Framer/Backdrop";
+import Modal from "../Framer/Modal";
+import Expense from "../Home/_components/Expense";
+import TealButton from "../components/buttons/TealButton";
+import LabelPurple from "../components/labels/LabelPurple";
 
 //
 // let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
@@ -70,42 +78,63 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
         let newDate:Date = new Date(moment(date).add(number, "days").toString()) ;
         return concatTimeToDate(newDate, oldDate);
     }
+    const [lastCreatedExpense, setLastExpense] = useState({} as any);
 
 
+    const [expenseAdded, setExpenseAdded] = useState(false);
+
+    function handleAddExpense() {
+        setLastExpense({...newExpense});
+        addNewExpense(newExpense);
+        setExpenseAdded(true);
+        setNewExpense(defaultExpense);
+        // document.getElementById("add_expense_form")?.focus();
+    }
     return (
 
-        <div className={" w-full ak_max_600px flex flex-column my-3 bg-white/90 hover:bg-gray-200/30 ak_slow_transition p-3 "}>
-            <button className={"btn absolute align-self-end ak_close_button hover:bg-teal-300"} onClick={()=>{handleClose()}}>X</button>
+        <div className={" w-full ak_max_600px h-100 overflow-y-scroll scrollable  "}>
+            {/*<Expense styleClasses={""} expense={{...newExpense, id:"1"}}/>*/}
 
-            <h4 className={"h4 text-teal-700 hover:text-purple-700 text-center p-2"}>new expense</h4>
-            <div id="expense_form" className="pt-3 ">
 
-                <div className="form-group hover:font-bold">
-                    <label htmlFor="amountSpent" className="h3 text-teal-700 hover:text-purple-700">Amount Spent</label>
-                    <div className="">
-                        <input type="number"
-                               className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
-                               id="amountSpent" placeholder="30" min="0"
-                               value={newExpense.price} onChange={(e) => {
-                            handleFieldChange("price", e.target.value)
-                        }}/>
+            <div className="bg-white p-2 form-group position-sticky top-0 flex flex-column align-items-center">
+                <DateSortedView mode={Modes.create} styleClasses={ " w-75 bg-teal-100 py-2 my-2 rounded-2  h-auto"}  expenses={[{...newExpense, id:"1", date:newExpense.date.toString()}]}/>
+
+               <PurpleButton
+                   styleClasses={"w-80 py-2 text-2xl"}
+                   text={"add expense"} onClick={()=>handleAddExpense()}/>
+            </div>
+            <div id={"add_expense_form"} className={" my-6 flex flex-column bg-white/90 hover:bg-white ak_slow_transition p-3 "} style={{"marginBottom":"4rem"}}>
+                <button className={"btn fixed align-self-end ak_close_button hover:bg-teal-300"} onClick={()=>{handleClose()}}>X</button>
+
+                <h4 className={"h4 text-teal-700 hover:text-purple-700 text-center p-2"}>new expense</h4>
+                <div id="expense_form" className="pt-3 ">
+
+                    <div className="form-group hover:font-bold">
+                        <label htmlFor="amountSpent" className="h3 text-teal-700 hover:text-purple-700">Amount Spent</label>
+                        <div className="">
+                            <input type="number"
+                                   className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
+                                   id="amountSpent" placeholder="30" min="0"
+                                   value={newExpense.price} onChange={(e) => {
+                                handleFieldChange("price", e.target.value)
+                            }}/>
+                        </div>
                     </div>
-                </div>
-                <div className="form-group  hover:font-bold">
-                    <label htmlFor="name" className="h3 text-teal-700 hover:text-purple-700">Spent on (clothing, food,
-                        etc...)</label>
-                    <div className="">
-                        <input type="text"
-                               className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
-                               id="name" placeholder="Chai"
-                               value={newExpense.name} onChange={e => {
-                            handleFieldChange("name", e.target.value)
-                        }}/>
+                    <div className="form-group  hover:font-bold">
+                        <label htmlFor="name" className="h3 text-teal-700 hover:text-purple-700">Spent on (clothing, food,
+                            etc...)</label>
+                        <div className="">
+                            <input type="text"
+                                   className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
+                                   id="name" placeholder="Chai"
+                                   value={newExpense.name} onChange={e => {
+                                handleFieldChange("name", e.target.value)
+                            }}/>
+                        </div>
                     </div>
-                </div>
-                <div className="form-group hover:font-bold">
-                    <label htmlFor="Description" className="h3 text-teal-700 hover:text-purple-700">Anything more?</label>
-                    <div className="">
+                    <div className="form-group hover:font-bold">
+                        <label htmlFor="Description" className="h3 text-teal-700 hover:text-purple-700">Anything more?</label>
+                        <div className="">
                         <textarea
                             className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
                             id="Description" placeholder="Chai"
@@ -113,114 +142,130 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                             handleFieldChange("description", e.target.value)
                         }}/>
 
+                        </div>
                     </div>
-                </div>
 
 
-                <div className={"py-3"}>
+                    <div className={"py-3"}>
 
-                    <h2 className={"p-2 text-center h2 text-teal-700 hover:text-purple-700"}>{Day[(moment(newExpense.date).day())]+ " " +  (moment(newExpense.date).date())}</h2>
-                    {dateSelector!==dateSelectors.custom &&
-                        <div>
-                            <div className={"flex justify-content-between pb-3"}>
+                        <h2 className={"p-2 text-center h2 text-teal-700 hover:text-purple-700"}>{Day[(moment(newExpense.date).day())]+ " " +  (moment(newExpense.date).date())}</h2>
+                        {dateSelector!==dateSelectors.custom &&
+                            <div>
+                                <div className={"flex justify-content-between pb-3"}>
 
-                                <div className={" flex flex-column justify-content-between "}>
-                                    <button className={"my-1 mx-2  btn bg-teal-400 text-white"} onClick={() => {
-                                        handleFieldChange("date", addDaysPreserveTime(new Date(), 0, newExpense.date))
-                                    }}>today
-                                    </button>
-                                    <button className={"my-1 mx-2 btn border-teal-500 hover:bg-teal-400 hover:text-white"}
+                                    <div className={" flex flex-column justify-content-between "}>
+                                        <button className={"my-1 mx-2  btn bg-teal-400 text-white"} onClick={() => {
+                                            handleFieldChange("date", addDaysPreserveTime(new Date(), 0, newExpense.date))
+                                        }}>today
+                                        </button>
+                                        <button className={"my-1 mx-2 btn border-teal-500 hover:bg-teal-400 hover:text-white"}
+                                                onClick={() => {
+                                                    handleFieldChange("date", addDaysPreserveTime(new Date(), -1, newExpense.date))
+                                                }}>yesterday
+                                        </button>
+                                        <button
+                                            className={"my-1 mx-2 btn bg-purple-500 hover:font-bold hover:bg-teal-400 text-white"}
                                             onClick={() => {
-                                                handleFieldChange("date", addDaysPreserveTime(new Date(), -1, newExpense.date))
-                                            }}>yesterday
-                                    </button>
-                                    <button
-                                        className={"my-1 mx-2 btn bg-purple-500 hover:font-bold hover:bg-teal-400 text-white"}
-                                        onClick={() => {
-                                            openSelector(dateSelectors.thisWeek)
-                                        }}>this week
-                                    </button>
-                                    <button className={"my-1 mx-2  btn border-black hover:bg-black hover:text-white"} onClick={()=>{openSelector(dateSelectors.custom)}}>specific date</button>
-                                </div>
-                                <div className={"text-center"}>
+                                                openSelector(dateSelectors.thisWeek)
+                                            }}>this week
+                                        </button>
+                                        <button className={"my-1 mx-2  btn border-black hover:bg-black hover:text-white"} onClick={()=>{openSelector(dateSelectors.custom)}}>specific date</button>
+                                    </div>
+                                    <div className={"text-center"}>
 
-                                </div>
+                                    </div>
 
-                                {dateSelector === dateSelectors.thisWeek &&
-                                    <div
-                                        className={"flex flex-column overflow-x-scroll align-items-center justify-content-between scrollable px-3 "} >
-                                        {getSubtractableDays(moment(new Date()).weekday()).map
-                                        (
-                                            day => {
+                                    {dateSelector === dateSelectors.thisWeek &&
+                                        <div
+                                            className={"flex flex-column overflow-x-scroll align-items-center justify-content-between scrollable px-3 "} >
+                                            {getSubtractableDays(moment(new Date()).weekday()).map
+                                            (
+                                                day => {
 
-                                                return <button key={day}
-                                                               className={"btn bg-purple-400 hover:font-bold hover:bg-teal-400 text-white my-1 w-100"}
-                                                               onClick={() => {
-                                                                   handleFieldChange("date", addDaysPreserveTime(new Date(), -day, newExpense.date));
-                                                               }}>{Day[moment(new Date()).weekday() - day]}</button>
+                                                    return <button key={day}
+                                                                   className={"btn bg-purple-400 hover:font-bold hover:bg-teal-400 text-white my-1 w-100"}
+                                                                   onClick={() => {
+                                                                       handleFieldChange("date", addDaysPreserveTime(new Date(), -day, newExpense.date));
+                                                                   }}>{Day[moment(new Date()).weekday() - day]}</button>
 
-                                            })
-                                        }
+                                                })
+                                            }
 
-                                    </div>}
+                                        </div>}
 
-                            </div>
-                        </div>
-                  }
-
-                    {dateSelector===dateSelectors.custom &&
-                        <div className={" flex flex-column"}>
-                            <button className={"btn border-purple-500 hover:bg-purple-500 hover:text-white hover:font-bold"} onClick={()=>{openSelector(dateSelectors.none)}}>simple menu</button>
-
-                            <div className="form-group hover:font-bold py-2 my-2">
-
-                                <label htmlFor="Date" className="text-teal-700 hover:text-purple-700 h3 hidden">Date</label>
-                                <div className="">
-                                    <input type="datetime-local"
-                                           className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
-                                           id="Date" value={moment(new Date(newExpense.date)).format("YYYY-MM-DDTHH:mm")}
-                                           onChange={(e) => {
-                                               if((e.target.value)!==""){
-                                                   handleFieldChange("date", new Date(e.target.value));
-                                               }
-                                           }}/>
                                 </div>
                             </div>
-                        </div>
+                        }
+
+                        {dateSelector===dateSelectors.custom &&
+                            <div className={" flex flex-column"}>
+                                <button className={"btn border-purple-500 hover:bg-purple-500 hover:text-white hover:font-bold"} onClick={()=>{openSelector(dateSelectors.none)}}>simple menu</button>
+
+                                <div className="form-group hover:font-bold py-2 my-2">
+
+                                    <label htmlFor="Date" className="text-teal-700 hover:text-purple-700 h3 hidden">Date</label>
+                                    <div className="">
+                                        <input type="datetime-local"
+                                               className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
+                                               id="Date" value={moment(new Date(newExpense.date)).format("YYYY-MM-DDTHH:mm")}
+                                               onChange={(e) => {
+                                                   if((e.target.value)!==""){
+                                                       handleFieldChange("date", new Date(e.target.value));
+                                                   }
+                                               }}/>
+                                    </div>
+                                </div>
+                            </div>
 
 
-                    }
-                    <h2 className={"p-2 text-center h2 text-teal-700 hover:text-purple-700"}>{(moment(newExpense.date).format("hh:mm a"))}</h2>
+                        }
+                        <h2 className={"p-2 text-center h2 text-teal-700 hover:text-purple-700"}>{(moment(newExpense.date).format("hh:mm a"))}</h2>
 
-                    <div className="form-group hover:font-bold mt-2">
-                        <label htmlFor="Time" className="text-teal-700 hover:text-purple-700 h3 hidden">Time</label>
-                        <div className="">
-                            <input type="time"
-                                   className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
-                                   id="Time" value={moment(newExpense.date).format("HH:mm")}
-                                   onChange={(e) => {
-                                       if((e.target.value)!==""){
-                                           handleFieldChange("date", new Date(concat(newExpense.date, e.target.value)));
-                                       }
-                                   }}/>
+                        <div className="form-group hover:font-bold mt-2">
+                            <label htmlFor="Time" className="text-teal-700 hover:text-purple-700 h3 hidden">Time</label>
+                            <div className="">
+                                <input type="time"
+                                       className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
+                                       id="Time" value={moment(newExpense.date).format("HH:mm")}
+                                       onChange={(e) => {
+                                           if((e.target.value)!==""){
+                                               handleFieldChange("date", new Date(concat(newExpense.date, e.target.value)));
+                                           }
+                                       }}/>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="form-group">
-                    <button
-                        className=" text-3xl btn text-white hover:font-bold bg-teal-400 border-teal-300 w-100 h-100 py-4"
-                        onClick={() => {
-                            addNewExpense(newExpense);
-                            setNewExpense(defaultExpense);
-                        }}>add expense
-                    </button>
-                </div>
+                    <div className="form-group">
+                        <button
+                            className=" text-3xl btn text-white hover:font-bold bg-teal-400 border-teal-300 w-100 h-100 py-4"
+                            onClick={() => {
+                                handleAddExpense();
+                            }}>add expense
+                        </button>
+                    </div>
 
+                </div>
+                {expenseAdded &&
+                    <Backdrop onClick={()=>{}}>
+                        <div className={"w-100 ak_max_600px  flex flex-column align-items-center bg-white p-3"}>
+
+                            <LabelPurple text={"Expense Added!"} styleClasses={" h1 text-4xl"}/>
+                            <DateSortedView mode={Modes.create} styleClasses={ " bg-teal-100 py-2 my-2 rounded-2  h-auto w-75 "}  expenses={[{...lastCreatedExpense, id:"1", date:newExpense.date.toString()}]}/>
+
+                            <div className={"w-75 flex flex-column"}>
+                                <TealButton styleClasses={" my-2 py-3 text-xl"} text={"add more!"} onClick={()=>{setExpenseAdded(false);setLastExpense(newExpense);}}/>
+                                <PurpleButton styleClasses={" p-2 my-1 "} text={"take me home."} onClick={()=>{handleClose()}}/>
+                            </div>
+                            {/*<Expense expense={lastCreatedExpense}/>*/}
+                        </div>
+
+                    </Backdrop>
+                }
             </div>
 
         </div>
-    )
+         )
 }
 
 export default AddExpenseForm;

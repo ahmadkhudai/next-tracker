@@ -30,6 +30,7 @@ import {ViewModes, ViewModesDir} from "../api/component_config/ViewModes";
 import TealButton from "../components/buttons/TealButton";
 import LabelPurple from "../components/labels/LabelPurple";
 import {Day} from "../../constants/day";
+import Backdrop from "../Framer/Backdrop";
 
 type Props = {
     switchWindow: any;
@@ -205,11 +206,14 @@ export function HomePage({switchWindow}: Props) {
                 }
 
                 {currentlyOpenPanel === OptionsPanels.SettingsPanel &&
-                    <AK_SettingsPanel settings={settings} modifySettings={modifySettings}/>
-                }
+                    <Backdrop onClick={(e:any)=>closeAllPanels(e)}>
+                        <AK_SettingsPanel settings={settings} modifySettings={modifySettings}/>
+                    </Backdrop>
+                      }
                 {currentlyOpenPanel === OptionsPanels.AddExpensePanel &&
+                    <Backdrop onClick={()=>{}}>
                     <AddExpenseForm addNewExpense={addNewExpense} handleClose={()=>openPanel(OptionsPanels.AddExpensePanel)}/>
-
+                    </Backdrop>
                 }
                 <div className={" flex items-center flex-column justify-center ak_max_600px w-100 "}>
 

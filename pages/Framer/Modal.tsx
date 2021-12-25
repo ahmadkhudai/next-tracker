@@ -35,7 +35,6 @@ export function Modal({handleClose, message, subtitle}:Props) {
     return (
        <Backdrop onClick={handleClose}>
            <motion.div
-               drag
                 variants={dropIn}
                 initial={"hidden"}
                 animate={"visible"}

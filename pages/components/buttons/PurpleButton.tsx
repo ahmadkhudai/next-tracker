@@ -8,7 +8,7 @@ type Props = {
 };
 type State = {};
 
-export function PurpleButton({onClick, text, styleClasses}:Props) {
+export function PurpleButton({onClick, text, styleClasses=""}:Props) {
     let classes = "btn hover:bg-teal-400 text-white bg-purple-500 hover:font-bold ";
     if(styleClasses){
         classes+=styleClasses;

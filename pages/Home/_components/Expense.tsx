@@ -11,6 +11,7 @@ type Props = {
  expense:Expense;
  settings?:SettingsObj;
  deleteExpense?:any;
+ styleClasses?:string;
 };
 type State = {
 
@@ -24,10 +25,11 @@ export function ExpenseComponent(props: Props) {
     if (!props.deleteExpense) {
         onclickHandler = null;
     }
+    let styleClasses = props.styleClasses?props.styleClasses:"";
     let settings: any = props.settings || baseSettings;
     const [desc, setDesc] = useState(false);
     return (
-        <div className=" py-1 rounded font-monospace my-1 rounded"
+        <div className={" py-1 rounded font-monospace my-1 rounded "+styleClasses}
              // onClick={(e)=>{e.stopPropagation();setDesc(!desc)}} onMouseEnter={()=>{setDesc(true)}} onMouseLeave={()=>{setDesc(false)}}
         >
             <ul className="bg-white p-3 justify-content-between border-0 m-2 p-1 flex items-center rounded-2">

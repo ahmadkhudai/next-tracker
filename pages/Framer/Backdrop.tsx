@@ -33,7 +33,7 @@ export function Backdrop({children, onClick, styleClasses="", blurBackdrop}:Prop
        <motion.div
            id={"backdrop"}
            // className={"bg-gray-200/10"}
-           className={" bg-gray-300/40 "+blurBackdrop?" backdrop-blur-[1px] ":""+styleClasses}
+           className={" scrollable bg-gray-300/60 "+blurBackdrop?" backdrop-blur-[1px] ":""+styleClasses}
            onClick={onClick}
            initial={{opacity:0}}
            animate={{opacity:1}}
