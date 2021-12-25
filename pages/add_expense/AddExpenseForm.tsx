@@ -125,7 +125,9 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                         {/*                expenseStyleClasses={" bg-teal-200 m-0 p-0 "}*/}
                         {/*                expenses={[{...newExpense, id: "1", date: newExpense.date.toString()}]}/>*/}
 
-                        <div className={"flex justify-end w-50"}>
+
+                        <div className={"flex justify-between w-100"}>   <p className={" h4 text-teal-700 hover:text-purple-700 p-2"}>add new expense</p>
+
                             <RedButton styleClasses={"    text-sm m-1 rounded-[50%] h-50  "} text={"X"}
                                        onClick={() => {
                                            handleClose()
@@ -138,7 +140,6 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                          style={{"marginBottom": "4rem"}}>
 
 
-                        <h4 className={"h4 text-teal-700 hover:text-purple-700 text-center p-2"}>new expense</h4>
                         <div id="expense_form" className="pt-3 ">
 
                             <div className="form-group hover:font-bold">
@@ -300,6 +301,13 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                            onClick={() => {
                                                handleClose()
                                            }}/>
+                            </div>
+                            <div className={"bg-gray-100/90 form-group my-3 border-gray-300 position-sticky bottom-1"}>
+                                <DateSortedView mode={Modes.create}
+                                                styleClasses={" w-100  pb-3  rounded-2  h-auto"}
+                                                expenseStyleClasses={"  m-0 pb-3 "}
+                                                expenses={[{...newExpense, id: "1", date: newExpense.date.toString()}]}/>
+
                             </div>
 
                         </div>
