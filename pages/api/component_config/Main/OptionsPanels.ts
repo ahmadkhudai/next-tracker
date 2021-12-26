@@ -6,4 +6,5 @@ export enum OptionsPanels {
 }
 
 export enum OptionPanelLabels {
+    "AddExpensePanel"="add +"
 }

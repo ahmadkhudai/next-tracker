@@ -9,7 +9,7 @@ import NoData from "../components/_partials/NoData";
 import {baseSettings, sortfunction} from "../api/utils/expense_utils";
 import {SettingsObj} from "../../Definitions/SettingsObj";
 import {dumdumData} from "../api/dummy_data/data";
-import HomeHeader from "../components/HomeHeader";
+import HomeHeader from "../components/HomeHeader/HomeHeader";
 import {MainWindows} from "../api/component_config/MainWindows";
 
 
@@ -59,7 +59,7 @@ export default function GraphWindow({switchWindow}: Props) {
             {expenses.length == 0 && <NoData/>}
             {expenses.length > 0 &&
                 <div>
-                    <Header openSubPanel={openPanel}/>
+                    <Header openHomePanelFunc={openPanel}/>
 
                         {openedPanel === GraphPanels.grouped &&
                             <div className={"flex align-items-center justify-content-center"}>
