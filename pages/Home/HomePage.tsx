@@ -286,7 +286,7 @@ export function HomePage({switchWindow}: Props) {
 
                     </div>
                 }
-                {currentHomePanel===HomePanels.none &&
+                {currentHomePanel===HomePanels.none && currentlyOpenPanel!==OptionsPanels.AddExpensePanel &&
                     <NoData customMessage={"Nothing to show here."}/>
                 }
 
