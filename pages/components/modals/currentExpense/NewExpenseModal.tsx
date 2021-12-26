@@ -1,10 +1,7 @@
 // @flow
-import {motion} from 'framer-motion';
+
 import * as React from 'react';
 import Backdrop from "../../../Framer/Backdrop";
-import {Expense} from "../../../../Definitions/Expense";
-import DateSortedView from "../../../Home/_components/DateSortedView";
-import {Modes} from "../../../api/component_config/Modes";
 
 type Props = {
     handleClose:any;
@@ -36,11 +33,8 @@ const dropIn = {
 export function NewExpenseModal({handleClose, children}:Props) {
     return (
         <Backdrop onClick={handleClose}>
-            <motion.div
-                variants={dropIn}
-                initial={"hidden"}
-                animate={"visible"}
-                exit={"exit"}
+            <div
+
                 // id={"modal"}
 
                 className={" text-center justify-center"}
@@ -60,7 +54,7 @@ export function NewExpenseModal({handleClose, children}:Props) {
 
 
 
-            </motion.div>
+            </div>
         </Backdrop>
     );
 };

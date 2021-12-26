@@ -63,6 +63,9 @@ function GroupedExpensesGraph({expenses}:Props) {
         };
     }, [expenses]);
 
+    // console.log(expenses);
+    // console.log(displayData);
+    // console.log("WEEK WISE: ", getWeekWiseExpenses(getSortedExpenses(expenses)));
     return (
         <div className="container card my-4 justify-content-center align-items-center">
             <div className={"p-4 text-center"}>

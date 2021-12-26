@@ -1,9 +1,9 @@
 // @flow
 
 
-import {motion, AnimatePresence} from "framer-motion";
+// import {motion, AnimatePresence} from "framer-motion";
 import * as React from 'react';
-import {useState} from "react";
+// import {useState} from "react";
 import {Modal} from "./Modal";
 
 type Props = {
@@ -18,12 +18,12 @@ export function ModalContainer({message, subtitle, handleClose}:Props) {
     return (
 
         <div className={"root-div"}>
-            <AnimatePresence
-                initial={false}
-                exitBeforeEnter={true}
-                onExitComplete={()=>null}>
+            {/*<AnimatePresence*/}
+            {/*    initial={false}*/}
+            {/*    exitBeforeEnter={true}*/}
+            {/*    onExitComplete={()=>null}>*/}
                 <Modal message={message} subtitle={subtitle} handleClose={handleClose}/>
-            </AnimatePresence>
+            {/*</AnimatePresence>*/}
         </div>
     );
 }

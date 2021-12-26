@@ -59,8 +59,8 @@ export function HomePage({switchWindow}: Props) {
     function modifyExpenses(modifiedExpenses: Expense[]) {
         modifiedExpenses = modifiedExpenses.sort(sortfunction);
 
-        console.log(modifiedExpenses.length);
-        console.log("MODIFIED EXPENSES", modifiedExpenses);
+        // console.log(modifiedExpenses.length);
+        // console.log("MODIFIED EXPENSES", modifiedExpenses);
         setExpenses(modifiedExpenses);
         localStorage.setItem("ak_expenses", JSON.stringify(modifiedExpenses));
     }
@@ -160,7 +160,6 @@ export function HomePage({switchWindow}: Props) {
         }
         if(stateUpdated){
             setCurrentExpenses(tempcurrentExpenses);
-            console.log(tempcurrentExpenses);
             setGraphAbleExpenses(tempgraphAbleExpenses);
             if(tempcurrentExpenses.length==0){
                 openHomePanel(HomePanels.none);
@@ -235,19 +234,15 @@ export function HomePage({switchWindow}: Props) {
                                     <div className={" flex align-items-center w-100 justify-content-between"}>
 
 
-                                        <OutlineRoundedButton styleClasses={"   px-4 text-center hover:bg-teal-400  border-teal-400 text-teal-500  "}
+                                        <OutlineRoundedButton styleClasses={"   px-4 text-center  border-teal-400 text-teal-500  "}
                                                     text={ViewModesDir[nextViewMode]} onClick={() => {
                                             updateViewMode()
                                         }}/><LabelPurple styleClasses={" font-bold text-xl text-white   px-0 text-center   "}
                                                          text={viewMode}/>
-                                        <OutlineRoundedButton onClick={()=>{updateViewMode(2)}} styleClasses={"   px-4 text-center border-purple-500 hover:text-white hover:bg-purple-500  text-purple-500  "}
+                                        <OutlineRoundedButton onClick={()=>{updateViewMode(2)}} styleClasses={"   px-4 text-center border-purple-500 hover:font-bold  text-purple-500  "}
                                                      text={ViewModesDir[(nextViewMode+1)%3]}/>
                                     </div>
 
-                                    {/*<TealButton styleClasses={" px-2 py-2 w-25 align-self-end text-sm"}*/}
-                                    {/*            text={} onClick={() => {*/}
-                                    {/*    updateViewMode()*/}
-                                    {/*}}/>*/}
 
                                 </div>
                             </div>

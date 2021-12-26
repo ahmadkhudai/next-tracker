@@ -1,8 +1,8 @@
-import {Expense} from "./Expense";
+
 
 type SummaryExpense = {
-    valueX:string|number,
-    valueY:Expense
+    date:string,
+    expense:number
 }
 
 export default SummaryExpense;

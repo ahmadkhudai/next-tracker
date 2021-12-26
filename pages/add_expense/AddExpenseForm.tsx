@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import moment from "moment";
 import {Day, getSubtractableDays} from "../../constants/day";
 import DateSortedView from "../Home/_components/DateSortedView";
@@ -45,7 +45,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
             //we are looking if the descriptoin has PERVIOUS expense name
             //first check if the description actually contains the name before cliping
             let description = newExpense.description;
-            console.log(description.slice(expenseName.length, description.length - 1));
+            // console.log(description.slice(expenseName.length, description.length - 1));
             if (descriptionModified || description.startsWith(expenseName)) {
                 description = description.slice(expenseName.length)
             }
@@ -116,6 +116,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
         addNewExpense(newExpense);
         setExpenseAdded(true);
         setNewExpense(defaultExpense);
+
         // document.getElementById("add_expense_form")?.focus();
     }
 
@@ -123,47 +124,38 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
         setExpenseAdded(false);
         setLastExpense(newExpense);
         setShowCurrentExpense(false);
+        // scrollToTop();
     }
+
+    const myRef = useRef(null)
+
+    //@ts-ignore
+    const executeScroll = () => myRef.current.scrollIntoView()
+
+    // run this function from an event handler or an effect to execute scroll
+
+    //scroll to top after new expense
+
+
+    const scrollToTop = () => {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
+
 
     return (
 
         <div className={" w-full ak_max_600px h-100 overflow-y-scroll scrollable  "}>
             {/*<Expense styleClasses={""} expense={{...newExpense, id:"1"}}/>*/}
 
-            {showCurrentExpense &&
-
-                <NewExpenseContainer handleClose={()=>{dontShowCurrentExpense()}}>
-                <div className=" bg-gradient-to-r from-teal-300/90 via-purple-300 to-purple-400  rounded-[10px]  shadow-sm p-2 form-group position-sticky bottom-0 px-0 pb-0 flex flex-column align-items-end w-100">
-
-                        <div className={"w-100 flex flex-column align-items-center pb-3"}>
-                            <DateSortedView mode={Modes.create}
-                                            styleClasses={" w-100    rounded-2  h-auto "}
-                                            expenseStyleClasses={"  m-0 pb-3 "}
-                                            expenses={[{
-                                                ...newExpense,
-                                                id: "1",
-                                                date: newExpense.date.toString()
-                                            }]}/>
-                            <div className={"flex w-75 align-items-center justify-content-center "}>
-                                <TealButton styleClasses={" d-block w-50 rounded-full  text-white   text-sm m-1 "}
-                                            text={"create!"}
-                                            onClick={() => {
-                                                handleAddExpense();
-                                            }}/>
-                                <RedButton styleClasses={" rounded-full py-1 w-25"} text={"X"} onClick={()=>{dontShowCurrentExpense()}}/>
-
-                            </div>
-                           </div>
 
 
-
-
-                </div>
-
-            </NewExpenseContainer>}
-            {!expenseAdded &&
-                <div>
+                <div className={"h-100"}   ref={myRef}>
                     <div
+
                         className="  form-group position-sticky top-0 flex  align-items-center justify-content-between shadow-sm rounded-full bg-white/95 px-4 p-2 py-2 my-3 w-100">
                         {/*<DateSortedView mode={Modes.create}*/}
                         {/*                styleClasses={" w-100  pt-3  rounded-2  h-auto"}*/}
@@ -197,6 +189,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                     <div id={"add_expense_form h-100 wrapper wrapper_inner "}
                          className={" my-6 flex flex-column bg-white/90 hover:bg-white ak_slow_transition p-3 "}
                          style={{"marginBottom": "4rem"}}
+
                     >
 
 
@@ -368,32 +361,61 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                         </div>
 
                     </div>
+                    {showCurrentExpense &&
 
+                        <NewExpenseContainer handleClose={()=>{dontShowCurrentExpense()}}>
+                            <div className="  bg-gradient-to-r from-teal-300/90 via-purple-300 to-purple-400  rounded-[10px]  shadow-sm p-2 form-group position-sticky bottom-0 px-0 pb-0 flex flex-column align-items-end w-100">
+
+                                <div className={"w-100 flex flex-column align-items-center pb-3"}>
+                                    <DateSortedView mode={Modes.create}
+                                                    styleClasses={" w-100    rounded-2  h-auto "}
+                                                    expenseStyleClasses={"  m-0 pb-3 "}
+                                                    expenses={[{
+                                                        ...newExpense,
+                                                        id: "1",
+                                                        date: newExpense.date.toString()
+                                                    }]}/>
+                                    <div className={"flex w-75 align-items-center justify-content-center "}>
+                                        <TealButton styleClasses={" d-block w-50 rounded-full  text-white   text-sm m-1 "}
+                                                    text={"create!"}
+                                                    onClick={() => {
+                                                        handleAddExpense();
+                                                    }}/>
+                                        <RedButton styleClasses={" rounded-full py-1 w-25"} text={"X"} onClick={()=>{dontShowCurrentExpense()}}/>
+
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+                        </NewExpenseContainer>}
 
                 </div>
-            }
+
+
 
 
             {expenseAdded &&
-
-                <div className={"w-100 ak_max_600px   flex flex-column align-items-center bg-white p-3"}>
+                <NewExpenseContainer handleClose={()=>{}}>
+                <div className={"w-100 ak_max_600px   flex flex-column align-items-center  bg-gradient-to-l from-gray-100   via-teal-50  to-purple-100  p-4 rounded-[20px]"}>
 
                     <LabelPurple text={"Expense Added!"} styleClasses={" h1 text-4xl"}/>
                     <DateSortedView mode={Modes.create}
-                                    styleClasses={" w-100 bg-gradient-to-l from-gray-100   via-teal-50  to-purple-200 pt-3  py-2 px-0  rounded-2 h-auto "}
+                                    styleClasses={" w-100  pt-3  py-2 px-0 shadow-sm bg-white/80 my-3  rounded-[10px] h-auto "}
                                     expenses={[{...lastCreatedExpense, id: "1", date: newExpense.date.toString()}]}/>
 
                     <div className={"w-75 flex flex-column"}>
-                        <TealButton styleClasses={" my-2 py-3 text-xl"} text={"add more!"} onClick={() => {
-                            resetState();
-                        }}/>
+                        <TealButton styleClasses={" my-2 py-2 text-xl"} text={"add more!"} onClick={()=>{executeScroll(); resetState();}}/>
                         <PurpleButton styleClasses={" p-2 my-1 "} text={"take me home."} onClick={() => {
                             handleClose()
                         }}/>
                     </div>
                     {/*<Expense expense={lastCreatedExpense}/>*/}
                 </div>
-
+                </NewExpenseContainer>
 
             }
 

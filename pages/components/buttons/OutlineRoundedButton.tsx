@@ -9,7 +9,7 @@ type Props = {
 type State = {};
 
 export function OutlineRoundedButton({onClick, text, styleClasses=""}:Props) {
-    let classes = "btn hover:text-white  rounded-full  bg-gray-100 hover:font-bold  ";
+    let classes = "btn  rounded-full  bg-gray-100 hover:font-bold  ";
     if(styleClasses){
         classes+=styleClasses;
     }
