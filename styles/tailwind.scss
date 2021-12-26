@@ -434,10 +434,14 @@ $finalWidth: $finalHeight*2;
   justify-content: center;
 }
 
-fixed_footer{
+.fixed_header{
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
+  z-index: 999;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 .scale-test{
 //transform:scale(0.7);

@@ -1,19 +1,15 @@
-// @flow
-import * as React from 'react';
 
-type Props = {
 
-};
-type State = {};
+import type { NextPage } from 'next'
 
-export class Index extends React.Component<Props, State> {
-    render() {
-        return (
-            <div>
-                <h1>just here so the compiler can stop shouting obscenities</h1>
-            </div>
-        );
-    };
+import Main from "./Main";
+
+const Home: NextPage = () => {
+  {/*<Link href={"/Home"}><a>GRAPHS</a></Link>*/}
+  return (
+    // <div className={styles.container}>
+      <Main/>
+  )
 }
 
-export default Index;
+export default Home

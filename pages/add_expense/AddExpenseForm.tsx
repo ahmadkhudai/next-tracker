@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {useEffect, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 import moment from "moment";
 import {Day, getSubtractableDays} from "../../constants/day";
 import DateSortedView from "../Home/_components/DateSortedView";
@@ -136,56 +136,70 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
     //scroll to top after new expense
 
-
-    const scrollToTop = () => {
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    };
+    //
+    // const scrollToTop = () => {
+    //
+    //     window.scrollTo({
+    //         top: 0,
+    //         behavior: "smooth"
+    //     });
+    // };
 
 
     return (
 
-        <div className={" w-full ak_max_600px h-100 overflow-y-scroll scrollable  "}>
+        <div className={"  ak_max_600px wrapper wrapper_inner scrollable w-100"}>
             {/*<Expense styleClasses={""} expense={{...newExpense, id:"1"}}/>*/}
 
 
+            <div className={"fixed_header w-100"}>
+                <div className="flex h-100 ak_max_600px justify-content-between align-items-center shadow-sm rounded-full bg-white/95 p-2 my-2 px-3 w-100">
+                    <p className={" text-xl text-teal-700 hover:text-purple-700"}>Add Expense</p>
 
-                <div className={"h-100"}   ref={myRef}>
-                    <div
-
-                        className="  form-group position-sticky top-0 flex  align-items-center justify-content-between shadow-sm rounded-full bg-white/95 px-4 p-2 py-2 my-3 w-100">
-                        {/*<DateSortedView mode={Modes.create}*/}
-                        {/*                styleClasses={" w-100  pt-3  rounded-2  h-auto"}*/}
-                        {/*                expenseStyleClasses={" bg-teal-200 m-0 p-0 "}*/}
-                        {/*                expenses={[{...newExpense, id: "1", date: newExpense.date.toString()}]}/>*/}
-
-
-                        {/*<div className={"flex justify-between align-items-center w-100  w-100"}>*/}
-                            <p className={" text-xl text-teal-700 hover:text-purple-700"}>Add Expense</p>
-
-                                <OutlineRoundedButton
-                                    styleClasses={"w-25 bg-gradient-to-r from-teal-500 py-1  via-indigo-400  to-purple-500  text-white   text-sm m-0 p-0 "}
-                                    text={showCurrentExpense ? "hide" : "show"}
-                                    onClick={() => {
-                                        setShowCurrentExpense(!showCurrentExpense);
-                                    }}/>
+                    <OutlineRoundedButton
+                        styleClasses={"w-25 bg-gradient-to-r from-teal-500 py-1  via-indigo-400  to-purple-500  text-white   text-sm m-0 p-0 "}
+                        text={showCurrentExpense ? "hide" : "show"}
+                        onClick={() => {
+                            setShowCurrentExpense(!showCurrentExpense);
+                        }}/>
 
 
 
 
 
-                                <RedButton styleClasses={"    text-sm  rounded-[50%] h-50  "} text={"X"}
-                                           onClick={() => {
-                                               handleClose()
-                                           }}/>
+                    <RedButton styleClasses={"    text-sm  rounded-[50%] h-50  "} text={"X"}
+                               onClick={() => {
+                                   handleClose()
+                               }}/>
 
 
-                        {/*</div>*/}
+                    {/*</div>*/}
 
+                </div>
+
+            </div>
+            {expenseAdded &&
+                <NewExpenseContainer handleClose={()=>{}}>
+                    <div className={"w-100 ak_max_600px   flex flex-column align-items-center  bg-gradient-to-l from-gray-100   via-teal-50  to-purple-100 h-100 p-4 rounded-[20px]"} style={{"zIndex":"1000"}}>
+
+                        <LabelPurple text={"Expense Added!"} styleClasses={" h1 text-4xl"}/>
+                        <DateSortedView mode={Modes.create}
+                                        styleClasses={" w-100  pt-3  py-2 px-0 shadow-sm bg-white/80 my-3  rounded-[10px] h-auto "}
+                                        expenses={[{...lastCreatedExpense, id: "1", date: newExpense.date.toString()}]}/>
+
+                        <div className={"w-75 flex flex-column"}>
+                            <TealButton styleClasses={" my-2 py-2 text-xl"} text={"add more!"} onClick={()=>{executeScroll(); resetState();}}/>
+                            <PurpleButton styleClasses={" p-2 my-1 "} text={"take me home."} onClick={() => {
+                                handleClose()
+                            }}/>
+                        </div>
+                        {/*<Expense expense={lastCreatedExpense}/>*/}
                     </div>
+                </NewExpenseContainer>
+
+            }
+
+            <div className={" my-3"}   ref={myRef}>
                     <div id={"add_expense_form h-100 wrapper wrapper_inner "}
                          className={" my-6 flex flex-column bg-white/90 hover:bg-white ak_slow_transition p-3 "}
                          style={{"marginBottom": "4rem"}}
@@ -395,29 +409,6 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
                 </div>
 
-
-
-
-            {expenseAdded &&
-                <NewExpenseContainer handleClose={()=>{}}>
-                <div className={"w-100 ak_max_600px   flex flex-column align-items-center  bg-gradient-to-l from-gray-100   via-teal-50  to-purple-100  p-4 rounded-[20px]"}>
-
-                    <LabelPurple text={"Expense Added!"} styleClasses={" h1 text-4xl"}/>
-                    <DateSortedView mode={Modes.create}
-                                    styleClasses={" w-100  pt-3  py-2 px-0 shadow-sm bg-white/80 my-3  rounded-[10px] h-auto "}
-                                    expenses={[{...lastCreatedExpense, id: "1", date: newExpense.date.toString()}]}/>
-
-                    <div className={"w-75 flex flex-column"}>
-                        <TealButton styleClasses={" my-2 py-2 text-xl"} text={"add more!"} onClick={()=>{executeScroll(); resetState();}}/>
-                        <PurpleButton styleClasses={" p-2 my-1 "} text={"take me home."} onClick={() => {
-                            handleClose()
-                        }}/>
-                    </div>
-                    {/*<Expense expense={lastCreatedExpense}/>*/}
-                </div>
-                </NewExpenseContainer>
-
-            }
 
 
         </div>

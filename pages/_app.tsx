@@ -1,17 +1,9 @@
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import '../styles/globals.css'
-import React from "react";
-import App from "next/app";
-import Main from "./Main";
+import '../styles/globals.css';
+import type { AppProps } from 'next/app'
 
-class MyApp extends App {
-    render() {
-        let {Component, pageProps} = this.props;
-
-        return (
-            <Main />
-        )
-    }
+function MyApp({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />
 }
 
 export default MyApp

@@ -1,22 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {
-    PolarAngleAxis,
-    PolarGrid,
-    PolarRadiusAxis,
-    Radar,
-    RadarChart,
-    Tooltip,
-    Legend,
-    BarChart,
-    XAxis, YAxis, CartesianGrid, Bar
-} from "recharts";
-import {
-    getCurrentWeeksExpenses,
-    getDayWiseExpenses,
-    getMonthWiseExpenses,
-    getSortedExpenses,
-    getWeekWiseExpenses
-} from "../api/utils/expense_utils";
+import {PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, Tooltip} from "recharts";
+import {getMonthWiseExpenses, getSortedExpenses, getWeekWiseExpenses} from "../api/utils/expense_utils";
 import {Expense} from "../../Definitions/Expense";
 import SubliminalMessage from "../components/_partials/SubliminalMessage";
 
@@ -34,7 +18,7 @@ function GroupedExpensesGraph({expenses}:Props) {
     const [displayData, setDisplayData] = useState(getWeekWiseExpenses(sortedExpenses));
     const [currentOption, setCurrentOption] = useState(1);
     const [graphLabel, setGraphLabel] = useState(displayLabel[1]);
-    const [graphWidth, setGraphWidth] = useState(window.innerWidth<700?(0.8*window.innerWidth):500);
+    const [graphWidth, setGraphWidth] = useState(500);
     const groupingFunctions = {
         // 0: getDayWiseExpenses,
         1: getWeekWiseExpenses,
@@ -52,14 +36,15 @@ function GroupedExpensesGraph({expenses}:Props) {
     }
 
 
-    window.onresize = ()=>{
-        setGraphWidth(window.innerWidth<700?(0.8*window.innerWidth):500);
-    }
+    // window.onresize = ()=>{
+    //     setGraphWidth(window.innerWidth<700?(0.8*window.innerWidth):500);
+    // }
 
     useEffect(() => {
         return () => {
            // @ts-ignore
             setDisplayData(groupingFunctions[currentOption](getSortedExpenses(expenses)));
+            setGraphWidth(window.innerWidth<700?(0.8*window.innerWidth):500);
         };
     }, [expenses]);
 

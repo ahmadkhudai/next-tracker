@@ -1,10 +1,8 @@
 // @flow
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {Area, CartesianGrid, Tooltip, Label, XAxis, YAxis,ComposedChart, Line} from 'recharts';
-import SummaryExpense from "../../Definitions/SummaryExpense";
+import {Area, CartesianGrid, ComposedChart, Line, Tooltip, XAxis, YAxis} from 'recharts';
 import {Expense} from "../../Definitions/Expense";
-import moment from "moment";
 import {nFormatter} from "../api/utils/num_utils";
 
 
@@ -35,6 +33,7 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
 
     useEffect(() => {
         setDisplayData(expenses);
+        setGraphWidth(window.innerWidth<700?(0.8*window.innerWidth):500);
     }, [expenses]);
 
 

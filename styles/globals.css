@@ -309,10 +309,14 @@ div.scrollable::-webkit-scrollbar {
   justify-content: center;
 }
 
-fixed_footer {
+.fixed_header {
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
+  z-index: 999;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=globals.css.map */

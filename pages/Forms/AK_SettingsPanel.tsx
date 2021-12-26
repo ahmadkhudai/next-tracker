@@ -4,6 +4,7 @@ import {SettingLabels} from "../../Definitions/Setting";
 import {SettingsObj} from "../../Definitions/SettingsObj";
 import RedButton from "../components/buttons/RedButton";
 import LabelPurple from "../components/labels/LabelPurple";
+import {baseSettings} from "../api/utils/expense_utils";
 // import {useDispatch, useSelector} from "react-redux";
 // import {modifySettings} from "../api/features/settings/settingsSlice";
 
@@ -21,7 +22,8 @@ export default function AK_SettingsPanel({settings, modifySettings, handleClose}
 
     let visibilityStyle = {};
 
-    const [newSettings, setNewSettings] = useState(settings);
+
+    const [newSettings, setNewSettings] = useState(settings?settings:baseSettings);
 
 
     function handleSettingsChange(fieldName: SettingLabels, fieldValue: any) {
