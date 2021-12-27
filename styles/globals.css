@@ -319,4 +319,8 @@ div.scrollable::-webkit-scrollbar {
   justify-content: center;
 }
 
+#effing_swiper {
+  max-width: 400px;
+}
+
 /*# sourceMappingURL=globals.css.map */

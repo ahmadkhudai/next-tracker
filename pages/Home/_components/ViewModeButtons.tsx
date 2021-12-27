@@ -48,11 +48,14 @@ export function ViewModeButtons({updateViewMode, currentViewMode}: Props) {
 
     const slideTo = (index: any) => swiper?.slideTo(index);
     return (
-        <div className={"w-100 ak_max_600px  bg-gray-200 rounded-full ak_slow_transition bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500 "}>
+
+        <div id={"effing_swiper"} className={"w-100 mx-3   bg-gray-200 rounded-full ak_slow_transition bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500 "}>
             {/*<h1></h1>*/}
+
 
                 <Swiper
                     className={"flex justify-center w-100 "}
+
                     onSlideChangeTransitionEnd={
                         (swiper) => {
                             //first check if slider is going right-> left or opposite
@@ -102,7 +105,7 @@ export function ViewModeButtons({updateViewMode, currentViewMode}: Props) {
                         }} navigation={false} >
                     <SwiperSlide className={"w-25"}>
                         <OutlineRoundedButton
-                        styleClasses={" w-100  px-4 text-center  border-teal-400 text-teal-500  "}
+                        styleClasses={" w-100   text-center  border-teal-400 text-teal-500  "}
                         text={sliderState[0]} onClick={() => {
 
                     }}/>
@@ -114,7 +117,7 @@ export function ViewModeButtons({updateViewMode, currentViewMode}: Props) {
                     </SwiperSlide>
                     <SwiperSlide className={"w-25"}>
                         <OutlineRoundedButton
-                            styleClasses={" w-100   px-4 text-center  border-teal-400 text-teal-500  "}
+                            styleClasses={" w-100   text-center  border-teal-400 text-teal-500  "}
                             text={sliderState[2]} onClick={() => {
 
                         }}/>

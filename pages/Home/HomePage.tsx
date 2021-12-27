@@ -208,49 +208,24 @@ export function HomePage({switchWindow}: Props) {
             }
 
 
-            <div className={" w-100 flex items-center justify-center flex-column px-3"} onClick={(e: any) => {
+            <div style={{"marginTop":"4rem"}} className={" w-100 flex items-center justify-center flex-column px-3 h-100 py-3  "} onClick={(e: any) => {
                 closeAllPanels(e)
             }}>
 
                 {currentlyOpenPanel !== OptionsPanels.AddExpensePanel &&
-                    <div className={" flex items-center flex-column justify-center ak_max_600px w-100 "}>
+                    <div className={" flex items-center flex-column justify-center ak_max_600px w-100 h-100 "}>
 
 
-                        <div className={"py-4 w-100"}>
+                        <div className={"py-2   w-100 h-100"}>
                             <div>
-                                <h1 className={"h3 text-center w-auto text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 text-3xl"}>Expense
-                                    Tracker</h1>
+
                                 <h3 className={"text-teal-500 text-center font-monospace w-auto "}>Your <span
                                     className={"text-2xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 "}>{viewMode === ViewModes.today ? "day" : viewMode}</span> so
                                     far...</h3>
                             </div>
-                            <div className={" ak_max_600px flex align-items-center justify-content-center m-2 mt-3"}>
+                            <div className={"w-100 ak_max_600px flex align-items-center justify-content-center m-2 mt-3"}>
                                 <ViewModeButtons currentViewMode={viewMode} updateViewMode={updateViewMode}/>
                             </div>
-                            {/*<div className={"flex align-items-center justify-content-center m-2 mt-3"}>*/}
-                            {/*    <div*/}
-                            {/*        className={"ak_slow_transition flex align-items-center justify-end bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500  px-0   rounded-full w-75 "}>*/}
-                            {/*        <div className={" flex align-items-center w-100 justify-content-between"}>*/}
-
-
-                            {/*            <OutlineRoundedButton*/}
-                            {/*                styleClasses={"   px-4 text-center  border-teal-400 text-teal-500  "}*/}
-                            {/*                text={ViewModesDir[nextViewMode]} onClick={() => {*/}
-                            {/*                updateViewMode()*/}
-                            {/*            }}/>
-                                           <LabelPurple*/}
-                            {/*            styleClasses={" font-bold text-xl text-white   px-0 text-center   "}*/}
-                            {/*            text={viewMode}/>*/}
-                            {/*            <OutlineRoundedButton onClick={() => {*/}
-                            {/*                updateViewMode(2)*/}
-                            {/*            }}*/}
-                            {/*                                  styleClasses={"   px-4 text-center border-purple-500 hover:font-bold  text-purple-500  "}*/}
-                            {/*                                  text={ViewModesDir[(nextViewMode + 1) % 3]}/>*/}
-                            {/*        </div>*/}
-
-
-                            {/*    </div>*/}
-                            {/*</div>*/}
 
 
                             {currentHomePanel === HomePanels.Visualize &&
@@ -310,14 +285,10 @@ export function HomePage({switchWindow}: Props) {
                                           modifySettings={modifySettings}/>
                     </Backdrop>
                 }
-                {/*{currentlyOpenPanel === OptionsPanels.AddExpensePanel &&*/}
-                {/*    // <Backdrop onClick={()=>{}}>*/}
-                {/*    <AddExpenseForm addNewExpense={addNewExpense} handleClose={()=>openPanel(OptionsPanels.AddExpensePanel)}/>*/}
-
-                {/*}*/}
 
 
-                <div className={"h-25 py-2 bg-white"}></div>
+
+
                 {currentlyOpenPanel !== OptionsPanels.AddExpensePanel &&
                     <Header
                         currentHomePanel={currentHomePanel}

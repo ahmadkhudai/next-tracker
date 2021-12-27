@@ -49,7 +49,8 @@ export default function HomeHeader(props: Props) {
                     {currentWindow === MainWindows.home &&
                         // <div className={"w-100 flex align-items-center justify-content-center py-2"}>
                         <div className={"flex align-items-center justify-content-between w-100"}>
-                            <LabelPurple styleClasses={"text-3xl p-2 w-25"}>home</LabelPurple>
+                           <p className={" text-center w-auto text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 text-3xl px-3"}>Expense
+                               Tracker</p>
                             <OutlineRoundedButton
                                 styleClasses="btn  hover:font-thin  ak_slow_transition  py-0 px-0  hover:bg-purple-700  flex align-items-center justify-between "
                                 onClick={() => {
