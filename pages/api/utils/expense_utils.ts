@@ -150,15 +150,23 @@ export function groupByWeek(sortedExpenses:any) {
  */
 export function getCurrentWeeksExpenses(groupedExpenses:GroupedExpenses){
     let currentWeek = moment(new Date()).isoWeek();
+
     let weeklyExpenses = groupByWeek(groupedExpenses);
+    // console.log("WEEKLY EXPENSES", weeklyExpenses);
     let expenseLists:any = [];
-    expenseLists= weeklyExpenses[weeklyExpenses.length-1][(currentWeek+1)%52];
-    let mergedExpenseList:Expense[] = [];
-    if(expenseLists){
+    let ttt= weeklyExpenses.find(item => Object.keys(item)[0]===((currentWeek+1)%52).toString());
+    if(ttt){
+        expenseLists = ttt[(currentWeek+1)%52];
+        // console.log(currentWeek, (currentWeek+1)%52);
+        // console.log("INDEX", weeklyExpenses.find(item => Object.keys(item)[0]===((currentWeek+1)%52).toString()));
+        // console.log("EXPENSES LIST", expenseLists);
+        let mergedExpenseList:Expense[] = [];
+
+
         expenseLists.forEach((expenseList:Expense[]) => {
-           expenseList.forEach((expense:Expense)=>{
-               mergedExpenseList.push({...expense, date:getDateString(expense.date)});
-           })
+            expenseList.forEach((expense:Expense)=>{
+                mergedExpenseList.push({...expense, date:getDateString(expense.date)});
+            })
         })
             return getDayWiseExpenses(getSortedExpenses(mergedExpenseList));
     }else {
@@ -176,14 +184,17 @@ export function getRenderableCurrentWeeksExpenses(groupedExpenses:GroupedExpense
     let currentWeek = moment(new Date()).isoWeek();
 
     let weeklyExpenses = groupByWeek(groupedExpenses);
-    console.log("WEEKLY EXPENSES", weeklyExpenses);
+    // console.log("WEEKLY EXPENSES", weeklyExpenses);
     let expenseLists:any = [];
-    expenseLists= weeklyExpenses[weeklyExpenses.length-1][(currentWeek+1)%52];
-    console.log(currentWeek);
-    console.log("INDEX", weeklyExpenses[weeklyExpenses.length-1][(currentWeek)%52]);
-    console.log("EXPENSES LIST", expenseLists);
+    let ttt= weeklyExpenses.find(item => Object.keys(item)[0]===((currentWeek+1)%52).toString());
+    if(ttt){
+    expenseLists = ttt[(currentWeek+1)%52];
+    // console.log(currentWeek, (currentWeek+1)%52);
+    // console.log("INDEX", weeklyExpenses.find(item => Object.keys(item)[0]===((currentWeek+1)%52).toString()));
+    // console.log("EXPENSES LIST", expenseLists);
     let mergedExpenseList:Expense[] = [];
-    if(expenseLists){
+
+
         expenseLists.forEach((expenseList:Expense[]) => {
             expenseList.forEach((expense:Expense)=>{
                 mergedExpenseList.push({...expense, date:getDateString(expense.date)});
