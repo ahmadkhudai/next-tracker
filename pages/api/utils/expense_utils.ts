@@ -10,6 +10,7 @@ import SummaryExpense from "../../../Definitions/SummaryExpense";
 import expense from "../../Home/_components/Expense";
 import exp from "constants";
 import summaryExpense from "../../../Definitions/SummaryExpense";
+import groupedExpenses from "../../../Definitions/GroupedExpenses";
 export function sortfunction(a:Expense,b:Expense){
     // Turn your strings into dates, and then subtract them
     // to get a value that is either negative, positive, or zero.
@@ -87,6 +88,7 @@ export function getWeekWiseExpenses(groupedExpenses:GroupedExpenses):SummaryExpe
 
     let weekWiseExpenses:SummaryExpense[] = [];
 
+    console.log("HERE", tempWeekWiseExpenses);
     Object.entries(tempWeekWiseExpenses).forEach(([week, expenses], index)=>{
         weekWiseExpenses[index] = {date:week, expense:expenses as number};
     })
@@ -123,10 +125,11 @@ export function groupByWeek(sortedExpenses:any) {
 
 
     Object.entries(sortedExpenses).forEach(([date,expense])=>{
-        if(!tempWeekWiseExpenses[moment(getDate(date)).isoWeek()]) {
-            tempWeekWiseExpenses[moment(getDate(date)).isoWeek()] = [];
+        console.log(date, ": ", getDate(date), ":", moment(getDate(date)).week());
+        if(!tempWeekWiseExpenses[moment(getDate(date)).week()]) {
+            tempWeekWiseExpenses[moment(getDate(date)).week()] = [];
         }
-        tempWeekWiseExpenses[moment((getDate(date))).isoWeek()].push(expense);
+        tempWeekWiseExpenses[moment((getDate(date))).week()].push(expense);
     })
 
 
@@ -149,7 +152,7 @@ export function getCurrentWeeksExpenses(groupedExpenses:GroupedExpenses){
     let currentWeek = moment(new Date()).isoWeek();
     let weeklyExpenses = groupByWeek(groupedExpenses);
     let expenseLists:any = [];
-    expenseLists= weeklyExpenses[weeklyExpenses.length-1][currentWeek];
+    expenseLists= weeklyExpenses[weeklyExpenses.length-1][(currentWeek+1)%52];
     let mergedExpenseList:Expense[] = [];
     if(expenseLists){
         expenseLists.forEach((expenseList:Expense[]) => {
@@ -175,7 +178,7 @@ export function getRenderableCurrentWeeksExpenses(groupedExpenses:GroupedExpense
     let weeklyExpenses = groupByWeek(groupedExpenses);
     console.log("WEEKLY EXPENSES", weeklyExpenses);
     let expenseLists:any = [];
-    expenseLists= weeklyExpenses[weeklyExpenses.length-1][currentWeek];
+    expenseLists= weeklyExpenses[weeklyExpenses.length-1][(currentWeek+1)%52];
     console.log(currentWeek);
     console.log("INDEX", weeklyExpenses[weeklyExpenses.length-1][(currentWeek)%52]);
     console.log("EXPENSES LIST", expenseLists);
