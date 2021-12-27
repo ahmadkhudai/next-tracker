@@ -35,10 +35,14 @@ function GroupedExpensesGraph({expenses}:Props) {
         setGraphLabel(displayLabel[val]);
     }
 
+    useEffect(() => {
+        window.onresize = ()=>{
+            setGraphWidth(window.innerWidth<700?(0.8*window.innerWidth):500);
+        }
+    }, []);
 
-    // window.onresize = ()=>{
-    //     setGraphWidth(window.innerWidth<700?(0.8*window.innerWidth):500);
-    // }
+
+
 
     useEffect(() => {
         return () => {
