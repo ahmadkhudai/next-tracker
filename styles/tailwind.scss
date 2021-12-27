@@ -445,6 +445,11 @@ $finalWidth: $finalHeight*2;
   justify-content: center;
 }
 
+.ak_footer_low_z{
+  @extend .ak_footer;
+  z-index: 100;
+}
+
 .fixed_header{
   position: fixed;
   top: 0;

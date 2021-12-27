@@ -1,8 +1,14 @@
 // @flow
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 // import OutlineRoundedButton from "../../components/buttons/OutlineRoundedButton";
-import {ViewModes, ViewModesDir} from "../../api/component_config/ViewModes";
+import {
+    isValidSliderState,
+    repairSwiperState,
+    swiperPosition,
+    ViewModes,
+    ViewModesDir
+} from "../../api/component_config/ViewModes";
 // import SwipeableViews from "react-swipeable-views";
 // import SwipeableViews from 'react-swipeable-views';
 // import {virtualize} from 'react-swipeable-views-utils';
@@ -25,21 +31,27 @@ type Props = {
 };
 type State = {};
 
+
 export function ViewModeButtons({updateViewMode, currentViewMode}: Props) {
     // store swiper instance
     const [swiper, setSwiper] = useState(null as any);
-    enum swiperPosition{
-        "left",
-        "center",
-        "right",
 
-    }
 
     const [sliderState, setSliderState] = useState({
-        [swiperPosition.left]: ViewModesDir[0],
-        [swiperPosition.center]: currentViewMode,
-        [swiperPosition.right]: ViewModesDir[1]
+        [swiperPosition.left]: ViewModesDir[0] as ViewModes,
+        [swiperPosition.center]: currentViewMode as ViewModes,
+        [swiperPosition.right]: ViewModesDir[1] as ViewModes
     });
+
+    useEffect(() => {
+       //if the slider state is broken,
+        if(!isValidSliderState(sliderState)){
+            //repair state
+            setSliderState(repairSwiperState({center:sliderState[swiperPosition.center]}))
+        }
+    }, []);
+
+
 
     function fromRightToLeft(swiper:any) {
         return ( swiper.previousIndex - swiper.activeIndex ) < 0;

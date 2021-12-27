@@ -309,7 +309,7 @@ div.scrollable::-webkit-scrollbar {
   justify-content: center;
 }
 
-.ak_footer {
+.ak_footer, .ak_footer_low_z {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -319,6 +319,10 @@ div.scrollable::-webkit-scrollbar {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.ak_footer_low_z {
+  z-index: 100;
 }
 
 .fixed_header {

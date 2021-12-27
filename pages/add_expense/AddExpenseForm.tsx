@@ -356,10 +356,10 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                                    }
                                                }}/>
                                     </div>
-                                    <div className={"bg-white/80 w-100 flex justify-content-center   ak_footer my-3 pt-3 mb-5"}>
+                                    <div className={" ak_footer_low_z bg-white/80 w-100 flex justify-content-center   my-3 pt-3 mb-5 h-auto shadow-inner p-3"}>
                                         <div className="form-group flex flex-column align-items-start  w-100 mx-2  ak_max_600px">
                                             <button
-                                                className=" text-2xl btn text-white hover:font-bold bg-teal-400 border-teal-300 w-100 h-100 py-2"
+                                                className=" text-2xl btn text-white hover:font-bold bg-teal-400 border-teal-300 w-100 h-100 py-2 shadow-sm"
                                                 onClick={() => {
                                                     handleAddExpense();
                                                 }}>add expense
