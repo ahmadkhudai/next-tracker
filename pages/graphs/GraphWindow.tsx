@@ -53,7 +53,7 @@ export default function GraphWindow({switchWindow}: Props) {
 
 
     return (
-        <div>
+        <div className={"flex flex-column items-center"}>
             <HomeHeader switchWindow={switchWindow} currentlyOpenWindow={MainWindows.graphs}/>
             <div className={"container  w-full h-full ak_max_600px"}>
             {expenses.length == 0 && <NoData/>}

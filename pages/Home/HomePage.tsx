@@ -198,7 +198,8 @@ export function HomePage({switchWindow}: Props) {
 
     return (
 
-        <div className={" "}> {currentlyOpenPanel === OptionsPanels.AddExpensePanel &&
+        <div className={"h-100 flex flex-column items-center "}>
+            {currentlyOpenPanel === OptionsPanels.AddExpensePanel &&
             <div className={" w-100 flex items-center justify-center flex-column px-3 h-100"}>
 
                 <AddExpenseForm addNewExpense={addNewExpense}
@@ -320,7 +321,10 @@ export function HomePage({switchWindow}: Props) {
                     <Header
                         currentHomePanel={currentHomePanel}
                         openHomePanelFunc={openHomePanel}
-                        homePanels={graphAbleExpenses.length > 1 ?[{panelLabel: HomePanelLabels.ExpensesPanel, panel: HomePanels.ExpensesPanel},
+                        homePanels={graphAbleExpenses.length > 1 ? [{
+                            panelLabel: HomePanelLabels.ExpensesPanel,
+                            panel: HomePanels.ExpensesPanel
+                        },
                             {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize}
                         ] : []
                         }
