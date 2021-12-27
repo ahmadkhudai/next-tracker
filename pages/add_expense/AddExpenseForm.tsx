@@ -153,7 +153,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
             <div className={"fixed_header w-100"}>
-                <div className="flex h-100 ak_max_600px justify-content-between align-items-center shadow-sm rounded-full bg-white/95 p-2 my-2 px-3 w-100">
+                <div className="flex h-100 ak_max_600px justify-content-between align-items-center shadow-sm rounded-full bg-white/95 p-2 mt-1 px-3 w-100">
                     <p className={" text-xl text-teal-700 hover:text-purple-700"}>Add Expense</p>
 
                     <OutlineRoundedButton
@@ -180,7 +180,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
             </div>
             {expenseAdded &&
                 <NewExpenseContainer handleClose={()=>{}}>
-                    <div className={"w-100 ak_max_600px   flex flex-column align-items-center  bg-gradient-to-l from-gray-100   via-teal-50  to-purple-100 h-100 p-4 rounded-[20px]"} style={{"zIndex":"1000"}}>
+                    <div className={"w-100 ak_max_600px   flex flex-column align-items-center  bg-gradient-to-l from-gray-100   via-teal-50  to-purple-100 h-100 p-4 rounded-[20px] "} style={{"zIndex":"1000"}}>
 
                         <LabelPurple text={"Expense Added!"} styleClasses={" h1 text-4xl"}/>
                         <DateSortedView mode={Modes.create}
@@ -199,9 +199,10 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
             }
 
-            <div className={" my-3"}   ref={myRef}>
-                    <div id={"add_expense_form h-100 wrapper wrapper_inner "}
-                         className={" my-6 flex flex-column bg-white/90 hover:bg-white ak_slow_transition p-3 "}
+            <div className={"h-[4rem] shadow-inner w-100 py-3"} ref={myRef}></div>
+            <div className={"  shadow-sm"}   >
+                    <div id={"add_expense_form h-100  "}
+                         className={"  flex flex-column bg-white/90 hover:bg-white ak_slow_transition p-3 "}
                          style={{"marginBottom": "4rem"}}
 
                     >

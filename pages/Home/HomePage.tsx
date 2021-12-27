@@ -196,7 +196,7 @@ export function HomePage({switchWindow}: Props) {
 
     return (
 
-        <div className={"wrapper wrapper_inner scrollable "}> {currentlyOpenPanel === OptionsPanels.AddExpensePanel &&
+        <div className={" "}> {currentlyOpenPanel === OptionsPanels.AddExpensePanel &&
             <div className={" w-100 flex items-center justify-center flex-column px-3 h-100"}>
 
                 <AddExpenseForm addNewExpense={addNewExpense}
