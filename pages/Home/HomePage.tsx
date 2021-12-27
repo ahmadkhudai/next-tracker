@@ -208,12 +208,12 @@ export function HomePage({switchWindow}: Props) {
             }
 
 
-            <div style={{"marginTop":"2rem"}} className={" w-100 flex items-center justify-center flex-column px-3 h-100 py-3  "} onClick={(e: any) => {
+            <div  className={" w-100 flex items-center justify-center flex-column px-3 py-3  "} onClick={(e: any) => {
                 closeAllPanels(e)
             }}>
 
                 {currentlyOpenPanel !== OptionsPanels.AddExpensePanel &&
-                    <div className={" flex items-center flex-column justify-center ak_max_600px w-100 h-100 "}>
+                    <div className={" flex items-center flex-column justify-center ak_max_600px w-100 "}>
 
 
                         <div className={"py-2   w-100 h-100"}>
@@ -229,7 +229,7 @@ export function HomePage({switchWindow}: Props) {
 
 
                             {currentHomePanel === HomePanels.Visualize &&
-                                <div className={" ak_max_600px w-100 h-[65vh]"}>
+                                <div className={" ak_max_600px w-100 h-[60vh]"}>
 
                                     <div className={"h-[55vh] "}>
                                         <CurrentVisual nameOfX={"Money Spent"} nameOfY={getGraphY(viewMode)}
@@ -242,22 +242,21 @@ export function HomePage({switchWindow}: Props) {
 
 
                         {(currentHomePanel === HomePanels.ExpensesPanel) &&
-                            <div className={" w-100 h-100"}>
+                            <div className={" w-100 "}>
 
                                 <div className={"p-1"}>
-                                    <h1 className={"font-monospace text-2xl  font-bold  py-3 align-items-center flex justify-content-center h5 text-center "}>your
-                                        expenses
-                                        this {viewMode === ViewModes.today ? "day" : viewMode}</h1>
                                     <div
-                                        className={"scrollable py-3  shadow-inner  rounded flex justify-content-center align-items-center"}
+                                        className={"scrollable py-3  shadow-inner  rounded flex flex-column justify-content-center align-items-center bg-black"}
                                         style={{
-                                            "height": "500px",
+                                            "height": "450px",
                                             overflowX: "hidden",
                                         }}>
                                         <DateSortedView
                                             expenses={currentExpenses}
                                             settings={settings} deleteExpense={deleteExpense}/>
+
                                     </div>
+
 
                                 </div>
 
@@ -289,27 +288,27 @@ export function HomePage({switchWindow}: Props) {
 
 
 
-                {currentlyOpenPanel !== OptionsPanels.AddExpensePanel &&
-                    <Header
-                        currentHomePanel={currentHomePanel}
-                        openHomePanelFunc={openHomePanel}
-                        homePanels={graphAbleExpenses.length > 1 ? [{
-                            panelLabel: HomePanelLabels.ExpensesPanel,
-                            panel: HomePanels.ExpensesPanel
-                        },
-                            {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize}
-                        ] : []
-                        }
-                        optionsPanels={
-                            [{
-                                panelLabel: OptionPanelLabels.AddExpensePanel,
-                                panel: OptionsPanels.AddExpensePanel
-                            }]}
-                        openOptionsPanelFunc={openPanel}
-                    />
-                }
-            </div>
 
+            </div>
+            {currentlyOpenPanel !== OptionsPanels.AddExpensePanel &&
+                <Header
+                    currentHomePanel={currentHomePanel}
+                    openHomePanelFunc={openHomePanel}
+                    homePanels={graphAbleExpenses.length > 1 ? [{
+                        panelLabel: HomePanelLabels.ExpensesPanel,
+                        panel: HomePanels.ExpensesPanel
+                    },
+                        {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize}
+                    ] : []
+                    }
+                    optionsPanels={
+                        [{
+                            panelLabel: OptionPanelLabels.AddExpensePanel,
+                            panel: OptionsPanels.AddExpensePanel
+                        }]}
+                    openOptionsPanelFunc={openPanel}
+                />
+            }
         </div>
 
 
