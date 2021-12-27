@@ -88,7 +88,7 @@ export function getWeekWiseExpenses(groupedExpenses:GroupedExpenses):SummaryExpe
 
     let weekWiseExpenses:SummaryExpense[] = [];
 
-    console.log("HERE", tempWeekWiseExpenses);
+    // console.log("HERE", tempWeekWiseExpenses);
     Object.entries(tempWeekWiseExpenses).forEach(([week, expenses], index)=>{
         weekWiseExpenses[index] = {date:week, expense:expenses as number};
     })
@@ -125,7 +125,7 @@ export function groupByWeek(sortedExpenses:any) {
 
 
     Object.entries(sortedExpenses).forEach(([date,expense])=>{
-        console.log(date, ": ", getDate(date), ":", moment(getDate(date)).week());
+        // console.log(date, ": ", getDate(date), ":", moment(getDate(date)).week());
         if(!tempWeekWiseExpenses[moment(getDate(date)).week()]) {
             tempWeekWiseExpenses[moment(getDate(date)).week()] = [];
         }

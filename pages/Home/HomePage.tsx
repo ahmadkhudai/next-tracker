@@ -26,11 +26,10 @@ import DateSortedView from "./_components/DateSortedView";
 import NoData from "../components/_partials/NoData";
 import {HomePanelLabels, HomePanels} from "../api/component_config/HomePanels";
 import CurrentVisual from "../graphs/CurrentVisual";
-import {dateFunctions, ViewModes, ViewModesDir} from "../api/component_config/ViewModes";
-import LabelPurple from "../components/labels/LabelPurple";
+import {dateFunctions, ViewModes} from "../api/component_config/ViewModes";
 import {Day} from "../../constants/day";
 import Backdrop from "../Framer/Backdrop";
-import OutlineRoundedButton from "../components/buttons/OutlineRoundedButton";
+import ViewModeButtons from "./_components/ViewModeButtons";
 
 type Props = {
     switchWindow: any;
@@ -152,8 +151,8 @@ export function HomePage({switchWindow}: Props) {
             if (viewMode === ViewModes.week) {
                 tempcurrentExpenses = getRenderableCurrentWeeksExpenses(getSortedExpenses(expenses));
                 tempgraphAbleExpenses = getCurrentWeeksExpenses(getSortedExpenses(expenses));
-                console.log(tempcurrentExpenses);
-                console.log(tempgraphAbleExpenses);
+                // console.log(tempcurrentExpenses);
+                // console.log(tempgraphAbleExpenses);
                 stateUpdated = true;
             }
             if (stateUpdated) {
@@ -177,15 +176,12 @@ export function HomePage({switchWindow}: Props) {
     }, [expenses, viewMode]);
 
 
-    function updateViewMode(param: number = 1) {
+    function updateViewMode(newMode: ViewModes) {
 
-        let tempvar = nextViewMode;
-        if (param > 1) {
-            tempvar = (nextViewMode + 1) % 3;
-            setNextViewMode(tempvar);
+        if (viewMode !== newMode) {
+            setViewMode(newMode);
         }
-        setViewMode(ViewModesDir[tempvar] as ViewModes);
-        setNextViewMode((tempvar + 1) % 3);
+
     }
 
     function getGraphY(viewMode: ViewModes) {
@@ -200,13 +196,13 @@ export function HomePage({switchWindow}: Props) {
 
         <div className={"h-100 flex flex-column items-center "}>
             {currentlyOpenPanel === OptionsPanels.AddExpensePanel &&
-            <div className={" w-100 flex items-center justify-center flex-column px-3 h-100"}>
+                <div className={" w-100 flex items-center justify-center flex-column px-3 h-100"}>
 
-                <AddExpenseForm addNewExpense={addNewExpense}
-                                handleClose={() => openPanel(OptionsPanels.AddExpensePanel)}/>
+                    <AddExpenseForm addNewExpense={addNewExpense}
+                                    handleClose={() => openPanel(OptionsPanels.AddExpensePanel)}/>
 
-            </div>
-        }
+                </div>
+            }
             {currentlyOpenPanel !== OptionsPanels.AddExpensePanel &&
                 <HomeHeader switchWindow={switchWindow} openPanel={openPanel}/>
             }
@@ -224,32 +220,37 @@ export function HomePage({switchWindow}: Props) {
                             <div>
                                 <h1 className={"h3 text-center w-auto text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 text-3xl"}>Expense
                                     Tracker</h1>
-                                <h3 className={"text-teal-500 text-center font-monospace w-auto "}>Your {viewMode === ViewModes.today ? "day" : viewMode} so
+                                <h3 className={"text-teal-500 text-center font-monospace w-auto "}>Your <span
+                                    className={"text-2xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 "}>{viewMode === ViewModes.today ? "day" : viewMode}</span> so
                                     far...</h3>
                             </div>
-                            <div className={"flex align-items-center justify-content-center m-2 mt-3"}>
-                                <div
-                                    className={"ak_slow_transition flex align-items-center justify-end bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500  px-0   rounded-full w-75 "}>
-                                    <div className={" flex align-items-center w-100 justify-content-between"}>
-
-
-                                        <OutlineRoundedButton
-                                            styleClasses={"   px-4 text-center  border-teal-400 text-teal-500  "}
-                                            text={ViewModesDir[nextViewMode]} onClick={() => {
-                                            updateViewMode()
-                                        }}/><LabelPurple
-                                        styleClasses={" font-bold text-xl text-white   px-0 text-center   "}
-                                        text={viewMode}/>
-                                        <OutlineRoundedButton onClick={() => {
-                                            updateViewMode(2)
-                                        }}
-                                                              styleClasses={"   px-4 text-center border-purple-500 hover:font-bold  text-purple-500  "}
-                                                              text={ViewModesDir[(nextViewMode + 1) % 3]}/>
-                                    </div>
-
-
-                                </div>
+                            <div className={" ak_max_600px flex align-items-center justify-content-center m-2 mt-3"}>
+                                <ViewModeButtons currentViewMode={viewMode} updateViewMode={updateViewMode}/>
                             </div>
+                            {/*<div className={"flex align-items-center justify-content-center m-2 mt-3"}>*/}
+                            {/*    <div*/}
+                            {/*        className={"ak_slow_transition flex align-items-center justify-end bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500  px-0   rounded-full w-75 "}>*/}
+                            {/*        <div className={" flex align-items-center w-100 justify-content-between"}>*/}
+
+
+                            {/*            <OutlineRoundedButton*/}
+                            {/*                styleClasses={"   px-4 text-center  border-teal-400 text-teal-500  "}*/}
+                            {/*                text={ViewModesDir[nextViewMode]} onClick={() => {*/}
+                            {/*                updateViewMode()*/}
+                            {/*            }}/>
+                                           <LabelPurple*/}
+                            {/*            styleClasses={" font-bold text-xl text-white   px-0 text-center   "}*/}
+                            {/*            text={viewMode}/>*/}
+                            {/*            <OutlineRoundedButton onClick={() => {*/}
+                            {/*                updateViewMode(2)*/}
+                            {/*            }}*/}
+                            {/*                                  styleClasses={"   px-4 text-center border-purple-500 hover:font-bold  text-purple-500  "}*/}
+                            {/*                                  text={ViewModesDir[(nextViewMode + 1) % 3]}/>*/}
+                            {/*        </div>*/}
+
+
+                            {/*    </div>*/}
+                            {/*</div>*/}
 
 
                             {currentHomePanel === HomePanels.Visualize &&
