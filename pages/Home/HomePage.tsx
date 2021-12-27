@@ -229,9 +229,9 @@ export function HomePage({switchWindow}: Props) {
 
 
                             {currentHomePanel === HomePanels.Visualize &&
-                                <div className={" ak_max_600px w-100 h-[60vh]"}>
+                                <div className={" ak_max_600px w-100 h-auto"}>
 
-                                    <div className={"h-[55vh] "}>
+                                    <div className={"h-auto "}>
                                         <CurrentVisual nameOfX={"Money Spent"} nameOfY={getGraphY(viewMode)}
                                                        expenses={graphAbleExpenses}
                                                        dateFunction={dateFunctions[viewMode]}/>
