@@ -81,8 +81,8 @@ export function getWeekWiseExpenses(groupedExpenses:GroupedExpenses):SummaryExpe
 
 
     getDayWiseExpenses(groupedExpenses).forEach(({date, expense}:{date:string, expense:number})=>{
-        if(!tempWeekWiseExpenses[moment(date).week()]) tempWeekWiseExpenses[moment(date).week()] = 0;
-        tempWeekWiseExpenses[moment(date).week()] += expense;
+        if(!tempWeekWiseExpenses[moment(date).isoWeek()]) tempWeekWiseExpenses[moment(date).isoWeek()] = 0;
+        tempWeekWiseExpenses[moment(date).isoWeek()] += expense;
     })
 
     let weekWiseExpenses:SummaryExpense[] = [];
@@ -123,10 +123,10 @@ export function groupByWeek(sortedExpenses:any) {
 
 
     Object.entries(sortedExpenses).forEach(([date,expense])=>{
-        if(!tempWeekWiseExpenses[moment(getDate(date)).week()]) {
-            tempWeekWiseExpenses[moment(getDate(date)).week()] = [];
+        if(!tempWeekWiseExpenses[moment(getDate(date)).isoWeek()]) {
+            tempWeekWiseExpenses[moment(getDate(date)).isoWeek()] = [];
         }
-        tempWeekWiseExpenses[moment((getDate(date))).week()].push(expense);
+        tempWeekWiseExpenses[moment((getDate(date))).isoWeek()].push(expense);
     })
 
 
@@ -146,7 +146,7 @@ export function groupByWeek(sortedExpenses:any) {
  * @param groupedExpenses
  */
 export function getCurrentWeeksExpenses(groupedExpenses:GroupedExpenses){
-    let currentWeek = moment(new Date()).week();
+    let currentWeek = moment(new Date()).isoWeek();
     let weeklyExpenses = groupByWeek(groupedExpenses);
     let expenseLists:any = [];
     expenseLists= weeklyExpenses[weeklyExpenses.length-1][currentWeek];
@@ -170,11 +170,15 @@ export function getCurrentWeeksExpenses(groupedExpenses:GroupedExpenses){
  * @param groupedExpenses
  */
 export function getRenderableCurrentWeeksExpenses(groupedExpenses:GroupedExpenses){
-    let currentWeek = moment(new Date()).week();
+    let currentWeek = moment(new Date()).isoWeek();
 
     let weeklyExpenses = groupByWeek(groupedExpenses);
+    console.log("WEEKLY EXPENSES", weeklyExpenses);
     let expenseLists:any = [];
     expenseLists= weeklyExpenses[weeklyExpenses.length-1][currentWeek];
+    console.log(currentWeek);
+    console.log("INDEX", weeklyExpenses[weeklyExpenses.length-1][(currentWeek)%52]);
+    console.log("EXPENSES LIST", expenseLists);
     let mergedExpenseList:Expense[] = [];
     if(expenseLists){
         expenseLists.forEach((expenseList:Expense[]) => {
@@ -195,7 +199,7 @@ function groupByMonth(groupedExpenses: GroupedExpenses):GroupedExpenses[] {
 
 Object.entries(groupedExpenses).forEach(([date,expense])=>{
     // console.log(date, moment(date).month());
-    // console.log(date, moment(date).week());
+    // console.log(date, moment(date).isoWeek());
     if(!tempMonthWiseExpenses[moment(date).month()]) {
         tempMonthWiseExpenses[moment(date).month()] = 0
         tempMonthWiseExpenses[moment(date).month()] = [];
