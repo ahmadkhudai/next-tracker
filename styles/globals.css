@@ -309,6 +309,18 @@ div.scrollable::-webkit-scrollbar {
   justify-content: center;
 }
 
+.ak_footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .fixed_header {
   position: fixed;
   top: 0;

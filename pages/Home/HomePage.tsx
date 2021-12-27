@@ -208,7 +208,7 @@ export function HomePage({switchWindow}: Props) {
             }
 
 
-            <div style={{"marginTop":"4rem"}} className={" w-100 flex items-center justify-center flex-column px-3 h-100 py-3  "} onClick={(e: any) => {
+            <div style={{"marginTop":"2rem"}} className={" w-100 flex items-center justify-center flex-column px-3 h-100 py-3  "} onClick={(e: any) => {
                 closeAllPanels(e)
             }}>
 

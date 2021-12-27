@@ -199,7 +199,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
             }
 
-            <div className={"h-[4rem] shadow-inner w-100 py-3"} ref={myRef}></div>
+            <div className={"h-[5rem] shadow-inner w-100 py-4"} ref={myRef}></div>
             <div className={"  shadow-sm"}   >
                     <div id={"add_expense_form h-100  "}
                          className={"  flex flex-column bg-white/90 hover:bg-white ak_slow_transition p-3 "}
@@ -356,26 +356,33 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                                    }
                                                }}/>
                                     </div>
-                                </div>
+                                    <div className={"w-100 flex justify-content-center   ak_footer my-3 pt-3 mb-5"}>
+                                        <div className="form-group flex flex-column align-items-start  w-100 mx-2  ak_max_600px">
+                                            <button
+                                                className=" text-2xl btn text-white hover:font-bold bg-teal-400 border-teal-300 w-100 h-100 py-2"
+                                                onClick={() => {
+                                                    handleAddExpense();
+                                                }}>add expense
+                                            </button>
+                                            <RedButton styleClasses={"w-25 py-1   text-sm m-1 "} text={"back"}
+                                                       onClick={() => {
+                                                           handleClose()
+                                                       }}/>
+                                        </div>
+                                    </div>
+                                    </div>
+
+
                             </div>
 
-                            <div className="form-group">
-                                <button
-                                    className=" text-2xl btn text-white hover:font-bold bg-teal-400 border-teal-300 w-100 h-100 py-2"
-                                    onClick={() => {
-                                        handleAddExpense();
-                                    }}>add expense
-                                </button>
-                                <RedButton styleClasses={"w-25 py-1   text-sm m-1 "} text={"back"}
-                                           onClick={() => {
-                                               handleClose()
-                                           }}/>
-                            </div>
+
 
 
                         </div>
 
+
                     </div>
+
                     {showCurrentExpense &&
 
                         <NewExpenseContainer handleClose={()=>{dontShowCurrentExpense()}}>
@@ -405,6 +412,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
                             </div>
+
 
                         </NewExpenseContainer>}
 
