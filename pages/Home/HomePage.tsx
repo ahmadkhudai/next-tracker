@@ -246,7 +246,7 @@ export function HomePage({switchWindow}: Props) {
 
                                 <div className={"p-1"}>
                                     <div
-                                        className={"scrollable py-3  shadow-inner  rounded flex flex-column justify-content-center align-items-center bg-black"}
+                                        className={"scrollable py-3  shadow-inner  rounded flex flex-column justify-content-center align-items-center"}
                                         style={{
                                             "height": "450px",
                                             overflowX: "hidden",
