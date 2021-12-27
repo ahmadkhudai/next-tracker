@@ -58,7 +58,7 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
                 <div
                     className="ak_max_600px bg-transparent border-0 container py-2 px-3 card my-4 flex justify-content-center align-items-center px-1 mx-1">
 
-                    <ComposedChart className={"py-2 px-2 overflow-visible"} width={graphWidth} height={graphWidth}
+                    <ComposedChart className={"py-2 px-2 overflow-visible"} width={graphWidth} height={graphWidth*0.8}
                                    data={displayData} margin={{top: 25, right: 30, left: 40, bottom: 1}}>
 
                         <defs>
