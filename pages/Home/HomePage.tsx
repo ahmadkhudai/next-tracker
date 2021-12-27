@@ -220,10 +220,10 @@ export function HomePage({switchWindow}: Props) {
                             <div>
 
                                 <h3 className={"text-teal-500 text-center font-monospace w-auto "}>Your <span
-                                    className={"text-2xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 "}>{viewMode === ViewModes.today ? "day" : viewMode}</span> so
+                                    className={"text-xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 "}>{viewMode === ViewModes.today ? "day" : viewMode}</span> so
                                     far...</h3>
                             </div>
-                            <div className={"w-100 ak_max_600px flex align-items-center justify-content-center m-2 mt-3"}>
+                            <div className={"w-100 ak_max_600px flex align-items-center justify-content-center  mt-1"}>
                                 <ViewModeButtons currentViewMode={viewMode} updateViewMode={updateViewMode}/>
                             </div>
 

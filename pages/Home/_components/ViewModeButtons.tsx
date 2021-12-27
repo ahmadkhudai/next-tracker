@@ -49,12 +49,12 @@ export function ViewModeButtons({updateViewMode, currentViewMode}: Props) {
     const slideTo = (index: any) => swiper?.slideTo(index);
     return (
 
-        <div id={"effing_swiper"} className={"w-100 mx-3   bg-gray-200 rounded-full ak_slow_transition bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500 "}>
+        <div id={"effing_swiper"} className={"w-100 px-0 mx-0   bg-gray-200 rounded-full ak_slow_transition bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500 "}>
             {/*<h1></h1>*/}
 
 
                 <Swiper
-                    className={"flex justify-center w-100 "}
+                    className={"flex justify-center w-100 px-0 mx-0"}
 
                     onSlideChangeTransitionEnd={
                         (swiper) => {
