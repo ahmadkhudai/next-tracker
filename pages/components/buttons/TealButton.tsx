@@ -10,7 +10,7 @@ type Props = {
 type State = {};
 
 export function TealButton({onClick, text, styleClasses, children}:Props) {
-    let classes = "btn hover:shadow-lg   text-white bg-gradient-to-l from-teal-200   via-teal-400  to-teal-300 hover:font-bold";
+    let classes = "btn hover:shadow-lg   text-white bg-gradient-to-l from-teal-300   via-teal-400  to-teal-400 hover:font-bold";
     if(styleClasses){
         classes+=styleClasses;
     }

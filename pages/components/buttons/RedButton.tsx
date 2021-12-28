@@ -9,7 +9,7 @@ type Props = {
 type State = {};
 
 export function RedButton({onClick, text, styleClasses=""}:Props) {
-    let classes = "btn hover:bg-teal-400 text-white bg-red-600 hover:font-bold ";
+    let classes = "btn hover:bg-teal-400 text-white bg-red-500 hover:font-bold ";
     if(styleClasses){
         classes+=styleClasses;
     }

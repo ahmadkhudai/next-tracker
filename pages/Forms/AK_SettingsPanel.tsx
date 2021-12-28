@@ -37,19 +37,19 @@ export default function AK_SettingsPanel({settings, modifySettings, handleClose}
 
     return (
         <div
-            className={"container ak_max_600px text-center  bg-gradient-to-br from-teal-200    via-purple-200  to-purple-300  shadow-sm rounded-[10px] m-3"}
+            className={" flex flex-column container ak_max_600px text-center  bg-gradient-to-br from-teal-200 shadow    via-purple-200  to-purple-300  shadow-sm rounded-[10px] m-3"}
             id={"settingsPanel"}
             style={visibilityStyle}
         >
-            <div className={"w-100  flex justify-content-between align-items-center my-2 p-2"}>
-                <LabelPurple text={"settings "} styleClasses={" font-bold text-3xl p-3 w-75 "}/>
-                <div className={" w-25 flex justify-end p-2"}>
-                    <RedButton styleClasses={"  rounded-full w-50 h-100 p-2"} text={"X"} onClick={handleClose}/>
-                </div>
+            <div className={"w-75 align-self-end  flex justify-content-end align-items-center mt-1"}>
+
+                    <RedButton styleClasses={"  rounded-2 w-25 h-100 "} text={"X"} onClick={handleClose}/>
+
 
 
             </div>
-            <div className={"grid p-2"}>
+             <div className={"grid p-2 bg-white/50 rounded-[20px] my-2 shadow-sm"}>
+                <LabelPurple text={"Settings"} styleClasses={"  text-4xl w-100 text-left p-3"}/>
 
                 {Object.values(newSettings).map(setting => {
 
