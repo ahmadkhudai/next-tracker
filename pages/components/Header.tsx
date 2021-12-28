@@ -37,7 +37,7 @@ export default function Header(props: Props) {
         <div id={"ak_footer"}
              className=" flex justify-content-center py-4  bottom-0  w-100 align-items-center bg-white/90 ">
 
-            <div className={" ak_max_600px container flex w-100 justify-content-between align-items-center "}>
+            <div className={" ak_max_600px container flex w-100 justify-content-between align-items-center  pb-3"}>
                 {!homePanels &&
                     <button className="btn btn-outline-dark bg-white/50 hover:bg-black  mr-3" onClick={() => {
                         openHomePanelFunc(GraphPanels.grouped)
@@ -46,7 +46,7 @@ export default function Header(props: Props) {
 
                 {renderedPanels &&
                     renderedPanels?.map(panel =>
-                        <OutlineRoundedButton  key={panel.panelLabel} styleClasses="hover:text-purple-400 text-xl rounded-[10px]  mr-3   border-purple-300 hover:border-4 ak_slow_transition " onClick={() => {
+                        <OutlineRoundedButton  key={panel.panelLabel} styleClasses="hover:text-purple-600 hover:font-thin text-xl rounded-[10px]  mr-3   border-purple-300 hover:border-4 ak_slow_transition " onClick={() => {
                             openHomePanelFunc(panel.panel)
                         }}>
                             <div className={"flex align-items-center justify-content-between"}>
@@ -54,7 +54,7 @@ export default function Header(props: Props) {
                                     <Image   height={"40%"} width={"40%"} src={expensesIcon}/>
                                 }
 
-                                <p className={"text-xl d-none hover:d-inline px-2 "}>{panel.panelLabel}</p>
+                                <p className={"text-xl  px-2 "}>{panel.panelLabel}</p>
                                 {panel.panel===HomePanels.Visualize &&
                                     <Image   height={"40%"} width={"40%"} src={graphIcon}/>
                                 }
@@ -66,7 +66,7 @@ export default function Header(props: Props) {
                 {optionsPanels &&
                     optionsPanels?.map(panel =>
                         <div className={"h-100 flex justify-content-end w-auto  max-w-full"} key={panel.panelLabel}>
-                        <OutlineRoundedButton   styleClasses="flex justify-center items-center  border-teal-400  hover:border-4 rounded-full w-fit h-fit bg-none p-0   right-sm-0 right-10 position-absolute left-auto bottom-[3rem]   ak_slow_transition" onClick={() => {
+                        <OutlineRoundedButton   styleClasses="flex justify-center items-center  border-teal-400  hover:border-4 rounded-full w-fit h-fit bg-none p-0   right-sm-0 right-10    ak_slow_transition" onClick={() => {
                             openOptionsPanelFunc(panel.panel)
                         }}>
                             <Image className={"p-0 m-0 rounded-full p-0 hover:ring hover:ring-violet-300"}   height={"60%"} width={"60%"} src={addIcon}/>
