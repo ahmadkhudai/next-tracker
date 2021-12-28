@@ -58,8 +58,8 @@ export default function Header(props: Props) {
                 }
                 {optionsPanels &&
                     optionsPanels?.map(panel =>
-                        <div className={"h-100"} key={panel.panelLabel}>
-                        <PurpleButton   styleClasses=" py-2  p-3 text-2xl font-light rounded-full  right-sm-0 right-10" onClick={() => {
+                        <div className={"h-100 flex justify-content-end w-100 "} key={panel.panelLabel}>
+                        <PurpleButton   styleClasses=" align-self-right py-2  p-3 text-2xl font-light rounded-full  right-sm-0 right-10 position-absolute bottom-[3rem]" onClick={() => {
                             openOptionsPanelFunc(panel.panel)
                         }} text={panel.panelLabel}/>
                         </div>
