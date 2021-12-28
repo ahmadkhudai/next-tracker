@@ -33,7 +33,7 @@ export function Backdrop({children, onClick, styleClasses="", blurBackdrop}:Prop
         <div
             id={"backdrop"}
             onClick={onClick}
-            className={randomIntFromInterval(1,100)<50?"bg-teal-200/20":"bg-purple-400/20"}
+            className={randomIntFromInterval(1,100)<50?"bg-teal-100/60":"bg-purple-200/60"}
             // className={" "+styleClasses}
             style={{ height: "100%",
                 width: "100%"}}

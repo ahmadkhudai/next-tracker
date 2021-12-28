@@ -130,12 +130,11 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
             <div className={"fixed_header w-100"}>
-                <div className="flex h-100 ak_max_600px justify-content-between align-items-center shadow-sm rounded-full bg-white/95 p-2 mt-1 px-3 w-100">
-                    <p className={" text-xl text-teal-700 hover:text-purple-700"}>Add Expense</p>
+                <div className="w-100 flex h-100 ak_max_600px justify-content-between align-items-center shadow-sm rounded-full bg-white/95 p-2 mt-1 px-3 w-100">
+                    <p className={" text-xl text-teal-700 hover:text-purple-700 w-75"}>Add Expense</p>
 
 
-
-                    <RedButton styleClasses={"    text-sm  rounded-[50%] h-50 mr-2  "} text={"X"}
+                    <RedButton styleClasses={"    text-sm  rounded-[50%] h-50 mr-2    "} text={"X"}
                                onClick={() => {
                                    handleClose()
                                }}/>
@@ -149,18 +148,19 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
             {expenseAdded &&
                 <NewExpenseContainer handleClose={()=>{}}>
                     <div className={"w-100 ak_max_600px   flex flex-column align-items-center  bg-gradient-to-l from-gray-100   via-teal-50  to-purple-100 h-100 p-4 rounded-[20px] "} style={{"zIndex":"1000"}}>
-
-                        <LabelPurple text={"Expense Added!"} styleClasses={" h1 text-4xl"}/>
-                        <DateSortedView mode={Modes.create}
-                                        styleClasses={" w-100  pt-3  py-2 px-0 shadow-sm bg-white/80 my-3  rounded-[10px] h-auto "}
-                                        expenses={[{...lastCreatedExpense, id: "1", date: newExpense.date.toString()}]}/>
-
-                        <div className={"w-75 flex flex-column"}>
-                            <TealButton styleClasses={" my-2 py-2 text-xl"} text={"add more!"} onClick={()=>{executeScroll(); resetState();}}/>
-                            <PurpleButton styleClasses={" p-2 my-1 "} text={"take me home."} onClick={() => {
+                        <div className={"w-100 flex flex-column py-4 bg-white p-3 rounded-[10px] shadow-sm"}>
+                            <LabelPurple text={"Expense Added!"} styleClasses={" h1 text-4xl"}/>
+                            <TealButton styleClasses={" my-2 py-2 text-xl rounded-full"} text={"add more!"} onClick={()=>{executeScroll(); resetState();}}/>
+                            <PurpleButton styleClasses={" p-2 my-1 rounded-full "} text={"home"} onClick={() => {
                                 handleClose()
                             }}/>
                         </div>
+                        <DateSortedView mode={Modes.create}
+                                        styleClasses={" w-100  pt-3  py-2 px-0 shadow-sm bg-white my-3  rounded-[10px] h-auto "}
+                                        expenses={[{...lastCreatedExpense, id: "1", date: newExpense.date.toString()}]}/>
+
+
+
                         {/*<Expense expense={lastCreatedExpense}/>*/}
                     </div>
                 </NewExpenseContainer>
@@ -324,23 +324,8 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                                    }
                                                }}/>
                                     </div>
-                                    <div className={" ak_footer_low_z bg-white/80 w-100 flex justify-content-center    pt-3  h-auto shadow-inner "}>
-                                        <div className="form-group flex flex-column align-items-start  w-100 mx-2  ak_max_600px">
-                                            <OutlineRoundedButton
-                                                styleClasses={"w-75 p-2 bg-gradient-to-r from-teal-500 py-1  via-indigo-400  to-purple-500  text-white    text-xl m-0 p-0 "}
-                                                text={showCurrentExpense ? "keep editing" : "all done"}
-                                                onClick={() => {
-                                                    // console.log("ALL DONE!");
-                                                    // console.log(showCurrentExpense);
-                                                    setShowCurrentExpense(!showCurrentExpense);
-                                                    // console.log(showCurrentExpense);
-                                                }}/>
-                                            <RedButton styleClasses={"w-25 py-1   text-sm m-1 "} text={"back"}
-                                                       onClick={() => {
-                                                           handleClose()
-                                                       }}/>
-                                        </div>
-                                    </div>
+
+
                                     </div>
 
 
@@ -350,14 +335,27 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
                         </div>
+                        <div className={" ak_footer_low_z bg-white/80 w-100 flex justify-content-center    pt-3  h-auto shadow-inner "}>
+                            <div className="form-group flex flex-column align-items-start  w-100 mx-2  ak_max_600px">
+                                <OutlineRoundedButton
+                                    styleClasses={"w-75 p-2 bg-gradient-to-r from-teal-500 py-1  via-indigo-400  to-purple-500  text-white    text-xl m-0 p-0 "}
+                                    text={showCurrentExpense ? "keep editing" : "all done"}
+                                    onClick={() => setShowCurrentExpense(!showCurrentExpense)}
 
+                                />
+                                <RedButton styleClasses={"w-25 py-1   text-sm m-1 "} text={"back"}
+                                           onClick={() => {
+                                               handleClose()
+                                           }}/>
+                            </div>
+                        </div>
 
                     </div>
 
                     {showCurrentExpense &&
 
                         <NewExpenseContainer handleClose={()=>{dontShowCurrentExpense()}}>
-                            <div className="  bg-gradient-to-r from-teal-300/90 via-purple-300 to-purple-400  rounded-[10px]  shadow-sm p-2 form-group position-sticky bottom-0 px-0 pb-0 flex flex-column align-items-end w-100">
+                            <div className="  bg-gradient-to-r from-teal-100/90 via-purple-100 to-purple-200  rounded-[10px]  shadow-sm p-2 form-group position-sticky bottom-0 px-0 pb-0 flex flex-column align-items-end w-100">
 
                                 <div className={"w-100 flex flex-column align-items-center pb-3"}>
                                     <DateSortedView mode={Modes.create}
@@ -368,13 +366,13 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                                         id: "1",
                                                         date: newExpense.date.toString()
                                                     }]}/>
-                                    <div className={"flex w-75 align-items-center justify-content-center "}>
-                                        <TealButton styleClasses={" d-block w-50 rounded-full  text-white   text-sm m-1 "}
+                                    <div className={"flex w-100 align-items-center justify-content-center "}>
+                                        <TealButton styleClasses={" d-block w-50 rounded-full  text-white  text-xl m-1 "}
                                                     text={"create!"}
                                                     onClick={() => {
                                                         handleAddExpense();
                                                     }}/>
-                                        <RedButton styleClasses={" rounded-full py-1 w-25"} text={"X"} onClick={()=>{dontShowCurrentExpense()}}/>
+                                        <PurpleButton styleClasses={" rounded-full py-1 w-auto"} text={"keep editing"} onClick={()=>{dontShowCurrentExpense()}}/>
 
                                     </div>
                                 </div>
