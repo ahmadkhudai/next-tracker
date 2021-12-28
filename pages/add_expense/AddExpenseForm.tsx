@@ -122,6 +122,9 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
     const executeScroll = () => myRef.current.scrollIntoView()
 
 
+    function toggleShowCurrentExpense() {
+        setShowCurrentExpense(!showCurrentExpense);
+    }
 
     return (
 
@@ -149,16 +152,17 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                     <div className={"w-100 ak_max_600px   flex flex-column align-items-center  bg-gradient-to-l from-gray-100   via-teal-50  to-purple-100 h-100 p-4 rounded-[20px] "} style={{"zIndex":"1000"}}>
                         <div className={"w-100 flex flex-column py-4 bg-white p-3 rounded-[10px] shadow-sm"}>
                             <LabelPurple text={"Expense Added!"} styleClasses={" h1 text-4xl"}/>
-                             <PurpleButton styleClasses={" p-2 my-1 rounded-full "} text={"home"} onClick={() => {
-                                handleClose()
-                            }}/>
+                            <PurpleButton styleClasses={" p-2 my-1 rounded-full"} text={"add more!"} onClick={()=>{executeScroll(); resetState();}}/>
+
+
                         </div>
                         <DateSortedView mode={Modes.create}
                                         styleClasses={" w-100  pt-3  py-2 px-0 shadow-sm bg-white my-3  rounded-[10px] h-auto "}
                                         expenses={[{...lastCreatedExpense, id: "1", date: newExpense.date.toString()}]}/>
 
-
-                        <TealButton styleClasses={" my-2 py-2 text-xl rounded-full w-75"} text={"add more!"} onClick={()=>{executeScroll(); resetState();}}/>
+                        <TealButton styleClasses={"  my-2 py-2 text-3xl rounded-full w-75"} text={"home"} onClick={() => {
+                            handleClose()
+                        }}/>
 
                         {/*<Expense expense={lastCreatedExpense}/>*/}
                     </div>
@@ -175,9 +179,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                     >
 
 
-                        <div id="expense_form" className="pt-3 " onClick={() => {
-                            dontShowCurrentExpense()
-                        }}>
+                        <div id="expense_form" className="pt-3 ">
 
                             <div className="form-group hover:font-bold ak_slow_transition">
                                 <label htmlFor="amountSpent" className="text-xl text-teal-700 hover:text-purple-700">Amount
@@ -330,7 +332,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                     <TealButton
                                         styleClasses={"ak_max_600mx w-75   text-white text-xl  rounded-full"}
                                         text={showCurrentExpense ? "keep editing" : "done!"}
-                                        onClick={() => setShowCurrentExpense(!showCurrentExpense)}
+                                        onClick={() => toggleShowCurrentExpense()}
 
                                     />
                                 </div>
