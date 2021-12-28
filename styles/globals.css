@@ -5,6 +5,11 @@
   color: #17a589;
 }
 
+body {
+  position: fixed;
+  width: 100%;
+}
+
 .ak_black {
   color: black;
 }
@@ -241,7 +246,8 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
+  overflow-y: hidden;
+  z-index: 3000;
 }
 
 #modal {

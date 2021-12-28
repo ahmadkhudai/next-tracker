@@ -335,10 +335,10 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
                         </div>
-                        <div className={" ak_footer_low_z bg-white/80 w-100 flex justify-content-center    p-2  h-auto shadow-inner "}>
-                            <div className="form-group flex justify-content-end  w-100 m-2  ak_max_600px">
+                        <div className={" ak_footer_low_z bg-white/80 w-100 flex justify-content-center    p-1  h-auto shadow-inner "}>
+                            <div className="form-group flex justify-content-center  w-75   ak_max_600px py-2 m-0">
                                 <TealButton
-                                    styleClasses={"ak_max_600mx w-25 p-2     text-white    text-xl  rounded-full"}
+                                    styleClasses={"ak_max_600mx w-75   text-white text-xl  rounded-full"}
                                     text={showCurrentExpense ? "keep editing" : "all done"}
                                     onClick={() => setShowCurrentExpense(!showCurrentExpense)}
 

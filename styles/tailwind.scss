@@ -12,6 +12,10 @@ $accent_color:#17a589;
   color:$accent_color;
 }
 
+body {
+  position: fixed;
+  width: 100%;
+}
 //.ak_label{
 //  background: $base_color;
 //  opacity: 80%;
@@ -333,7 +337,8 @@ a{
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
+  overflow-y: hidden;
+  z-index: 3000;
 }
 
 #modal {
