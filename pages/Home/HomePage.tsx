@@ -21,7 +21,7 @@ import {OptionPanelLabels, OptionsPanels} from "../api/component_config/Main/Opt
 import AK_SettingsPanel from "../Forms/AK_SettingsPanel";
 import AddExpenseForm from "../add_expense/AddExpenseForm";
 import ModalContainer from "../Framer/ModalContainer";
-import Header from "../components/Header";
+import HomeFooter from "../components/HomeFooter";
 import NoData from "../components/_partials/NoData";
 import {HomePanelLabels, HomePanels} from "../api/component_config/HomePanels";
 import CurrentVisual from "../graphs/CurrentVisual";
@@ -270,7 +270,7 @@ export function HomePage({switchWindow}: Props) {
 
             </div>
             {currentlyOpenPanel !== OptionsPanels.AddExpensePanel &&
-                <Header
+                <HomeFooter
                     currentHomePanel={currentHomePanel}
                     openHomePanelFunc={openHomePanel}
                     homePanels={graphAbleExpenses.length > 1 ? [{

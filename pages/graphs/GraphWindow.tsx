@@ -3,7 +3,7 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import GroupedExpensesGraph from "./GroupedExpensesGraph";
 import {GraphPanels} from "../api/component_config/graphs/GraphPanels";
-import Header from "../components/Header";
+import HomeFooter from "../components/HomeFooter";
 import {Expense} from "../../Definitions/Expense";
 import NoData from "../components/_partials/NoData";
 import {baseSettings, sortfunction} from "../api/utils/expense_utils";
@@ -59,7 +59,7 @@ export default function GraphWindow({switchWindow}: Props) {
             {expenses.length == 0 && <NoData/>}
             {expenses.length > 0 &&
                 <div>
-                    <Header openHomePanelFunc={openPanel}/>
+                    <HomeFooter openHomePanelFunc={openPanel}/>
 
                         {openedPanel === GraphPanels.grouped &&
                             <div className={"flex align-items-center justify-content-center"}>

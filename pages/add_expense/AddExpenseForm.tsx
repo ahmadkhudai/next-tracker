@@ -132,11 +132,11 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
             <div className={"fixed_header w-100"}>
-                <div className="w-100 flex h-100 ak_max_600px justify-content-between align-items-center shadow-sm rounded-full bg-white/95 p-2 mt-1 px-3 w-100">
+                <div className="w-100 flex h-100 ak_max_600px justify-content-between align-items-center shadow   bg-white/95 p-2 px-3 w-100 rounded-[10px] rounded-tl-0">
                     <p className={" text-xl text-teal-700 hover:text-purple-700 w-75"}>Add Expense</p>
 
 
-                    <RedButton styleClasses={"    text-sm  rounded-[50%] h-50 mr-2    "} text={"X"}
+                    <RedButton styleClasses={"    text-sm  rounded-pill     "} text={"cancel"}
                                onClick={() => {
                                    handleClose()
                                }}/>
@@ -170,7 +170,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
             }
 
-            <div className={"h-[5rem] shadow-inner w-100 py-4"} ref={myRef}></div>
+            <div className={"h-[5rem]  w-100 py-4"} ref={myRef}></div>
             <div className={"  shadow-sm"}   >
                     <div id={"add_expense_form h-100  "}
                          className={"  flex flex-column bg-white/90 hover:bg-white ak_slow_transition p-3 "}
@@ -345,7 +345,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
                         </div>
-                        <div className={" ak_footer_low_z bg-white/80 w-100 flex justify-content-center h-auto shadow-inner "}>
+                        <div className={" ak_footer_low_z bg-white/80 w-100 flex justify-content-center h-auto shadow-lg "}>
                             <div className="form-group flex justify-content-around  w-75   ak_max_600px py-2  m-0">
 
                            <PurpleButton

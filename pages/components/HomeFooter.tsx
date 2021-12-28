@@ -25,7 +25,7 @@ type Props = {
 };
 type State = {};
 
-export default function Header(props: Props) {
+export default function HomeFooter(props: Props) {
     const {openHomePanelFunc, homePanels, currentHomePanel, optionsPanels, openOptionsPanelFunc} = props;
 
     // console.log(currentlyOpenPanel);
@@ -46,10 +46,11 @@ export default function Header(props: Props) {
 
                 {renderedPanels &&
                     renderedPanels?.map(panel =>
+                        <div className={"h-100 flex justify-content-start w-100    "} key={panel.panelLabel}>
                         <OutlineRoundedButton  key={panel.panelLabel} styleClasses="hover:text-purple-600 hover:font-thin text-xl rounded-[10px]  mr-3   border-purple-300 hover:border-2 ak_slow_transition " onClick={() => {
                             openHomePanelFunc(panel.panel)
                         }}>
-                            <div className={"flex align-items-center justify-content-between"}>
+                            <div className={"flex align-items-center justify-content-between w-auto"}>
                                 {panel.panel===HomePanels.ExpensesPanel &&
                                     <Image   height={"40%"} width={"40%"} src={expensesIcon}/>
                                 }
@@ -61,12 +62,14 @@ export default function Header(props: Props) {
 
                             </div>
                         </OutlineRoundedButton>
+                        </div>
                     )
                 }
                 {optionsPanels &&
                     optionsPanels?.map(panel =>
-                        <div className={"h-100 flex justify-content-end w-auto  max-w-full"} key={panel.panelLabel}>
-                        <OutlineRoundedButton   styleClasses="hover:text-purple-600 hover:font-thin  flex justify-center items-center  border-teal-400  hover:border-2 rounded-full w-fit h-fit bg-none p-0   right-sm-0 right-10    ak_slow_transition" onClick={() => {
+                        //todo only add button will rest here. remove this loop and pass only add button
+                        <div className={"h-100 flex justify-content-end w-100    "} key={panel.panelLabel}>
+                        <OutlineRoundedButton   styleClasses="hover:text-purple-600 hover:font-thin  flex justify-center items-center  border-teal-400  hover:border-2 rounded-full  bg-none p-0 w-auto      ak_slow_transition" onClick={() => {
                             openOptionsPanelFunc(panel.panel)
                         }}>
                             <p className={"text-xl  p-2 px-3 "}>add</p>
