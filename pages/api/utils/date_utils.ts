@@ -1,6 +1,8 @@
 // @ts-ignore
 
 
+import moment from "moment";
+
 export const addHours = (givenTime:Date, hours:number)=>{
     return new Date(((givenTime).setHours(givenTime.getHours() + hours)));
 }
@@ -52,4 +54,17 @@ export function isToday(inputDate:any){
 
 export function isGreaterThanToday(inputDate:Date|String){
     return getDate(inputDate).setHours(0,0,0,0) > (new Date()).setHours(0,0,0,0);
+}
+
+export function concat(date: Date, time: string) {
+    return moment(date).format("YYYY-MM-DD") + "T" + time;
+}
+
+export function concatTimeToDate(date: Date, oldDate: Date) {
+    return concat(date, moment(oldDate).format("HH:mm"));
+}
+
+export function addDaysPreserveTime(date: Date, number: number, oldDate: Date) {
+    let newDate: Date = new Date(moment(date).add(number, "days").toString());
+    return concatTimeToDate(newDate, oldDate);
 }

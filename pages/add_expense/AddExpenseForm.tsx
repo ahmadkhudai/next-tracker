@@ -12,6 +12,7 @@ import {startsWithSpace} from "../api/utils/string_utils";
 import RedButton from "../components/buttons/RedButton";
 import OutlineRoundedButton from "../components/buttons/OutlineRoundedButton";
 import NewExpenseContainer from "../components/modals/currentExpense/NewExpenseContainer";
+import {addDaysPreserveTime, concat} from "../api/utils/date_utils";
 
 //
 // let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
@@ -86,18 +87,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
     }
 
 
-    function concat(date: Date, time: string) {
-        return moment(date).format("YYYY-MM-DD") + "T" + time;
-    }
 
-    function concatTimeToDate(date: Date, oldDate: Date) {
-        return concat(date, moment(oldDate).format("HH:mm"));
-    }
-
-    function addDaysPreserveTime(date: Date, number: number, oldDate: Date) {
-        let newDate: Date = new Date(moment(date).add(number, "days").toString());
-        return concatTimeToDate(newDate, oldDate);
-    }
 
     const [lastCreatedExpense, setLastExpense] = useState({} as any);
 
@@ -132,36 +122,17 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
     //@ts-ignore
     const executeScroll = () => myRef.current.scrollIntoView()
 
-    // run this function from an event handler or an effect to execute scroll
-
-    //scroll to top after new expense
-
-    //
-    // const scrollToTop = () => {
-    //
-    //     window.scrollTo({
-    //         top: 0,
-    //         behavior: "smooth"
-    //     });
-    // };
 
 
     return (
 
         <div className={"  ak_max_600px wrapper wrapper_inner scrollable w-100"}>
-            {/*<Expense styleClasses={""} expense={{...newExpense, id:"1"}}/>*/}
 
 
             <div className={"fixed_header w-100"}>
                 <div className="flex h-100 ak_max_600px justify-content-between align-items-center shadow-sm rounded-full bg-white/95 p-2 mt-1 px-3 w-100">
                     <p className={" text-xl text-teal-700 hover:text-purple-700"}>Add Expense</p>
 
-                    <OutlineRoundedButton
-                        styleClasses={"w-25 bg-gradient-to-r from-teal-500 py-1  via-indigo-400  to-purple-500  text-white   text-sm m-0 p-0 "}
-                        text={showCurrentExpense ? "hide" : "show"}
-                        onClick={() => {
-                            setShowCurrentExpense(!showCurrentExpense);
-                        }}/>
 
 
 
