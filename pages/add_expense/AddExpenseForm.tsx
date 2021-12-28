@@ -135,10 +135,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
 
-
-
-
-                    <RedButton styleClasses={"    text-sm  rounded-[50%] h-50  "} text={"X"}
+                    <RedButton styleClasses={"    text-sm  rounded-[50%] h-50 mr-2  "} text={"X"}
                                onClick={() => {
                                    handleClose()
                                }}/>
@@ -329,12 +326,15 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                     </div>
                                     <div className={" ak_footer_low_z bg-white/80 w-100 flex justify-content-center    pt-3  h-auto shadow-inner "}>
                                         <div className="form-group flex flex-column align-items-start  w-100 mx-2  ak_max_600px">
-                                            <button
-                                                className=" text-2xl btn text-white hover:font-bold bg-teal-400 border-teal-300 w-100 h-100 py-2 shadow-sm"
+                                            <OutlineRoundedButton
+                                                styleClasses={"w-75 p-2 bg-gradient-to-r from-teal-500 py-1  via-indigo-400  to-purple-500  text-white    text-xl m-0 p-0 "}
+                                                text={showCurrentExpense ? "keep editing" : "all done"}
                                                 onClick={() => {
-                                                    handleAddExpense();
-                                                }}>add expense
-                                            </button>
+                                                    // console.log("ALL DONE!");
+                                                    // console.log(showCurrentExpense);
+                                                    setShowCurrentExpense(!showCurrentExpense);
+                                                    // console.log(showCurrentExpense);
+                                                }}/>
                                             <RedButton styleClasses={"w-25 py-1   text-sm m-1 "} text={"back"}
                                                        onClick={() => {
                                                            handleClose()
