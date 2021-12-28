@@ -48,6 +48,12 @@ export function ViewModeButtons({updateViewMode, currentViewMode}: Props) {
             setSliderState(repairSwiperState({center: sliderState[swiperPosition.center]}))
         }
     }, []);
+    useEffect(() => {
+            //fixme unexpected change in view mode handled but not corrected!
+            // we only get center so we produce slider state from it
+            setSliderState(repairSwiperState({center: currentViewMode}))
+
+    }, [currentViewMode]);
 
 
     function fromRightToLeft(swiper: any) {
