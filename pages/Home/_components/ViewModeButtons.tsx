@@ -169,7 +169,7 @@ export function ViewModeButtons({updateViewMode, currentViewMode}: Props) {
                       swipeLeftToRight();
                 }}>
                     <OutlineRoundedButton
-                        styleClasses={" w-100   text-center  border-teal-400 text-teal-500  "}
+                        styleClasses={" bg-gray-50 w-100 hover:text-teal-400   text-center  border-teal-400 text-teal-500  "}
                         text={sliderState[0]} onClick={() => {
 
                     }}/>
@@ -181,7 +181,7 @@ export function ViewModeButtons({updateViewMode, currentViewMode}: Props) {
                 </SwiperSlide>
                 <SwiperSlide className={"w-25"} onClick={()=>swipeRightToLeft()}>
                     <OutlineRoundedButton
-                        styleClasses={" w-100   text-center  border-teal-400 text-teal-500  "}
+                        styleClasses={"bg-gray-50 w-100 hover:text-teal-400  text-center  border-teal-400 text-teal-500  "}
                         text={sliderState[2]} onClick={() => {
 
                     }}/>
