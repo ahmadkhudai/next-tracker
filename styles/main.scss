@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 
+//@import 'tailwindcss/base';
+//@import 'tailwindcss/components';
 
 $base_color:#0099b7;
 $accent_color:#17a589;
@@ -15,6 +17,18 @@ $accent_color:#17a589;
 body {
   position: fixed;
   width: 100%;
+  height: 100%;
+
+  @extend .scrollable;
+}
+body div{
+
+
+  @extend .scrollable;
+}
+
+.contain_overscroll{
+  overscroll-behavior: contain;
 }
 //.ak_label{
 //  background: $base_color;
@@ -444,7 +458,6 @@ $finalWidth: $finalHeight*2;
   left: 0;
   z-index: 9999;
   width: 100vw;
-  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -453,6 +466,13 @@ $finalWidth: $finalHeight*2;
 .ak_footer_low_z{
   @extend .ak_footer;
   z-index: 100;
+}
+
+.ak_footer_home{
+  @extend .ak_footer_low_z;
+  padding: 10px;
+  //padding: 1em;
+
 }
 
 .fixed_header{

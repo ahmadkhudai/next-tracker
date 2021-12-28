@@ -22,7 +22,6 @@ import AK_SettingsPanel from "../Forms/AK_SettingsPanel";
 import AddExpenseForm from "../add_expense/AddExpenseForm";
 import ModalContainer from "../Framer/ModalContainer";
 import Header from "../components/Header";
-import DateSortedView from "./_components/DateSortedView";
 import NoData from "../components/_partials/NoData";
 import {HomePanelLabels, HomePanels} from "../api/component_config/HomePanels";
 import CurrentVisual from "../graphs/CurrentVisual";
@@ -30,6 +29,7 @@ import {dateFunctions, ViewModes} from "../api/component_config/ViewModes";
 import {Day} from "../../constants/day";
 import Backdrop from "../Framer/Backdrop";
 import ViewModeButtons from "./_components/ViewModeButtons";
+import HomeExpensesView from "./_components/compound_components/HomeExpensesView";
 
 type Props = {
     switchWindow: any;
@@ -208,7 +208,7 @@ export function HomePage({switchWindow}: Props) {
             }
 
 
-            <div  className={" w-100 flex items-center justify-center flex-column px-3 py-3  "} onClick={(e: any) => {
+            <div className={" w-100 flex items-center justify-center flex-column px-3 py-3  "} onClick={(e: any) => {
                 closeAllPanels(e)
             }}>
 
@@ -229,7 +229,7 @@ export function HomePage({switchWindow}: Props) {
 
 
                             {currentHomePanel === HomePanels.Visualize &&
-                                <div className={" ak_max_600px w-100 h-auto"}>
+                                <div className={" ak_max_600px w-100 h-full"}>
 
                                     <div className={"h-auto "}>
                                         <CurrentVisual nameOfX={"Money Spent"} nameOfY={getGraphY(viewMode)}
@@ -242,26 +242,8 @@ export function HomePage({switchWindow}: Props) {
 
 
                         {(currentHomePanel === HomePanels.ExpensesPanel) &&
-                            <div className={" w-100 "}>
-
-                                <div className={"p-1"}>
-                                    <div
-                                        className={"scrollable py-3  shadow-inner  rounded flex flex-column justify-content-center align-items-center"}
-                                        style={{
-                                            "height": "450px",
-                                            overflowX: "hidden",
-                                        }}>
-                                        <DateSortedView
-                                            expenses={currentExpenses}
-                                            settings={settings} deleteExpense={deleteExpense}/>
-
-                                    </div>
-
-
-                                </div>
-
-
-                            </div>
+                            <HomeExpensesView currentExpenses={currentExpenses} settings={settings}
+                                              deleteExpense={deleteExpense}/>
                         }
 
 
@@ -284,9 +266,6 @@ export function HomePage({switchWindow}: Props) {
                                           modifySettings={modifySettings}/>
                     </Backdrop>
                 }
-
-
-
 
 
             </div>

@@ -10,7 +10,6 @@ import TealButton from "../components/buttons/TealButton";
 import LabelPurple from "../components/labels/LabelPurple";
 import {startsWithSpace} from "../api/utils/string_utils";
 import RedButton from "../components/buttons/RedButton";
-import OutlineRoundedButton from "../components/buttons/OutlineRoundedButton";
 import NewExpenseContainer from "../components/modals/currentExpense/NewExpenseContainer";
 import {addDaysPreserveTime, concat} from "../api/utils/date_utils";
 
@@ -335,14 +334,20 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
                         </div>
-                        <div className={" ak_footer_low_z bg-white/80 w-100 flex justify-content-center    p-1  h-auto shadow-inner "}>
-                            <div className="form-group flex justify-content-center  w-75   ak_max_600px py-2 m-0">
+                        <div className={" ak_footer_low_z bg-white/80 w-100 flex justify-content-center h-auto shadow-inner "}>
+                            <div className="form-group flex justify-content-around  w-100   ak_max_600px py-2  m-0">
+
                                 <TealButton
-                                    styleClasses={"ak_max_600mx w-75   text-white text-xl  rounded-full"}
-                                    text={showCurrentExpense ? "keep editing" : "all done"}
+                                    styleClasses={"ak_max_600mx w-50   text-white text-xl  rounded-full"}
+                                    text={showCurrentExpense ? "keep editing" : "done!"}
                                     onClick={() => setShowCurrentExpense(!showCurrentExpense)}
 
-                                />
+                                /> <PurpleButton
+                                styleClasses={"ak_max_600mx w-25   text-white text-xl  rounded-full"}
+                                text={"quick add"}
+                                onClick={() => handleAddExpense()}
+
+                            />
                             </div>
                         </div>
 
@@ -363,12 +368,16 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                                         date: newExpense.date.toString()
                                                     }]}/>
                                     <div className={"flex w-100 align-items-center justify-content-center "}>
+                                        <PurpleButton styleClasses={" rounded-full py-1 w-auto"} text={"keep editing"}
+                                                      onClick={() => {
+                                                          dontShowCurrentExpense()
+                                                      }}/>
+
                                         <TealButton styleClasses={" d-block w-50 rounded-full  text-white  text-xl m-1 "}
                                                     text={"create!"}
                                                     onClick={() => {
                                                         handleAddExpense();
                                                     }}/>
-                                        <PurpleButton styleClasses={" rounded-full py-1 w-auto"} text={"keep editing"} onClick={()=>{dontShowCurrentExpense()}}/>
 
                                     </div>
                                 </div>

@@ -8,6 +8,11 @@
 body {
   position: fixed;
   width: 100%;
+  height: 100%;
+}
+
+.contain_overscroll {
+  overscroll-behavior: contain;
 }
 
 .ak_black {
@@ -288,7 +293,7 @@ a {
   font-family: "Montserrat", sans-serif;
 }
 
-div.scrollable::-webkit-scrollbar {
+div.scrollable::-webkit-scrollbar, body div::-webkit-scrollbar {
   display: none;
 }
 
@@ -315,20 +320,23 @@ div.scrollable::-webkit-scrollbar {
   justify-content: center;
 }
 
-.ak_footer, .ak_footer_low_z {
+.ak_footer, .ak_footer_low_z, .ak_footer_home {
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 9999;
   width: 100vw;
-  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.ak_footer_low_z {
+.ak_footer_low_z, .ak_footer_home {
   z-index: 100;
+}
+
+.ak_footer_home {
+  padding: 10px;
 }
 
 .fixed_header {

@@ -34,10 +34,10 @@ export default function Header(props: Props) {
 
     return (
 
-        <div id={"ak_footer"}
-             className=" flex justify-content-center py-4  bottom-0  w-100 align-items-center bg-white/90 ">
+        <div
+             className="ak_footer_home flex justify-content-center  w-100 align-items-center bg-white/90 ">
 
-            <div className={" ak_max_600px container flex w-100 justify-content-between align-items-center  pb-3"}>
+            <div className={" ak_max_600px container flex w-100 justify-content-between align-items-center "}>
                 {!homePanels &&
                     <button className="btn btn-outline-dark bg-white/50 hover:bg-black  mr-3" onClick={() => {
                         openHomePanelFunc(GraphPanels.grouped)
@@ -46,7 +46,7 @@ export default function Header(props: Props) {
 
                 {renderedPanels &&
                     renderedPanels?.map(panel =>
-                        <OutlineRoundedButton  key={panel.panelLabel} styleClasses="hover:text-purple-600 hover:font-thin text-xl rounded-[10px]  mr-3   border-purple-300 hover:border-4 ak_slow_transition " onClick={() => {
+                        <OutlineRoundedButton  key={panel.panelLabel} styleClasses="hover:text-purple-600 hover:font-thin text-xl rounded-[10px]  mr-3   border-purple-300 hover:border-2 ak_slow_transition " onClick={() => {
                             openHomePanelFunc(panel.panel)
                         }}>
                             <div className={"flex align-items-center justify-content-between"}>
@@ -66,10 +66,11 @@ export default function Header(props: Props) {
                 {optionsPanels &&
                     optionsPanels?.map(panel =>
                         <div className={"h-100 flex justify-content-end w-auto  max-w-full"} key={panel.panelLabel}>
-                        <OutlineRoundedButton   styleClasses="flex justify-center items-center  border-teal-400  hover:border-4 rounded-full w-fit h-fit bg-none p-0   right-sm-0 right-10    ak_slow_transition" onClick={() => {
+                        <OutlineRoundedButton   styleClasses="hover:text-purple-600 hover:font-thin  flex justify-center items-center  border-teal-400  hover:border-2 rounded-full w-fit h-fit bg-none p-0   right-sm-0 right-10    ak_slow_transition" onClick={() => {
                             openOptionsPanelFunc(panel.panel)
                         }}>
-                            <Image className={"p-0 m-0 rounded-full p-0 hover:ring hover:ring-violet-300"}   height={"60%"} width={"60%"} src={addIcon}/>
+                            <p className={"text-xl  p-2 px-3 "}>add</p>
+                            <Image className={"p-0 m-0 rounded-full p-0 hover:bg-purple-100"}   height={"50%"} width={"50%"} src={addIcon}/>
                         </OutlineRoundedButton>
                         </div>
                     )
