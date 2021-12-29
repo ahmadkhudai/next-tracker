@@ -31,8 +31,8 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
     const defaultExpense = {
         name: "chai",
         price: 30,
-        description: "chai from office cafe",
-        location:"office cafe",
+        description: "chai from cafe",
+        location:"cafe",
         date: currentlySelectedDate
     };
     const [newExpense, setNewExpense] = useState(defaultExpense);
@@ -191,7 +191,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                             </div>
                         </div>
                         <div className="form-group  hover:font-bold ak_slow_transition">
-                            <LargeFormDisplay  text={newExpense.name+ " from "+ newExpense.location} styleClasses={"p-2 text-center text-3xl unselectable"}/>
+                            <LargeFormDisplay  text={(newExpense.name)+ " from "+ newExpense.location} styleClasses={"p-2 text-center text-2xl font-normal unselectable"}/>
 
                             <div className="">
                                 <label htmlFor="name" className="  p-2 text-teal-700 hover:text-purple-700 text-lg">spent on</label>
