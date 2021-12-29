@@ -191,10 +191,10 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                             </div>
                         </div>
                         <div className="form-group  hover:font-bold ak_slow_transition">
-                            <LargeFormDisplay  text={newExpense.name+ " from "+ newExpense.location} styleClasses={"p-2 text-center font-thin text-3xl unselectable"}/>
+                            <LargeFormDisplay  text={newExpense.name+ " from "+ newExpense.location} styleClasses={"p-2 text-center text-3xl unselectable"}/>
 
                             <div className="">
-                                <label htmlFor="name" className="  p-2 text-teal-700 hover:text-purple-700">spent on</label>
+                                <label htmlFor="name" className="  p-2 text-teal-700 hover:text-purple-700 text-lg">spent on</label>
                                 <input type="text"
                                        className="form-control border-0 mb-0  hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
                                        id="name" placeholder="Chai"
@@ -202,13 +202,12 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                     // setExpenseName(e.target.value);
                                     handleFieldChange("name", e.target.value)
                                 }}/>
-                                <label htmlFor="location" className=" p-2 text-teal-700 hover:text-purple-700">from</label>
+                                <label htmlFor="location" className=" p-2 text-teal-700 hover:text-purple-700 text-lg">from</label>
 
                                 <input type="text"
                                        className="form-control border-0   hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
                                        id="location" placeholder="location"
                                        value={newExpense.location} onChange={e => {
-                                    // setExpenseName(e.target.value);
                                     handleFieldChange("location", e.target.value)
                                 }}/>
                             </div>
