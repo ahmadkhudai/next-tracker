@@ -177,13 +177,14 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                     <div id="expense_form" className="pt-3 ">
 
                         <div className="form-group hover:font-bold ak_slow_transition">
-                            <LargeFormDisplay  text={newExpense.price.toString() + " spent"} styleClasses={"p-2 text-center font-thin text-3xl unselectable"}/>
-                            <label htmlFor="amountSpent" className="text-xl text-teal-700 hover:text-purple-700">Amount
-                                Spent</label>
+                            <label htmlFor="amountSpent" className="w-100 text-xl text-teal-700 hover:text-purple-700">
+                                <LargeFormDisplay content={newExpense.price.toString() + " spent"} styleClasses={"p-2 font-thin unselectable"}/>
+
+                            </label>
                             <div className="">
                                 <input type="number"
                                        min={0}
-                                       className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
+                                       className="text-center mb-0  form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
                                        id="amountSpent" placeholder="30"
                                        value={newExpense.price} onChange={(e) => {
                                     handleFieldChange("price", e.target.value)
@@ -191,21 +192,26 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                             </div>
                         </div>
                         <div className="form-group  hover:font-bold ak_slow_transition">
-                            <LargeFormDisplay  text={(newExpense.name)+ " from "+ newExpense.location} styleClasses={"p-2 text-center text-2xl font-normal unselectable"}/>
+                            <label htmlFor={"name"} className={"w-100"}>
+                                <LargeFormDisplay content={"on"} styleClasses={"p-2 font-thin  unselectable"}/>
+                            </label>
+
+                            {/*<LargeFormDisplay content={<h1>{(newExpense.name) + " from " + newExpense.location}</h1>} styleClasses={"p-2 text-center text-xl unselectable"}/>*/}
 
                             <div className="">
-                                <label htmlFor="name" className="  p-2 text-teal-700 hover:text-purple-700 text-lg">spent on</label>
                                 <input type="text"
-                                       className="form-control border-0 mb-0  hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
+                                       className="form-control border-0 mb-0 text-center hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
                                        id="name" placeholder="Chai"
                                        value={newExpense.name} onChange={e => {
                                     // setExpenseName(e.target.value);
                                     handleFieldChange("name", e.target.value)
                                 }}/>
-                                <label htmlFor="location" className=" p-2 text-teal-700 hover:text-purple-700 text-lg">from</label>
+                                <label htmlFor={"location"} className={"w-100"}>
+                                    <LargeFormDisplay content={"from"} styleClasses={"p-2   font-thin  unselectable"}/>
+                                </label>
 
                                 <input type="text"
-                                       className="form-control border-0   hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
+                                       className="form-control border-0 text-center   hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem]"
                                        id="location" placeholder="location"
                                        value={newExpense.location} onChange={e => {
                                     handleFieldChange("location", e.target.value)
@@ -217,7 +223,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
                         <div className={"py-3"}>
 
-                            <LargeFormDisplay text={Day[(moment(newExpense.date).day())] + " " + (moment(newExpense.date).date())}/>
+                            <LargeFormDisplay content={Day[(moment(newExpense.date).day())] + " " + (moment(newExpense.date).date())}/>
                            {dateSelector !== dateSelectors.custom &&
                                 <div>
                                     <div className={"flex justify-content-between pb-3"}>

@@ -4,20 +4,18 @@ import {Day} from "../../../constants/day";
 import moment from "moment";
 
 type Props = {
-    text:string;
+    content:any;
     styleClasses?:any;
 };
 
-export function FormCenteredDisplay({text, styleClasses}: Props) {
-    let styles = " h2 text-teal-700 hover:text-purple-700 unselectable ";
-    if(!styleClasses){
-        styles+=" text-center p-2 "
-    }else{
+export function FormCenteredDisplay({content, styleClasses}: Props) {
+    let styles = " h2 text-teal-700 hover:text-purple-700 unselectable text-center p-2";
+    if(styleClasses){
         styles+=styleClasses;
     }
     return (
         <>
-            <h2 className={styles }>{text}</h2>
+            <p className={styles }>{content}</p>
         </>
     );
 }

@@ -30,6 +30,12 @@ body div{
 .contain_overscroll{
   overscroll-behavior: contain;
 }
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 //.ak_label{
 //  background: $base_color;
 //  opacity: 80%;
@@ -64,9 +70,11 @@ body div{
 
 #expense_form{
   //padding:20px;
+
 }
 #expense_form .form-group input{
   margin-bottom: 30px;
+  font-size: xx-large;
   //background-color: #f3f3f3;
 }
 #expense_form:hover{
