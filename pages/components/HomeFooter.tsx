@@ -46,6 +46,7 @@ export default function HomeFooter(props: Props) {
 
                 {renderedPanels &&
                     renderedPanels?.map(panel =>
+                        //todo remove these loops. they are useless
                         <div className={"h-100 flex justify-content-start w-100    "} key={panel.panelLabel}>
                         <OutlineRoundedButton  key={panel.panelLabel} styleClasses="hover:text-purple-600 hover:font-thin text-xl rounded-[10px]  mr-3   border-purple-300 hover:border-2 ak_slow_transition " onClick={() => {
                             openHomePanelFunc(panel.panel)

@@ -1,20 +1,12 @@
 // @flow
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-// import OutlineRoundedButton from "../../components/buttons/OutlineRoundedButton";
+
 import {ViewModes, ViewModesDir} from "../../api/component_config/ViewModes";
-// import SwipeableViews from "react-swipeable-views";
-// import SwipeableViews from 'react-swipeable-views';
-// import {virtualize} from 'react-swipeable-views-utils';
-// import {mod} from 'react-swipeable-views-core';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/virtual';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
 import OutlineRoundedButton from "../../components/buttons/OutlineRoundedButton";
 import LabelPurple from "../../components/labels/LabelPurple";
 // import SwipeableViews from 'Sw'
@@ -51,7 +43,9 @@ export function ViewModeButtons({updateViewMode, currentViewMode}: Props) {
     useEffect(() => {
             //fixme unexpected change in view mode handled but not corrected!
             // we only get center so we produce slider state from it
+        if(!isValidSliderState(sliderState)){
             setSliderState(repairSwiperState({center: currentViewMode}))
+        }
 
     }, [currentViewMode]);
 
