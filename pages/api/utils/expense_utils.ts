@@ -11,6 +11,7 @@ import expense from "../../Home/_components/Expense";
 import exp from "constants";
 import summaryExpense from "../../../Definitions/SummaryExpense";
 import groupedExpenses from "../../../Definitions/GroupedExpenses";
+import {repairExpenseAmounts} from "../Data/data_repair";
 export function sortfunction(a:Expense,b:Expense){
     // Turn your strings into dates, and then subtract them
     // to get a value that is either negative, positive, or zero.
@@ -21,8 +22,9 @@ export const sumAllExpenses = (previousValue:number, currentValue:Expense) => pr
 export function getSortedExpenses(inputExpenses:Expense[]):GroupedExpenses{
 
 
+
     if(!inputExpenses){return {}};
-    let expenses = [...inputExpenses];
+    let expenses = repairExpenseAmounts([...inputExpenses]);
     let sortedExpenses:GroupedExpenses = {};
 
     if(!expenses || expenses.length===0){
@@ -283,6 +285,7 @@ export function getTodaysExpenses(groupedExpenses:GroupedExpenses){
     if(!expensesList){
         return todaysExpenses;
     }
+    console.log(expensesList);
     expensesList.forEach(expense => {
         let currHour = moment(expense.date).format("hh:mm a");
         if(!testExpenses[currHour]){
@@ -293,7 +296,7 @@ export function getTodaysExpenses(groupedExpenses:GroupedExpenses){
 
     })
 
-
+    console.log("TEST EXPENSES", testExpenses);
     Object.values(testExpenses).forEach((summaryExpense:any) => {
         todaysExpenses.push(summaryExpense)
     })

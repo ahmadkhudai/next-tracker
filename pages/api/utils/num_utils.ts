@@ -20,3 +20,7 @@ export function nFormatter(num:number, digits:number = 1) {
     });
     return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
 }
+
+export function isStillSame(prev:number|string, numberNow:number){
+    return prev.toString().length === numberNow.toString().length
+}
