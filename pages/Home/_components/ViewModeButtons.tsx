@@ -43,7 +43,7 @@ export function ViewModeButtons({updateViewMode, currentViewMode}: Props) {
     useEffect(() => {
             //fixme unexpected change in view mode handled but not corrected!
             // we only get center so we produce slider state from it
-        if(!isValidSliderState(sliderState)){
+        if(!isValidSliderState(sliderState) || sliderState[swiperPosition.center] !== currentViewMode){
             setSliderState(repairSwiperState({center: currentViewMode}))
         }
 
