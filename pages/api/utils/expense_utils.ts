@@ -165,7 +165,7 @@ export function getCurrentWeeksExpenses(groupedExpenses:GroupedExpenses){
 
         expenseLists.forEach((expenseList:Expense[]) => {
             expenseList.forEach((expense:Expense)=>{
-                mergedExpenseList.push({...expense, date:getDateString(expense.date)});
+                mergedExpenseList.push({...expense, date: expense.date});
             })
         })
             return getDayWiseExpenses(getSortedExpenses(mergedExpenseList));
@@ -197,7 +197,7 @@ export function getRenderableCurrentWeeksExpenses(groupedExpenses:GroupedExpense
 
         expenseLists.forEach((expenseList:Expense[]) => {
             expenseList.forEach((expense:Expense)=>{
-                mergedExpenseList.push({...expense, date:getDateString(expense.date)});
+                mergedExpenseList.push({...expense, date:expense.date});
             })
         })
         return mergedExpenseList;
@@ -242,7 +242,7 @@ export function getCurrentMonthsExpenses(groupedExpenses:GroupedExpenses):Summar
     if(expenseLists){
         expenseLists.forEach((expenseList:Expense[]) => {
             expenseList.forEach((expense:Expense)=>{
-                mergedExpenseList.push({...expense, date:getDateString(expense.date)});
+                mergedExpenseList.push({...expense, date:expense.date});
             })
         })
         return getDayWiseExpenses(getSortedExpenses(mergedExpenseList));
@@ -264,7 +264,7 @@ export function getRenderableCurrentMONTHsExpenses(groupedExpenses:GroupedExpens
     if(expenseLists){
         expenseLists.forEach((expenseList:Expense[]) => {
             expenseList.forEach((expense:Expense)=>{
-                mergedExpenseList.push({...expense, date:getDateString(expense.date)});
+                mergedExpenseList.push({...expense, date:expense.date});
             })
         })
         return  mergedExpenseList;
