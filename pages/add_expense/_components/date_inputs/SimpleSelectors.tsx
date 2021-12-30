@@ -6,6 +6,7 @@ import moment from "moment";
 import {Expense} from "../../../../Definitions/Expense";
 import {dateSelectors} from "../DateTimeInput";
 import PurpleButton from "../../../components/buttons/PurpleButton";
+import LargeFormDisplay from "../FormCenteredDisplay";
 
 type Props = {
     newExpense:Expense;
@@ -32,27 +33,32 @@ export function SimpleSelectors({newExpense, handleFieldChange, openSelector, da
 
 
                     <div className={" flex flex-column justify-content-center w-100"}>
-                        <input type="datetime-local"
-                               className="form-control border-0 hover:bg-purple-500 hover:text-white  font-bold hover:text-[1.3rem] text-center"
-                               id="Date"
-                               value={moment(new Date(newExpense.date)).format("YYYY-MM-DDTHH:mm")}
-                               onChange={(e) => {
-                                   if ((e.target.value) !== "") {
-                                       handleFieldChange("date", new Date(e.target.value));
-                                   }
-                               }}/>
+                        {/*<div className={"flex flex-row py-3 align-items-center justify-content-center"}>*/}
+                            {/*<LargeFormDisplay content={Day[(moment(newExpense.date).day())].slice(0,3) + " " + (moment(newExpense.date).date())} styleClasses={"font-thin flex text-thin text-sm w-25 justify-content-center h-full align-items-center"}/>*/}
+                            <input type="datetime-local"
+                                   className="form-control border-solid border-2 border-light-blue-500    text-center my-2 flex align-items-center justify-content-center flex-row-reverse px-0 py-3 "
+                                   id="Date"
+                                   value={moment(new Date(newExpense.date)).format("YYYY-MM-DDTHH:mm")}
+                                   onChange={(e) => {
+                                       if ((e.target.value) !== "") {
+                                           handleFieldChange("date", new Date(e.target.value));
+                                       }
+                                   }}/>
+                        {/*</div>*/}
+
                         <div className={"flex justify-content-center"}>
 
-                            <button className={"my-1 mx-2  btn bg-teal-400 text-white"}
-                                    onClick={() => {
-                                        handleFieldChange("date", addDaysPreserveTime(new Date(), 0, newExpense.date))
-                                    }}>today
-                            </button>
+
                             <button
-                                className={"my-1 mx-2 btn border-teal-500 hover:bg-teal-400 hover:text-white"}
+                                className={"my-1 mx-2 btn border-teal-500 hover:bg-teal-400 hover:text-white w-50"}
                                 onClick={() => {
                                     handleFieldChange("date", addDaysPreserveTime(new Date(), -1, newExpense.date))
                                 }}>yesterday
+                            </button>
+                            <button className={"my-1 mx-2  btn bg-teal-400 text-white w-50"}
+                                    onClick={() => {
+                                        handleFieldChange("date", addDaysPreserveTime(new Date(), 0, newExpense.date))
+                                    }}>today
                             </button>
                         </div>
 
