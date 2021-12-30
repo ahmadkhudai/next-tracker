@@ -167,8 +167,9 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                             <div className={"w-100 flex justify-content-center py-3"}>
                                 <TealButton
                                     styleClasses={"ak_max_600mx w-75   text-white text-xl  rounded-full"}
-                                    text={showCurrentExpense ? "keep editing" : "done!"}
-                                    onClick={() => toggleShowCurrentExpense()}
+                                    text={"done!"}
+
+                                    onClick={() => handleAddExpense()}
 
                                 />
                             </div>
@@ -183,8 +184,8 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
                             <PurpleButton
                                 styleClasses={"ak_max_600mx w-50   text-white text-xl  rounded-full"}
-                                text={"quick add"}
-                                onClick={() => handleAddExpense()}
+                                text={showCurrentExpense ? "keep editing" : "quick add"}
+                                onClick={() => toggleShowCurrentExpense()}
 
                             />
                         </div>
