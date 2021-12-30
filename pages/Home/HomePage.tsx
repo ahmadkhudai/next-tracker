@@ -12,7 +12,7 @@ import {
     getRenderableTODAYsExpenses,
     getSortedExpenses,
     getTodaysExpenses,
-    sortfunction
+    sortfunction, sumAllExpenses
 } from "../api/utils/expense/grouping";
 import {dumdumData} from "../api/dummy_data/data";
 import {v4 as uuidv4} from "uuid";
@@ -31,6 +31,7 @@ import Backdrop from "../Framer/Backdrop";
 import ViewModeButtons from "./_components/ViewModeButtons";
 import HomeExpensesView from "./_components/compound_components/HomeExpensesView";
 import {repairExpenseAmounts} from "../api/Data/data_repair";
+import FormCenteredDisplay from "../add_expense/_components/FormCenteredDisplay";
 
 type Props = {
     switchWindow: any;
@@ -221,9 +222,8 @@ export function HomePage({switchWindow}: Props) {
                         <div className={"py-2   w-100 h-100"}>
                             <div>
 
-                                <h3 className={"text-teal-500 text-center font-monospace w-auto "}>Your <span
-                                    className={"text-xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 "}>{viewMode === ViewModes.today ? "day" : viewMode}</span> so
-                                    far...</h3>
+                                <h3 className={"text-teal-500 text-center text-xl font-monospace w-auto "}>{currentExpenses.reduce(sumAllExpenses,0)} spent {viewMode !== ViewModes.today ? "this" :""} <span
+                                    className={"text-2xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 "}>{viewMode}</span></h3>
                             </div>
                             <div className={"w-100 ak_max_600px flex align-items-center justify-content-center  mt-1"}>
                                 <ViewModeButtons currentViewMode={viewMode} updateViewMode={updateViewMode}/>
@@ -240,14 +240,17 @@ export function HomePage({switchWindow}: Props) {
                                     </div>
                                 </div>
                             }
-                        </div>
+
 
 
                         {(currentHomePanel === HomePanels.ExpensesPanel) &&
-                            <HomeExpensesView currentExpenses={currentExpenses} settings={settings}
-                                              deleteExpense={deleteExpense}/>
-                        }
+                            <>
+                                <HomeExpensesView currentExpenses={currentExpenses} settings={settings}
+                                                  deleteExpense={deleteExpense}/>
+                            </>
 
+                        }
+                    </div>
 
                     </div>
                 }
