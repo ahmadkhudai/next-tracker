@@ -10,6 +10,7 @@ import NewExpenseView from "./_components/NewExpenseView";
 import LargeFormDisplay from "./_components/FormCenteredDisplay";
 import DateTimeInput from "./_components/DateTimeInput";
 import Non_DateInputs from "./_components/Non_DateInputs";
+import {router} from "next/client";
 
 //
 // let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
@@ -94,6 +95,20 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
         setShowCurrentExpense(!showCurrentExpense);
     }
 
+    useEffect(() => {
+        router.beforePopState(({ as }) => {
+            if (as !== router.asPath) {
+                // Will run when leaving the current page; on back/forward actions
+                // Add your logic here, like toggling the modal state
+            }
+            return true;
+        });
+
+        return () => {
+            router.beforePopState(() => true);
+        };
+    }, [router]);
+
     return (
 
         <div className={"  ak_max_600px wrapper wrapper_inner scrollable w-100"}>
@@ -105,10 +120,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                     <p className={" text-xl text-teal-700 hover:text-purple-700 w-75"}>Add Expense</p>
 
 
-                    <RedButton styleClasses={"    text-sm  rounded-pill     "} text={"cancel"}
-                               onClick={() => {
-                                   handleClose()
-                               }}/>
+
 
                 </div>
 
@@ -182,6 +194,10 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                     <div className={" ak_footer_low_z bg-white/80 w-100 flex justify-content-center h-auto shadow-lg "}>
                         <div className="form-group flex justify-content-around  w-75   ak_max_600px py-2  m-0">
 
+                            <RedButton styleClasses={"    text-xl  rounded-pill   p-1 w-auto px-3  "} text={"back"}
+                                       onClick={() => {
+                                           handleClose()
+                                       }}/>
                             <PurpleButton
                                 styleClasses={"ak_max_600mx w-50   text-white text-xl  rounded-full"}
                                 text={showCurrentExpense ? "keep editing" : "quick add"}
