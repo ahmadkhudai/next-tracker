@@ -7,6 +7,7 @@ import {Expense} from "../../../../Definitions/Expense";
 import {dateSelectors} from "../DateTimeInput";
 import PurpleButton from "../../../components/buttons/PurpleButton";
 import LargeFormDisplay from "../FormCenteredDisplay";
+import TealButton from "../../../components/buttons/TealButton";
 
 type Props = {
     newExpense:Expense;
@@ -55,20 +56,14 @@ export function SimpleSelectors({newExpense, handleFieldChange, openSelector, da
                                     handleFieldChange("date", addDaysPreserveTime(new Date(), -1, newExpense.date))
                                 }}>yesterday
                             </button>
-                            <button className={"my-1 mx-2  btn bg-teal-400 text-white w-50"}
+                            <TealButton styleClasses={"my-1 mx-2  btn bg-teal-400 text-white w-50"}
                                     onClick={() => {
                                         handleFieldChange("date", addDaysPreserveTime(new Date(), 0, newExpense.date))
                                     }}>today
-                            </button>
+                            </TealButton>
                         </div>
 
                         <div className={"flex flex-column"}>
-                            <button
-                                className={"my-1 mx-2 btn bg-purple-500 hover:font-bold hover:bg-teal-400 text-white"}
-                                onClick={() => {
-                                    openSelector(dateSelectors.thisWeek)
-                                }}>this week
-                            </button>
                             {dateSelector === dateSelectors.thisWeek &&
                                 <div
                                     className={"flex flex-column contain_overflow  align-items-center justify-content-center  h-[160px]  px-3 w-100 "}>
@@ -83,10 +78,10 @@ export function SimpleSelectors({newExpense, handleFieldChange, openSelector, da
                                                         {/*<FormCenteredDisplay content= styleClasses={}/>*/}
 
                                                         <PurpleButton
-                                                                      styleClasses={"btn bg-purple-400 hover:font-bold hover:bg-teal-400 text-white my-1 w-75  "}
-                                                                      onClick={() => {
-                                                                          handleFieldChange("date", addDaysPreserveTime(new Date(), -day, newExpense.date));
-                                                                      }}>{Day[moment(new Date()).weekday() - day]}</PurpleButton>
+                                                            styleClasses={"btn bg-purple-400 hover:font-bold hover:bg-teal-400 text-white my-1 w-75  "}
+                                                            onClick={() => {
+                                                                handleFieldChange("date", addDaysPreserveTime(new Date(), -day, newExpense.date));
+                                                            }}>{Day[moment(new Date()).weekday() - day]}</PurpleButton>
                                                         <p className={"py-0 my-0 px-3 text-2xl text-thin unselectable text-gray-200  bg-indigo-400 rounded-r rounded-r-[5px]"}>
                                                             {getI()}
                                                         </p>
@@ -102,6 +97,13 @@ export function SimpleSelectors({newExpense, handleFieldChange, openSelector, da
 
 
                                 </div>}
+                            <PurpleButton
+                                styleClasses={"my-1 mx-2 btn bg-purple-500 hover:font-bold hover:bg-teal-400 text-white"}
+                                onClick={() => {
+                                    openSelector(dateSelectors.thisWeek)
+                                }}>this week
+                            </PurpleButton>
+
                         </div>
 
 
