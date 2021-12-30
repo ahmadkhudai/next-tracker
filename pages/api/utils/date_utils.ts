@@ -52,19 +52,19 @@ export function isToday(inputDate:any){
 }
 
 
-export function isGreaterThanToday(inputDate:Date|String){
+export function isGreaterThanToday(inputDate:Date|string){
     return getDate(inputDate).setHours(0,0,0,0) > (new Date()).setHours(0,0,0,0);
 }
 
-export function concat(date: Date, time: string) {
+export function concat(date: Date|string, time: string) {
     return moment(date).format("YYYY-MM-DD") + "T" + time;
 }
 
-export function concatTimeToDate(date: Date, oldDate: Date) {
+export function concatTimeToDate(date: Date|string, oldDate: Date|string) {
     return concat(date, moment(oldDate).format("HH:mm"));
 }
 
-export function addDaysPreserveTime(date: Date, number: number, oldDate: Date) {
+export function addDaysPreserveTime(date: Date|string, number: number, oldDate: Date|string) {
     let newDate: Date = new Date(moment(date).add(number, "days").toString());
     return concatTimeToDate(newDate, oldDate);
 }

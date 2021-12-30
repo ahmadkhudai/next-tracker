@@ -13,7 +13,7 @@ import {
     getSortedExpenses,
     getTodaysExpenses,
     sortfunction
-} from "../api/utils/expense_utils";
+} from "../api/utils/expense/grouping";
 import {dumdumData} from "../api/dummy_data/data";
 import {v4 as uuidv4} from "uuid";
 import {isGreaterThanToday} from "../api/utils/date_utils";
@@ -30,6 +30,7 @@ import {Day} from "../../constants/day";
 import Backdrop from "../Framer/Backdrop";
 import ViewModeButtons from "./_components/ViewModeButtons";
 import HomeExpensesView from "./_components/compound_components/HomeExpensesView";
+import {repairExpenseAmounts} from "../api/Data/data_repair";
 
 type Props = {
     switchWindow: any;
@@ -46,17 +47,25 @@ export function HomePage({switchWindow}: Props) {
     const [currentExpenses, setCurrentExpenses] = useState([] as Expense[]);
     const [settings, setSettings] = useState(loadedSettings);
 
+    function loadExpenses():Expense[] {
+       let tempExp = JSON.parse(localStorage.getItem("ak_expenses") as string) || [];
+       return  repairExpenseAmounts([...tempExp]);
+    }
+
+    function loadSettings() {
+        return JSON.parse(localStorage.getItem("ak_settings") as string) || baseSettings;
+    }
+
     useEffect(() => {
-        modifyExpenses(JSON.parse(localStorage.getItem("ak_expenses") as string) || dumdumData);
-        modifySettings(JSON.parse(localStorage.getItem("ak_settings") as string) || baseSettings);
+        console.log(loadExpenses());
+        modifyExpenses(loadExpenses());
+        modifySettings(loadSettings());
     }, []);
 
 
     function modifyExpenses(modifiedExpenses: Expense[]) {
         modifiedExpenses = modifiedExpenses.sort(sortfunction);
 
-        // console.log(modifiedExpenses.length);
-        // console.log("MODIFIED EXPENSES", modifiedExpenses);
         setExpenses(modifiedExpenses);
         localStorage.setItem("ak_expenses", JSON.stringify(modifiedExpenses));
     }
@@ -82,20 +91,13 @@ export function HomePage({switchWindow}: Props) {
         tempObj.date = tempObj.date.toString();
         let newExpenseList = [...expenses, tempObj];
         modifyExpenses(newExpenseList);
-        // setExpenses(newExpenseList);
-        // localStorage.setItem("ak_expenses", JSON.stringify(newExpenseList));
     }
 
     function deleteExpense(toDelete: Expense) {
 
-        // if(expenses.length===1){
-        //     modifyExpenses([]);
-        //     setExpenses([]);
-        //     return;
-        // }
+
         let newExpenseList = expenses.filter((expense: Expense) => expense.id !== toDelete.id);
         modifyExpenses(newExpenseList);
-        // localStorage.setItem("ak_expenses", JSON.stringify(newExpenseList));
 
     }
 

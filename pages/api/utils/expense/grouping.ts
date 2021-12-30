@@ -1,17 +1,17 @@
-import {getDate, getDateString} from "./date_utils";
+import {getDate, getDateString} from "../date_utils";
 import moment from "moment";
-import {Expense} from "../../../Definitions/Expense";
-import {InputTypes} from "../../../Definitions/InputTypes";
-import {SettingLabels} from "../../../Definitions/Setting";
-import GroupedExpenses from "../../../Definitions/GroupedExpenses";
-import {SettingsObj} from "../../../Definitions/SettingsObj";
-import GroupedSummaryExpenses from "../../../Definitions/GroupedSummaryExpenses";
-import SummaryExpense from "../../../Definitions/SummaryExpense";
-import expense from "../../Home/_components/Expense";
+import {Expense} from "../../../../Definitions/Expense";
+import {InputTypes} from "../../../../Definitions/InputTypes";
+import {SettingLabels} from "../../../../Definitions/Setting";
+import GroupedExpenses from "../../../../Definitions/GroupedExpenses";
+import {SettingsObj} from "../../../../Definitions/SettingsObj";
+import GroupedSummaryExpenses from "../../../../Definitions/GroupedSummaryExpenses";
+import SummaryExpense from "../../../../Definitions/SummaryExpense";
+import expense from "../../../Home/_components/Expense";
 import exp from "constants";
-import summaryExpense from "../../../Definitions/SummaryExpense";
-import groupedExpenses from "../../../Definitions/GroupedExpenses";
-import {repairExpenseAmounts} from "../Data/data_repair";
+import summaryExpense from "../../../../Definitions/SummaryExpense";
+import groupedExpenses from "../../../../Definitions/GroupedExpenses";
+import {repairExpenseAmounts} from "../../Data/data_repair";
 export function sortfunction(a:Expense,b:Expense){
     // Turn your strings into dates, and then subtract them
     // to get a value that is either negative, positive, or zero.
@@ -127,7 +127,6 @@ export function groupByWeek(sortedExpenses:any) {
 
 
     Object.entries(sortedExpenses).forEach(([date,expense])=>{
-        // console.log(date, ": ", getDate(date), ":", moment(getDate(date)).week());
         if(!tempWeekWiseExpenses[moment(getDate(date)).week()]) {
             tempWeekWiseExpenses[moment(getDate(date)).week()] = [];
         }
@@ -154,14 +153,11 @@ export function getCurrentWeeksExpenses(groupedExpenses:GroupedExpenses){
     let currentWeek = moment(new Date()).isoWeek();
 
     let weeklyExpenses = groupByWeek(groupedExpenses);
-    // console.log("WEEKLY EXPENSES", weeklyExpenses);
     let expenseLists:any = [];
     let ttt= weeklyExpenses.find(item => Object.keys(item)[0]===((currentWeek+1)%52).toString());
     if(ttt){
         expenseLists = ttt[(currentWeek+1)%52];
-        // console.log(currentWeek, (currentWeek+1)%52);
-        // console.log("INDEX", weeklyExpenses.find(item => Object.keys(item)[0]===((currentWeek+1)%52).toString()));
-        // console.log("EXPENSES LIST", expenseLists);
+
         let mergedExpenseList:Expense[] = [];
 
 
@@ -186,14 +182,11 @@ export function getRenderableCurrentWeeksExpenses(groupedExpenses:GroupedExpense
     let currentWeek = moment(new Date()).isoWeek();
 
     let weeklyExpenses = groupByWeek(groupedExpenses);
-    // console.log("WEEKLY EXPENSES", weeklyExpenses);
     let expenseLists:any = [];
     let ttt= weeklyExpenses.find(item => Object.keys(item)[0]===((currentWeek+1)%52).toString());
     if(ttt){
     expenseLists = ttt[(currentWeek+1)%52];
-    // console.log(currentWeek, (currentWeek+1)%52);
-    // console.log("INDEX", weeklyExpenses.find(item => Object.keys(item)[0]===((currentWeek+1)%52).toString()));
-    // console.log("EXPENSES LIST", expenseLists);
+
     let mergedExpenseList:Expense[] = [];
 
 
@@ -214,8 +207,7 @@ function groupByMonth(groupedExpenses: GroupedExpenses):GroupedExpenses[] {
 
 
 Object.entries(groupedExpenses).forEach(([date,expense])=>{
-    // console.log(date, moment(date).month());
-    // console.log(date, moment(date).isoWeek());
+
     if(!tempMonthWiseExpenses[moment(date).month()]) {
         tempMonthWiseExpenses[moment(date).month()] = 0
         tempMonthWiseExpenses[moment(date).month()] = [];
@@ -300,7 +292,6 @@ export function getTodaysExpenses(groupedExpenses:GroupedExpenses){
     Object.values(testExpenses).forEach((summaryExpense:any) => {
         todaysExpenses.push(summaryExpense)
     })
-    //console.log(todaysExpenses);
     return todaysExpenses;
 }
 
@@ -309,19 +300,11 @@ export function getRenderableTODAYsExpenses(groupedExpenses:GroupedExpenses):Exp
 
 
     let expensesList = groupedExpenses[(new Date()).toDateString()];
-    // expensesList.forEach(expense => {
-    //     let currHour:string = moment(expense.date).format("hh a");
-    //     if(!expenses[currHour]){
-    //         testExpenses[currHour] = {date:currHour, expense:expense.price}
-    //     }else{
-    //         testExpenses[currHour].expense+=expense.price;
-    //     }
-    //
-    // })
-    // return testExpenses;
     if(expensesList){
         return expensesList;
     }
 
     return expenses;
 }
+
+

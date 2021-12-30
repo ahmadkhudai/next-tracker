@@ -5,7 +5,7 @@ import {Expense} from "../../../Definitions/Expense";
 import ExpenseComponent from "./Expense";
 // import {useDispatch, useSelector} from "react-redux";
 // import {modifyExpenses} from "../api/features/expenses/expenseSlice";
-import {getSortedExpenses, sumAllExpenses} from "../../api/utils/expense_utils";
+import {getSortedExpenses, sumAllExpenses} from "../../api/utils/expense/grouping";
 import {isToday} from "../../api/utils/date_utils";
 import {SettingsObj} from "../../../Definitions/SettingsObj";
 import {NoData} from "../../components/_partials/NoData";

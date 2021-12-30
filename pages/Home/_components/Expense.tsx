@@ -3,7 +3,7 @@ import * as React from 'react';
 import {Expense} from "../../../Definitions/Expense";
 import {SettingLabels} from "../../../Definitions/Setting";
 import {SettingsObj} from "../../../Definitions/SettingsObj";
-import {baseSettings} from "../../api/utils/expense_utils";
+import {baseSettings} from "../../api/utils/expense/grouping";
 import moment from "moment";
 import {useState} from "react";
 

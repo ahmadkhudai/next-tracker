@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, Tooltip} from "recharts";
-import {getMonthWiseExpenses, getSortedExpenses, getWeekWiseExpenses} from "../api/utils/expense_utils";
+import {getMonthWiseExpenses, getSortedExpenses, getWeekWiseExpenses} from "../api/utils/expense/grouping";
 import {Expense} from "../../Definitions/Expense";
 import SubliminalMessage from "../components/_partials/SubliminalMessage";
 
