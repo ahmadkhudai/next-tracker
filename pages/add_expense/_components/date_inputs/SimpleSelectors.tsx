@@ -78,11 +78,11 @@ export function SimpleSelectors({newExpense, handleFieldChange, openSelector, da
                                             (
                                                 day => {
 
-                                                    return (   <div className={"w-100 flex flex-row  justify-content-center align-items-center"}>
+                                                    return (   <div key={day} className={"w-100 flex flex-row  justify-content-center align-items-center"}>
 
                                                         {/*<FormCenteredDisplay content= styleClasses={}/>*/}
 
-                                                        <PurpleButton key={day}
+                                                        <PurpleButton
                                                                       styleClasses={"btn bg-purple-400 hover:font-bold hover:bg-teal-400 text-white my-1 w-75  "}
                                                                       onClick={() => {
                                                                           handleFieldChange("date", addDaysPreserveTime(new Date(), -day, newExpense.date));
