@@ -10,7 +10,6 @@ import NewExpenseView from "./_components/NewExpenseView";
 import LargeFormDisplay from "./_components/FormCenteredDisplay";
 import DateTimeInput from "./_components/DateTimeInput";
 import Non_DateInputs from "./_components/Non_DateInputs";
-import {router} from "next/client";
 
 //
 // let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
@@ -95,19 +94,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
         setShowCurrentExpense(!showCurrentExpense);
     }
 
-    useEffect(() => {
-        router.beforePopState(({ as }) => {
-            if (as !== router.asPath) {
-                // Will run when leaving the current page; on back/forward actions
-                // Add your logic here, like toggling the modal state
-            }
-            return true;
-        });
 
-        return () => {
-            router.beforePopState(() => true);
-        };
-    }, [router]);
 
     return (
 
