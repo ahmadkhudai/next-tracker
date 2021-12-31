@@ -2,25 +2,23 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import {Expense} from "../../Definitions/Expense";
-import {ResponsiveContainer, Tooltip, Treemap} from "recharts";
+import {ResponsiveContainer, Treemap} from "recharts";
 import SummaryExpense from "../../Definitions/SummaryExpense";
 import {NumberIndexedStrings} from "../../constants/day";
 import {deFormattedStr} from "../api/utils/string_utils";
-import {randomIntFromInterval} from "../api/utils/date_utils";
 
 type Props = {
     expenses: Expense[];
 };
 
-const COLORS = ['#00b894','#0984e3', '#e84393' , '#e84393', '#e77f67',  '#cf6a87',
-'#574b90', '#f78fb3', '#3dc1d3', '#e66767', '#e66767', '#303952'
+const COLORS = ['#00b894', '#0984e3', '#e84393', '#e84393', '#e77f67', '#cf6a87',
+    '#574b90', '#f78fb3', '#3dc1d3', '#e66767', '#e66767', '#303952'
 
 ];
 
 // type CustomProps = {
 //     root:any, depth:any, x:any, y:any, width:any, height:any, index:any, payload:any, colors:any, rank:any, name:any
 // }
-
 
 
 export function GroupedNewGraph({expenses}: Props) {
@@ -74,14 +72,14 @@ export function GroupedNewGraph({expenses}: Props) {
     //group by expense name
     //we are ONLY interested in the frequency of expense
     function groupByExpenseName(inputExpenses: Expense[]) {
-        return groupedExpenses(inputExpenses, "name");
+        return groupedByFrequency(inputExpenses, "name");
     }
 
     function groupByExpenseLocation(inputExpenses: Expense[]) {
-        return groupedExpenses(inputExpenses, "location");
+        return groupedByFrequency(inputExpenses, "location");
     }
 
-    function groupedExpenses(inputExpenses: Expense[], index: string) {
+    function groupedByFrequency(inputExpenses: Expense[], index: string) {
         let groupedData: any = {};
         if (inputExpenses.length < 1) {
             return []
@@ -116,18 +114,21 @@ export function GroupedNewGraph({expenses}: Props) {
     return (
         <div className={"pb-5"}>
 
-            <div className={"p-4 text-center"}>
-                <h3 className={"h3"}>Grouped by {graphLabel}</h3>
-            </div>
+            <div className={"w-100 p-4 m-2  rounded-[10px]"}>
+                <div className={"p-4 px-5 text-center"}>
+                    <h3 className={"h3"}>Grouped by Frequency of {graphLabel}</h3>
+                </div>
 
-            <div className="form-group">
-                <select className="form-control " value={currentOption} onChange={(e) => {
-                    onChangeHandler(e.target.value)
-                }}>
-                    {/*<option value={0}>Day-wise spending</option>*/}
-                    <option value={1}>group by expense</option>
-                    <option value={2}>group by location</option>
-                </select>
+                <div className="form-group">
+                    <select className="form-control " value={currentOption} onChange={(e) => {
+                        onChangeHandler(e.target.value)
+                    }}>
+                        {/*<option value={0}>Day-wise spending</option>*/}
+                        <option value={1}>group by expense</option>
+                        <option value={2}>group by location</option>
+                    </select>
+                </div>
+
             </div>
 
             <div className={"vh-100 w-100 container "} style={{"maxHeight": "100vh"}}>
@@ -147,18 +148,6 @@ export function GroupedNewGraph({expenses}: Props) {
 
             </div>
 
-            {/*<div className={"vh-100 w-100 container "} style={{"maxHeight":"100vh"}}>*/}
-
-            {/*            <ResponsiveContainer className={" bg-gradient-to-r from-purple-400 to-teal-600 text-3xl"} width="100%" height="100%">*/}
-
-            {/*                        <Treemap  width={600} height={400} data={displayData} dataKey="amount" stroke="#3c0046"*/}
-            {/*                                 fill="#bedfff"/>*/}
-
-
-            {/*               </ResponsiveContainer>*/}
-
-
-            {/*</div>*/}
             <div className={"py-4"}></div>
         </div>
     );
@@ -166,12 +155,12 @@ export function GroupedNewGraph({expenses}: Props) {
 };
 
 function getSliced(string: string) {
-    let slicedStr = string.slice(0,9);
-    if(slicedStr.length===string.length){
+    let slicedStr = string.slice(0, 9);
+    if (slicedStr.length === string.length) {
         return string;
     }
 
-    return slicedStr+"..."
+    return slicedStr + "..."
 }
 
 class CustomizedContent extends React.Component<any> {
@@ -182,19 +171,18 @@ class CustomizedContent extends React.Component<any> {
             <g>
 
 
-                    {/*<defs >*/}
-                    {/*    <linearGradient className={"hidden"} id="colorUv" x1="0" y1="0" x2="0" y2="1">*/}
-                    {/*        <stop offset="10%" stopColor="#00f760" stopOpacity={0.8}/>*/}
-                    {/*        <stop offset="85%" stopColor="#00cb5d" stopOpacity={0.8}/>*/}
-                    {/*    </linearGradient>*/}
+                {/*<defs >*/}
+                {/*    <linearGradient className={"hidden"} id="colorUv" x1="0" y1="0" x2="0" y2="1">*/}
+                {/*        <stop offset="10%" stopColor="#00f760" stopOpacity={0.8}/>*/}
+                {/*        <stop offset="85%" stopColor="#00cb5d" stopOpacity={0.8}/>*/}
+                {/*    </linearGradient>*/}
 
-                    {/*    <linearGradient className={"hidden"} id="colorUv3" x1="0" y1="0" x2="0" y2="1">*/}
-                    {/*        <stop offset="10%" stopColor="#00d6ae" stopOpacity={1}/>*/}
-                    {/*        <stop offset="50%" stopColor="#0074c0" stopOpacity={1}/>*/}
-                    {/*    </linearGradient>*/}
+                {/*    <linearGradient className={"hidden"} id="colorUv3" x1="0" y1="0" x2="0" y2="1">*/}
+                {/*        <stop offset="10%" stopColor="#00d6ae" stopOpacity={1}/>*/}
+                {/*        <stop offset="50%" stopColor="#0074c0" stopOpacity={1}/>*/}
+                {/*    </linearGradient>*/}
 
-                    {/*</defs>*/}
-
+                {/*</defs>*/}
 
 
                 <rect
@@ -213,8 +201,6 @@ class CustomizedContent extends React.Component<any> {
                         strokeOpacity: 1 / (depth + 1e-10),
 
                     }}
-
-
 
 
                 />
@@ -237,8 +223,8 @@ class CustomizedContent extends React.Component<any> {
                 {/*/>*/}
 
                 {depth === 1 ? (
-                    <text x={x + width / 2} y={y + height / 2 + 7 } textAnchor="middle" fill="#fff"
-                          className={"font-thin hover:text-sm"} >
+                    <text x={x + width / 2} y={y + height / 2 + 7} textAnchor="middle" fill="#fff"
+                          className={"font-thin hover:text-sm"}>
                         {getSliced(name)}
                     </text>
                 ) : null}

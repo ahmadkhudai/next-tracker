@@ -10,6 +10,7 @@ import trendStat from '../../../assets/trend_station.png';
 import trendGif from '../../../assets/trend.gif';
 import LabelPurple from "../labels/LabelPurple";
 import HoverGif from "../hoverables/HoverGif";
+import TealButton from "../buttons/TealButton";
 
 type Props = {
     openPanel?: any;
@@ -65,13 +66,14 @@ export default function HomeHeader(props: Props) {
 
                     }
 
-                    {currentWindow !== MainWindows.home && <button
-                        className={"btn bg-teal-400 text-white hover:bg-purple-500  hover:font-black  mr-3 w-75"}
+                    {currentWindow !== MainWindows.home &&
+                        <OutlineRoundedButton
+                        styleClasses={"btn bg-teal-400 text-white hover:bg-purple-500  hover:font-black  mr-3 w-75"}
                         onClick={() => {
                             goTo(MainWindows.home)
-                        }}>home</button>
+                        }}>home</OutlineRoundedButton>
                     }
-                    {currentWindow === MainWindows.graphs && <p className={"h3 p-2 py-0 w-25"}>/trends</p>}
+                    {currentWindow === MainWindows.graphs && <LabelPurple styleClasses={"h3 p-2 py-0 w-25"}>/trends</LabelPurple>}
                     {currentWindow !== MainWindows.graphs &&
                         <button className="btn w-25 py-0 my-0 pt-1" onClick={() => {
                             goTo(MainWindows.graphs)

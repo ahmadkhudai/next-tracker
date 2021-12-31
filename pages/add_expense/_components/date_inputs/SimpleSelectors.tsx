@@ -34,10 +34,13 @@ export function SimpleSelectors({newExpense, handleFieldChange, openSelector, da
 
 
                     <div className={" flex flex-column justify-content-center w-100"}>
-                        {/*<div className={"flex flex-row py-3 align-items-center justify-content-center"}>*/}
-                            {/*<LargeFormDisplay content={Day[(moment(newExpense.date).day())].slice(0,3) + " " + (moment(newExpense.date).date())} styleClasses={"font-thin flex text-thin text-sm w-25 justify-content-center h-full align-items-center"}/>*/}
+                        <label htmlFor={"Date"} className={"flex flex-row py-3 align-items-center justify-content-center"}>
+                            <LargeFormDisplay content={Day[(moment(newExpense.date).day())].slice(0,3) + " " + (moment(newExpense.date).date())} styleClasses={"font-thin flex text-thin text-xl w-25 justify-content-center h-full align-items-center"}/>
+
+                        </label>
+
                             <input type="datetime-local"
-                                   className="form-control border-solid border-2 border-light-blue-500    text-center my-2 flex align-items-center justify-content-center flex-row-reverse px-0 py-3 "
+                                   className="form-control border-solid border-2 border-light-blue-500 hover:bg-purple-400 hover:text-white shadow-sm   text-center my-2 flex align-items-center justify-content-center flex-row-reverse px-0 py-3 "
                                    id="Date"
                                    value={moment(new Date(newExpense.date)).format("YYYY-MM-DDTHH:mm")}
                                    onChange={(e) => {

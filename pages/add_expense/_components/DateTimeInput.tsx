@@ -45,11 +45,15 @@ export function DateTimeInput({newExpense, handleFieldChange}: Props) {
 
 
                    <div className="form-group hover:font-bold mt-2">
-                       <label htmlFor="Time"
-                              className="text-teal-700 hover:text-purple-700 h3 hidden">Time</label>
+                       {/*<label htmlFor="Time"*/}
+                       {/*       className="text-teal-700 hover:text-purple-700 h3 hidden">Time</label>*/}
                        <div className="">
+                           <label htmlFor={"Time"} className={"flex flex-row py-3 align-items-center justify-content-center"}>
+                               <LargeFormDisplay content={(moment(newExpense.date).format("hh:mm a"))} styleClasses={"font-thin flex text-thin text-xl w-25 justify-content-center h-full align-items-center"}/>
+
+                           </label>
                            <input type="time"
-                                  className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem] flex flex-column-reverse"
+                                  className="form-control border-0 hover:bg-purple-500 hover:text-white hover:font-bold hover:text-[1.3rem] flex flex-column"
                                   id="Time" value={moment(newExpense.date).format("HH:mm")}
                                   onChange={(e) => {
                                       if ((e.target.value) !== "") {
