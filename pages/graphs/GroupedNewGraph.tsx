@@ -12,7 +12,7 @@ type Props = {
     expenses: Expense[];
 };
 
-const COLORS = ['url(#colorUv)', '#19afbe',  'url(#colorUv1)', '#b60cff', 'url(#colorUv3)',  '#d32c2c'];
+const COLORS = ['url(#colorUv)','url(#colorUv3)', '#b60cff' , '#b60cff', 'url(#colorUv3)',  '#d32c2c'];
 
 // type CustomProps = {
 //     root:any, depth:any, x:any, y:any, width:any, height:any, index:any, payload:any, colors:any, rank:any, name:any
@@ -183,13 +183,9 @@ class CustomizedContent extends React.Component<any> {
                         <stop offset="85%" stopColor="#00cb5d" stopOpacity={0.8}/>
                     </linearGradient>
 
-                    <linearGradient id="colorUv1" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="10%" stopColor="#006bff" stopOpacity={0.8}/>
-                        <stop offset="50%" stopColor="#b800c0" stopOpacity={0.8}/>
-                    </linearGradient>
                     <linearGradient id="colorUv3" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="10%" stopColor="#ad2c0e" stopOpacity={0.8}/>
-                        <stop offset="50%" stopColor="#c0464c" stopOpacity={0.8}/>
+                        <stop offset="10%" stopColor="#00d6ae" stopOpacity={1}/>
+                        <stop offset="50%" stopColor="#0074c0" stopOpacity={1}/>
                     </linearGradient>
 
                 </defs>
