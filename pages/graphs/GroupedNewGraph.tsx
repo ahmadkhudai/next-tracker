@@ -233,7 +233,7 @@ class CustomizedContent extends React.Component<any> {
 
                 {depth === 1 ? (
                     <text x={x + width / 2} y={y + height / 2 + 7} textAnchor="middle" fill="#fff"
-                          className={"text-2xl font-thin"}>
+                          className={"font-thin hover:text-sm"}>
                         {getSliced(name)}
                     </text>
                 ) : null}
