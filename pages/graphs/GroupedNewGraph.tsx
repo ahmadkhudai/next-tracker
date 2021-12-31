@@ -6,12 +6,13 @@ import {ResponsiveContainer, Tooltip, Treemap} from "recharts";
 import SummaryExpense from "../../Definitions/SummaryExpense";
 import {NumberIndexedStrings} from "../../constants/day";
 import {deFormattedStr} from "../api/utils/string_utils";
+import {randomIntFromInterval} from "../api/utils/date_utils";
 
 type Props = {
     expenses: Expense[];
 };
 
-const COLORS = ['url(#colorUv3)', 'url(#colorUv1)', 'url(#colorUv)', 'url(#colorUv1)', 'url(#colorUv3)', 'url(#colorUv)'];
+const COLORS = ['url(#colorUv)', '#19afbe',  'url(#colorUv1)', '#b60cff', 'url(#colorUv3)',  '#d32c2c'];
 
 // type CustomProps = {
 //     root:any, depth:any, x:any, y:any, width:any, height:any, index:any, payload:any, colors:any, rank:any, name:any
@@ -178,8 +179,8 @@ class CustomizedContent extends React.Component<any> {
 
                 <defs>
                     <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="10%" stopColor="#2bf785" stopOpacity={1}/>
-                        <stop offset="85%" stopColor="#00aad4" stopOpacity={1}/>
+                        <stop offset="10%" stopColor="#00f760" stopOpacity={0.8}/>
+                        <stop offset="85%" stopColor="#00cb5d" stopOpacity={0.8}/>
                     </linearGradient>
 
                     <linearGradient id="colorUv1" x1="0" y1="0" x2="0" y2="1">
@@ -187,8 +188,8 @@ class CustomizedContent extends React.Component<any> {
                         <stop offset="50%" stopColor="#b800c0" stopOpacity={0.8}/>
                     </linearGradient>
                     <linearGradient id="colorUv3" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="10%" stopColor="#ff7742" stopOpacity={0.8}/>
-                        <stop offset="50%" stopColor="#c00024" stopOpacity={0.8}/>
+                        <stop offset="10%" stopColor="#ad2c0e" stopOpacity={0.8}/>
+                        <stop offset="50%" stopColor="#c0464c" stopOpacity={0.8}/>
                     </linearGradient>
 
                 </defs>
@@ -212,7 +213,7 @@ class CustomizedContent extends React.Component<any> {
                     className={"rounded-full bg-black"}
 
                 />
-
+                {/*Math.floor((index / root.children.length) * 3)*/}
 
                 {/*<circle*/}
 
