@@ -75,14 +75,19 @@ export function GroupedNewGraph({expenses}: Props) {
         if(inputExpenses.length<1){return []}
 
         //first create an object with key as name and value as sum
-        inputExpenses.forEach( (expense:Expense)=>{
+        for (let i = 0; i < inputExpenses.length; i++){
+            const expense: Expense = inputExpenses[i];
+            //@ts-ignore
+            if(!expense[index]){
+                continue;
+            }
             //@ts-ignore
             let deFormattedValue = deFormattedStr(expense[index]);
             if(!groupedData[deFormattedValue]){
                 groupedData[deFormattedValue] = 0;
             }
             groupedData[deFormattedValue] += 1;
-        })
+        }
 
         console.log(groupedData);
 
