@@ -49,7 +49,7 @@ export function HomePage({switchWindow}: Props) {
     const [settings, setSettings] = useState(loadedSettings);
 
     function loadExpenses():Expense[] {
-       let tempExp = JSON.parse(localStorage.getItem("ak_expenses") as string) || dumdumData;
+       let tempExp = JSON.parse(localStorage.getItem("ak_expenses") as string) || [];
        return  repairExpenseAmounts([...tempExp]);
     }
 
