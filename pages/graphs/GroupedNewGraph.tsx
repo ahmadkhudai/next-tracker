@@ -12,7 +12,10 @@ type Props = {
     expenses: Expense[];
 };
 
-const COLORS = ['url(#colorUv)','url(#colorUv3)', '#b60cff' , '#b60cff', 'url(#colorUv3)',  '#d32c2c'];
+const COLORS = ['#00b894','#0984e3', '#e84393' , '#e84393', '#e77f67',  '#cf6a87',
+'#574b90', '#f78fb3', '#3dc1d3', '#e66767', '#e66767', '#303952'
+
+];
 
 // type CustomProps = {
 //     root:any, depth:any, x:any, y:any, width:any, height:any, index:any, payload:any, colors:any, rank:any, name:any
@@ -112,6 +115,7 @@ export function GroupedNewGraph({expenses}: Props) {
 
     return (
         <div className={"pb-5"}>
+
             <div className={"p-4 text-center"}>
                 <h3 className={"h3"}>Grouped by {graphLabel}</h3>
             </div>
@@ -135,7 +139,7 @@ export function GroupedNewGraph({expenses}: Props) {
                         data={displayData}
                         dataKey="amount"
                         stroke="#fff"
-                        fill="#8884d8"
+
                         content={<CustomizedContent colors={COLORS}/>}
                     />
                 </ResponsiveContainer>
@@ -177,36 +181,41 @@ class CustomizedContent extends React.Component<any> {
         return (
             <g>
 
-                <defs>
-                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="10%" stopColor="#00f760" stopOpacity={0.8}/>
-                        <stop offset="85%" stopColor="#00cb5d" stopOpacity={0.8}/>
-                    </linearGradient>
 
-                    <linearGradient id="colorUv3" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="10%" stopColor="#00d6ae" stopOpacity={1}/>
-                        <stop offset="50%" stopColor="#0074c0" stopOpacity={1}/>
-                    </linearGradient>
+                    {/*<defs >*/}
+                    {/*    <linearGradient className={"hidden"} id="colorUv" x1="0" y1="0" x2="0" y2="1">*/}
+                    {/*        <stop offset="10%" stopColor="#00f760" stopOpacity={0.8}/>*/}
+                    {/*        <stop offset="85%" stopColor="#00cb5d" stopOpacity={0.8}/>*/}
+                    {/*    </linearGradient>*/}
 
-                </defs>
+                    {/*    <linearGradient className={"hidden"} id="colorUv3" x1="0" y1="0" x2="0" y2="1">*/}
+                    {/*        <stop offset="10%" stopColor="#00d6ae" stopOpacity={1}/>*/}
+                    {/*        <stop offset="50%" stopColor="#0074c0" stopOpacity={1}/>*/}
+                    {/*    </linearGradient>*/}
+
+                    {/*</defs>*/}
+
+
+
                 <rect
 
                     x={x}
                     y={y}
-                    rx={10}
-                    ry={10}
+                    rx={20}
+                    ry={20}
                     width={width}
                     height={height}
                     style={{
                         // fill:"url(#colorUv)",
-                        fill: depth < 2 ? colors[Math.floor((index / root.children.length) * 6)] : 'none',
+                        fill: depth < 2 ? colors[Math.floor((index / root.children.length) * 12)] : 'none',
                         stroke: '#fff',
                         strokeWidth: 1 / (depth + 1e-10),
                         strokeOpacity: 1 / (depth + 1e-10),
-                        borderRadius: "50%"
+
                     }}
 
-                    className={"rounded-full bg-black"}
+
+
 
                 />
                 {/*Math.floor((index / root.children.length) * 3)*/}
@@ -228,8 +237,8 @@ class CustomizedContent extends React.Component<any> {
                 {/*/>*/}
 
                 {depth === 1 ? (
-                    <text x={x + width / 2} y={y + height / 2 + 7} textAnchor="middle" fill="#fff"
-                          className={"font-thin hover:text-sm"}>
+                    <text x={x + width / 2} y={y + height / 2 + 7 } textAnchor="middle" fill="#fff"
+                          className={"font-thin hover:text-sm"} >
                         {getSliced(name)}
                     </text>
                 ) : null}
