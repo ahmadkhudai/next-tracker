@@ -11,6 +11,16 @@ export function searchWholeWord(word:string, line:string){
     return new RegExp(regex, "i").test(line);
 }
 
-export function startsWithSpace(line:string){
+export function startsWithSpace(line:string) {
     return /^\s/.test(line);
 }
+
+
+    export function deFormattedStr(str: string) {
+        let newStr;
+        //remove end space space
+        newStr = str.trim();
+        //remove capitallization
+        newStr = newStr.toLowerCase();
+        return newStr;
+    }

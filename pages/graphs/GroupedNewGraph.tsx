@@ -5,6 +5,7 @@ import {Expense} from "../../Definitions/Expense";
 import {ResponsiveContainer, Treemap} from "recharts";
 import SummaryExpense from "../../Definitions/SummaryExpense";
 import {NumberIndexedStrings} from "../../constants/day";
+import {deFormattedStr} from "../api/utils/string_utils";
 
 type Props = {
     expenses:Expense[];
@@ -62,15 +63,25 @@ export function GroupedNewGraph({expenses}: Props) {
     //group by expense name
     //we are ONLY interested in the frequency of expense
     function groupByExpenseName(inputExpenses:Expense[]){
+        return groupedExpenses(inputExpenses, "name");
+    }
+
+    function groupByExpenseLocation(inputExpenses:Expense[]){
+        return groupedExpenses(inputExpenses, "location");
+    }
+
+    function groupedExpenses(inputExpenses:Expense[], index:string){
         let groupedData:any = {};
         if(inputExpenses.length<1){return []}
 
         //first create an object with key as name and value as sum
         inputExpenses.forEach( (expense:Expense)=>{
-            if(!groupedData[expense.name]){
-                groupedData[expense.name] = 0;
+            //@ts-ignore
+            let deFormattedValue = deFormattedStr(expense[index]);
+            if(!groupedData[deFormattedValue]){
+                groupedData[deFormattedValue] = 0;
             }
-            groupedData[expense.name] += 1;
+            groupedData[deFormattedValue] += 1;
         })
 
         console.log(groupedData);
@@ -81,32 +92,8 @@ export function GroupedNewGraph({expenses}: Props) {
         })
 
         return groupedExpenses;
-
     }
-    function groupByExpenseLocation(inputExpenses:Expense[]){
-        let groupedData:any = {};
-        if(inputExpenses.length<1){return []}
 
-        //first create an object with key as name and value as sum
-        for (let i = 0; i < inputExpenses.length; i++){
-            const expense1: Expense = inputExpenses[i];
-            if(!expense1.location) continue;
-            if(!groupedData[expense1.location]){
-                groupedData[expense1.location] = 0;
-            }
-            groupedData[expense1.location] += 1;
-        }
-
-        console.log(groupedData);
-
-        let groupedExpenses:any = [];
-        Object.entries(groupedData).forEach(([key, value], index)=>{
-            groupedExpenses.push({name:key, amount:value});
-        })
-
-        return groupedExpenses;
-
-    }
 
     return (
         <div className={"pb-5"}>
