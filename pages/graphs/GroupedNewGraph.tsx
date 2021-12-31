@@ -131,7 +131,7 @@ export function GroupedNewGraph({expenses}: Props) {
 
             </div>
 
-            <div className={"vh-100 w-100 container "} style={{"maxHeight": "100vh"}}>
+            <div className={"h-[500px] w-100 container "} style={{"maxHeight": "100vh"}}>
 
                 <ResponsiveContainer width="100%" height="100%">
                     <Treemap
