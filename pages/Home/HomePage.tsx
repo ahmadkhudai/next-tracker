@@ -24,7 +24,7 @@ import ModalContainer from "../Framer/ModalContainer";
 import HomeFooter from "../components/HomeFooter";
 import NoData from "../components/_partials/NoData";
 import {HomePanelLabels, HomePanels} from "../api/component_config/HomePanels";
-import CurrentVisual from "../graphs/CurrentVisual";
+import CurrentVisual from "./_components/CurrentVisual";
 import {dateFunctions, ViewModes} from "../api/component_config/ViewModes";
 import {Day} from "../../constants/day";
 import Backdrop from "../Framer/Backdrop";
@@ -49,7 +49,7 @@ export function HomePage({switchWindow}: Props) {
     const [settings, setSettings] = useState(loadedSettings);
 
     function loadExpenses():Expense[] {
-       let tempExp = JSON.parse(localStorage.getItem("ak_expenses") as string) || [];
+       let tempExp = JSON.parse(localStorage.getItem("ak_expenses") as string) || dumdumData;
        return  repairExpenseAmounts([...tempExp]);
     }
 

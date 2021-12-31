@@ -39,9 +39,9 @@ export default function HomeFooter(props: Props) {
 
             <div className={" ak_max_600px container flex w-100 justify-content-between align-items-center "}>
                 {!homePanels &&
-                    <button className="btn btn-outline-dark bg-white/50 hover:bg-black  mr-3" onClick={() => {
+                    <PurpleButton  onClick={() => {
                         openHomePanelFunc(GraphPanels.grouped)
-                    }}>Grouped Expenses</button>
+                    }}>home</PurpleButton>
                 }
 
                 {renderedPanels &&

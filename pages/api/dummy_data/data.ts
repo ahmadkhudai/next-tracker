@@ -18,7 +18,7 @@ function getRandomExpenses(amount:number):Expense[]{
     return expenses;
 }
 
-export const dumdumData = getRandomExpenses(1);
+export const dumdumData = getRandomExpenses(400);
 // export const dumdumData = [
 //     {id: "1", name: getRandomItem(itemsList), price: 30, description: "chai", date: (addDays(new Date(), 20))},
 //     {id: "3", name: getRandomItem(itemsList), price: 170, description: "Shwarma", date: (addDays(new Date()))},

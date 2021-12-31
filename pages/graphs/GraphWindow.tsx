@@ -11,6 +11,7 @@ import {SettingsObj} from "../../Definitions/SettingsObj";
 import {dumdumData} from "../api/dummy_data/data";
 import HomeHeader from "../components/HomeHeader/HomeHeader";
 import {MainWindows} from "../api/component_config/MainWindows";
+import GroupedNewGraph from "./GroupedNewGraph";
 
 
 type Props = {
@@ -59,13 +60,18 @@ export default function GraphWindow({switchWindow}: Props) {
             {expenses.length == 0 && <NoData/>}
             {expenses.length > 0 &&
                 <div>
-                    <HomeFooter openHomePanelFunc={openPanel}/>
+                    <HomeFooter openHomePanelFunc={()=>{switchWindow(MainWindows.home)}}/>
+
+
 
                         {openedPanel === GraphPanels.grouped &&
-                            <div className={"flex align-items-center justify-content-center"}>
-                                <GroupedExpensesGraph expenses={expenses}/>
-                            </div>
+                           <>
+                                <GroupedNewGraph expenses={expenses}/>
+
+                                {/*<GroupedExpensesGraph expenses={expenses}/>*/}
+                            </>
                         }
+
 
 
 

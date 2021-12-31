@@ -2,8 +2,8 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import {Area, CartesianGrid, ComposedChart, Line, Tooltip, XAxis, YAxis} from 'recharts';
-import {Expense} from "../../Definitions/Expense";
-import {nFormatter} from "../api/utils/num_utils";
+import {Expense} from "../../../Definitions/Expense";
+import {nFormatter} from "../../api/utils/num_utils";
 
 
 type Props = {
@@ -39,24 +39,17 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
 
 
 
-    // if(displayData.length<=1){
-    //     return (
-    //         <NoData customMessage={Messages.NotEnoughData} />
-    //     )
-    // }
     let renderLabel = function(entry:any) {
         return nFormatter(entry);
     }
 
-    // console.log(displayData);
-    // displayData.forEach((data:any) =>{
-    //     console.log(nFormatter(data.expense));
-    // })
+
     return (
         <div className={"container flex flex-column flex-xl-row align-items-center  bg-white/10"}>
             {displayData.length > 1 &&
                 <div
                     className="ak_max_600px bg-transparent border-0 container py-2 px-3 card my-4 flex justify-content-center align-items-center px-1 mx-1">
+
 
                     <ComposedChart className={"py-2 px-2 overflow-visible"} width={graphWidth} height={graphWidth}
                                    data={displayData} margin={{top: 25, right: 30, left: 40, bottom: 1}}>
