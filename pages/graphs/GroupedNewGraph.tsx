@@ -120,7 +120,7 @@ export function GroupedNewGraph({expenses}: Props) {
                 </div>
 
                 <div className="form-group">
-                    <select className="form-control " value={currentOption} onChange={(e) => {
+                    <select className="form-control text-center" value={currentOption} onChange={(e) => {
                         onChangeHandler(e.target.value)
                     }}>
                         {/*<option value={0}>Day-wise spending</option>*/}
