@@ -66,7 +66,7 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
                             </linearGradient>
                         </defs>
 
-                        <XAxis dataKey={dateFunction} axisLine={false} reversed={true} />
+                        <XAxis  stroke={"url(#colorUv2)"} dataKey={dateFunction} axisLine={false} reversed={true} />
                         <CartesianGrid vertical={false} opacity={0.5 }/>
                         <YAxis  width={20}   stroke={"url(#colorUv2)"}  tickFormatter={renderLabel}  axisLine={true} />
                         <Tooltip/>
