@@ -67,7 +67,7 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
                         </defs>
 
                         <XAxis  stroke={"#00c2a5"} dataKey={dateFunction} axisLine={false} reversed={true} />
-                        <CartesianGrid vertical={false} opacity={0.5 }/>
+                        {/*<CartesianGrid vertical={false} opacity={0.5 }/>*/}
                         <YAxis  width={20}   stroke={"url(#colorUv2)"}  tickFormatter={renderLabel}  axisLine={true} />
                         <Tooltip/>
                         <ReferenceLine width={10} x={lastDate} />
