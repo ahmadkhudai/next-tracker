@@ -6,6 +6,13 @@ import {ResponsiveContainer, Treemap} from "recharts";
 import SummaryExpense from "../../Definitions/SummaryExpense";
 import {NumberIndexedStrings} from "../../constants/day";
 import {deFormattedStr} from "../api/utils/string_utils";
+import {ViewModes} from "../api/component_config/ViewModes";
+import {
+    getRenderableCurrentMONTHsExpenses,
+    getRenderableCurrentWeeksExpenses,
+    getRenderableTODAYsExpenses,
+    getSortedExpenses
+} from "../api/utils/expense/grouping";
 
 type Props = {
     expenses: Expense[];
@@ -38,7 +45,7 @@ export function GroupedNewGraph({expenses}: Props) {
     const [graphLabel, setGraphLabel] = useState(displayLabel[1]);
 
 
-    const groupingFunctions: NumberIndexed = {
+    const categoryFunctions: NumberIndexed = {
 
         1: groupByExpenseName,
         2: groupByExpenseLocation
@@ -46,8 +53,9 @@ export function GroupedNewGraph({expenses}: Props) {
 
 
     function onChangeHandler(val: any) {
+        let currentExpenses = groupingFunctions[currentMode](getSortedExpenses(expenses));
         setCurrentOption(val);
-        setDisplayData((groupingFunctions[val])(expenses));
+        setDisplayData((categoryFunctions[val])(currentExpenses));
         setGraphLabel(displayLabel[val]);
     }
 
@@ -59,13 +67,13 @@ export function GroupedNewGraph({expenses}: Props) {
     }, []);
 
     useEffect(() => {
-        setDisplayData(groupingFunctions[currentOption](expenses))
+        setDisplayData(categoryFunctions[currentOption](expenses))
         setGraphWidth(window.innerWidth < 700 ? (0.8 * window.innerWidth) : 500);
     }, []);
 
 
     useEffect(() => {
-        setDisplayData(groupingFunctions[currentOption](expenses))
+        setDisplayData(categoryFunctions[currentOption](expenses))
         setGraphWidth(window.innerWidth < 700 ? (0.8 * window.innerWidth) : 500);
     }, [expenses]);
 
@@ -114,6 +122,22 @@ export function GroupedNewGraph({expenses}: Props) {
     }
 
 
+    const groupingFunctions = {
+        [ViewModes.today]:getRenderableTODAYsExpenses,
+        [ViewModes.week]:getRenderableCurrentWeeksExpenses,
+        [ViewModes.month]:getRenderableCurrentMONTHsExpenses
+    }
+
+    const [currentMode, setCurrentMode] = useState(ViewModes.today);
+
+    function onModeChanged(val: any) {
+            //@ts-ignore
+            let currentExpenses = groupingFunctions[val](getSortedExpenses(expenses));
+            setCurrentMode(val);
+            setDisplayData((categoryFunctions[currentOption])(currentExpenses));
+            setGraphLabel(displayLabel[val]);
+    }
+
     return (
         <div className={"pb-5"}>
 
@@ -123,14 +147,15 @@ export function GroupedNewGraph({expenses}: Props) {
                 </div>
 
                 <div className="form-group">
-                    <select className="form-control text-center" value={currentOption} onChange={(e) => {
-                        onChangeHandler(e.target.value)
+                    <select className="form-control text-center" value={currentMode} onChange={(e) => {
+                        onModeChanged(e.target.value)
                     }}>
-                        {/*<option value={0}>Day-wise spending</option>*/}
-                        <option value={1}>group by expense</option>
-                        <option value={2}>group by location</option>
+                        <option value={ViewModes.today}>today</option>
+                        <option value={ViewModes.week}>this week</option>
+                        <option value={ViewModes.month}>this month</option>
                     </select>
                 </div>
+
 
             </div>
 
@@ -152,6 +177,15 @@ export function GroupedNewGraph({expenses}: Props) {
             </div>
 
             <div className={"py-4"}></div>
+            <div className="form-group">
+                <select className="form-control text-center" value={currentOption} onChange={(e) => {
+                    onChangeHandler(e.target.value)
+                }}>
+                    {/*<option value={0}>Day-wise spending</option>*/}
+                    <option value={1}>group by expense</option>
+                    <option value={2}>group by location</option>
+                </select>
+            </div>
         </div>
     );
 
