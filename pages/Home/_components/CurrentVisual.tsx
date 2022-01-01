@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {Area, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
+import {Area, CartesianGrid, ComposedChart, Line, Tooltip, XAxis, YAxis} from 'recharts';
 import {Expense} from "../../../Definitions/Expense";
 import {nFormatter} from "../../api/utils/num_utils";
 
@@ -50,10 +50,8 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
                 <div
                     className="ak_max_600px bg-transparent border-0 container py-2 px-3 card my-4 flex justify-content-center align-items-center px-1 mx-1">
 
-                    <div className={"h-[500px] w-100 container "} style={{"maxHeight": "100vh"}}>
 
-                        <ResponsiveContainer width="100%" height="100%">
-                    <ComposedChart className={"py-2 px-2 overflow-visible"}
+                    <ComposedChart className={"py-2 px-2 overflow-visible"} width={graphWidth} height={graphWidth}
                                    data={displayData} margin={{top: 25, right: 30, left: 40, bottom: 1}}>
 
                         <defs>
@@ -90,8 +88,7 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
                               name={nameOfX} dataKey="expense" strokeWidth={2} fillOpacity={1} label={renderLabel}
                               fill="url(#colorUv)"/>
                     </ComposedChart>
-                        </ResponsiveContainer>
-                    </div>
+
 
                 </div>
             }
