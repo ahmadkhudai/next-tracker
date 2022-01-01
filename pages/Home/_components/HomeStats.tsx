@@ -14,6 +14,7 @@ import {doubleExponentialSmoothing} from "../../api/stats/double_prediction";
 import SummaryExpense from "../../../Definitions/SummaryExpense";
 import moment from "moment";
 import {ViewModes} from "../../api/component_config/ViewModes";
+import NoData from "../../components/_partials/NoData";
 
 type Props = {
     expenses:Expense[];
@@ -25,13 +26,18 @@ type Props = {
 
 export function HomeStats({expenses,viewMode}: Props) {
 
-    let compoundExpenses = groupByExpenseName(expenses, GroupBy.spending);
+
 
     const groupingFunctions = {
         [ViewModes.week]:getCurrentWeeksExpenses,
         [ViewModes.month]:getCurrentMonthsExpenses,
         [ViewModes.today]:getTodaysExpenses
     }
+    if(!expenses){
+        return <NoData/>;
+    }
+
+    let compoundExpenses = groupByExpenseName(expenses, GroupBy.spending);
     let minExp:CompoundExpense = getMinimumExpense(compoundExpenses);
     let maxExp:CompoundExpense = getMaximumExpense(compoundExpenses);
     // console.log(getDayWiseExpenses(getSortedExpenses(expenses)));
