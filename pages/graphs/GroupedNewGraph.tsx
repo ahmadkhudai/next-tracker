@@ -2,19 +2,20 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import {Expense} from "../../Definitions/Expense";
-import {ResponsiveContainer, Treemap} from "recharts";
 import SummaryExpense from "../../Definitions/SummaryExpense";
 import {NumberIndexedStrings} from "../../constants/day";
-import {deFormattedStr} from "../api/utils/string_utils";
 import {ViewModes} from "../api/component_config/ViewModes";
 import {
     getRenderableCurrentMONTHsExpenses,
     getRenderableCurrentWeeksExpenses,
     getRenderableTODAYsExpenses,
-    getSortedExpenses, groupByExpenseLocation, groupByExpenseName
+    getSortedExpenses,
+    groupByExpenseLocation,
+    groupByExpenseName
 } from "../api/utils/expense/grouping";
-import NoData from "../components/_partials/NoData";
 import {GroupBy} from "../api/component_config/grouping/GroupBy";
+import NoData from "../components/_partials/NoData";
+import {ResponsiveContainer, Treemap} from "recharts";
 
 type Props = {
     expenses: Expense[];
@@ -101,7 +102,7 @@ export function GroupedNewGraph({expenses}: Props) {
 
             <div className={"w-100 p-4 m-2  rounded-[10px]"}>
                 <div className={"p-4 px-5 text-center"}>
-                    <h3 className={"h3"}>Grouped by {groupingMode} of {graphLabel}</h3>
+                    <h3 className={"h3"}>Grouped by {groupingMode} {groupingMode===GroupBy.spending?"on":"of"} {graphLabel}</h3>
                 </div>
 
                 <div className="form-group">
