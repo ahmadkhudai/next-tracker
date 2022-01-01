@@ -290,7 +290,7 @@ export function HomePage({switchWindow}: Props) {
                         panel: HomePanels.ExpensesPanel
                     },
                         {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize},
-                        {panelLabel: HomePanelLabels.Home, panel: HomePanels.Home}
+                        // {panelLabel: HomePanelLabels.Home, panel: HomePanels.Home}
                     ] : []
                     }
                     addButton={
