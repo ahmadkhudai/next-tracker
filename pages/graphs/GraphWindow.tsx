@@ -12,6 +12,8 @@ import {dumdumData} from "../api/dummy_data/data";
 import HomeHeader from "../components/HomeHeader/HomeHeader";
 import {MainWindows} from "../api/component_config/MainWindows";
 import GroupedNewGraph from "./GroupedNewGraph";
+import BubbleChart from "./BubbleChart";
+import exp from "constants";
 
 
 type Props = {

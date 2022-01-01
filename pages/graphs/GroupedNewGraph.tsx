@@ -169,8 +169,10 @@ function getSliced(string: string) {
 
 class CustomizedContent extends React.Component<any> {
     render() {
-        const {root, depth, x, y, width, height, index, payload, colors, rank, name, data, groupingMode} = this.props;
+         const {root, depth, x, y, width, height, index, payload, colors, rank, name, data, groupingMode} = this.props;
+        // console.log(root, depth, x, y, width, height, index, payload, colors, rank, name, data, groupingMode)
 
+        console.log(data[index], height, width, depth);
         // console.log();
         return (
             <g>
