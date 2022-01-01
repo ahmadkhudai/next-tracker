@@ -15,7 +15,7 @@ import {
 } from "../api/utils/expense/grouping";
 import {GroupBy} from "../api/component_config/grouping/GroupBy";
 import NoData from "../components/_partials/NoData";
-import {ResponsiveContainer, Treemap} from "recharts";
+import {ResponsiveContainer, Tooltip, Treemap} from "recharts";
 import OptionsSelector from "./components/OptionsSelector";
 
 type Props = {
@@ -140,7 +140,10 @@ export function GroupedNewGraph({expenses}: Props) {
 
 
                                 content={<CustomizedContent colors={COLORS} data={displayData} groupingMode={groupingMode}/>}
-                            />
+                            >
+                                {/*<Tooltip content={CustomTooltip}/>*/}
+                                <Tooltip content={<TreemapTooltip colors={COLORS} groupingMode={groupingMode} data={displayData} />} />
+                            </Treemap>
                         </ResponsiveContainer>
 
 
@@ -197,13 +200,14 @@ class CustomizedContent extends React.Component<any> {
                 />
 
 
+
                 {depth === 1 ? (
                     <text x={x + width / 2} y={y + height / 2 + 7} textAnchor="middle" fill="#fff" fontSize={14}
                           className={"font-thin hover:text-sm"}>
                         {getSliced(name)}
                     </text>
                 ) : null}
-                {depth === 1 ? (
+                {depth === 1 && (height>60&&width>50)? (
                     <text x={x + 4} y={(y + 30)} fill="#fff" fontWeight={"100"} fontSize={12} fillOpacity={0.9}>
                         {data[index].amount} {groupingMode===GroupBy.frequency?((data[index].amount>1?"times":"time")):" spent"}
                     </text>
@@ -213,5 +217,35 @@ class CustomizedContent extends React.Component<any> {
     }
 }
 
+const TreemapTooltip = ({ active, payload, colors, data, groupingMode }:any) => {
+    if (active && payload && payload.length) {
+        const { name, value, root } = payload[0].payload;
+        const { index } = root;
+        console.log(payload);
+        return (
+            <div className="custom-tooltip bg-white p-3 rounded-[10px]">
+                <p className="label">
+                    <div style={{ color: `${colors[index % colors.length]}` }}>
+                        {name}
+                    </div>
+                    <div>  {value} {groupingMode===GroupBy.frequency?((value>1?"times":"time")):" spent"}</div>
+                </p>
+            </div>
+        );
+    }
+    return null;
+};
+
+const CustomTooltip = ({ active, payload, label,index }:any) => {
+    if (active) {
+        return (
+            <div className="custom-tooltip">
+                <p className="label">{`${label} : ${payload[0].value}`}</p>
+                <p className="intro">YOOOO {index}</p>
+            </div>
+        );
+    }
+    return null;
+};
 
 export default GroupedNewGraph;

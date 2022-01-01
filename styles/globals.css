@@ -528,4 +528,15 @@ div.scrollable::-webkit-scrollbar, body div::-webkit-scrollbar {
   bottom: -1rem;
 }
 
+.custom-tooltip {
+  margin: 0px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #cccccc;
+  white-space: nowrap;
+}
+.custom-tooltip .label {
+  margin: 0;
+}
+
 /*# sourceMappingURL=globals.css.map */
