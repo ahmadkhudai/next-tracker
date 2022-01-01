@@ -154,8 +154,6 @@ export function HomePage({switchWindow}: Props) {
             if (viewMode === ViewModes.week) {
                 tempcurrentExpenses = getRenderableCurrentWeeksExpenses(getSortedExpenses(expenses));
                 tempgraphAbleExpenses = getCurrentWeeksExpenses(getSortedExpenses(expenses));
-                console.log(tempcurrentExpenses);
-                console.log(tempgraphAbleExpenses);
                 stateUpdated = true;
             }
             if (stateUpdated) {
@@ -285,11 +283,11 @@ export function HomePage({switchWindow}: Props) {
                         {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize}
                     ] : []
                     }
-                    optionsPanels={
-                        [{
+                    addButton={
+                        {
                             panelLabel: OptionPanelLabels.AddExpensePanel,
                             panel: OptionsPanels.AddExpensePanel
-                        }]}
+                        }}
                     openOptionsPanelFunc={openPanel}
                 />
             }

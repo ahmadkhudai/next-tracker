@@ -134,7 +134,6 @@ export function GroupedNewGraph({expenses}: Props) {
         setCurrentExpenses(currExp)
         setDisplayData(categoryFunctions[currentOption](currExp))
         setCurrentMode(val);
-        // setGraphLabel(displayLabel[val]);
     }
 
 
@@ -174,7 +173,7 @@ export function GroupedNewGraph({expenses}: Props) {
                                 stroke="#fff"
 
 
-                                content={<CustomizedContent colors={COLORS}/>}
+                                content={<CustomizedContent colors={COLORS} data={displayData}/>}
                             />
                         </ResponsiveContainer>
 
@@ -212,8 +211,9 @@ function getSliced(string: string) {
 
 class CustomizedContent extends React.Component<any> {
     render() {
-        const {root, depth, x, y, width, height, index, payload, colors, rank, name} = this.props;
+        const {root, depth, x, y, width, height, index, payload, colors, rank, name, data} = this.props;
 
+        // console.log();
         return (
             <g>
 
@@ -246,12 +246,11 @@ class CustomizedContent extends React.Component<any> {
                         {getSliced(name)}
                     </text>
                 ) : null}
-                {/*{depth === 1 ? (*/}
-                {/*    <text x={x + 4} y={y + 18} fill="#fff" fontSize={16} fillOpacity={0.9}>*/}
-                {/*        {index + 1}*/}
-                {/*    </text>*/}
-                {/*) : null}*/}
-                {/*<Tooltip/>*/}
+                {depth === 1 ? (
+                    <text x={x + 4} y={(y + 30)} fill="#fff" fontWeight={"100"} fontSize={16} fillOpacity={0.9}>
+                        {data[index].amount} {data[index].amount>1?"times":"time"}
+                    </text>
+                ) : null}
             </g>
         );
     }

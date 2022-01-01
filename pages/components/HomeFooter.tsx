@@ -21,12 +21,12 @@ type Props = {
     openOptionsPanelFunc?: any;
     currentHomePanel?: HomePanels;
     homePanels?: { panelLabel: HomePanelLabels, panel: HomePanels }[],
-    optionsPanels?: { panelLabel: OptionPanelLabels, panel: OptionsPanels }[]
+    addButton?: { panelLabel: OptionPanelLabels, panel: OptionsPanels }
 };
 type State = {};
 
 export default function HomeFooter(props: Props) {
-    const {openHomePanelFunc, homePanels, currentHomePanel, optionsPanels, openOptionsPanelFunc} = props;
+    const {openHomePanelFunc, homePanels, currentHomePanel, addButton, openOptionsPanelFunc} = props;
 
     // console.log(currentlyOpenPanel);
 
@@ -66,18 +66,18 @@ export default function HomeFooter(props: Props) {
                         </div>
                     )
                 }
-                {optionsPanels &&
-                    optionsPanels?.map(panel =>
+                {addButton &&
+
                         //todo only add button will rest here. remove this loop and pass only add button
-                        <div className={"h-100 flex justify-content-end w-100    "} key={panel.panelLabel}>
+                        <div className={"h-100 flex justify-content-end w-100    "} key={addButton.panelLabel}>
                         <OutlineRoundedButton   styleClasses="hover:text-purple-600 hover:font-thin  flex justify-center items-center  border-teal-400  hover:border-2 rounded-full  bg-none p-0 w-auto      ak_slow_transition" onClick={() => {
-                            openOptionsPanelFunc(panel.panel)
+                            openOptionsPanelFunc(addButton.panel)
                         }}>
                             <p className={"text-xl  p-2 px-3 "}>add</p>
                             <Image className={"p-0 m-0 rounded-full p-0 hover:bg-purple-100"}   height={"50%"} width={"50%"} src={addIcon}/>
                         </OutlineRoundedButton>
                         </div>
-                    )
+
                 }
 
                 {/*<button className="btn btn-outline-dark mr-3" onClick={()=>{openPanel(GraphPanels.weekReport)}}>Weekly Report</button>*/}
