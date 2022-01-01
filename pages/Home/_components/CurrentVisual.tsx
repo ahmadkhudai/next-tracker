@@ -62,11 +62,11 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
                             </linearGradient>
                             <linearGradient id="colorUv2" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="10%" stopColor="#a855f7" stopOpacity={1}/>
-                                <stop offset="85%" stopColor="#2dd4bf" stopOpacity={1}/>
+                                <stop offset="85%" stopColor="#a855f7" stopOpacity={1}/>
                             </linearGradient>
                         </defs>
 
-                        <XAxis  stroke={"url(#colorUv2)"} dataKey={dateFunction} axisLine={false} reversed={true} />
+                        <XAxis  stroke={"#00c2a5"} dataKey={dateFunction} axisLine={false} reversed={true} />
                         <CartesianGrid vertical={false} opacity={0.5 }/>
                         <YAxis  width={20}   stroke={"url(#colorUv2)"}  tickFormatter={renderLabel}  axisLine={true} />
                         <Tooltip/>
