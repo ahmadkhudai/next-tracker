@@ -33,6 +33,7 @@ import HomeExpensesView from "./_components/compound_components/HomeExpensesView
 import {repairExpenseAmounts} from "../api/Data/data_repair";
 import HomeStats from "./_components/HomeStats";
 import {dumdumData} from "../api/dummy_data/data";
+import {nFormatter} from "../api/utils/num_utils";
 
 type Props = {
     switchWindow: any;
@@ -221,7 +222,7 @@ export function HomePage({switchWindow}: Props) {
                         <div className={"py-2   w-100 h-100"}>
                             <div>
 
-                                <h3 className={"text-teal-500 text-center text-xl font-monospace w-auto "}>{currentExpenses.reduce(sumAllExpenses,0)} spent {viewMode !== ViewModes.today ? "this" :""} <span
+                                <h3 className={"text-teal-500 text-center text-xl font-monospace w-auto "}>{nFormatter(currentExpenses.reduce(sumAllExpenses,0))} spent {viewMode !== ViewModes.today ? "this" :""} <span
                                     className={"text-2xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 "}>{viewMode}</span></h3>
                             </div>
                             <div className={"w-100 ak_max_600px flex align-items-center justify-content-center  mt-1"}>
