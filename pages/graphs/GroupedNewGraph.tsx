@@ -208,7 +208,7 @@ class CustomizedContent extends React.Component<any> {
                 ) : null}
                 {depth === 1 ? (
                     <text x={x + 4} y={(y + 30)} fill="#fff" fontWeight={"100"} fontSize={12} fillOpacity={0.9}>
-                        {data[index].amount} {groupingMode===groupingMode.frequency?(data[index].amount>1?"times":"time"):" spent"}
+                        {data[index].amount} {groupingMode===GroupBy.frequency?((data[index].amount>1?"times":"time")):" spent"}
                     </text>
                 ) : null}
             </g>
