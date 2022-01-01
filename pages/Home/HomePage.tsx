@@ -12,9 +12,9 @@ import {
     getRenderableTODAYsExpenses,
     getSortedExpenses,
     getTodaysExpenses,
-    sortfunction, sumAllExpenses
+    sortfunction,
+    sumAllExpenses
 } from "../api/utils/expense/grouping";
-import {dumdumData} from "../api/dummy_data/data";
 import {v4 as uuidv4} from "uuid";
 import {isGreaterThanToday} from "../api/utils/date_utils";
 import {OptionPanelLabels, OptionsPanels} from "../api/component_config/Main/OptionsPanels";
@@ -31,7 +31,8 @@ import Backdrop from "../Framer/Backdrop";
 import ViewModeButtons from "./_components/ViewModeButtons";
 import HomeExpensesView from "./_components/compound_components/HomeExpensesView";
 import {repairExpenseAmounts} from "../api/Data/data_repair";
-import FormCenteredDisplay from "../add_expense/_components/FormCenteredDisplay";
+import HomeStats from "./_components/HomeStats";
+import {dumdumData} from "../api/dummy_data/data";
 
 type Props = {
     switchWindow: any;
@@ -49,7 +50,7 @@ export function HomePage({switchWindow}: Props) {
     const [settings, setSettings] = useState(loadedSettings);
 
     function loadExpenses():Expense[] {
-       let tempExp = JSON.parse(localStorage.getItem("ak_expenses") as string) || [];
+       let tempExp = JSON.parse(localStorage.getItem("ak_expenses") as string) || dumdumData;
        return  repairExpenseAmounts([...tempExp]);
     }
 
@@ -227,6 +228,14 @@ export function HomePage({switchWindow}: Props) {
                                 <ViewModeButtons currentViewMode={viewMode} updateViewMode={updateViewMode}/>
                             </div>
 
+                            {currentHomePanel === HomePanels.Home &&
+                                <div className={" ak_max_600px w-100 h-full"}>
+
+                                    <div className={"h-auto "}>
+                                        <HomeStats viewMode={viewMode} expenses={currentExpenses}/>
+                                    </div>
+                                </div>
+                            }
 
                             {currentHomePanel === HomePanels.Visualize &&
                                 <div className={" ak_max_600px w-100 h-full"}>
@@ -280,7 +289,8 @@ export function HomePage({switchWindow}: Props) {
                         panelLabel: HomePanelLabels.ExpensesPanel,
                         panel: HomePanels.ExpensesPanel
                     },
-                        {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize}
+                        {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize},
+                        {panelLabel: HomePanelLabels.Home, panel: HomePanels.Home}
                     ] : []
                     }
                     addButton={

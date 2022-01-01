@@ -8,6 +8,7 @@ import PurpleButton from "./buttons/PurpleButton";
 import Image from 'next/image';
 import graphIcon from '../../assets/graph.png';
 import addIcon from '../../assets/add.png';
+import homeIcon from '../../assets/home.svg';
 import expensesIcon from '../../assets/expenses.png';
 import OutlineRoundedButton from "./buttons/OutlineRoundedButton";
 
@@ -59,6 +60,9 @@ export default function HomeFooter(props: Props) {
                                 <p className={"text-xl  px-2 "}>{panel.panelLabel}</p>
                                 {panel.panel===HomePanels.Visualize &&
                                     <Image   height={"40%"} width={"40%"} src={graphIcon}/>
+                                }
+                                {panel.panel===HomePanels.Home &&
+                                    <Image   height={"40%"} width={"40%"} src={homeIcon}/>
                                 }
 
                             </div>

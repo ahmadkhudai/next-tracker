@@ -3,11 +3,15 @@ import {addDays, getRandomItem, randomIntFromInterval} from "../utils/date_utils
 import {Expense} from "../../../Definitions/Expense";
 import exp from "constants";
 
-let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
+let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special", "apple", "sneakers", "jacket", "cocomo", "oreo", "zinger"];
+let locations = ["cafe", "uni cafe", "KFC", "GB", "kk", "quetta cafe", "std corner", "peshawar shinwari", "hujra"];
 
 function randomExpense(): Expense {
-    return {...{id: uuidv4(), price:randomIntFromInterval(30, 50000), description: getRandomItem(itemsList),
-            name:getRandomItem(itemsList), date: (addDays(new Date(),randomIntFromInterval(-30,1))).toString()}};
+    let price = randomIntFromInterval(30, 200);
+    let  name=getRandomItem(itemsList);
+    let location = getRandomItem(locations);
+    return {...{id: uuidv4(), price:price, description: price + " spent on "+name+" from "+location,
+            name:name,location:location, date: (addDays(new Date(),randomIntFromInterval(-30,30))).toString()}};
 }
 
 function getRandomExpenses(amount:number):Expense[]{
