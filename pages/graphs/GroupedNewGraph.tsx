@@ -191,6 +191,7 @@ export function GroupedNewGraph({expenses}: Props) {
                             <option value={2}>group by location</option>
                         </select>
                     </div>
+                    <div className={"py-4"}></div>
                 </>
 
             }
