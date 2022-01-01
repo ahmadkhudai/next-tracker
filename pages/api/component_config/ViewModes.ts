@@ -17,7 +17,7 @@ export const ViewModesDir: NumberIndexedStrings = {
 export const dateFunctions = {
 
     [ViewModes.today]: (obj: any) => moment(obj.date).format("hh:mm a"),
-    [ViewModes.week]: (obj: any) => obj.date,
+    [ViewModes.week]: (obj: any) => moment(obj.date).format("DD ddd"),
     [ViewModes.month]: (obj: any) => moment(obj.date).format("MM/DD")
 }
 
