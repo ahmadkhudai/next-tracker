@@ -13,6 +13,7 @@ import {
     getRenderableTODAYsExpenses,
     getSortedExpenses
 } from "../api/utils/expense/grouping";
+import NoData from "../components/_partials/NoData";
 
 type Props = {
     expenses: Expense[];
@@ -60,8 +61,6 @@ export function GroupedNewGraph({expenses}: Props) {
     }
 
 
-
-
     useEffect(() => {
         let currExp = groupingFunctions[currentMode](getSortedExpenses(expenses));
         setCurrentExpenses(currExp)
@@ -75,7 +74,6 @@ export function GroupedNewGraph({expenses}: Props) {
         setDisplayData(categoryFunctions[currentOption](currExp))
 
     }, [expenses]);
-
 
 
     let tempExp = [];
@@ -122,22 +120,23 @@ export function GroupedNewGraph({expenses}: Props) {
 
 
     const groupingFunctions = {
-        [ViewModes.today]:getRenderableTODAYsExpenses,
-        [ViewModes.week]:getRenderableCurrentWeeksExpenses,
-        [ViewModes.month]:getRenderableCurrentMONTHsExpenses
+        [ViewModes.today]: getRenderableTODAYsExpenses,
+        [ViewModes.week]: getRenderableCurrentWeeksExpenses,
+        [ViewModes.month]: getRenderableCurrentMONTHsExpenses
     }
 
     const [currentMode, setCurrentMode] = useState(ViewModes.today);
 
     function onModeChanged(val: any) {
-            //@ts-ignore
+        //@ts-ignore
         //@ts-ignore
         let currExp = groupingFunctions[val](getSortedExpenses(expenses));
         setCurrentExpenses(currExp)
         setDisplayData(categoryFunctions[currentOption](currExp))
         setCurrentMode(val);
-            setGraphLabel(displayLabel[val]);
+        setGraphLabel(displayLabel[val]);
     }
+
 
     return (
         <div className={"pb-5"}>
@@ -160,33 +159,41 @@ export function GroupedNewGraph({expenses}: Props) {
 
             </div>
 
-            <div className={"h-[500px] w-100 container "} style={{"maxHeight": "100vh"}}>
+            {currentExpenses.length === 0 && <NoData/>}
+            {currentExpenses.length > 0 &&
+                <>
 
-                <ResponsiveContainer width="100%" height="100%">
-                    <Treemap
-                        width={400}
-                        height={200}
-                        data={displayData}
-                        dataKey="amount"
-                        stroke="#fff"
+                    <div className={"h-[500px] w-100 container "} style={{"maxHeight": "100vh"}}>
 
-                        content={<CustomizedContent colors={COLORS}/>}
-                    />
-                </ResponsiveContainer>
+                        <ResponsiveContainer width="100%" height="100%">
+                            <Treemap
+                                width={400}
+                                height={200}
+                                data={displayData}
+                                dataKey="amount"
+                                stroke="#fff"
+
+                                content={<CustomizedContent colors={COLORS}/>}
+                            />
+                        </ResponsiveContainer>
 
 
-            </div>
+                    </div>
 
-            <div className={"py-4"}></div>
-            <div className="form-group">
-                <select className="form-control text-center" value={currentOption} onChange={(e) => {
-                    onChangeHandler(e.target.value)
-                }}>
-                    {/*<option value={0}>Day-wise spending</option>*/}
-                    <option value={1}>group by expense</option>
-                    <option value={2}>group by location</option>
-                </select>
-            </div>
+
+                    <div className={"py-4"}></div>
+                    <div className="form-group">
+                        <select className="form-control text-center" value={currentOption} onChange={(e) => {
+                            onChangeHandler(e.target.value)
+                        }}>
+                            {/*<option value={0}>Day-wise spending</option>*/}
+                            <option value={1}>group by expense</option>
+                            <option value={2}>group by location</option>
+                        </select>
+                    </div>
+                </>
+
+            }
         </div>
     );
 
