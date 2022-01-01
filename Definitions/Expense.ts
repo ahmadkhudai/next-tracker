@@ -6,3 +6,12 @@ export interface Expense {
     location?:any;
     date:string;
 }
+
+export enum ExpenseFields {
+    "id"="id",
+    "name"="name",
+    "description"="description",
+    "price"="price",
+    "location"="location",
+    "date"="date"
+}

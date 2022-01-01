@@ -1,17 +1,15 @@
 import {getDate, getDateString} from "../date_utils";
 import moment from "moment";
-import {Expense} from "../../../../Definitions/Expense";
+import {Expense, ExpenseFields} from "../../../../Definitions/Expense";
 import {InputTypes} from "../../../../Definitions/InputTypes";
 import {SettingLabels} from "../../../../Definitions/Setting";
 import GroupedExpenses from "../../../../Definitions/GroupedExpenses";
 import {SettingsObj} from "../../../../Definitions/SettingsObj";
-import GroupedSummaryExpenses from "../../../../Definitions/GroupedSummaryExpenses";
 import SummaryExpense from "../../../../Definitions/SummaryExpense";
-import expense from "../../../Home/_components/Expense";
-import exp from "constants";
-import summaryExpense from "../../../../Definitions/SummaryExpense";
-import groupedExpenses from "../../../../Definitions/GroupedExpenses";
 import {repairExpenseAmounts} from "../../Data/data_repair";
+import {deFormattedStr} from "../string_utils";
+import {GroupBy} from "../../component_config/grouping/GroupBy";
+
 export function sortfunction(a:Expense,b:Expense){
     // Turn your strings into dates, and then subtract them
     // to get a value that is either negative, positive, or zero.
@@ -323,4 +321,91 @@ export function getRenderableTODAYsExpenses(groupedExpenses:GroupedExpenses):Exp
     return expenses;
 }
 
+//group by expense name
+//we are ONLY interested in the frequency of expense
+export function groupByExpenseName(inputExpenses: Expense[], groupBy:string) {
+    console.log(inputExpenses, groupBy);
+    if(groupBy===GroupBy["frequency"]){
+        return groupedByFrequency(inputExpenses, ExpenseFields.name);
+    }
+    if(groupBy===GroupBy.spending){
+        return groupedBySpending(inputExpenses, ExpenseFields.name);
+    }
+   return []
+}
 
+export function groupByExpenseLocation(inputExpenses: Expense[], groupBy:GroupBy) {
+    if(groupBy===GroupBy.frequency) {
+        return groupedByFrequency(inputExpenses, ExpenseFields.location);
+    }
+    if(groupBy===GroupBy.spending) {
+        return groupedBySpending(inputExpenses, ExpenseFields.location);
+    }
+    return [];
+}
+
+export function groupedByFrequency(inputExpenses: Expense[], index: string) {
+    let groupedData: any = {};
+    if (inputExpenses.length < 1) {
+        return []
+    }
+
+    //first create an object with key as name and value as sum
+    for (let i = 0; i < inputExpenses.length; i++) {
+        const expense: Expense = inputExpenses[i];
+        //@ts-ignore
+        if (!expense[index]) {
+            continue;
+        }
+        //we need to do this because chai Chai chAi are three different words to dumb computer
+        //so we remove space and lowercase everything.
+        //@ts-ignore
+        let deFormattedValue = deFormattedStr(expense[index]);
+        if (!groupedData[deFormattedValue]) {
+            groupedData[deFormattedValue] = 0;
+        }
+        groupedData[deFormattedValue] += 1;
+    }
+
+    console.log(groupedData);
+
+    let groupedExpenses: any = [];
+    Object.entries(groupedData).forEach(([key, value], index) => {
+        groupedExpenses.push({name: key, amount: value});
+    })
+
+    return groupedExpenses;
+}
+
+export function groupedBySpending(inputExpenses: Expense[], index: string) {
+    let groupedData: any = {};
+    if (inputExpenses.length < 1) {
+        return []
+    }
+
+    //first create an object with key as name and value as sum
+    for (let i = 0; i < inputExpenses.length; i++) {
+        const expense: Expense = inputExpenses[i];
+        //@ts-ignore
+        if (!expense[index]) {
+            continue;
+        }
+        //we need to do this because chai Chai chAi are three different words to dumb computer
+        //so we remove space and lowercase everything.
+        //@ts-ignore
+        let deFormattedValue = deFormattedStr(expense[index]);
+        if (!groupedData[deFormattedValue]) {
+            groupedData[deFormattedValue] = 0;
+        }
+        groupedData[deFormattedValue] += expense.price;
+    }
+
+    // console.log(groupedData);
+
+    let groupedExpenses: any = [];
+    Object.entries(groupedData).forEach(([key, value], index) => {
+        groupedExpenses.push({name: key, amount: value});
+    })
+
+    return groupedExpenses;
+}
