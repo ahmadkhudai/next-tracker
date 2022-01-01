@@ -29,6 +29,7 @@ const COLORS = ['#00b894', '#0984e3', '#e84393', '#e84393', '#e77f67', '#cf6a87'
 
 
 export function GroupedNewGraph({expenses}: Props) {
+    const [currentExpenses, setCurrentExpenses] = useState([] as Expense[]);
 
     const [displayData, setDisplayData] = useState([] as SummaryExpense[]);
     // const [current]
@@ -53,28 +54,26 @@ export function GroupedNewGraph({expenses}: Props) {
 
 
     function onChangeHandler(val: any) {
-        let currentExpenses = groupingFunctions[currentMode](getSortedExpenses(expenses));
         setCurrentOption(val);
         setDisplayData((categoryFunctions[val])(currentExpenses));
         setGraphLabel(displayLabel[val]);
     }
 
-    useEffect(() => {
-        setGraphWidth(window.innerWidth < 700 ? (0.8 * window.innerWidth) : 500);
-        window.onresize = () => {
-            setGraphWidth(window.innerWidth < 700 ? (0.8 * window.innerWidth) : 500);
-        }
-    }, []);
+
+
 
     useEffect(() => {
-        setDisplayData(categoryFunctions[currentOption](expenses))
-        setGraphWidth(window.innerWidth < 700 ? (0.8 * window.innerWidth) : 500);
+        let currExp = groupingFunctions[currentMode](getSortedExpenses(expenses));
+        setCurrentExpenses(currExp)
+        setDisplayData(categoryFunctions[currentOption](currExp))
     }, []);
 
 
     useEffect(() => {
-        setDisplayData(categoryFunctions[currentOption](expenses))
-        setGraphWidth(window.innerWidth < 700 ? (0.8 * window.innerWidth) : 500);
+        let currExp = groupingFunctions[currentMode](getSortedExpenses(expenses));
+        setCurrentExpenses(currExp)
+        setDisplayData(categoryFunctions[currentOption](currExp))
+
     }, [expenses]);
 
 
@@ -132,9 +131,11 @@ export function GroupedNewGraph({expenses}: Props) {
 
     function onModeChanged(val: any) {
             //@ts-ignore
-            let currentExpenses = groupingFunctions[val](getSortedExpenses(expenses));
-            setCurrentMode(val);
-            setDisplayData((categoryFunctions[currentOption])(currentExpenses));
+        //@ts-ignore
+        let currExp = groupingFunctions[val](getSortedExpenses(expenses));
+        setCurrentExpenses(currExp)
+        setDisplayData(categoryFunctions[currentOption](currExp))
+        setCurrentMode(val);
             setGraphLabel(displayLabel[val]);
     }
 
