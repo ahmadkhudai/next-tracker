@@ -24,6 +24,7 @@ const COLORS = ['#00b894', '#0984e3', '#e84393', '#e84393', '#e77f67', '#cf6a87'
 export function GroupedNewGraph({expenses}: Props) {
 
     const [displayData, setDisplayData] = useState([] as SummaryExpense[]);
+    // const [current]
     const [graphWidth, setGraphWidth] = useState(500);
 
     type NumberIndexed = {
@@ -67,6 +68,8 @@ export function GroupedNewGraph({expenses}: Props) {
         setDisplayData(groupingFunctions[currentOption](expenses))
         setGraphWidth(window.innerWidth < 700 ? (0.8 * window.innerWidth) : 500);
     }, [expenses]);
+
+
 
     let tempExp = [];
     //group by expense name
