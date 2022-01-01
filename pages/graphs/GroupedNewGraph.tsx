@@ -16,6 +16,7 @@ import {
 import {GroupBy} from "../api/component_config/grouping/GroupBy";
 import NoData from "../components/_partials/NoData";
 import {ResponsiveContainer, Treemap} from "recharts";
+import OptionsSelector from "./components/OptionsSelector";
 
 type Props = {
     expenses: Expense[];
@@ -105,24 +106,21 @@ export function GroupedNewGraph({expenses}: Props) {
                     <h3 className={"h3"}>Grouped by {groupingMode} {groupingMode===GroupBy.spending?"on":"of"} {graphLabel}</h3>
                 </div>
 
-                <div className="form-group">
-                    <select className="form-control text-center" value={currentMode} onChange={(e) => {
-                        onModeChanged(e.target.value)
-                    }}>
-                        <option value={ViewModes.today}>today</option>
-                        <option value={ViewModes.week}>this week</option>
-                        <option value={ViewModes.month}>this month</option>
-                    </select>
-                </div>
-                <div className="form-group">
-                    <select className="form-control text-center" value={groupingMode} onChange={(e) => {
-                        onGroupingChanged(e.target.value as GroupBy)
-                    }}>
-                        <option value={GroupBy.frequency}>by frequency</option>
-                        <option value={GroupBy.spending}>by spending</option>
-                    </select>
-                </div>
 
+                <OptionsSelector onChangeHandler={onModeChanged} currentOption={currentMode}>
+                    <option value={ViewModes.today}>today</option>
+                    <option value={ViewModes.week}>this week</option>
+                    <option value={ViewModes.month}>this month</option>
+                </OptionsSelector>
+                <OptionsSelector onChangeHandler={onGroupingChanged} currentOption={groupingMode}>
+                    <option value={GroupBy.frequency}>by frequency</option>
+                    <option value={GroupBy.spending}>by spending</option>
+                </OptionsSelector>
+
+                <OptionsSelector onChangeHandler={onChangeHandler} currentOption={currentOption}>
+                    <option value={1}>group by expense</option>
+                    <option value={2}>group by location</option>
+                </OptionsSelector>
 
             </div>
 
@@ -150,16 +148,8 @@ export function GroupedNewGraph({expenses}: Props) {
 
 
                     <div className={"py-4"}></div>
-                    <div className="form-group">
-                        <select className="form-control text-center" value={currentOption} onChange={(e) => {
-                            onChangeHandler(e.target.value)
-                        }}>
-                            {/*<option value={0}>Day-wise spending</option>*/}
-                            <option value={1}>group by expense</option>
-                            <option value={2}>group by location</option>
-                        </select>
-                    </div>
-                    <div className={"py-4"}></div>
+
+
                 </>
 
             }
@@ -209,14 +199,14 @@ class CustomizedContent extends React.Component<any> {
 
 
                 {depth === 1 ? (
-                    <text x={x + width / 2} y={y + height / 2 + 7} textAnchor="middle" fill="#fff"
+                    <text x={x + width / 2} y={y + height / 2 + 7} textAnchor="middle" fill="#fff" fontSize={14}
                           className={"font-thin hover:text-sm"}>
                         {getSliced(name)}
                     </text>
                 ) : null}
                 {depth === 1 ? (
-                    <text x={x + 4} y={(y + 30)} fill="#fff" fontWeight={"100"} fontSize={16} fillOpacity={0.9}>
-                        {data[index].amount} {groupingMode===groupingMode.frequency?(data[index].amount>1?"times":"time"):""}
+                    <text x={x + 4} y={(y + 30)} fill="#fff" fontWeight={"100"} fontSize={12} fillOpacity={0.9}>
+                        {data[index].amount} {groupingMode===groupingMode.frequency?(data[index].amount>1?"times":"time"):" spent"}
                     </text>
                 ) : null}
             </g>
