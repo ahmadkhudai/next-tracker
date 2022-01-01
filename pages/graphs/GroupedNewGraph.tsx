@@ -134,7 +134,7 @@ export function GroupedNewGraph({expenses}: Props) {
         setCurrentExpenses(currExp)
         setDisplayData(categoryFunctions[currentOption](currExp))
         setCurrentMode(val);
-        setGraphLabel(displayLabel[val]);
+        // setGraphLabel(displayLabel[val]);
     }
 
 
@@ -163,15 +163,16 @@ export function GroupedNewGraph({expenses}: Props) {
             {currentExpenses.length > 0 &&
                 <>
 
-                    <div className={"h-[500px] w-100 container "} style={{"maxHeight": "100vh"}}>
+                    <div className={"h-[500px] w-100 container bg-none"} style={{"maxHeight": "100vh"}}>
 
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height="100%" >
                             <Treemap
                                 width={400}
                                 height={200}
                                 data={displayData}
                                 dataKey="amount"
                                 stroke="#fff"
+
 
                                 content={<CustomizedContent colors={COLORS}/>}
                             />
@@ -217,19 +218,6 @@ class CustomizedContent extends React.Component<any> {
             <g>
 
 
-                {/*<defs >*/}
-                {/*    <linearGradient className={"hidden"} id="colorUv" x1="0" y1="0" x2="0" y2="1">*/}
-                {/*        <stop offset="10%" stopColor="#00f760" stopOpacity={0.8}/>*/}
-                {/*        <stop offset="85%" stopColor="#00cb5d" stopOpacity={0.8}/>*/}
-                {/*    </linearGradient>*/}
-
-                {/*    <linearGradient className={"hidden"} id="colorUv3" x1="0" y1="0" x2="0" y2="1">*/}
-                {/*        <stop offset="10%" stopColor="#00d6ae" stopOpacity={1}/>*/}
-                {/*        <stop offset="50%" stopColor="#0074c0" stopOpacity={1}/>*/}
-                {/*    </linearGradient>*/}
-
-                {/*</defs>*/}
-
 
                 <rect
 
@@ -250,23 +238,7 @@ class CustomizedContent extends React.Component<any> {
 
 
                 />
-                {/*Math.floor((index / root.children.length) * 3)*/}
 
-                {/*<circle*/}
-
-                {/*    cx={x + width / 2}*/}
-                {/*    cy={y + height}*/}
-                {/*    r={width * 0.5}*/}
-                {/*    // x={x}*/}
-                {/*    //      width={width}*/}
-                {/*    style={{*/}
-                {/*        // fill:"url(#colorUv)",*/}
-                {/*        fill: depth < 2 ? colors[Math.floor((index / root.children.length) * 6)] : 'none',*/}
-                {/*        stroke: '#fff',*/}
-                {/*        strokeWidth: 2 / (depth + 1e-10),*/}
-                {/*        strokeOpacity: 1 / (depth + 1e-10),*/}
-                {/*    }}*/}
-                {/*/>*/}
 
                 {depth === 1 ? (
                     <text x={x + width / 2} y={y + height / 2 + 7} textAnchor="middle" fill="#fff"
