@@ -10,9 +10,12 @@ import trendStat from '../../../assets/trend_station.png';
 import trendGif from '../../../assets/trend.gif';
 import LabelPurple from "../labels/LabelPurple";
 import HoverGif from "../hoverables/HoverGif";
-import TealButton from "../buttons/TealButton";
+import {Quota} from "../../../Definitions/Quota";
+import {SettingsObj} from "../../../Definitions/SettingsObj";
 
 type Props = {
+    settings?: SettingsObj;
+    quota?: Quota;
     openPanel?: any;
     switchWindow: any;
     currentlyOpenWindow?: MainWindows;
@@ -20,7 +23,7 @@ type Props = {
 type State = {};
 
 export default function HomeHeader(props: Props) {
-    const {openPanel, switchWindow, currentlyOpenWindow} = props;
+    const {openPanel, switchWindow, currentlyOpenWindow, settings} = props;
 
     const [currentWindow, setCurrentWindow] = useState(currentlyOpenWindow || MainWindows.home);
 
@@ -42,7 +45,7 @@ export default function HomeHeader(props: Props) {
     return (
         <nav onMouseEnter={onFocus} onMouseLeave={onBlur} onFocus={onFocus} onBlur={onBlur}
              className="fixed_header bg-white navbar position-sticky top-0 navbar-expand navbar-light shadow-sm w-100 flex justify-center py-0">
-            <div className=" flex align-items-center justify-content-between w-100 ak_max_600px px-2">
+            <div className=" flex align-items-center justify-content-between w-100 ak_max_600px px-2 unselectable">
 
                 {/*{currentWindow === MainWindows.home && }*/}
 
@@ -50,8 +53,12 @@ export default function HomeHeader(props: Props) {
                     {currentWindow === MainWindows.home &&
                         // <div className={"w-100 flex align-items-center justify-content-center py-2"}>
                         <div className={"flex align-items-center justify-content-between w-100"}>
-                           <p className={" text-center w-auto text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 text-3xl px-3"}>Expense
-                               Tracker</p>
+                            <p className={" sm:hidden md:visible text-center w-auto text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 text-3xl px-3"}>Expense
+                                Tracker</p>  <OutlineRoundedButton onClick={() => {
+                            openPanel(OptionsPanels.QuotaPanel)
+                        }}
+                                                                   styleClasses={" text-center w-auto text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 text-xl "}>quota {settings?.maxAcceptableRange.value}</OutlineRoundedButton>
+
                             <OutlineRoundedButton
                                 styleClasses="btn  hover:font-thin  ak_slow_transition  py-0 px-0  hover:bg-purple-700  flex align-items-center justify-between "
                                 onClick={() => {
@@ -62,18 +69,20 @@ export default function HomeHeader(props: Props) {
                                 {/*<p className={"text-center w-75 px-2"}>Settings</p>*/}
 
                             </OutlineRoundedButton>
+
                         </div>
 
                     }
 
                     {currentWindow !== MainWindows.home &&
                         <OutlineRoundedButton
-                        styleClasses={"btn bg-teal-400 text-white hover:bg-purple-500  hover:font-black  mr-3 w-75"}
-                        onClick={() => {
-                            goTo(MainWindows.home)
-                        }}>home</OutlineRoundedButton>
+                            styleClasses={"btn bg-teal-400 text-white hover:bg-purple-500  hover:font-black  mr-3 w-75"}
+                            onClick={() => {
+                                goTo(MainWindows.home)
+                            }}>home</OutlineRoundedButton>
                     }
-                    {currentWindow === MainWindows.graphs && <LabelPurple styleClasses={"h3 p-2 py-0 w-25"}>/trends</LabelPurple>}
+                    {currentWindow === MainWindows.graphs &&
+                        <LabelPurple styleClasses={"h3 p-2 py-0 w-25"}>/trends</LabelPurple>}
                     {currentWindow !== MainWindows.graphs &&
                         <button className="btn w-25 py-0 my-0 pt-1" onClick={() => {
                             goTo(MainWindows.graphs)

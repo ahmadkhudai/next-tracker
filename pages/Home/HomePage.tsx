@@ -16,7 +16,7 @@ import {
     sumAllExpenses
 } from "../api/utils/expense/grouping";
 import {v4 as uuidv4} from "uuid";
-import {isGreaterThanToday} from "../api/utils/date_utils";
+import {addDays, isGreaterThanToday} from "../api/utils/date_utils";
 import {OptionPanelLabels, OptionsPanels} from "../api/component_config/Main/OptionsPanels";
 import AK_SettingsPanel from "../Forms/AK_SettingsPanel";
 import AddExpenseForm from "../add_expense/AddExpenseForm";
@@ -207,7 +207,7 @@ export function HomePage({switchWindow}: Props) {
                 </div>
             }
             {currentlyOpenPanel !== OptionsPanels.AddExpensePanel &&
-                <HomeHeader switchWindow={switchWindow} openPanel={openPanel}/>
+                <HomeHeader settings={settings} quota={{amount:200, endDate:addDays(new Date(),2).toDateString(), startDate:(new Date()).toString()}} switchWindow={switchWindow} openPanel={openPanel}/>
             }
 
 
@@ -233,7 +233,7 @@ export function HomePage({switchWindow}: Props) {
                                 <div className={" ak_max_600px w-100 h-full"}>
 
                                     <div className={"h-auto "}>
-                                        <HomeStats viewMode={viewMode} expenses={currentExpenses}/>
+                                        <HomeStats settings={settings} viewMode={viewMode} expenses={currentExpenses}/>
                                     </div>
                                 </div>
                             }
@@ -281,6 +281,14 @@ export function HomePage({switchWindow}: Props) {
                 }
 
 
+                {currentlyOpenPanel === OptionsPanels.QuotaPanel &&
+                    <Backdrop onClick={(e: any) => closeAllPanels(e)}>
+                        <AK_SettingsPanel handleClose={(e: any) => closeAllPanels(e)} settings={settings}
+                                          modifySettings={modifySettings}/>
+                    </Backdrop>
+                }
+
+
             </div>
             {currentlyOpenPanel !== OptionsPanels.AddExpensePanel &&
                 <HomeFooter
@@ -291,7 +299,7 @@ export function HomePage({switchWindow}: Props) {
                         panel: HomePanels.ExpensesPanel
                     },
                         {panelLabel: HomePanelLabels.Visualize, panel: HomePanels.Visualize},
-                        // {panelLabel: HomePanelLabels.Home, panel: HomePanels.Home}
+                        {panelLabel: HomePanelLabels.Home, panel: HomePanels.Home}
                     ] : []
                     }
                     addButton={

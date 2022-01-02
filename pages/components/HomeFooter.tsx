@@ -44,20 +44,20 @@ export default function HomeFooter(props: Props) {
                         openHomePanelFunc(GraphPanels.grouped)
                     }}>home</PurpleButton>
                 }
+                <div className={"h-100 flex justify-content-start w-100    "} >
 
                 {renderedPanels &&
                     renderedPanels?.map(panel =>
                         //todo remove these loops. they are useless
-                        <div className={"h-100 flex justify-content-start w-100    "} key={panel.panelLabel}>
-                        <OutlineRoundedButton  key={panel.panelLabel} styleClasses="hover:text-purple-600 hover:font-thin text-xl rounded-[10px]  mr-3   border-purple-300 hover:border-2 ak_slow_transition " onClick={() => {
+                         <OutlineRoundedButton  key={panel.panelLabel} styleClasses="hover:text-purple-600 hover:font-thin text-xl rounded-[10px]  md:mr-3 sm:mr-2 sm:p-2   border-purple-300 hover:border-2 ak_slow_transition " onClick={() => {
                             openHomePanelFunc(panel.panel)
                         }}>
-                            <div className={"flex align-items-center justify-content-between w-auto"}>
+                            <div className={"flex align-items-center justify-content-between md:w-auto"}>
                                 {panel.panel===HomePanels.ExpensesPanel &&
                                     <Image   height={"40%"} width={"40%"} src={expensesIcon}/>
                                 }
 
-                                <p className={"text-xl  px-2 "}>{panel.panelLabel}</p>
+                                <p className={"sm:hidden font-light  lg:text-xl  px-2 text-purple-800 "}>{panel.panelLabel}</p>
                                 {panel.panel===HomePanels.Visualize &&
                                     <Image   height={"40%"} width={"40%"} src={graphIcon}/>
                                 }
@@ -67,9 +67,9 @@ export default function HomeFooter(props: Props) {
 
                             </div>
                         </OutlineRoundedButton>
-                        </div>
+
                     )
-                }
+                }  </div>
                 {addButton &&
 
                         //todo only add button will rest here. remove this loop and pass only add button

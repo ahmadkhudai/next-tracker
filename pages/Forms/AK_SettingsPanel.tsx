@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {SettingLabels} from "../../Definitions/Setting";
+import {SettingLabels, SettingNames} from "../../Definitions/Setting";
 import {SettingsObj} from "../../Definitions/SettingsObj";
 import RedButton from "../components/buttons/RedButton";
 import LabelPurple from "../components/labels/LabelPurple";
@@ -58,7 +58,7 @@ export default function AK_SettingsPanel({settings, modifySettings, handleClose}
 
 
                             <label className="col-form-label p-2 w-50 text-start"
-                                   htmlFor={setting.label}>{setting.name}</label>
+                                   htmlFor={setting.label}>{SettingNames[setting.label]}</label>
                             {setting.type === "number" &&
                                 <input type="number" name={setting.label} id={setting.label} value={setting.value}
                                        className="form-control flex-1 w-50"

@@ -10,4 +10,7 @@ export enum HomePanelLabels {
     "ExpensesPanel"="expenses",
     "Visualize"="visualize",
     "Home"="home"
+    // "ExpensesPanel"="expenses",
+    // "Visualize"="visualize",
+    // "Home"="home"
 }
