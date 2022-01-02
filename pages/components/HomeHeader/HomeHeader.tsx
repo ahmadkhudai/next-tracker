@@ -57,7 +57,7 @@ export default function HomeHeader(props: Props) {
                                 Tracker</p>  <OutlineRoundedButton onClick={() => {
                             openPanel(OptionsPanels.QuotaPanel)
                         }}
-                                                                   styleClasses={"sm:px-3 text-center w-auto text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 font-bold text-xl ring ring-purple-900"}>{settings?.maxAcceptableRange.value}</OutlineRoundedButton>
+                                                                   styleClasses={"sm:mx-3 text-center w-auto text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 font-bold text-xl ring ring-purple-900"}>{settings?.maxAcceptableRange.value}</OutlineRoundedButton>
 
                             <OutlineRoundedButton
                                 styleClasses="btn  hover:font-thin  ak_slow_transition  py-0 px-0  hover:bg-purple-700  flex align-items-center justify-between "
