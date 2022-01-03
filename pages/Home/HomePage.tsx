@@ -56,10 +56,7 @@ export function HomePage({switchWindow}: Props) {
     let loadedSettings: SettingsObj = baseSettings;
     const [expenses, setExpenses] = useState(loadedExpenses);
     const [currentExpenses, setCurrentExpenses] = useState([] as Expense[]);
-    //if yes, remove it
-    const [sampleDataExists, setSampleDataExists] = useState(true);
     const [settings, setSettings] = useState(loadedSettings);
-    const [inputForm, setInputForm] = useState(null);
 
     function loadExpenses(): Expense[] {
         let tempExp = JSON.parse(localStorage.getItem("ak_expenses") as string) || dumdumData;
@@ -120,16 +117,16 @@ export function HomePage({switchWindow}: Props) {
         return pattern.test(id);
     }
 
-    function removeSampleData(expenses: Expense[]) {
-        let pattern = /^ak_sample_data/i;
-        if (sampleDataExists) {
-            setSampleDataExists(false);
-            setSuccessMessage("SAMPLE DATA REMOVED!");
-            return expenses.filter(expense => !matchPatter(pattern, expense.id))
-        }
-
-        return expenses;
-    }
+    // function removeSampleData(expenses: Expense[]) {
+    //     let pattern = /^ak_sample_data/i;
+    //     if (sampleDataExists) {
+    //         setSampleDataExists(false);
+    //         setSuccessMessage("SAMPLE DATA REMOVED!");
+    //         return expenses.filter(expense => !matchPatter(pattern, expense.id))
+    //     }
+    //
+    //     return expenses;
+    // }
 
     function deleteExpense(toDelete: Expense) {
 
