@@ -135,7 +135,7 @@ export function HomePage({switchWindow}: Props) {
 
     }
 
-    function closeAllPanels(e: MouseEvent) {
+    function closeAllPanels(e: any) {
         if (e.target === e.currentTarget) {
             setCurrentlyOpenPanel(OptionsPanels.none)
         }
@@ -368,7 +368,10 @@ export function HomePage({switchWindow}: Props) {
                                         <label htmlFor={"download_button"}> <Image  height={40} width={40} src={saveIcon}/>
                                         </label>
 
-                                        <PurpleButton id={"download_button"} onClick={()=>saveExpenses(expenses)}>DOWNLOAD</PurpleButton>
+                                        <PurpleButton id={"download_button"} onClick={(e:any)=> {
+                                            saveExpenses(expenses);
+                                            closeAllPanels(e);
+                                        }}>DOWNLOAD</PurpleButton>
 
                                         <div className={"flex flex-column align-items-center p-2"}>
                                             <label htmlFor="myfile">
@@ -382,6 +385,8 @@ export function HomePage({switchWindow}: Props) {
                                                     loadFromFile(file, modifyExpenses);
                                                     //@ts-ignore
                                                     e.target.value = null;
+
+                                                    closeAllPanels(e);
                                                 }
                                             }}/>
                                         </div>
