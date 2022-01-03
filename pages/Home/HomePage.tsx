@@ -48,8 +48,10 @@ import {loadData, readDataSheet, saveExpenses} from "../../Exellent/main";
 import {fixImportedDate, hasRequiredProps} from "../../Exellent/validator";
 import moment from "moment";
 import FormCenteredDisplay from "../add_expense/_components/FormCenteredDisplay";
-
-
+import saveIcon from '../../assets/save.png';
+import loadIcon from '../../assets/upload.png';
+import updownIcon from '../../assets/updown.png';
+import Image from 'next/image';
 export function HomePage({switchWindow}: Props) {
 
     //data state
@@ -382,38 +384,42 @@ export function HomePage({switchWindow}: Props) {
 
                                 <HomeExpensesView currentExpenses={currentExpenses} settings={settings}
                                                   deleteExpense={deleteExpense}/>
-                                <div className={" w-100 flex align-items-center justify-content-center"}>
-                                   <div className={"w-75 flex  align-items-center justify-content-center mx-0 px-0 flex-column my-3"}>
 
-                                       <FormCenteredDisplay content={"DOWNLOAD"}/>
-
-                                    <PurpleButton onClick={()=>saveExpenses(expenses)}>DOWNLOAD</PurpleButton>
-
-
-                                       <div className={"flex flex-column align-items-center p-2"}>
-                                           <label htmlFor="myfile">
-
-                                               <FormCenteredDisplay content={"UPLOAD"}/>
-
-
-                                           </label>
-                                           <input className={"form-control form-control-file"} type="file" id="myfile" name="myfile" onChange={function (e) {
-                                               if(e.target.files){
-                                                   let file = e.target.files[0];
-                                                   loadFromFile(file, modifyExpenses);
-                                                   //@ts-ignore
-                                                   e.target.value = null;
-                                               }
-                                           }}/>
-                                       </div>
-
-
-                                   </div>
-                                </div>
                             </>
 
                         }
                     </div>
+                        {currentlyOpenPanel === OptionsPanels.DownloadUploadForm &&
+                            <Backdrop onClick={(e:any)=>{closeAllPanels(e)}}>
+                                <div className={"ak_max_600px ak_card w-100 flex align-items-center justify-content-center"}>
+                                    <div className={"w-75 flex  align-items-center justify-content-center mx-0 px-0 flex-column my-3"}>
+
+                                        <label htmlFor={"download_button"}> <Image  height={40} width={40} src={saveIcon}/>
+                                        </label>
+
+                                        <PurpleButton id={"download_button"} onClick={()=>saveExpenses(expenses)}>DOWNLOAD</PurpleButton>
+
+                                        <div className={"flex flex-column align-items-center p-2"}>
+                                            <label htmlFor="myfile">
+
+                                                <Image height={40} width={40} src={loadIcon}/>
+
+                                            </label>
+                                            <input className={"form-control form-control-file"} type="file" id="myfile" name="myfile" onChange={function (e) {
+                                                if(e.target.files){
+                                                    let file = e.target.files[0];
+                                                    loadFromFile(file, modifyExpenses);
+                                                    //@ts-ignore
+                                                    e.target.value = null;
+                                                }
+                                            }}/>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </Backdrop>
+                        }
 
                     </div>
                 }
