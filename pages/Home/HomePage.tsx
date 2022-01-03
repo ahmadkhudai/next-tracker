@@ -211,33 +211,6 @@ export function HomePage({switchWindow}: Props) {
 
 
 
-//import it
-
-//inside export class
-
-    // let arrayBuffer:any;
-    // let file:File;
-    // function incomingfile(event:any)
-    // {
-    //     file= event.target.files[0];
-    // }
-    //
-    // function Upload() {
-    //     let fileReader = new FileReader();
-    //     fileReader.onload = (e) => {
-    //         arrayBuffer = fileReader.result;
-    //         var data = new Uint8Array(arrayBuffer);
-    //         var arr = new Array();
-    //         for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-    //         var bstr = arr.join("");
-    //         var workbook = XLSX.read(bstr, {type:"binary"});
-    //         var first_sheet_name = workbook.SheetNames[0];
-    //         var worksheet = workbook.Sheets[first_sheet_name];
-    //         console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true}));
-    //     }
-    //     fileReader.readAsArrayBuffer(file);
-    // }
-
     function buildDescription(name: string, price: number, location?: any) {
         return price + " spent on " + name + " from "+ location?location:"";
     }
@@ -254,8 +227,6 @@ export function HomePage({switchWindow}: Props) {
                 continue;
             }
 
-            //now repairing
-            // expense.date = fixImportedDate(expense.date).toString();
 
             if(!expense.id){
                 expense.id = uuidv4();
@@ -405,7 +376,7 @@ export function HomePage({switchWindow}: Props) {
                                                 <Image height={40} width={40} src={loadIcon}/>
 
                                             </label>
-                                            <input className={"form-control form-control-file"} type="file" id="myfile" name="myfile" onChange={function (e) {
+                                            <input accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" className={"form-control form-control-file"} type="file" id="myfile" name="myfile" onChange={function (e) {
                                                 if(e.target.files){
                                                     let file = e.target.files[0];
                                                     loadFromFile(file, modifyExpenses);
