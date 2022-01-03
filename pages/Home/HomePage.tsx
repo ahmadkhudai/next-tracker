@@ -34,24 +34,21 @@ import {repairExpenseAmounts} from "../api/Data/data_repair";
 import HomeStats from "./_components/HomeStats";
 import {dumdumData} from "../api/dummy_data/data";
 import {nFormatter, removeArrIndexes} from "../api/utils/num_utils";
+//@ts-ignore
+import * as XLSX from 'xlsx';
+import PurpleButton from "../components/buttons/PurpleButton";
+import {readDataSheet, saveExpenses} from "../../Exellent/main";
+import {hasRequiredProps} from "../../Exellent/validator";
+import moment from "moment";
+import saveIcon from '../../assets/save.png';
+import loadIcon from '../../assets/upload.png';
+import Image from 'next/image';
 
 type Props = {
     switchWindow: any;
 };
 type State = {};
-//@ts-ignore
-import * as XLSX from 'xlsx';
-import { read, write, utils } from 'xlsx'
-import exportFromJSON from "export-from-json"
-import PurpleButton from "../components/buttons/PurpleButton";
-import {loadData, readDataSheet, saveExpenses} from "../../Exellent/main";
-import {fixImportedDate, hasRequiredProps} from "../../Exellent/validator";
-import moment from "moment";
-import FormCenteredDisplay from "../add_expense/_components/FormCenteredDisplay";
-import saveIcon from '../../assets/save.png';
-import loadIcon from '../../assets/upload.png';
-import updownIcon from '../../assets/updown.png';
-import Image from 'next/image';
+
 export function HomePage({switchWindow}: Props) {
 
     //data state
@@ -259,7 +256,7 @@ export function HomePage({switchWindow}: Props) {
         let ids = new Set(oldExpenses.map(d => d.id));
         return [...oldExpenses, ...newExpenses.filter(d => !ids.has(d.id))];
     }
-    function loadFromFile(file:any, updateExpenses:any){
+    function loadFromFile(file:any, updateExpenses:any, expenses:Expense[]){
        // let loadedExp = loadData(file);
        // console.log(loadedExp);
         let fileReader = new FileReader();
@@ -272,24 +269,37 @@ export function HomePage({switchWindow}: Props) {
                 let data = res?.target?.result;
                 let readDataSheet1 =  readDataSheet(data, {type:"string",cellDates:true, cellNF: false, cellText:false});
                 console.log("FROM FILE ", readDataSheet1);
-                //@ts-ignore
-                updateExpenses(
-                    mergeExpenses(
-                        validate(readDataSheet1)
-                        , expenses
-                    ));
 
+                let current = expenses.length;
+                let mergedExpenses = mergeExpenses(validate(readDataSheet1), expenses);
+            let newlyAdded = mergedExpenses.length - current;
+                updateExpenses(mergedExpenses);
+
+                // if(newlyAdded>0){
+                    setSuccessMessage("ADDED "+newlyAdded+" new expenses!");
+                // }else{
+                //
+                // }
 
             // }
 
         }
     }
 
+    const [successMessage, setSuccessMessage] = useState(null as any);
+
     return (
 
         <div className={"h-100 flex flex-column items-center "}>
 
 
+            {successMessage &&
+                <Backdrop onClick={(e:any)=>setSuccessMessage(null)}>
+                    <div className={"bg-white/90 shadow-sm p-5 rounded-xl"}>
+                        <h1 className={"text-3xl text-green-600 font-thin"}>{successMessage}</h1>
+                    </div>
+                </Backdrop>
+            }
 
             {/*<label htmlFor={"file_input"}>YO*/}
             {/*</label>*/}
@@ -370,6 +380,7 @@ export function HomePage({switchWindow}: Props) {
 
                                         <PurpleButton id={"download_button"} onClick={(e:any)=> {
                                             saveExpenses(expenses);
+                                            setSuccessMessage("Downloaded all!");
                                             closeAllPanels(e);
                                         }}>DOWNLOAD</PurpleButton>
 
@@ -382,7 +393,7 @@ export function HomePage({switchWindow}: Props) {
                                             <input accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" className={"form-control form-control-file"} type="file" id="myfile" name="myfile" onChange={function (e) {
                                                 if(e.target.files){
                                                     let file = e.target.files[0];
-                                                    loadFromFile(file, modifyExpenses);
+                                                    loadFromFile(file, modifyExpenses, expenses);
                                                     //@ts-ignore
                                                     e.target.value = null;
 

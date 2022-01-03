@@ -3,6 +3,7 @@ export enum OptionsPanels {
     "AddExpensePanel"="AddExpensePanel",
     "QuotaPanel"="QuotaPanel",
     "DownloadUploadForm"="DownloadUploadForm",
+    "success"="success",
     "err"="err",
     "none"="none"
 }

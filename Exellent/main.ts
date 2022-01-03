@@ -10,14 +10,8 @@ function downloadExpenses(expenses: Expense[]) {
     let data = expenses
     const monthlyData = groupByMonth(getSortedExpenses(expenses), false);
     let fileName = ''
-    console.log(monthlyData);
-    for (let date of monthlyData) {
-        console.log(Object.keys(date));
-    }
-
     monthlyData.forEach(month => {
         fileName = Object.keys(month)[0];
-        console.log(fileName);
         data = getMergedArray(month[fileName]);
         storeData(data, fileName);
     })
