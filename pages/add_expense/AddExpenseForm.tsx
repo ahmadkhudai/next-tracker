@@ -7,9 +7,11 @@ import LabelPurple from "../components/labels/LabelPurple";
 import RedButton from "../components/buttons/RedButton";
 import NewExpenseContainer from "../components/modals/currentExpense/NewExpenseContainer";
 import NewExpenseView from "./_components/NewExpenseView";
-import LargeFormDisplay from "./_components/FormCenteredDisplay";
+import LargeFormDisplay, {FormCenteredDisplay} from "./_components/FormCenteredDisplay";
 import DateTimeInput from "./_components/DateTimeInput";
 import Non_DateInputs from "./_components/Non_DateInputs";
+import moment from "moment";
+import OutlineRoundedButton from "../components/buttons/OutlineRoundedButton";
 
 //
 // let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
@@ -26,6 +28,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
     const [currentlySelectedDate, setCurrentlySelectedDate] = useState(new Date());
     const [expenseName, setExpenseName] = useState("chai");
+    const [defaultDate, setDefaultDate] = useState(true);
     const defaultExpense = {
         name: "chai",
         price: 30,
@@ -160,8 +163,30 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
 
 
                         <div className={"py-3"}>
-                            <DateTimeInput newExpense={{...newExpense, id: "1", date: newExpense.date.toString()}}
-                                           handleFieldChange={handleFieldChange}/>
+                            {defaultDate &&
+                                <>
+                                    <FormCenteredDisplay content={"today - "+moment(newExpense.date).format("hh:mm a")}/>
+                                     </>
+                            }
+                            {!defaultDate &&
+                                <DateTimeInput newExpense={{...newExpense, id: "1", date: newExpense.date.toString()}}
+                                               handleFieldChange={handleFieldChange}/>
+                            }
+
+                            <div className={"flex justify-content-center py-3 w-100"}>
+                                <OutlineRoundedButton styleClasses={"border-l-purple-500 hover:border-purple-500 text-purple-500 hover:text-purple-700 hover:text-xl border-b  border-3 ak_slow_transition"} onClick={()=> {
+                                    if(defaultDate){
+                                        setDefaultDate(false);
+                                    }else{
+                                        //if it's not default date, clicking this button should reset the date
+                                        handleFieldChange("date", (new Date()).toString())
+                                        setDefaultDate(true);
+                                    }
+
+                                }}>{defaultDate?"change date & time":"current date & time"}</OutlineRoundedButton>
+
+                            </div>
+                           {/*<OutlineRoundedButton </OutlineRoundedButton>*/}
 
 
                             <div className={"w-100 flex justify-content-center py-3"}>
