@@ -10,7 +10,7 @@ function randomExpense(): Expense {
     let price = randomIntFromInterval(30, 200);
     let  name=getRandomItem(itemsList);
     let location = getRandomItem(locations);
-    return {...{id: uuidv4(), price:price, description: price + " spent on "+name+" from "+location,
+    return {...{id: ("ak_sample_data"+uuidv4()), price:price, description: price + " spent on "+name+" from "+location,
             name:name,location:location, date: (addDays(new Date(),randomIntFromInterval(-30,30))).toString()}};
 }
 

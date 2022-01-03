@@ -56,12 +56,14 @@ export function HomePage({switchWindow}: Props) {
     let loadedSettings: SettingsObj = baseSettings;
     const [expenses, setExpenses] = useState(loadedExpenses);
     const [currentExpenses, setCurrentExpenses] = useState([] as Expense[]);
+    //if yes, remove it
+    const [sampleDataExists, setSampleDataExists] = useState(true);
     const [settings, setSettings] = useState(loadedSettings);
     const [inputForm, setInputForm] = useState(null);
 
-    function loadExpenses():Expense[] {
-       let tempExp = JSON.parse(localStorage.getItem("ak_expenses") as string) || dumdumData;
-       return  repairExpenseAmounts([...tempExp]);
+    function loadExpenses(): Expense[] {
+        let tempExp = JSON.parse(localStorage.getItem("ak_expenses") as string) || dumdumData;
+        return repairExpenseAmounts([...tempExp]);
     }
 
     function loadSettings() {
@@ -101,8 +103,32 @@ export function HomePage({switchWindow}: Props) {
             return;
         }
         tempObj.date = tempObj.date.toString();
-        let newExpenseList = [...expenses, tempObj];
-        modifyExpenses(newExpenseList);
+        let newExpenseList = expenses;
+        const pattern = /^ak_sample_data/i;
+        if (matchPatter(pattern, expenses[0].id)) {
+            newExpenseList = [tempObj];
+            setSuccessMessage("SAMPLE DATA REMOVED!");
+
+        } else {
+            newExpenseList = [...expenses, tempObj];
+        }
+        modifyExpenses(newExpenseList)
+
+    }
+
+    function matchPatter(pattern: any, id: string) {
+        return pattern.test(id);
+    }
+
+    function removeSampleData(expenses: Expense[]) {
+        let pattern = /^ak_sample_data/i;
+        if (sampleDataExists) {
+            setSampleDataExists(false);
+            setSuccessMessage("SAMPLE DATA REMOVED!");
+            return expenses.filter(expense => !matchPatter(pattern, expense.id))
+        }
+
+        return expenses;
     }
 
     function deleteExpense(toDelete: Expense) {
@@ -205,45 +231,42 @@ export function HomePage({switchWindow}: Props) {
     }
 
 
-
-
-
     function buildDescription(name: string, price: number, location?: any) {
-        return price + " spent on " + name + " from "+ location?location:"";
+        return price + " spent on " + name + " from " + location ? location : "";
     }
 
-    function repairExpenses(validExpenses:Expense[]) {
-        let repairedExpenses:any = [];
-        let removeIndexes:number[] = [];
+    function repairExpenses(validExpenses: Expense[]) {
+        let repairedExpenses: any = [];
+        let removeIndexes: number[] = [];
         validExpenses = repairExpenseAmounts(validExpenses);
 
-        for (let i = 0; i < validExpenses.length; i++){
+        for (let i = 0; i < validExpenses.length; i++) {
             const expense = validExpenses[i];
-            if(!moment(expense.date).isValid()){
+            if (!moment(expense.date).isValid()) {
                 removeIndexes.push(i);
                 continue;
             }
 
 
-            if(!expense.id){
+            if (!expense.id) {
                 expense.id = uuidv4();
             }
 
-            if(!expense.description){
+            if (!expense.description) {
                 expense.description = buildDescription(expense.name, expense.price, expense.location);
             }
             repairedExpenses.push(expense);
         }
 
 
-        return removeArrIndexes(repairedExpenses,removeIndexes);
+        return removeArrIndexes(repairedExpenses, removeIndexes);
     }
 
-    function validate(expenses:any){
-        let validatedExpenses:Expense[] = [];
+    function validate(expenses: any) {
+        let validatedExpenses: Expense[] = [];
 
-        expenses.forEach((expense:any)=>{
-            if(hasRequiredProps(RequiredFields, expense)){
+        expenses.forEach((expense: any) => {
+            if (hasRequiredProps(RequiredFields, expense)) {
                 validatedExpenses.push(expense);
             }
         })
@@ -252,34 +275,35 @@ export function HomePage({switchWindow}: Props) {
 
     }
 
-    function mergeExpenses(newExpenses:any[], oldExpenses:Expense[]){
+    function mergeExpenses(newExpenses: any[], oldExpenses: Expense[]) {
         let ids = new Set(oldExpenses.map(d => d.id));
         return [...oldExpenses, ...newExpenses.filter(d => !ids.has(d.id))];
     }
-    function loadFromFile(file:any, updateExpenses:any, expenses:Expense[]){
-       // let loadedExp = loadData(file);
-       // console.log(loadedExp);
+
+    function loadFromFile(file: any, updateExpenses: any, expenses: Expense[]) {
+        // let loadedExp = loadData(file);
+        // console.log(loadedExp);
         let fileReader = new FileReader();
 
 
         // fileReader.readAsBinaryString(file);
         fileReader.readAsText(file);
-        fileReader.onload = (res) =>{
+        fileReader.onload = (res) => {
             // if(res?.target?.readyState===2){
-                let data = res?.target?.result;
-                let readDataSheet1 =  readDataSheet(data, {type:"string",cellDates:true, cellNF: false, cellText:false});
-                console.log("FROM FILE ", readDataSheet1);
+            let data = res?.target?.result;
+            let readDataSheet1 = readDataSheet(data, {type: "string", cellDates: true, cellNF: false, cellText: false});
+            console.log("FROM FILE ", readDataSheet1);
 
-                let current = expenses.length;
-                let mergedExpenses = mergeExpenses(validate(readDataSheet1), expenses);
+            let current = expenses.length;
+            let mergedExpenses = mergeExpenses(validate(readDataSheet1), expenses);
             let newlyAdded = mergedExpenses.length - current;
-                updateExpenses(mergedExpenses);
+            updateExpenses(mergedExpenses);
 
-                // if(newlyAdded>0){
-                    setSuccessMessage("ADDED "+newlyAdded+" new expenses!");
-                // }else{
-                //
-                // }
+            // if(newlyAdded>0){
+            setSuccessMessage("ADDED " + newlyAdded + " new expenses!");
+            // }else{
+            //
+            // }
 
             // }
 
@@ -294,7 +318,7 @@ export function HomePage({switchWindow}: Props) {
 
 
             {successMessage &&
-                <Backdrop onClick={(e:any)=>setSuccessMessage(null)}>
+                <Backdrop onClick={(e: any) => setSuccessMessage(null)}>
                     <div className={"bg-white/90 shadow-sm p-5 rounded-xl"}>
                         <h1 className={"text-3xl text-green-600 font-thin"}>{successMessage}</h1>
                     </div>
@@ -314,7 +338,11 @@ export function HomePage({switchWindow}: Props) {
                 </div>
             }
             {currentlyOpenPanel !== OptionsPanels.AddExpensePanel &&
-                <HomeHeader settings={settings} quota={{amount:200, endDate:addDays(new Date(),2).toDateString(), startDate:(new Date()).toString()}} switchWindow={switchWindow} openPanel={openPanel}/>
+                <HomeHeader settings={settings} quota={{
+                    amount: 200,
+                    endDate: addDays(new Date(), 2).toDateString(),
+                    startDate: (new Date()).toString()
+                }} switchWindow={switchWindow} openPanel={openPanel}/>
             }
 
 
@@ -329,8 +357,10 @@ export function HomePage({switchWindow}: Props) {
                         <div className={"py-2   w-100 h-100"}>
                             <div>
 
-                                <h3 className={"text-teal-500 text-center text-xl font-monospace w-auto "}>{nFormatter(currentExpenses.reduce(sumAllExpenses,0))} spent {viewMode !== ViewModes.today ? "this" :""} <span
-                                    className={"text-2xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 "}>{viewMode}</span></h3>
+                                <h3 className={"text-teal-500 text-center text-xl font-monospace w-auto "}>{nFormatter(currentExpenses.reduce(sumAllExpenses, 0))} spent {viewMode !== ViewModes.today ? "this " : ""}
+                                    <span
+                                        className={"text-2xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-600 "}>{viewMode}</span>
+                                </h3>
                             </div>
                             <div className={"w-100 ak_max_600px flex align-items-center justify-content-center  mt-1"}>
                                 <ViewModeButtons currentViewMode={viewMode} updateViewMode={updateViewMode}/>
@@ -357,28 +387,31 @@ export function HomePage({switchWindow}: Props) {
                             }
 
 
-
-                        {(currentHomePanel === HomePanels.ExpensesPanel) &&
-                            <>
-
+                            {(currentHomePanel === HomePanels.ExpensesPanel) &&
+                                <>
 
 
-                                <HomeExpensesView currentExpenses={currentExpenses} settings={settings}
-                                                  deleteExpense={deleteExpense}/>
+                                    <HomeExpensesView currentExpenses={currentExpenses} settings={settings}
+                                                      deleteExpense={deleteExpense}/>
 
-                            </>
+                                </>
 
-                        }
-                    </div>
+                            }
+                        </div>
                         {currentlyOpenPanel === OptionsPanels.DownloadUploadForm &&
-                            <Backdrop onClick={(e:any)=>{closeAllPanels(e)}}>
-                                <div className={"ak_max_600px ak_card w-100 flex align-items-center justify-content-center"}>
-                                    <div className={"w-75 flex  align-items-center justify-content-center mx-0 px-0 flex-column my-3"}>
+                            <Backdrop onClick={(e: any) => {
+                                closeAllPanels(e)
+                            }}>
+                                <div
+                                    className={"ak_max_600px ak_card w-100 flex align-items-center justify-content-center"}>
+                                    <div
+                                        className={"w-75 flex  align-items-center justify-content-center mx-0 px-0 flex-column my-3"}>
 
-                                        <label htmlFor={"download_button"}> <Image  height={40} width={40} src={saveIcon}/>
+                                        <label htmlFor={"download_button"}> <Image height={40} width={40}
+                                                                                   src={saveIcon}/>
                                         </label>
 
-                                        <PurpleButton id={"download_button"} onClick={(e:any)=> {
+                                        <PurpleButton id={"download_button"} onClick={(e: any) => {
                                             saveExpenses(expenses);
                                             setSuccessMessage("Downloaded all!");
                                             closeAllPanels(e);
@@ -390,8 +423,11 @@ export function HomePage({switchWindow}: Props) {
                                                 <Image height={40} width={40} src={loadIcon}/>
 
                                             </label>
-                                            <input accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" className={"form-control form-control-file"} type="file" id="myfile" name="myfile" onChange={function (e) {
-                                                if(e.target.files){
+                                            <input
+                                                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                                className={"form-control form-control-file"} type="file" id="myfile"
+                                                name="myfile" onChange={function (e) {
+                                                if (e.target.files) {
                                                     let file = e.target.files[0];
                                                     loadFromFile(file, modifyExpenses, expenses);
                                                     //@ts-ignore

@@ -15,6 +15,7 @@ import Non_DateInputs from "./_components/Non_DateInputs";
 // let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
 
 type Props = {
+
     addNewExpense: any;
     handleClose: any;
 };
