@@ -1,7 +1,7 @@
 // @flow
 import React, {useEffect, useState} from 'react';
 import {SettingsObj} from "../../Definitions/SettingsObj";
-import {Expense} from "../../Definitions/Expense";
+import {Expense, RequiredFields} from "../../Definitions/Expense";
 import HomeHeader from "../components/HomeHeader/HomeHeader";
 import {
     baseSettings,
@@ -33,12 +33,21 @@ import HomeExpensesView from "./_components/compound_components/HomeExpensesView
 import {repairExpenseAmounts} from "../api/Data/data_repair";
 import HomeStats from "./_components/HomeStats";
 import {dumdumData} from "../api/dummy_data/data";
-import {nFormatter} from "../api/utils/num_utils";
+import {nFormatter, removeArrIndexes} from "../api/utils/num_utils";
 
 type Props = {
     switchWindow: any;
 };
 type State = {};
+//@ts-ignore
+import * as XLSX from 'xlsx';
+import { read, write, utils } from 'xlsx'
+import exportFromJSON from "export-from-json"
+import PurpleButton from "../components/buttons/PurpleButton";
+import {loadData, readDataSheet, saveExpenses} from "../../Exellent/main";
+import {fixImportedDate, hasRequiredProps} from "../../Exellent/validator";
+import moment from "moment";
+import FormCenteredDisplay from "../add_expense/_components/FormCenteredDisplay";
 
 
 export function HomePage({switchWindow}: Props) {
@@ -49,6 +58,7 @@ export function HomePage({switchWindow}: Props) {
     const [expenses, setExpenses] = useState(loadedExpenses);
     const [currentExpenses, setCurrentExpenses] = useState([] as Expense[]);
     const [settings, setSettings] = useState(loadedSettings);
+    const [inputForm, setInputForm] = useState(null);
 
     function loadExpenses():Expense[] {
        let tempExp = JSON.parse(localStorage.getItem("ak_expenses") as string) || dumdumData;
@@ -195,9 +205,123 @@ export function HomePage({switchWindow}: Props) {
         return "Day"
     }
 
+
+
+
+
+//import it
+
+//inside export class
+
+    // let arrayBuffer:any;
+    // let file:File;
+    // function incomingfile(event:any)
+    // {
+    //     file= event.target.files[0];
+    // }
+    //
+    // function Upload() {
+    //     let fileReader = new FileReader();
+    //     fileReader.onload = (e) => {
+    //         arrayBuffer = fileReader.result;
+    //         var data = new Uint8Array(arrayBuffer);
+    //         var arr = new Array();
+    //         for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+    //         var bstr = arr.join("");
+    //         var workbook = XLSX.read(bstr, {type:"binary"});
+    //         var first_sheet_name = workbook.SheetNames[0];
+    //         var worksheet = workbook.Sheets[first_sheet_name];
+    //         console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true}));
+    //     }
+    //     fileReader.readAsArrayBuffer(file);
+    // }
+
+    function buildDescription(name: string, price: number, location?: any) {
+        return price + " spent on " + name + " from "+ location?location:"";
+    }
+
+    function repairExpenses(validExpenses:Expense[]) {
+        let repairedExpenses:any = [];
+        let removeIndexes:number[] = [];
+        validExpenses = repairExpenseAmounts(validExpenses);
+
+        for (let i = 0; i < validExpenses.length; i++){
+            const expense = validExpenses[i];
+            if(!moment(expense.date).isValid()){
+                removeIndexes.push(i);
+                continue;
+            }
+
+            //now repairing
+            // expense.date = fixImportedDate(expense.date).toString();
+
+            if(!expense.id){
+                expense.id = uuidv4();
+            }
+
+            if(!expense.description){
+                expense.description = buildDescription(expense.name, expense.price, expense.location);
+            }
+            repairedExpenses.push(expense);
+        }
+
+
+        return removeArrIndexes(repairedExpenses,removeIndexes);
+    }
+
+    function validate(expenses:any){
+        let validatedExpenses:Expense[] = [];
+
+        expenses.forEach((expense:any)=>{
+            if(hasRequiredProps(RequiredFields, expense)){
+                validatedExpenses.push(expense);
+            }
+        })
+
+        return repairExpenses(validatedExpenses);
+
+    }
+
+    function mergeExpenses(newExpenses:any[], oldExpenses:Expense[]){
+        let ids = new Set(oldExpenses.map(d => d.id));
+        return [...oldExpenses, ...newExpenses.filter(d => !ids.has(d.id))];
+    }
+    function loadFromFile(file:any, updateExpenses:any){
+       // let loadedExp = loadData(file);
+       // console.log(loadedExp);
+        let fileReader = new FileReader();
+
+
+        // fileReader.readAsBinaryString(file);
+        fileReader.readAsText(file);
+        fileReader.onload = (res) =>{
+            // if(res?.target?.readyState===2){
+                let data = res?.target?.result;
+                let readDataSheet1 =  readDataSheet(data, {type:"string",cellDates:true, cellNF: false, cellText:false});
+                console.log("FROM FILE ", readDataSheet1);
+                //@ts-ignore
+                updateExpenses(
+                    mergeExpenses(
+                        validate(readDataSheet1)
+                        , expenses
+                    ));
+
+
+            // }
+
+        }
+    }
+
     return (
 
         <div className={"h-100 flex flex-column items-center "}>
+
+
+
+            {/*<label htmlFor={"file_input"}>YO*/}
+            {/*</label>*/}
+            {/*<input id={"file_input"} type={"file"} />*/}
+            {/*<PurpleButton onClick={()=>readFile()}>DOWNLOAD</PurpleButton>*/}
             {currentlyOpenPanel === OptionsPanels.AddExpensePanel &&
                 <div className={" w-100 flex items-center justify-center flex-column px-3 h-100"}>
 
@@ -253,8 +377,39 @@ export function HomePage({switchWindow}: Props) {
 
                         {(currentHomePanel === HomePanels.ExpensesPanel) &&
                             <>
+
+
+
                                 <HomeExpensesView currentExpenses={currentExpenses} settings={settings}
                                                   deleteExpense={deleteExpense}/>
+                                <div className={" w-100 flex align-items-center justify-content-center"}>
+                                   <div className={"w-75 flex  align-items-center justify-content-center mx-0 px-0 flex-column my-3"}>
+
+                                       <FormCenteredDisplay content={"DOWNLOAD"}/>
+
+                                    <PurpleButton onClick={()=>saveExpenses(expenses)}>DOWNLOAD</PurpleButton>
+
+
+                                       <div className={"flex flex-column align-items-center p-2"}>
+                                           <label htmlFor="myfile">
+
+                                               <FormCenteredDisplay content={"UPLOAD"}/>
+
+
+                                           </label>
+                                           <input className={"form-control form-control-file"} type="file" id="myfile" name="myfile" onChange={function (e) {
+                                               if(e.target.files){
+                                                   let file = e.target.files[0];
+                                                   loadFromFile(file, modifyExpenses);
+                                                   //@ts-ignore
+                                                   e.target.value = null;
+                                               }
+                                           }}/>
+                                       </div>
+
+
+                                   </div>
+                                </div>
                             </>
 
                         }

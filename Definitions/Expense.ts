@@ -15,3 +15,6 @@ export enum ExpenseFields {
     "location"="location",
     "date"="date"
 }
+
+export const RequiredFields = [ExpenseFields.name, ExpenseFields.price,ExpenseFields.date];
+// ExpenseFields.

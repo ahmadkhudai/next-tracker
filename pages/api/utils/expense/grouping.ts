@@ -200,7 +200,7 @@ export function getRenderableCurrentWeeksExpenses(groupedExpenses:GroupedExpense
         return [];
     }
 }
-function groupByMonth(groupedExpenses: GroupedExpenses):GroupedExpenses[] {
+export function groupByMonth(groupedExpenses: GroupedExpenses, simpleDate=true):GroupedExpenses[] {
     const moment = require('moment');
 
     let tempMonthWiseExpenses:any = {};
@@ -208,11 +208,12 @@ function groupByMonth(groupedExpenses: GroupedExpenses):GroupedExpenses[] {
 
 Object.entries(groupedExpenses).forEach(([date,expense])=>{
 
-    if(!tempMonthWiseExpenses[moment(date).month()]) {
-        tempMonthWiseExpenses[moment(date).month()] = 0
-        tempMonthWiseExpenses[moment(date).month()] = [];
+    let month = simpleDate?moment(date).month():moment(date).format("MM-YYYY");
+    if(!tempMonthWiseExpenses[month]) {
+        tempMonthWiseExpenses[month] = 0
+        tempMonthWiseExpenses[month] = [];
     }
-    tempMonthWiseExpenses[moment(date).month()].push(expense);
+    tempMonthWiseExpenses[month].push(expense);
 
 })
 
