@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {useEffect, useRef, useState} from 'react';
+import {RefObject, useEffect, useRef, useState} from 'react';
 import PurpleButton from "../components/buttons/PurpleButton";
 import TealButton from "../components/buttons/TealButton";
 import LabelPurple from "../components/labels/LabelPurple";
@@ -88,6 +88,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
         // scrollToTop();
     }
 
+    const doneButtonRef:RefObject<any> = useRef();
     const myRef = useRef(null)
 
     //@ts-ignore
@@ -98,6 +99,9 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
         setShowCurrentExpense(!showCurrentExpense);
     }
 
+    // function doneDunadun(){
+    //     doneButtonRef.current.focus;
+    // }
 
 
     return (
@@ -157,7 +161,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                     <div id="expense_form" className="pt-3 ">
 
                        <div className={"py-3"}>
-                           <Non_DateInputs newExpense={{...newExpense, id: "1", date: newExpense.date.toString()}} handleFieldChange={handleFieldChange}/>
+                           <Non_DateInputs doneButtonRef={doneButtonRef} newExpense={{...newExpense, id: "1", date: newExpense.date.toString()}} handleFieldChange={handleFieldChange}/>
                        </div>
 
 
@@ -189,14 +193,17 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                            {/*<OutlineRoundedButton </OutlineRoundedButton>*/}
 
 
-                            <div className={"w-100 flex justify-content-center py-3"}>
-                                <TealButton
-                                    styleClasses={"ak_max_600mx w-75   text-white text-xl  rounded-full"}
-                                    text={"done!"}
+                            <div className={"w-100 flex justify-content-center py-3"} >
+                                <label className={"w-100 flex justify-content-center"} ref={doneButtonRef}>
+                                    <TealButton
+                                        styleClasses={"ak_max_600mx w-75   text-white text-xl  rounded-full"}
+                                        text={"done!"}
 
-                                    onClick={() => handleAddExpense()}
+                                        onClick={() => handleAddExpense()}
 
-                                />
+                                    />
+                                </label>
+
                             </div>
 
 

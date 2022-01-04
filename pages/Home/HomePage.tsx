@@ -57,6 +57,7 @@ export function HomePage({switchWindow}: Props) {
     const [expenses, setExpenses] = useState(loadedExpenses);
     const [currentExpenses, setCurrentExpenses] = useState([] as Expense[]);
     const [settings, setSettings] = useState(loadedSettings);
+    const [sampleDataExists, setSampleDataExists] = useState(true);
 
     function loadExpenses(): Expense[] {
         let tempExp = JSON.parse(localStorage.getItem("ak_expenses") as string) || dumdumData;
@@ -100,15 +101,13 @@ export function HomePage({switchWindow}: Props) {
             return;
         }
         tempObj.date = tempObj.date.toString();
-        let newExpenseList = expenses;
-        const pattern = /^ak_sample_data/i;
-        if (matchPatter(pattern, expenses[0].id)) {
-            newExpenseList = [tempObj];
-            setSuccessMessage("SAMPLE DATA REMOVED!");
+        let  newExpenseList = [...expenses, tempObj];
 
-        } else {
-            newExpenseList = [...expenses, tempObj];
+        if(sampleDataExists){
+            setSampleDataExists(false);
+            newExpenseList = removeSampleData([...expenses, tempObj])
         }
+
         modifyExpenses(newExpenseList)
 
     }
@@ -117,16 +116,15 @@ export function HomePage({switchWindow}: Props) {
         return pattern.test(id);
     }
 
-    // function removeSampleData(expenses: Expense[]) {
-    //     let pattern = /^ak_sample_data/i;
-    //     if (sampleDataExists) {
-    //         setSampleDataExists(false);
-    //         setSuccessMessage("SAMPLE DATA REMOVED!");
-    //         return expenses.filter(expense => !matchPatter(pattern, expense.id))
-    //     }
-    //
-    //     return expenses;
-    // }
+    function removeSampleData(expenses: Expense[]) {
+        let pattern = /^ak_sample_data/i;
+        let filteredExpenses = [];
+            filteredExpenses =  expenses.filter(expense => !matchPatter(pattern, expense.id))
+        if(filteredExpenses.length<expenses.length){
+            setSuccessMessage("SAMPLE DATA REMOVED!");
+        }
+        return filteredExpenses;
+    }
 
     function deleteExpense(toDelete: Expense) {
 
@@ -292,15 +290,16 @@ export function HomePage({switchWindow}: Props) {
             console.log("FROM FILE ", readDataSheet1);
 
             let current = expenses.length;
-            let mergedExpenses = mergeExpenses(validate(readDataSheet1), expenses);
+            let mergedExpenses = mergeExpenses(validate(readDataSheet1),removeSampleData(expenses));
             let newlyAdded = mergedExpenses.length - current;
             updateExpenses(mergedExpenses);
 
-            // if(newlyAdded>0){
+            if(newlyAdded>=0){
             setSuccessMessage("ADDED " + newlyAdded + " new expenses!");
-            // }else{
-            //
-            // }
+            }else{
+            setSuccessMessage("Removed sample data. And added "+mergedExpenses.length+" new expenses.")
+
+            }
 
             // }
 
