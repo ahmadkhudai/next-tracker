@@ -415,26 +415,26 @@ export function HomePage({switchWindow}: Props) {
                                             let script:any = document.createElement('script');
                                             // script.src = 'js/myScript.js';
 
-                                            const win:any = window.open(
-                                                document.URL,
-                                                "_blank");
-                                            win.onload = function(){
-                                                // saveExpenses(expenses);
-                                                // win.close();
-                                            };
-                                            // win.document.head.appendChild(script);
-                                            win.onload = ()=>{
-                                                saveExpenses(expenses);
-                                                const timer = setInterval(() => {
-                                                    win.close();
-                                                    if (win.closed) {
-                                                        clearInterval(timer);
-                                                        setSuccessMessage("Downloaded all!");
-                                                    }
-                                                }, 500);
-                                            }
+                                            // const win:any = window.open(
+                                            //     document.URL,
+                                            //     "_blank");
+                                            // win.onload = function(){
+                                            //     // saveExpenses(expenses);
+                                            //     // win.close();
+                                            // };
+                                            // // win.document.head.appendChild(script);
+                                            // win.onload = ()=>{
+                                            //     saveExpenses(expenses);
+                                            //     const timer = setInterval(() => {
+                                            //         win.close();
+                                            //         if (win.closed) {
+                                            //             clearInterval(timer);
+                                            //             setSuccessMessage("Downloaded all!");
+                                            //         }
+                                            //     }, 500);
+                                            // }
 
-                                            // saveExpenses(expenses);
+                                            saveExpenses(expenses);
                                             closeAllPanels(e);
                                         }}>DOWNLOAD</PurpleButton>
 
