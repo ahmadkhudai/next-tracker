@@ -1,7 +1,8 @@
 
 {
   "name": "Expense Tracker",
-  "short_name": "Quick Spend",
+  "scope": "/",
+  "short_name": "Expense Tracker",
   "icons": [
     {
       "src": "/icon.png",
