@@ -36,9 +36,9 @@ export function ExpenseComponent(props: Props) {
                     // onClick={(e)=>{e.stopPropagation();setDesc(!desc)}} onMouseEnter={()=>{setDesc(true)}} onMouseLeave={()=>{setDesc(false)}}
                 >
                     <ul className=
-                            {"bg-gradient-to-r   to-violet-100 shadow-md   justify-content-between border-0 m-2 p-1 flex items-center rounded-[10px] "+(randomIntFromInterval(1,100)<50?"from-teal-300 via-teal-200 ":"from-pink-300 via-pink-300 ")}>
+                            {"bg-gradient-to-r   to-violet-100 shadow-md   justify-content-between border-0 m-2 p-1 flex items-center rounded-[10px] "+(randomIntFromInterval(1,100)<50?"from-teal-200 via-teal-100 ":"from-indigo-300 via-purple-200 ")}>
 
-                        <li className="bg-gradient-to-br from-gray-100  h-100  via-gray-100  to-white shadow-sm text-xl rounded-2 list-group-item border-0  ak_black  bg-transparent font-monospace"
+                        <li className="  bg-white/20 shadow-sm text-xl rounded-2 list-group-item border-0  ak_black    font-monospace"
                             style={expense.price > settings[SettingLabels.maxAcceptableRange].value ? {
                                 color: "#bb0a0a",
                                 "fontWeight": "normal"

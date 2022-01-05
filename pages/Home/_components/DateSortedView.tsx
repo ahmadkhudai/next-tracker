@@ -55,14 +55,13 @@ export function DateSortedView({expenses,settings, deleteExpense, expenseStyleCl
                                 <div className="text-center">
                                     {mode!==Modes.create &&   <br className={" h-[10px]"}/>}
 
-                                    <p className={"font-monospace rounded-[10px] text-lg font-bold mt-3 bg-white  shadow-b p-3  border border-t border-black"}>{isToday(date)&&mode!==Modes.create?"TODAY":date} | {mode===Modes.create?"Amount ":"Subtotal "}<span className={"ak_highlight"}>{expenses.reduce(sumAllExpenses,0)}</span></p>
+                                    <p className={"font-monospace rounded-[10px] text-lg mt-3 bg-white  shadow-b p-3 mb-0  border border-t border-black"}>{isToday(date)&&mode!==Modes.create?"TODAY":date} | {mode===Modes.create?"Amount ":"Subtotal "}<span className={"text-teal-600 font-bold text-xl"}>{expenses.reduce(sumAllExpenses,0)}</span></p>
                                 </div>
 
                                 <div className={" my-3 "}>
                                 {expenses.map((expense: Expense) =>
 
                                     <>
-                                    {mode!==Modes.create &&<div className={"py-2"}></div>}
                                         <ExpenseComponent
                                         styleClasses={expenseStyleClasses}
                                         deleteExpense={deleteExpense}
@@ -70,6 +69,7 @@ export function DateSortedView({expenses,settings, deleteExpense, expenseStyleCl
                                         expense={expense}
                                         key={expense.id}
                                     />
+                                        {mode!==Modes.create &&<div className={"py-2"}></div>}
                                     </>
 
 
