@@ -282,12 +282,12 @@ export function HomePage({switchWindow}: Props) {
         let fileReader = new FileReader();
 
 
-        // fileReader.readAsBinaryString(file);
-        fileReader.readAsText(file);
+        fileReader.readAsBinaryString(file);
+        // fileReader.readAsText(file);
         fileReader.onload = (res) => {
             // if(res?.target?.readyState===2){
             let data = res?.target?.result;
-            let readDataSheet1 = readDataSheet(data, {type: "string", cellDates: true, cellNF: false, cellText: false});
+            let readDataSheet1 = readDataSheet(data, {type: "binary", cellDates: true, cellNF: false, cellText: false});
             console.log("FROM FILE ", readDataSheet1);
 
             let current = expenses.length;
