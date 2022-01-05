@@ -2,6 +2,23 @@ import {Expense} from "../Definitions/Expense";
 import {getSortedExpenses, groupByMonth} from "../pages/api/utils/expense/grouping";
 import XLSX from 'xlsx';
 
+
+    // function downloadExcel(data:any, fileName:string) {
+    //     // var xhr = new XMLHttpRequest();
+    //     // xhr.open('GET', url, true);
+    //     // xhr.responseType = 'blob';
+    //     // xhr.onload = function(e) {
+    //     //     if (this.status == 200) {
+    //             var myBlob = data;
+    //             var link = document.createElement('a');
+    //             link.href = window.URL.createObjectURL(myBlob);
+    //             link.download = fileName+".csv";
+    //             link.click();
+    //     //     }
+    //     // };
+    //     // xhr.send();
+    // }
+
 export function saveExpenses(expenses: Expense[]) {
     downloadExpenses(expenses);
 }
@@ -36,9 +53,17 @@ function storeData(data:any, fileName:string) {
         const wb = XLSX.utils.book_new()
         const ws = XLSX.utils.json_to_sheet(data)
         XLSX.utils.book_append_sheet(wb, ws, fileName)
-
-        XLSX.writeFile(wb, fileName+".csv")
-
+        // downloadExcel(wb, fileName);
+        XLSX.writeFile(wb, fileName+".csv",{type:"file"})
+    // var workbook = xlsx.utils.book_new();
+    // var data = [
+    //     {name:"John", city: "Seattle"},
+    //     {name:"Mike", city: "Los Angeles"},
+    //     {name:"Zach", city: "New York"}
+    // ];
+    // var ws = xlsx.utils.json_to_sheet(data);
+    // xlsx.utils.book_append_sheet(workbook, ws, "Results");
+    // xlsx.writeFile(workbook, 'out.xlsx', {type: 'file'});
 }
 
 export function loadData(file:any) {
