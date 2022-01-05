@@ -1,8 +1,10 @@
 import {Expense} from "../Definitions/Expense";
 import {getSortedExpenses, groupByMonth} from "../pages/api/utils/expense/grouping";
-//@ts-ignore
-import XLSX from 'xlsx/xlsx.mini';
+import XLSX from 'xlsx';
+import exportFromJSON from 'export-from-json'
 
+// const data = [{ foo: 'foo'}, { bar: 'bar' }]
+// const fileName = 'download'
 
     // function downloadExcel(data:any, fileName:string) {
     //     // var xhr = new XMLHttpRequest();
@@ -49,16 +51,19 @@ function getMergedArray(superArray: any) {
 }
 
 function storeData(data:any, fileName:string) {
+    const exportType =  exportFromJSON.types.csv
+
+    exportFromJSON({ data, fileName, exportType })
 
 
-        const wb = XLSX.utils.book_new()
-        const ws = XLSX.utils.json_to_sheet(data)
-        XLSX.utils.book_append_sheet(wb, ws, fileName)
-        // downloadExcel(wb, fileName);
-
-
-
-        XLSX.writeFile(wb, fileName+".csv",{type:"file"})
+        // const wb = XLSX.utils.book_new()
+        // const ws = XLSX.utils.json_to_sheet(data)
+        // XLSX.utils.book_append_sheet(wb, ws, fileName)
+        // // downloadExcel(wb, fileName);
+        //
+        //
+        //
+        // XLSX.writeFile(wb, fileName+".xlsx")
     // var workbook = xlsx.utils.book_new();
     // var data = [
     //     {name:"John", city: "Seattle"},
