@@ -435,6 +435,7 @@ export function HomePage({switchWindow}: Props) {
                                             // }
 
                                             saveExpenses(expenses);
+                                            setSuccessMessage("Downloaded all!");
                                             closeAllPanels(e);
                                         }}>DOWNLOAD</PurpleButton>
 
