@@ -91,10 +91,10 @@ export function Main() {
 
 
 
-            storeUser(userID).then(()=>{
-                storeExpensesServer(expenses, userID);
-                storeSettings(settings, userID);
-            })
+            // storeUser(userID).then(()=>{
+            //     storeExpensesServer(expenses, userID);
+            //     storeSettings(settings, userID);
+            // })
             // addDoc(collection(db, "users"), {
             //     //@ts-ignore
             //     id: userID,
@@ -138,7 +138,7 @@ export function Main() {
         const auth = getAuth(app);
         auth.signOut().then((val: any) => {
             console.log(val)
-        }).catch(err => console.log("ERROR LOGGING OUT: ", err))
+        }).catch((err:any) => console.log("ERROR LOGGING OUT: ", err))
     }
 
 
@@ -151,7 +151,7 @@ export function Main() {
 
             }
             {currentWindow === MainWindows.home &&
-                <HomePage signedInUser={signedInUser} signIn={signIn} signOut={signOut} switchWindow={switchWindow}/>
+                <HomePage switchWindow={switchWindow}/>
             }
 
 
