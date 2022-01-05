@@ -151,6 +151,7 @@ export function GroupedNewGraph({expenses}: Props) {
 
 
                     <div className={"py-4"}></div>
+                    <div className={"py-4"}></div>
 
 
                 </>
