@@ -6,6 +6,7 @@ import {SettingsObj} from "../../../Definitions/SettingsObj";
 import {baseSettings} from "../../../libs/utils/expense/grouping";
 import moment from "moment";
 import {useState} from "react";
+import {randomIntFromInterval} from "../../../libs/utils/date_utils";
 
 type Props = {
  expense:Expense;
@@ -31,17 +32,18 @@ export function ExpenseComponent(props: Props) {
     return (
         <div>
             {expense &&
-                <div className={" py-2  rounded   my-1 rounded "+styleClasses}
+                <div className={"  rounded   my-1 rounded "+styleClasses  }
                     // onClick={(e)=>{e.stopPropagation();setDesc(!desc)}} onMouseEnter={()=>{setDesc(true)}} onMouseLeave={()=>{setDesc(false)}}
                 >
-                    <ul className="bg-gradient-to-br from-teal-200   to-violet-300 shadow-md   justify-content-between border-0 m-2 p-1 flex items-center rounded-[10px]">
+                    <ul className=
+                            {"bg-gradient-to-r   to-violet-100 shadow-md   justify-content-between border-0 m-2 p-1 flex items-center rounded-[10px] "+(randomIntFromInterval(1,100)<50?"from-teal-300 via-teal-200 ":"from-pink-300 via-pink-300 ")}>
 
                         <li className="bg-gradient-to-br from-gray-100  h-100  via-gray-100  to-white shadow-sm text-xl rounded-2 list-group-item border-0  ak_black  bg-transparent font-monospace"
                             style={expense.price > settings[SettingLabels.maxAcceptableRange].value ? {
                                 color: "#bb0a0a",
                                 "fontWeight": "normal"
                             } : {}}>{expense.price}</li>
-                        <li className="list-group-item bg-transparent border-0  flex-fill">{expense.name}</li>
+                        <li className="list-group-item bg-transparent border-0 text-2xl w-auto text-center flex-fill">{expense.name}</li>
                         <li className="list-group-item bg-transparent border-0  font-monospace">{moment(expense.date).format("hh:mm A")}</li>
 
                         <li className="list-group-item p-1  bg-transparent m-0 border-0">

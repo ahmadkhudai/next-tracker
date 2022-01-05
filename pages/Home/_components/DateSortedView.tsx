@@ -41,6 +41,7 @@ export function DateSortedView({expenses,settings, deleteExpense, expenseStyleCl
         )
     }
 
+
     const sortedExpenses = getSortedExpenses([...renderedExpenses]);
 
 
@@ -52,20 +53,25 @@ export function DateSortedView({expenses,settings, deleteExpense, expenseStyleCl
                         return (
                             <div key={expenses[0].id} className={""}>
                                 <div className="text-center">
-                                    <br className={" h-[10px]"}/>
+                                    {mode!==Modes.create &&   <br className={" h-[10px]"}/>}
+
                                     <p className={"font-monospace rounded-[10px] text-lg font-bold mt-3 bg-white  shadow-b p-3  border border-t border-black"}>{isToday(date)&&mode!==Modes.create?"TODAY":date} | {mode===Modes.create?"Amount ":"Subtotal "}<span className={"ak_highlight"}>{expenses.reduce(sumAllExpenses,0)}</span></p>
                                 </div>
 
                                 <div className={" my-3 "}>
                                 {expenses.map((expense: Expense) =>
 
+                                    <>
+                                    {mode!==Modes.create &&<div className={"py-2"}></div>}
                                         <ExpenseComponent
-                                            styleClasses={expenseStyleClasses}
+                                        styleClasses={expenseStyleClasses}
                                         deleteExpense={deleteExpense}
                                         settings={settings}
                                         expense={expense}
                                         key={expense.id}
                                     />
+                                    </>
+
 
                                    )}
                                 </div>
