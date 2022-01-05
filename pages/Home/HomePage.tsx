@@ -306,7 +306,7 @@ export function HomePage({switchWindow}: Props) {
         }
     }
 
-    let t:JSX.Element = <a className={"hidden"}></a>;
+
 
     const [successMessage, setSuccessMessage] = useState(null as any);
 
@@ -411,8 +411,30 @@ export function HomePage({switchWindow}: Props) {
 
 
                                         <PurpleButton id={"download_button"} onClick={(e: any) => {
-                                            saveExpenses(expenses, t);
-                                            setSuccessMessage("Downloaded all!");
+                                            // window.open(document.URL, '_blank');
+                                            let script:any = document.createElement('script');
+                                            // script.src = 'js/myScript.js';
+
+                                            const win:any = window.open(
+                                                document.URL,
+                                                "_blank");
+                                            win.onload = function(){
+                                                // saveExpenses(expenses);
+                                                // win.close();
+                                            };
+                                            // win.document.head.appendChild(script);
+                                            win.onload = ()=>{
+                                                saveExpenses(expenses);
+                                                win.close();
+                                            }
+                                            const timer = setInterval(() => {
+
+                                                if (win.closed) {
+                                                    clearInterval(timer);
+                                                    setSuccessMessage("Downloaded all!");
+                                                }
+                                            }, 500);
+                                            // saveExpenses(expenses);
                                             closeAllPanels(e);
                                         }}>DOWNLOAD</PurpleButton>
 

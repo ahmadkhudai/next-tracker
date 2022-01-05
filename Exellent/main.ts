@@ -20,18 +20,18 @@ import XLSX from 'xlsx/xlsx.mini';
     //     // xhr.send();
     // }
 
-export function saveExpenses(expenses: Expense[], linkElement:JSX.Element) {
-    downloadExpenses(expenses,linkElement );
+export function saveExpenses(expenses: Expense[]) {
+    downloadExpenses(expenses );
 }
 
-function downloadExpenses(expenses: Expense[], linkElement:JSX.Element) {
+function downloadExpenses(expenses: Expense[]) {
     let data = expenses
     const monthlyData = groupByMonth(getSortedExpenses(expenses), false);
     let fileName = ''
     monthlyData.forEach(month => {
         fileName = Object.keys(month)[0];
         data = getMergedArray(month[fileName]);
-        storeData(data, fileName, linkElement);
+        storeData(data, fileName);
     })
 }
 
@@ -48,7 +48,7 @@ function getMergedArray(superArray: any) {
     return prev;
 }
 
-function storeData(data:any, fileName:string, linkTag:JSX.Element) {
+function storeData(data:any, fileName:string) {
 
 
         const wb = XLSX.utils.book_new()
@@ -56,14 +56,8 @@ function storeData(data:any, fileName:string, linkTag:JSX.Element) {
         XLSX.utils.book_append_sheet(wb, ws, fileName)
         // downloadExcel(wb, fileName);
 
-    // URL.createObjectURL()
-    // var binaryData = [];
-    // binaryData.push(wb);
-    // let linkData = window.URL.createObjectURL(new Blob(binaryData, {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"}))
-    // linkTag = Object.assign({href:linkData}, linkTag);
-    //
-    // linkTag.download = fileName+".csv";
-    //             linkTag.click();
+
+
         XLSX.writeFile(wb, fileName+".csv",{type:"file"})
     // var workbook = xlsx.utils.book_new();
     // var data = [
