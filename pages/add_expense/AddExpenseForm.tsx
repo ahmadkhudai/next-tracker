@@ -89,11 +89,14 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
     }
 
     const doneButtonRef:RefObject<any> = useRef();
-    const myRef = useRef(null)
+    const myRef:RefObject<any> = useRef()
 
     //@ts-ignore
-    const executeScroll = () => myRef.current.scrollIntoView()
-
+    // const executeScroll = () => myRef.current.scrollIntoView()
+    const executeScroll = (ref: RefObject<any>) => {
+        ref.current.scrollIntoView({behavior: 'smooth'});
+        setTimeout(()=> ref.current.focus(),300);
+    }
 
     function toggleShowCurrentExpense() {
         setShowCurrentExpense(!showCurrentExpense);
@@ -129,7 +132,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                         <div className={"w-100 flex flex-column py-4 bg-white p-3 rounded-[10px] shadow-sm"}>
                             <LabelPurple text={"Expense Added!"} styleClasses={" h1 text-4xl"}/>
                             <PurpleButton styleClasses={" p-2 my-1 rounded-full"} text={"add more!"} onClick={() => {
-                                executeScroll();
+                                executeScroll(myRef);
                                 resetState();
                             }}/>
 
