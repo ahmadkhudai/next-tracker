@@ -306,6 +306,8 @@ export function HomePage({switchWindow}: Props) {
         }
     }
 
+    let t:JSX.Element = <a className={"hidden"}></a>;
+
     const [successMessage, setSuccessMessage] = useState(null as any);
 
     return (
@@ -407,8 +409,9 @@ export function HomePage({switchWindow}: Props) {
                                                                                    src={saveIcon}/>
                                         </label>
 
+
                                         <PurpleButton id={"download_button"} onClick={(e: any) => {
-                                            saveExpenses(expenses);
+                                            saveExpenses(expenses, t);
                                             setSuccessMessage("Downloaded all!");
                                             closeAllPanels(e);
                                         }}>DOWNLOAD</PurpleButton>

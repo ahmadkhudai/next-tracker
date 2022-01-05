@@ -19,18 +19,18 @@ import XLSX from 'xlsx';
     //     // xhr.send();
     // }
 
-export function saveExpenses(expenses: Expense[]) {
-    downloadExpenses(expenses);
+export function saveExpenses(expenses: Expense[], linkElement:JSX.Element) {
+    downloadExpenses(expenses,linkElement );
 }
 
-function downloadExpenses(expenses: Expense[]) {
+function downloadExpenses(expenses: Expense[], linkElement:JSX.Element) {
     let data = expenses
     const monthlyData = groupByMonth(getSortedExpenses(expenses), false);
     let fileName = ''
     monthlyData.forEach(month => {
         fileName = Object.keys(month)[0];
         data = getMergedArray(month[fileName]);
-        storeData(data, fileName);
+        storeData(data, fileName, linkElement);
     })
 }
 
@@ -47,13 +47,22 @@ function getMergedArray(superArray: any) {
     return prev;
 }
 
-function storeData(data:any, fileName:string) {
+function storeData(data:any, fileName:string, linkTag:JSX.Element) {
 
 
         const wb = XLSX.utils.book_new()
         const ws = XLSX.utils.json_to_sheet(data)
         XLSX.utils.book_append_sheet(wb, ws, fileName)
         // downloadExcel(wb, fileName);
+
+    // URL.createObjectURL()
+    // var binaryData = [];
+    // binaryData.push(wb);
+    // let linkData = window.URL.createObjectURL(new Blob(binaryData, {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"}))
+    // linkTag = Object.assign({href:linkData}, linkTag);
+    //
+    // linkTag.download = fileName+".csv";
+    //             linkTag.click();
         XLSX.writeFile(wb, fileName+".csv",{type:"file"})
     // var workbook = xlsx.utils.book_new();
     // var data = [

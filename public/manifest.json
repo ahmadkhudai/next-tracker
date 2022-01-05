@@ -19,5 +19,15 @@
   "background_color": "#FFFFFF",
   "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "file_handlers": [
+    {
+      "raw": {
+        "extensions": [ "csv", "xlsx", "xls" ],
+        "include_directories": false,
+        "types": [ "text/csv" ],
+        "verb": "open_with"
+      }
+    }
+  ]
 }
