@@ -10,6 +10,7 @@ import {isToday} from "../../../libs/utils/date_utils";
 import {SettingsObj} from "../../../Definitions/SettingsObj";
 import {NoData} from "../../components/_partials/NoData";
 import {Modes} from "../../../libs/component_config/Modes";
+import moment from "moment";
 
 type Props = {
     expenses:Expense[];
@@ -55,7 +56,7 @@ export function DateSortedView({expenses,settings, deleteExpense, expenseStyleCl
                                 <div className="text-center">
                                     {mode!==Modes.create &&   <br className={" h-[10px]"}/>}
 
-                                    <p className={"font-monospace rounded-[10px] text-lg mt-3 bg-white  shadow-b p-3 mb-0  border border-t border-black"}>{isToday(date)&&mode!==Modes.create?"TODAY":date} | {mode===Modes.create?"Amount ":"Subtotal "}<span className={"text-teal-600 font-bold text-xl"}>{expenses.reduce(sumAllExpenses,0)}</span></p>
+                                    <p className={"font-monospace rounded-[10px] text-lg mt-3 bg-white  shadow-b p-3 mb-0  border border-t border-black"}>{isToday(date)&&mode!==Modes.create?"TODAY":moment(date).format("ddd DD ")} | {mode===Modes.create?"Amount ":"Subtotal "}<span className={"text-teal-600 font-bold text-xl"}>{expenses.reduce(sumAllExpenses,0)}</span></p>
                                 </div>
 
                                 <div className={" my-3 "}>
