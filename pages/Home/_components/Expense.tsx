@@ -36,19 +36,19 @@ export function ExpenseComponent(props: Props) {
                     // onClick={(e)=>{e.stopPropagation();setDesc(!desc)}} onMouseEnter={()=>{setDesc(true)}} onMouseLeave={()=>{setDesc(false)}}
                 >
                     <ul className=
-                            {"bg-gradient-to-r   to-violet-100 shadow-md   justify-content-between border-0 m-2 p-1 flex items-center rounded-[10px] "+(randomIntFromInterval(1,100)<50?"from-teal-200 via-teal-100 ":"from-indigo-300 via-purple-200 ")}>
+                            {"bg-gradient-to-r p-0 font-monospace to-violet-100 shadow-md   justify-content-between border-0 m-2 p-1 flex items-center rounded-[10px] "+(randomIntFromInterval(1,100)<50?"from-teal-200 via-teal-100 ":"from-indigo-300 via-purple-200 ")}>
 
-                        <li className="  bg-white/20 shadow-sm text-xl rounded-2 list-group-item border-0  ak_black    font-monospace"
+                        <li className="w-25 text-center h-100  bg-white/20 shadow-sm text-xl rounded-2 list-group-item border-0  ak_black    font-monospace"
                             style={expense.price > settings[SettingLabels.maxAcceptableRange].value ? {
                                 color: "#bb0a0a",
                                 "fontWeight": "normal"
                             } : {}}>{expense.price}</li>
-                        <li className="list-group-item bg-transparent border-0 text-2xl w-auto text-center flex-fill">{expense.name}</li>
-                        <li className="list-group-item bg-transparent border-0  font-monospace">{moment(expense.date).format("hh:mm A")}</li>
+                        <li className="list-group-item bg-transparent border-0  w-auto  flex-fill">{expense.name}</li>
+                        <li className="list-group-item bg-transparent border-0 text-sm font-monospace">{moment(expense.date).format("hh:mm A")}</li>
 
                         <li className="list-group-item p-1  bg-transparent m-0 border-0">
                             <button
-                                className="m-0 btn  w-100 h-100  btn-danger hover:font-bold hover:bg-teal-400 hover:border-teal-300"
+                                className="m-0 btn  w-100 h-100 bg-white text-red-500 font-monospace text-2xl hover:font-bold hover:bg-teal-400 hover:border-teal-300"
                                 style={
                                     onclickHandler ? (settings[SettingLabels.deleteMode].value ? {} : {"display": "none"}) : {"display": "none"}}
                                 onClick={() => onclickHandler(expense)
