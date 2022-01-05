@@ -29,7 +29,9 @@ export function Non_DateInputs({newExpense, handleFieldChange, doneButtonRef}: P
     const locationInput: RefObject<any> = useRef();
     const nameInput: RefObject<any> = useRef();
     const amountInput: RefObject<any> = useRef();
-    const executeScroll = (ref: RefObject<any>) => ref.current.focus()
+// .scrollIntoView({ behavior: 'smooth' });
+//     const executeScroll = (ref: RefObject<any>) => ref.current.focus()
+    const executeScroll = (ref: RefObject<any>) => ref.current.scrollIntoView({ behavior: 'smooth' })
     return (
         <>
             {newExpense &&

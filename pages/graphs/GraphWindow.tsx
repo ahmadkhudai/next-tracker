@@ -1,7 +1,6 @@
 // @flow
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import GroupedExpensesGraph from "./GroupedExpensesGraph";
 import {GraphPanels} from "../api/component_config/graphs/GraphPanels";
 import HomeFooter from "../components/HomeFooter";
 import {Expense} from "../../Definitions/Expense";
