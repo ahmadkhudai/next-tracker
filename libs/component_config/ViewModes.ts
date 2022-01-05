@@ -1,4 +1,4 @@
-import {NumberIndexedStrings} from "../../../constants/day";
+import {NumberIndexedStrings} from "../../constants/day";
 import moment from "moment";
 
 

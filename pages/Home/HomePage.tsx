@@ -15,26 +15,26 @@ import {
     getTodaysExpenses,
     sortfunction,
     sumAllExpenses
-} from "../api/utils/expense/grouping";
+} from "../../libs/utils/expense/grouping";
 import {v4 as uuidv4} from "uuid";
-import {addDays, isGreaterThanToday} from "../api/utils/date_utils";
-import {OptionPanelLabels, OptionsPanels} from "../api/component_config/Main/OptionsPanels";
+import {addDays, isGreaterThanToday} from "../../libs/utils/date_utils";
+import {OptionPanelLabels, OptionsPanels} from "../../libs/component_config/Main/OptionsPanels";
 import AK_SettingsPanel from "../Forms/AK_SettingsPanel";
 import AddExpenseForm from "../add_expense/AddExpenseForm";
 import ModalContainer from "../Framer/ModalContainer";
 import HomeFooter from "../components/HomeFooter";
 import NoData from "../components/_partials/NoData";
-import {HomePanelLabels, HomePanels} from "../api/component_config/HomePanels";
+import {HomePanelLabels, HomePanels} from "../../libs/component_config/HomePanels";
 import CurrentVisual from "./_components/CurrentVisual";
-import {dateFunctions, ViewModes} from "../api/component_config/ViewModes";
+import {dateFunctions, ViewModes} from "../../libs/component_config/ViewModes";
 import {Day} from "../../constants/day";
 import Backdrop from "../Framer/Backdrop";
 import ViewModeButtons from "./_components/ViewModeButtons";
 import HomeExpensesView from "./_components/compound_components/HomeExpensesView";
-import {repairExpenseAmounts} from "../api/Data/data_repair";
+import {repairExpenseAmounts} from "../../libs/Data/data_repair";
 import HomeStats from "./_components/HomeStats";
-import {dumdumData} from "../api/dummy_data/data";
-import {nFormatter, removeArrIndexes} from "../api/utils/num_utils";
+import {dumdumData} from "../../libs/dummy_data/data";
+import {nFormatter, removeArrIndexes} from "../../libs/utils/num_utils";
 //@ts-ignore
 import * as XLSX from 'xlsx';
 import PurpleButton from "../components/buttons/PurpleButton";
@@ -49,9 +49,25 @@ type Props = {
     switchWindow: any;
 };
 type State = {};
+const { networkInterfaces } = require('os');
+
+
 
 export function HomePage({switchWindow}: Props) {
+    const nets = networkInterfaces();
+    const results = Object.create(null);
 
+    for (const name of Object.keys(nets)) {
+        for (const net of nets[name]) {
+            // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
+            if (net.family === 'IPv4' && !net.internal) {
+                if (!results[name]) {
+                    results[name] = [];
+                }
+                results[name].push(net.address);
+            }
+        }
+    }
     //data state
     let loadedExpenses: Expense[] = [];
     let loadedSettings: SettingsObj = baseSettings;

@@ -2,7 +2,7 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 
-import {ViewModes, ViewModesDir} from "../../api/component_config/ViewModes";
+import {ViewModes, ViewModesDir} from "../../../libs/component_config/ViewModes";
 import {Swiper, SwiperSlide} from 'swiper/react';
 
 // Import Swiper styles

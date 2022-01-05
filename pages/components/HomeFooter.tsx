@@ -1,8 +1,8 @@
 // @flow
 import * as React from 'react';
-import {GraphPanels} from "../api/component_config/graphs/GraphPanels";
-import {OptionPanelLabels, OptionsPanels} from "../api/component_config/Main/OptionsPanels";
-import {HomePanelLabels, HomePanels} from "../api/component_config/HomePanels";
+import {GraphPanels} from "../../libs/component_config/graphs/GraphPanels";
+import {OptionPanelLabels, OptionsPanels} from "../../libs/component_config/Main/OptionsPanels";
+import {HomePanelLabels, HomePanels} from "../../libs/component_config/HomePanels";
 import TealButton from "./buttons/TealButton";
 import PurpleButton from "./buttons/PurpleButton";
 import Image from 'next/image';

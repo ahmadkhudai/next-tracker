@@ -1,5 +1,5 @@
 import {Expense} from "../Definitions/Expense";
-import {getSortedExpenses, groupByMonth} from "../pages/api/utils/expense/grouping";
+import {getSortedExpenses, groupByMonth} from "../libs/utils/expense/grouping";
 import XLSX from 'xlsx';
 import exportFromJSON from 'export-from-json'
 

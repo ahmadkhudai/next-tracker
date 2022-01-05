@@ -4,7 +4,7 @@ import {SettingLabels, SettingNames} from "../../Definitions/Setting";
 import {SettingsObj} from "../../Definitions/SettingsObj";
 import RedButton from "../components/buttons/RedButton";
 import LabelPurple from "../components/labels/LabelPurple";
-import {baseSettings} from "../api/utils/expense/grouping";
+import {baseSettings} from "../../libs/utils/expense/grouping";
 // import {useDispatch, useSelector} from "react-redux";
 // import {modifySettings} from "../api/features/settings/settingsSlice";
 

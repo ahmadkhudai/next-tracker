@@ -1,8 +1,8 @@
 // @flow
 import * as React from 'react';
 import {useState} from 'react';
-import {OptionsPanels} from "../../api/component_config/Main/OptionsPanels";
-import {MainWindows} from "../../api/component_config/MainWindows";
+import {OptionsPanels} from "../../../libs/component_config/Main/OptionsPanels";
+import {MainWindows} from "../../../libs/component_config/MainWindows";
 import OutlineRoundedButton from "../buttons/OutlineRoundedButton";
 import Image from 'next/image';
 import settingsIcon from '../../../assets/icons8-setting-64.png';

@@ -1,15 +1,15 @@
 // @flow
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {GraphPanels} from "../api/component_config/graphs/GraphPanels";
+import {GraphPanels} from "../../libs/component_config/graphs/GraphPanels";
 import HomeFooter from "../components/HomeFooter";
 import {Expense} from "../../Definitions/Expense";
 import NoData from "../components/_partials/NoData";
-import {baseSettings, sortfunction} from "../api/utils/expense/grouping";
+import {baseSettings, sortfunction} from "../../libs/utils/expense/grouping";
 import {SettingsObj} from "../../Definitions/SettingsObj";
-import {dumdumData} from "../api/dummy_data/data";
+import {dumdumData} from "../../libs/dummy_data/data";
 import HomeHeader from "../components/HomeHeader/HomeHeader";
-import {MainWindows} from "../api/component_config/MainWindows";
+import {MainWindows} from "../../libs/component_config/MainWindows";
 import GroupedNewGraph from "./GroupedNewGraph";
 
 

@@ -6,9 +6,9 @@ import {
     getCurrentWeeksExpenses,
     getTodaysExpenses,
     groupByExpenseName
-} from "../../api/utils/expense/grouping";
-import {GroupBy} from "../../api/component_config/grouping/GroupBy";
-import {ViewModes} from "../../api/component_config/ViewModes";
+} from "../../../libs/utils/expense/grouping";
+import {GroupBy} from "../../../libs/component_config/grouping/GroupBy";
+import {ViewModes} from "../../../libs/component_config/ViewModes";
 import NoData from "../../components/_partials/NoData";
 import {SettingsObj} from "../../../Definitions/SettingsObj";
 import {SettingLabels} from "../../../Definitions/Setting";

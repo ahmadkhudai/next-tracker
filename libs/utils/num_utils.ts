@@ -4,7 +4,7 @@
  * @param num
  * @param digits
  */
-import {Expense} from "../../../Definitions/Expense";
+import {Expense} from "../../Definitions/Expense";
 import {value} from "dom7";
 
 export function nFormatter(num:number, digits:number = 1) {

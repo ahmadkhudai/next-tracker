@@ -1,12 +1,12 @@
-// @flow 
+// @flow
 import * as React from 'react';
 import DateSortedView from "../../Home/_components/DateSortedView";
-import {Modes} from "../../api/component_config/Modes";
+import {Modes} from "../../../libs/component_config/Modes";
 import {Expense} from "../../../Definitions/Expense";
 
 type Props = {
     expenses:Expense[]
-    
+
 };
 export const NewExpenseView = ({expenses}: Props) => {
     return (

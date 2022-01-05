@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 
-import {randomIntFromInterval} from "../api/utils/date_utils";
+import {randomIntFromInterval} from "../../libs/utils/date_utils";
 
 type Props = {
     children:any;

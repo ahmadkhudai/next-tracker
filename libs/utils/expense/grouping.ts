@@ -1,11 +1,11 @@
 import {getDate, getDateString} from "../date_utils";
 import moment from "moment";
-import {Expense, ExpenseFields} from "../../../../Definitions/Expense";
-import {InputTypes} from "../../../../Definitions/InputTypes";
-import {SettingLabels} from "../../../../Definitions/Setting";
-import GroupedExpenses from "../../../../Definitions/GroupedExpenses";
-import {SettingsObj} from "../../../../Definitions/SettingsObj";
-import SummaryExpense from "../../../../Definitions/SummaryExpense";
+import {Expense, ExpenseFields} from "../../../Definitions/Expense";
+import {InputTypes} from "../../../Definitions/InputTypes";
+import {SettingLabels} from "../../../Definitions/Setting";
+import GroupedExpenses from "../../../Definitions/GroupedExpenses";
+import {SettingsObj} from "../../../Definitions/SettingsObj";
+import SummaryExpense from "../../../Definitions/SummaryExpense";
 import {repairExpenseAmounts} from "../../Data/data_repair";
 import {deFormattedStr} from "../string_utils";
 import {GroupBy} from "../../component_config/grouping/GroupBy";

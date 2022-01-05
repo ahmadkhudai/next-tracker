@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react';
 import {Expense} from "../../Definitions/Expense";
 import SummaryExpense from "../../Definitions/SummaryExpense";
 import {NumberIndexedStrings} from "../../constants/day";
-import {ViewModes} from "../api/component_config/ViewModes";
+import {ViewModes} from "../../libs/component_config/ViewModes";
 import {
     getRenderableCurrentMONTHsExpenses,
     getRenderableCurrentWeeksExpenses,
@@ -12,8 +12,8 @@ import {
     getSortedExpenses,
     groupByExpenseLocation,
     groupByExpenseName
-} from "../api/utils/expense/grouping";
-import {GroupBy} from "../api/component_config/grouping/GroupBy";
+} from "../../libs/utils/expense/grouping";
+import {GroupBy} from "../../libs/component_config/grouping/GroupBy";
 import NoData from "../components/_partials/NoData";
 import {ResponsiveContainer, Tooltip, Treemap} from "recharts";
 import OptionsSelector from "./components/OptionsSelector";

@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from 'uuid';
 import {addDays, getRandomItem, randomIntFromInterval} from "../utils/date_utils";
-import {Expense} from "../../../Definitions/Expense";
+import {Expense} from "../../Definitions/Expense";
 import exp from "constants";
 
 let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special", "apple", "sneakers", "jacket", "cocomo", "oreo", "zinger"];

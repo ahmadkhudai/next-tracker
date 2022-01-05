@@ -1,4 +1,4 @@
-import {Expense} from "../../../Definitions/Expense";
+import {Expense} from "../../Definitions/Expense";
 import {number} from "prop-types";
 import {isNumeric, isStillSame, removeArrIndexes} from "../utils/num_utils";
 
