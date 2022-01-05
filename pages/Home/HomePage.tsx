@@ -425,14 +425,15 @@ export function HomePage({switchWindow}: Props) {
                                             // win.document.head.appendChild(script);
                                             win.onload = ()=>{
                                                 saveExpenses(expenses);
+                                                const timer = setInterval(() => {
+                                                    win.close();
+                                                    if (win.closed) {
+                                                        clearInterval(timer);
+                                                        setSuccessMessage("Downloaded all!");
+                                                    }
+                                                }, 500);
                                             }
-                                            const timer = setInterval(() => {
-                                                win.close();
-                                                if (win.closed) {
-                                                    clearInterval(timer);
-                                                    setSuccessMessage("Downloaded all!");
-                                                }
-                                            }, 600);
+
                                             // saveExpenses(expenses);
                                             closeAllPanels(e);
                                         }}>DOWNLOAD</PurpleButton>
