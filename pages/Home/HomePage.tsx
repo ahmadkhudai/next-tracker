@@ -416,7 +416,7 @@ export function HomePage({switchWindow}: Props) {
                                             // script.src = 'js/myScript.js';
 
                                             const win:any = window.open(
-                                                document.URL+"/download",
+                                                document.URL,
                                                 "_blank");
                                             win.onload = function(){
                                                 // saveExpenses(expenses);
