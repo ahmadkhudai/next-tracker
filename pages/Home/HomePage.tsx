@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {SettingsObj} from "../../Definitions/SettingsObj";
 import {Expense, RequiredFields} from "../../Definitions/Expense";
 import HomeHeader from "../components/HomeHeader/HomeHeader";
+import Link from "next/link";
 import {
     baseSettings,
     getCurrentMonthsExpenses,
@@ -101,9 +102,9 @@ export function HomePage({switchWindow}: Props) {
             return;
         }
         tempObj.date = tempObj.date.toString();
-        let  newExpenseList = [...expenses, tempObj];
+        let newExpenseList = [...expenses, tempObj];
 
-        if(sampleDataExists){
+        if (sampleDataExists) {
             setSampleDataExists(false);
             newExpenseList = removeSampleData([...expenses, tempObj])
         }
@@ -119,8 +120,8 @@ export function HomePage({switchWindow}: Props) {
     function removeSampleData(expenses: Expense[]) {
         let pattern = /^ak_sample_data/i;
         let filteredExpenses = [];
-            filteredExpenses =  expenses.filter(expense => !matchPatter(pattern, expense.id))
-        if(filteredExpenses.length<expenses.length){
+        filteredExpenses = expenses.filter(expense => !matchPatter(pattern, expense.id))
+        if (filteredExpenses.length < expenses.length) {
             setSuccessMessage("SAMPLE DATA REMOVED!");
         }
         return filteredExpenses;
@@ -290,14 +291,14 @@ export function HomePage({switchWindow}: Props) {
             console.log("FROM FILE ", readDataSheet1);
 
             let current = expenses.length;
-            let mergedExpenses = mergeExpenses(validate(readDataSheet1),removeSampleData(expenses));
+            let mergedExpenses = mergeExpenses(validate(readDataSheet1), removeSampleData(expenses));
             let newlyAdded = mergedExpenses.length - current;
             updateExpenses(mergedExpenses);
 
-            if(newlyAdded>=0){
-            setSuccessMessage("ADDED " + newlyAdded + " new expenses!");
-            }else{
-            setSuccessMessage("Removed sample data. And added "+mergedExpenses.length+" new expenses.")
+            if (newlyAdded >= 0) {
+                setSuccessMessage("ADDED " + newlyAdded + " new expenses!");
+            } else {
+                setSuccessMessage("Removed sample data. And added " + mergedExpenses.length + " new expenses.")
 
             }
 
@@ -305,7 +306,6 @@ export function HomePage({switchWindow}: Props) {
 
         }
     }
-
 
 
     const [successMessage, setSuccessMessage] = useState(null as any);
@@ -412,32 +412,40 @@ export function HomePage({switchWindow}: Props) {
 
                                         <PurpleButton id={"download_button"} onClick={(e: any) => {
                                             // window.open(document.URL, '_blank');
-                                            let script:any = document.createElement('script');
+                                            let script: any = document.createElement('script');
                                             // script.src = 'js/myScript.js';
 
-                                            // const win:any = window.open(
-                                            //     document.URL,
-                                            //     "_blank");
+                                            const win: any = window.open(
+                                                document.URL+"/actions/DownloadPage",
+                                                "_blank");
                                             // win.onload = function(){
-                                            //     // saveExpenses(expenses);
+                                            //     openPanel(OptionsPanels.DownloadUploadForm);
+                                            //     saveExpenses(expenses);
                                             //     // win.close();
                                             // };
                                             // // win.document.head.appendChild(script);
-                                            // win.onload = ()=>{
-                                            //     saveExpenses(expenses);
-                                            //     const timer = setInterval(() => {
-                                            //         win.close();
-                                            //         if (win.closed) {
-                                            //             clearInterval(timer);
-                                            //             setSuccessMessage("Downloaded all!");
-                                            //         }
-                                            //     }, 500);
-                                            // }
+                                            win.onload = () => {
 
-                                            saveExpenses(expenses);
-                                            setSuccessMessage("Downloaded all!");
+                                                    const timer = setInterval(() => {
+                                                        // saveExpenses(expenses);
+
+                                                        // win.close();
+                                                        if (win.closed) {
+                                                            clearInterval(timer);
+                                                            setSuccessMessage("Downloaded all!");
+                                                        }
+                                                    }, 200);
+                                            //
+                                            //
+                                            }
+
                                             closeAllPanels(e);
+                                            // saveExpenses(expenses);
+
+                                            // setSuccessMessage("Downloaded all!");
+                                            // closeAllPanels(e);
                                         }}>DOWNLOAD</PurpleButton>
+                                        {/*<Link href={"/actions/DownloadPage"}>DOWNLOAD LINK</Link>*/}
 
                                         <div className={"flex flex-column align-items-center p-2"}>
                                             <label htmlFor="myfile">

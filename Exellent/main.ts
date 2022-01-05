@@ -22,18 +22,18 @@ import exportFromJSON from 'export-from-json'
     //     // xhr.send();
     // }
 
-export function saveExpenses(expenses: Expense[]) {
-    downloadExpenses(expenses );
+export async function saveExpenses(expenses: Expense[]) {
+    await downloadExpenses(expenses );
 }
 
 function downloadExpenses(expenses: Expense[]) {
     let data = expenses
     const monthlyData = groupByMonth(getSortedExpenses(expenses), false);
     let fileName = ''
-    monthlyData.forEach(month => {
+    monthlyData.forEach(async month => {
         fileName = Object.keys(month)[0];
         data = getMergedArray(month[fileName]);
-        storeData(data, fileName);
+        await storeData(data, fileName);
     })
 }
 
@@ -50,20 +50,20 @@ function getMergedArray(superArray: any) {
     return prev;
 }
 
-function storeData(data:any, fileName:string) {
-    const exportType =  exportFromJSON.types.csv
+async function storeData(data:any, fileName:string) {
+    // const exportType =  exportFromJSON.types.csv
+    //
+    // exportFromJSON({ data, fileName, exportType })
 
-    exportFromJSON({ data, fileName, exportType })
 
-
-        // const wb = XLSX.utils.book_new()
-        // const ws = XLSX.utils.json_to_sheet(data)
-        // XLSX.utils.book_append_sheet(wb, ws, fileName)
-        // // downloadExcel(wb, fileName);
+        const wb = XLSX.utils.book_new()
+        const ws = XLSX.utils.json_to_sheet(data)
+        XLSX.utils.book_append_sheet(wb, ws, fileName)
+        // downloadExcel(wb, fileName);
         //
         //
         //
-        // XLSX.writeFile(wb, fileName+".xlsx")
+        await XLSX.writeFile(wb, fileName+".xlsx");
     // var workbook = xlsx.utils.book_new();
     // var data = [
     //     {name:"John", city: "Seattle"},
