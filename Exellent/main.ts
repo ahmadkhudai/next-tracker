@@ -1,6 +1,7 @@
 import {Expense} from "../Definitions/Expense";
 import {getSortedExpenses, groupByMonth} from "../pages/api/utils/expense/grouping";
-import XLSX from 'xlsx';
+//@ts-ignore
+import XLSX from 'xlsx/xlsx.mini';
 
 
     // function downloadExcel(data:any, fileName:string) {
