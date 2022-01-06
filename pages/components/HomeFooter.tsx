@@ -52,12 +52,12 @@ export default function HomeFooter(props: Props) {
                          <OutlineRoundedButton  key={panel.panelLabel} styleClasses="hover:text-purple-600 hover:font-thin text-xl rounded-[10px]  md:mr-3 sm:mr-2 sm:p-2   border-purple-300 hover:border-2 ak_slow_transition " onClick={() => {
                             openHomePanelFunc(panel.panel)
                         }}>
-                            <div className={"flex align-items-center justify-content-between md:w-auto"}>
+                            <div className={"flex align-items-center justify-content-between "}>
                                 {panel.panel===HomePanels.ExpensesPanel &&
                                     <Image   height={"40%"} width={"40%"} src={expensesIcon}/>
                                 }
 
-                                <p className={"sm:hidden font-light  lg:text-xl  px-2 text-purple-800 "}>{panel.panelLabel}</p>
+                                <p className={"hidden font-light  lg:text-xl   text-purple-800 "}>{panel.panelLabel}</p>
                                 {panel.panel===HomePanels.Visualize &&
                                     <Image   height={"40%"} width={"40%"} src={graphIcon}/>
                                 }

@@ -137,12 +137,12 @@ export function ViewModeButtons({updateViewMode, currentViewMode}: Props) {
     return (
 
         <div id={"effing_swiper"}
-             className={"w-100 px-0 mx-0   bg-gray-200 rounded-full ak_slow_transition bg-gradient-to-r from-teal-500   via-indigo-400  to-purple-500 "}>
+             className={"w-100 px-0 mx-0 flex align-items-center  rounded-full ak_slow_transition bg-gradient-to-r from-teal-200   via-teal-100  to-purple-300 "}>
             {/*<h1></h1>*/}
 
 
             <Swiper
-                className={"flex justify-center w-100 px-0 mx-0"}
+                className={"flex justify-center items-center w-100 px-0 mx-0"}
 
                 onSlideChangeTransitionEnd={
                     (swiper) => {
@@ -165,23 +165,23 @@ export function ViewModeButtons({updateViewMode, currentViewMode}: Props) {
                 pagination={{
                     "clickable": false
                 }} navigation={false}>
-                <SwiperSlide className={"w-25"} onClick={()=>{
+                <SwiperSlide className={"w-25 h-auto flex align-items-center"} onClick={()=>{
                       swipeLeftToRight();
                 }}>
                     <OutlineRoundedButton
-                        styleClasses={" bg-gray-50 w-100 hover:text-teal-400   text-center  border-teal-400 text-teal-500  "}
+                        styleClasses={"h-100 bg-white/80 text-xl w-100 hover:text-teal-400   text-center  border-teal-400 text-teal-500  "}
                         text={sliderState[0]} onClick={() => {
 
                     }}/>
                 </SwiperSlide>
-                <SwiperSlide className={"w-50"}>
+                <SwiperSlide className={"w-50 h-auto flex justify-center"}>
                     <LabelPurple
-                        styleClasses={"user-select-none w-100 font-bold text-xl text-white   p-1 text-center   "}
+                        styleClasses={"user-select-none w-100 text-2xl  my-1 py-0 align-middle rounded-full  p-1 text-center   "}
                         text={sliderState[1]}/>
                 </SwiperSlide>
-                <SwiperSlide className={"w-25"} onClick={()=>swipeRightToLeft()}>
+                <SwiperSlide className={"w-25 h-auto flex align-items-center"} onClick={()=>swipeRightToLeft()}>
                     <OutlineRoundedButton
-                        styleClasses={"bg-gray-50 w-100 hover:text-teal-400  text-center  border-teal-400 text-teal-500  "}
+                        styleClasses={" bg-white/80 text-xl h-100 w-100 hover:text-teal-400  text-center  border-teal-400 text-teal-500  "}
                         text={sliderState[2]} onClick={() => {
 
                     }}/>
