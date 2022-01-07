@@ -91,7 +91,7 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, quota, dateFunction="
                         <Area type="monotone"
 
                               // label={(obj:any) => nFormatter(obj.expense)}
-                              name={nameOfX} dataKey="expense" strokeWidth={3} fillOpacity={1} label={renderLabel}
+                              name={nameOfX} dataKey="expense" strokeWidth={2} fillOpacity={1} label={renderLabel}
                               fill="url(#colorUv)"/>
                     </ComposedChart>
 
