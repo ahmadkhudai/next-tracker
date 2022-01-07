@@ -76,13 +76,13 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, quota, dateFunction="
                               style={{strokeDasharray: `40% 60%`}}
                               dataKey="date"
                               name={nameOfY}
-                              stroke="#932bfa"
+                              stroke={"#932bfa"}
                               dot={false}
                               legendType="none"
                         />
                         <Line type="monotone" strokeLinecap="round" strokeWidth={2}
                               style={{strokeDasharray: `0 60% 40%`}}
-                              stroke="#7A58BF"
+                              stroke={"#7A58BF"}
                               name={nameOfX}
 
                               dot={false}
@@ -91,7 +91,7 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, quota, dateFunction="
                         <Area type="monotone"
 
                               // label={(obj:any) => nFormatter(obj.expense)}
-                              name={nameOfX} dataKey="expense" strokeWidth={0} fillOpacity={1} label={renderLabel}
+                              name={nameOfX} dataKey="expense" strokeWidth={3} fillOpacity={1} label={renderLabel}
                               fill="url(#colorUv)"/>
                     </ComposedChart>
 
