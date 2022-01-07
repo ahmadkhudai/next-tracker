@@ -222,7 +222,7 @@ const TreemapTooltip = ({ active, payload, colors, data, groupingMode }:any) => 
     if (active && payload && payload.length) {
         const { name, value, root } = payload[0].payload;
         const { index } = root;
-        console.log(payload);
+        // console.log(payload);
         return (
             <div className="custom-tooltip bg-white p-3 rounded-[10px]">
                 <p className="label">

@@ -12,6 +12,7 @@ import DateTimeInput from "./_components/DateTimeInput";
 import Non_DateInputs from "./_components/Non_DateInputs";
 import moment from "moment";
 import OutlineRoundedButton from "../components/buttons/OutlineRoundedButton";
+import {add} from "dom7";
 
 //
 // let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
@@ -77,7 +78,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
         addNewExpense(newExpense);
         setExpenseAdded(true);
         setNewExpense(defaultExpense);
-
+        executeScroll(addMoreButton);
         // document.getElementById("add_expense_form")?.focus();
     }
 
@@ -89,17 +90,32 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
     }
 
     const doneButtonRef:RefObject<any> = useRef();
+    const firstInput:RefObject<any> = useRef();
+    const addMoreButton:RefObject<any> = useRef();
     const myRef:RefObject<any> = useRef()
 
     //@ts-ignore
     // const executeScroll = () => myRef.current.scrollIntoView()
-    const executeScroll = (ref: RefObject<any>) => {
-        ref.current.scrollIntoView({behavior: 'smooth'});
-        setTimeout(()=> ref.current.focus(),300);
+    const executeScroll = (ref: RefObject<any>, focusSelf=true, focusTimeout=300) => {
+        try{
+            ref.current.scrollIntoView({behavior: 'smooth'});
+            if(focusSelf){
+                setTimeout(()=> ref.current.focus(),focusTimeout);
+            }
+        }catch (e){
+
+        }
+
+
     }
 
     function toggleShowCurrentExpense() {
         setShowCurrentExpense(!showCurrentExpense);
+    }
+
+    function focusFirstInput(firstInput:RefObject<any>, pageTop:RefObject<any>){
+        executeScroll(pageTop, false);
+        setTimeout(()=>executeScroll(firstInput),500);
     }
 
     // function doneDunadun(){
@@ -131,11 +147,12 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                         style={{"zIndex": "1000"}}>
                         <div className={"w-100 flex flex-column py-4 bg-white p-3 rounded-[10px] shadow-sm"}>
                             <LabelPurple text={"Expense Added!"} styleClasses={" h1 text-4xl"}/>
-                            <PurpleButton styleClasses={" p-2 my-1 rounded-full"} text={"add more!"} onClick={() => {
-                                executeScroll(myRef);
+                            <label className={"w-100 flex justify-content-center"} ref={addMoreButton}>
+                            <button id={"add_more_button"} className={"w-100 btn hover:bg-teal-400 text-white bg-gradient-to-l from-indigo-500   via-indigo-400  to-purple-400  hover:font-bold hover:shadow-lg  p-2 my-1 rounded-full"} onClick={() => {
+                                focusFirstInput(firstInput, myRef);
                                 resetState();
-                            }}/>
-
+                            }}>add more!</button>
+                            </label>
 
                         </div>
                         <NewExpenseView
@@ -164,7 +181,7 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                     <div id="expense_form" className="pt-3 ">
 
                        <div className={"py-3"}>
-                           <Non_DateInputs doneButtonRef={doneButtonRef} newExpense={{...newExpense, id: "1", date: newExpense.date.toString()}} handleFieldChange={handleFieldChange}/>
+                           <Non_DateInputs firstInput={firstInput} doneButtonRef={doneButtonRef} newExpense={{...newExpense, id: "1", date: newExpense.date.toString()}} handleFieldChange={handleFieldChange}/>
                        </div>
 
 
@@ -202,7 +219,11 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                         styleClasses={"ak_max_600mx w-75   text-white text-xl  rounded-full"}
                                         text={"done!"}
 
-                                        onClick={() => handleAddExpense()}
+                                        onClick={() => {
+                                            if(!expenseAdded) {
+                                                handleAddExpense();
+                                            };
+                                        }}
 
                                     />
                                 </label>
@@ -224,7 +245,10 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                             <PurpleButton
                                 styleClasses={"ak_max_600mx w-50   text-white text-xl  rounded-full"}
                                 text={showCurrentExpense ? "keep editing" : "quick add"}
-                                onClick={() => toggleShowCurrentExpense()}
+                                onClick={() => {
+                                    executeScroll(addMoreButton, true, 900);
+                                    toggleShowCurrentExpense();
+                                }}
 
                             />
                         </div>
@@ -251,6 +275,8 @@ export function AddExpenseForm({addNewExpense, handleClose}: Props) {
                                 <div className={"flex w-100 align-items-center justify-content-center "}>
                                     <PurpleButton styleClasses={" rounded-full py-1 w-auto"} text={"keep editing"}
                                                   onClick={() => {
+                                                      focusFirstInput(firstInput, myRef);
+                                                      // executeScroll(firstInput);
                                                       dontShowCurrentExpense()
                                                   }}/>
 

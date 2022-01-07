@@ -15,7 +15,7 @@ export async function storeUser(userID:string){
     const returnedDoc = await setDoc(doc(db, "users", userID), {
         dateJoined: new Date()
     });
-    console.log("RETURNED", returnedDoc);
+    // console.log("RETURNED", returnedDoc);
 
 }
 
@@ -38,7 +38,7 @@ export async function storeExpensesServer(expenses:Expense[], userID:string){
 
 
     getCurrentMonthsExpenses(userID);
-    console.log("CHECK");
+    // console.log("CHECK");
 }
 
 export async function getCurrentMonthsExpenses(userID: string) {
@@ -49,7 +49,7 @@ export async function getCurrentMonthsExpenses(userID: string) {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
+        // console.log(doc.id, " => ", doc.data());
     });
     // console.log(q);
 }

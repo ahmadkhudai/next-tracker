@@ -9,17 +9,18 @@ type Props = {
     newExpense: Expense;
     handleFieldChange: any;
     doneButtonRef:any;
+    firstInput:RefObject<any>;
 };
 
 
-export function Non_DateInputs({newExpense, handleFieldChange, doneButtonRef}: Props) {
+export function Non_DateInputs({newExpense, handleFieldChange,firstInput, doneButtonRef}: Props) {
     const ref = useRef("test");
     const myRef = useRef(null)
 
     function handleEnterPress(e: any, nextInput: RefObject<any>) {
-        console.log("HERE TT");
-        console.log(e, e.key);
-        console.log(nextInput);
+        // console.log("HERE TT");
+        // console.log(e, e.key);
+        // console.log(nextInput);
         if (e.key.toLowerCase() === "enter") {
             executeScroll(nextInput);
         }
@@ -40,15 +41,21 @@ export function Non_DateInputs({newExpense, handleFieldChange, doneButtonRef}: P
         <>
             {newExpense &&
                 <div>
+                    {/*<label ref={firstInput} htmlFor="amountSpent" className=" hidden w-100 text-xl text-teal-700 hover:text-purple-700">*/}
+                    {/*    <LargeFormDisplay content={"amount spent"}*/}
+                    {/*                      styleClasses={"p-2 font-thin unselectable"}/>*/}
+
+
+                    {/*</label>*/}
                     <div className="form-group hover:font-bold ak_slow_transition">
                         {/*<InputComponent selfRef={amountInput} moveToNextInput={handleEnterPress} handleFieldChange={handleFieldChange}*/}
                         {/*                newExpense={newExpense} nextInputRef={nameInput} fieldLabel={"price"}*/}
                         {/*                fieldType={"number"} title={newExpense.price.toString() + " spent"}*/}
                         {/*                subtitle={"amount spent"}/>*/}
-                        <label htmlFor="amountSpent" className="w-100 text-xl text-teal-700 hover:text-purple-700">
-                            <LargeFormDisplay content={newExpense.price.toString() + " spent"}
+                        <label ref={firstInput}  htmlFor="amountSpent" className="w-100 text-xl text-teal-700 hover:text-purple-700">
+                            <LargeFormDisplay content={"amount spent"}
                                               styleClasses={"p-2 font-thin unselectable"}/>
-                            <p className={"text-sm text-center text-gray-400"}>amount spent</p>
+
 
                         </label>
                         <div className="flex">

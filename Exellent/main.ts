@@ -97,11 +97,11 @@ async function readFile(val:any){
         if(res?.target?.readyState===2){
             let data = res.target.result;
            returnData =  readDataSheet(data, {type:"binary"});
-           console.log(returnData);
+           // console.log(returnData);
         }
 
     }
-    console.log(fileReader);
+    // console.log(fileReader);
     return returnData;
 
 }

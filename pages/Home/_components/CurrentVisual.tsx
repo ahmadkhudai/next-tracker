@@ -11,10 +11,11 @@ type Props = {
     nameOfY:string;
     expenses:Expense[];
     dateFunction?:any;
+    quota:number;
 };
 type State = {};
 
-export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:Props) {
+export function CurrentVisual({expenses, nameOfX, nameOfY, quota, dateFunction="date"}:Props) {
 
 
     const [displayData, setDisplayData] = useState([] as  Expense[]);
@@ -57,8 +58,8 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
 
                         <defs>
                             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="10%" stopColor="#a855f7" stopOpacity={0.9}/>
-                                <stop offset="85%" stopColor="#2dd4bf" stopOpacity={0.3}/>
+                                <stop offset="10%" stopColor={"#b26ff3"} stopOpacity={0.9}/>
+                                <stop offset="85%" stopColor="#64efdf" stopOpacity={0.3}/>
                             </linearGradient>
                             <linearGradient id="colorUv2" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="10%" stopColor="#a855f7" stopOpacity={1}/>
@@ -70,7 +71,7 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
                         {/*<CartesianGrid vertical={false} opacity={0.5 }/>*/}
                         <YAxis  width={20}   stroke={"url(#colorUv2)"}  tickFormatter={renderLabel}  axisLine={true} />
                         <Tooltip/>
-                        <ReferenceLine width={10} x={lastDate} />
+                        {/*<ReferenceLine width={10} x={quota} strokeLinecap="round" />*/}
                        <Line type="monotone" strokeLinecap="round" strokeWidth={2}
                               style={{strokeDasharray: `40% 60%`}}
                               dataKey="date"
@@ -90,7 +91,7 @@ export function CurrentVisual({expenses, nameOfX, nameOfY, dateFunction="date"}:
                         <Area type="monotone"
 
                               // label={(obj:any) => nFormatter(obj.expense)}
-                              name={nameOfX} dataKey="expense" strokeWidth={2} fillOpacity={1} label={renderLabel}
+                              name={nameOfX} dataKey="expense" strokeWidth={0} fillOpacity={1} label={renderLabel}
                               fill="url(#colorUv)"/>
                     </ComposedChart>
 
@@ -109,7 +110,7 @@ class CustomizedContent extends React.Component<any> {
         const {root, depth, x, y, width, height, index, payload, colors, rank, name, data} = this.props;
         // console.log(root, depth, x, y, width, height, index, payload, colors, rank, name, data, groupingMode)
 
-        console.log(data[index], height, width, depth);
+        // console.log(data[index], height, width, depth);
         // console.log();
         return (
             <g>

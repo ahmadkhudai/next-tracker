@@ -150,8 +150,6 @@ export function ViewModeButtons({updateViewMode, currentViewMode}: Props) {
                         if (fromRightToLeft(swiper)) {
                             //direction is right->left
                             swipeRightToLeft();
-
-
                         } else {
                             swipeLeftToRight();
                         }

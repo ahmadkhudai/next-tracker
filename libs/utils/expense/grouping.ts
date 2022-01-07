@@ -325,7 +325,7 @@ export function getRenderableTODAYsExpenses(groupedExpenses:GroupedExpenses):Exp
 //group by expense name
 //we are ONLY interested in the frequency of expense
 export function groupByExpenseName(inputExpenses: Expense[], groupBy:string) {
-    console.log(inputExpenses, groupBy);
+    // console.log(inputExpenses, groupBy);
     if(groupBy===GroupBy["frequency"]){
         return groupedByFrequency(inputExpenses, ExpenseFields.name);
     }
@@ -368,7 +368,7 @@ export function groupedByFrequency(inputExpenses: Expense[], index: string) {
         groupedData[deFormattedValue] += 1;
     }
 
-    console.log(groupedData);
+    // console.log(groupedData);
 
     let groupedExpenses: any = [];
     Object.entries(groupedData).forEach(([key, value], index) => {

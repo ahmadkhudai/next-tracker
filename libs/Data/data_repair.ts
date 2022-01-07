@@ -15,7 +15,7 @@ export function repairExpenseAmounts(expenses:Expense[]):Expense[]{
             continue;
         }
         if(!isNumeric(expense.price)){
-            console.log(isNumeric(expense.price), expense.price)
+            // console.log(isNumeric(expense.price), expense.price)
             removeIndexes.push(index);
             continue;
         }

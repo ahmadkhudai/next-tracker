@@ -44,6 +44,7 @@ import moment from "moment";
 import saveIcon from '../../assets/save.png';
 import loadIcon from '../../assets/upload.png';
 import Image from 'next/image';
+import {SettingLabels} from "../../Definitions/Setting";
 
 type Props = {
     switchWindow: any;
@@ -86,7 +87,7 @@ export function HomePage({switchWindow}: Props) {
     }
 
     useEffect(() => {
-        console.log(loadExpenses());
+        // console.log(loadExpenses());
         modifyExpenses(loadExpenses());
         modifySettings(loadSettings());
     }, []);
@@ -100,7 +101,7 @@ export function HomePage({switchWindow}: Props) {
     }
 
     function modifySettings(modifiedSettings: SettingsObj) {
-        console.log("YELLO");
+        // console.log("YELLO");
         setSettings(modifiedSettings);
         localStorage.setItem("ak_settings", JSON.stringify(modifiedSettings));
     }
@@ -304,7 +305,7 @@ export function HomePage({switchWindow}: Props) {
             // if(res?.target?.readyState===2){
             let data = res?.target?.result;
             let readDataSheet1 = readDataSheet(data, {type: "binary", cellDates: true, cellNF: false, cellText: false});
-            console.log("FROM FILE ", readDataSheet1);
+            // console.log("FROM FILE ", readDataSheet1);
 
             let current = expenses.length;
             let mergedExpenses = mergeExpenses(validate(readDataSheet1), removeSampleData(expenses));
@@ -393,7 +394,7 @@ export function HomePage({switchWindow}: Props) {
                                 <div className={" ak_max_600px w-100 h-full"}>
 
                                     <div className={"h-auto "}>
-                                        <CurrentVisual nameOfX={"Money Spent"} nameOfY={getGraphY(viewMode)}
+                                        <CurrentVisual quota={settings[SettingLabels.maxAcceptableRange].value} nameOfX={"Money Spent"} nameOfY={getGraphY(viewMode)}
                                                        expenses={graphAbleExpenses}
                                                        dateFunction={dateFunctions[viewMode]}/>
                                     </div>

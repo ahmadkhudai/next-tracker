@@ -497,6 +497,11 @@ $finalWidth: $finalHeight*2;
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
 }
+
+.text-xl, .text-2xl, text-3xl, h1, h2{
+
+  @extend .unselectable;
+}
 .scale-test{
 //transform:scale(0.7);
 
