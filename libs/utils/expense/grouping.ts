@@ -6,9 +6,9 @@ import {SettingLabels} from "../../../Definitions/Setting";
 import GroupedExpenses from "../../../Definitions/GroupedExpenses";
 import {SettingsObj} from "../../../Definitions/SettingsObj";
 import SummaryExpense from "../../../Definitions/SummaryExpense";
-import {repairExpenseAmounts} from "../../Data/data_repair";
 import {deFormattedStr} from "../string_utils";
 import {GroupBy} from "../../component_config/grouping/GroupBy";
+import {repairExpenseAmounts} from "./repair";
 
 export function sortfunction(a:Expense,b:Expense){
     // Turn your strings into dates, and then subtract them
@@ -144,20 +144,29 @@ export function groupByWeek(sortedExpenses:any) {
     return weekWiseExpenses;
 }
 
+function getCurrentWeeksExpenses(groupedExpenses:GroupedExpenses){
+    let currentWeek = moment(new Date()).week();
 
+    let weeklyExpenses = groupByWeek(groupedExpenses);
+    let temp:any = weeklyExpenses.find(item => Object.keys(item)[0]===currentWeek.toString());
+    if(temp){
+        return temp[currentWeek]
+    }
+    return [];
+}
 /**
  * Returns current week's expenses for graph consumptions
  * @param groupedExpenses
  */
-export function getCurrentWeeksExpenses(groupedExpenses:GroupedExpenses){
-    let currentWeek = moment(new Date()).isoWeek();
-
-    let weeklyExpenses = groupByWeek(groupedExpenses);
-    let expenseLists:any = [];
-    let ttt= weeklyExpenses.find(item => Object.keys(item)[0]===((currentWeek+1)%52).toString());
-    if(ttt){
-        expenseLists = ttt[(currentWeek+1)%52];
-
+export function currentWeekGraphables(groupedExpenses:GroupedExpenses){
+    // let currentWeek = moment(new Date()).isoWeek();
+    //
+    // let weeklyExpenses = groupByWeek(groupedExpenses);
+    // let expenseLists:any = [];
+    // let ttt= weeklyExpenses.find(item => Object.keys(item)[0]===((currentWeek+1)%52).toString());
+    // if(ttt){
+    //     expenseLists = ttt[(currentWeek+1)%52];
+      let expenseLists:any = getCurrentWeeksExpenses(groupedExpenses);
         let mergedExpenseList:Expense[] = [];
 
 
@@ -167,9 +176,9 @@ export function getCurrentWeeksExpenses(groupedExpenses:GroupedExpenses){
             })
         })
             return getDayWiseExpenses(getSortedExpenses(mergedExpenseList));
-    }else {
-        return [];
-    }
+    // }else {
+    //     return [];
+    // }
 
 
 }
@@ -179,15 +188,25 @@ export function getCurrentWeeksExpenses(groupedExpenses:GroupedExpenses){
  * @param groupedExpenses
  */
 export function getRenderableCurrentWeeksExpenses(groupedExpenses:GroupedExpenses){
-    let currentWeek = moment(new Date()).isoWeek();
+    // let currentWeek = moment(new Date()).isoWeek();
+    //
+    // let weeklyExpenses = groupByWeek(groupedExpenses);
+    // console.log(weeklyExpenses);
+    // let expenseLists:any = [];
+    // let ttt= weeklyExpenses.find(item => Object.keys(item)[0]===((currentWeek+1)%52).toString());
+    // if(ttt){
+    // expenseLists = ttt[(currentWeek+1)%52];
 
-    let weeklyExpenses = groupByWeek(groupedExpenses);
-    let expenseLists:any = [];
-    let ttt= weeklyExpenses.find(item => Object.keys(item)[0]===((currentWeek+1)%52).toString());
-    if(ttt){
-    expenseLists = ttt[(currentWeek+1)%52];
-
-    let mergedExpenseList:Expense[] = [];
+    // let currentWeek = moment(new Date()).week();
+    //
+    // let weeklyExpenses = groupByWeek(groupedExpenses);
+    // console.log(weeklyExpenses);
+    // let expenseLists:any = [];
+    // let ttt= weeklyExpenses.find(item => Object.keys(item)[0]===currentWeek.toString());
+    // if(ttt){
+    //     expenseLists = ttt[currentWeek];
+        let expenseLists:any = getCurrentWeeksExpenses(groupedExpenses);
+        let mergedExpenseList:Expense[] = [];
 
 
         expenseLists.forEach((expenseList:Expense[]) => {
@@ -196,9 +215,9 @@ export function getRenderableCurrentWeeksExpenses(groupedExpenses:GroupedExpense
             })
         })
         return mergedExpenseList;
-    }else {
-        return [];
-    }
+    // }else {
+    //     return [];
+    // }
 }
 export function groupByMonth(groupedExpenses: GroupedExpenses, simpleDate=true):GroupedExpenses[] {
     const moment = require('moment');

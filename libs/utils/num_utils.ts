@@ -37,14 +37,14 @@ export function isNumeric(str:string|number) {
         !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
 }
 
+/**
+ * Remove indexes in indexesArray from valuesArray
+ * @param valuesArr
+ * @param indexesArray
+ */
 export function removeArrIndexes(valuesArr:Expense[], indexesArray:number[]):Expense[]{
     if(indexesArray.length<1){return valuesArr}
     let indexesSet = new Set(indexesArray);
     return valuesArr.filter((value, i) => !indexesSet.has(i));
-    // for (let i = indexesArray.length -1; i >= 0; i--) {
-    //     valuesArr.splice(indexesArray[i], 1);
-    // }
-// return value
-
 
 }

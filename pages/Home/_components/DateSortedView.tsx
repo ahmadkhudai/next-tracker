@@ -62,7 +62,7 @@ export function DateSortedView({expenses,settings, deleteExpense, expenseStyleCl
                                 <div className={" my-3 "}>
                                 {expenses.map((expense: Expense) =>
 
-                                    <>
+                                    <div key={expense.id} className={"w-auto h-auto"}>
                                         <ExpenseComponent
                                         styleClasses={expenseStyleClasses}
                                         deleteExpense={deleteExpense}
@@ -70,8 +70,9 @@ export function DateSortedView({expenses,settings, deleteExpense, expenseStyleCl
                                         expense={expense}
                                         key={expense.id}
                                     />
-                                        {mode!==Modes.create &&<div className={"py-2"}></div>}
-                                    </>
+                                        {mode!==Modes.create &&<div   className={"py-2"}></div>}
+
+                                    </div>
 
 
                                    )}

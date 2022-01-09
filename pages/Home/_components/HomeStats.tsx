@@ -3,7 +3,7 @@ import * as React from 'react';
 import {Expense} from "../../../Definitions/Expense";
 import {
     getCurrentMonthsExpenses,
-    getCurrentWeeksExpenses,
+    currentWeekGraphables,
     getTodaysExpenses,
     groupByExpenseName
 } from "../../../libs/utils/expense/grouping";
@@ -27,7 +27,7 @@ export function HomeStats({expenses,viewMode, settings}: Props) {
 
 
     const groupingFunctions = {
-        [ViewModes.week]:getCurrentWeeksExpenses,
+        [ViewModes.week]:currentWeekGraphables,
         [ViewModes.month]:getCurrentMonthsExpenses,
         [ViewModes.today]:getTodaysExpenses
     }

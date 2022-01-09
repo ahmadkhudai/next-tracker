@@ -107,3 +107,41 @@ async function readFile(val:any){
 }
 
 
+export function loadFromFile
+({file,updateExpenses,expenses,validate,updateStateFunction,mergeExpenses,removeSampleData, setSuccessMessage}:{
+     file: any,
+     updateExpenses: any,
+     expenses: Expense[],
+     validate: any,
+     updateStateFunction:any,
+     mergeExpenses: any,
+     removeSampleData: any,
+     setSuccessMessage: any
+ }) {
+    // let loadedExp = loadData(file);
+    // console.log(loadedExp);
+    let fileReader = new FileReader();
+
+
+    fileReader.readAsBinaryString(file);
+    // fileReader.readAsText(file);
+    fileReader.onload = (res) => {
+        // if(res?.target?.readyState===2){
+        let data = res?.target?.result;
+        let readDataSheet1 = readDataSheet(data, {type: "binary", cellDates: true, cellNF: false, cellText: false});
+        // console.log("FROM FILE ", readDataSheet1);
+
+        let current = expenses.length;
+        let mergedExpenses = mergeExpenses(validate(readDataSheet1), removeSampleData(expenses,setSuccessMessage));
+        let newlyAdded = mergedExpenses.length - current;
+        updateExpenses(mergedExpenses, updateStateFunction);
+
+        if (newlyAdded >= 0) {
+            setSuccessMessage("ADDED " + newlyAdded + " new expenses!");
+        } else {
+            setSuccessMessage("Removed sample data. And added " + mergedExpenses.length + " new expenses.")
+
+        }
+
+    }
+}

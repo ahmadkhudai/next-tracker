@@ -7,7 +7,7 @@ import Link from "next/link";
 import {
     baseSettings,
     getCurrentMonthsExpenses,
-    getCurrentWeeksExpenses,
+    currentWeekGraphables,
     getRenderableCurrentMONTHsExpenses,
     getRenderableCurrentWeeksExpenses,
     getRenderableTODAYsExpenses,
@@ -31,7 +31,6 @@ import {Day} from "../../constants/day";
 import Backdrop from "../Framer/Backdrop";
 import ViewModeButtons from "./_components/ViewModeButtons";
 import HomeExpensesView from "./_components/compound_components/HomeExpensesView";
-import {repairExpenseAmounts} from "../../libs/Data/data_repair";
 import HomeStats from "./_components/HomeStats";
 import {dumdumData} from "../../libs/dummy_data/data";
 import {nFormatter, removeArrIndexes} from "../../libs/utils/num_utils";
@@ -45,6 +44,10 @@ import saveIcon from '../../assets/save.png';
 import loadIcon from '../../assets/upload.png';
 import Image from 'next/image';
 import {SettingLabels} from "../../Definitions/Setting";
+import DownloadForm from "./_components/DownloadForm";
+import {repairExpenseAmounts} from "../../libs/utils/expense/repair";
+import {removeSampleData} from "../../libs/utils/expense/clearing";
+import {loadExpenses, loadSettings, modifyExpenses} from "../../libs/pages/_common/loaders";
 
 type Props = {
     switchWindow: any;
@@ -55,20 +58,7 @@ const { networkInterfaces } = require('os');
 
 
 export function HomePage({switchWindow}: Props) {
-    const nets = networkInterfaces();
-    const results = Object.create(null);
 
-    for (const name of Object.keys(nets)) {
-        for (const net of nets[name]) {
-            // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
-            if (net.family === 'IPv4' && !net.internal) {
-                if (!results[name]) {
-                    results[name] = [];
-                }
-                results[name].push(net.address);
-            }
-        }
-    }
     //data state
     let loadedExpenses: Expense[] = [];
     let loadedSettings: SettingsObj = baseSettings;
@@ -77,28 +67,22 @@ export function HomePage({switchWindow}: Props) {
     const [settings, setSettings] = useState(loadedSettings);
     const [sampleDataExists, setSampleDataExists] = useState(true);
 
-    function loadExpenses(): Expense[] {
-        let tempExp = JSON.parse(localStorage.getItem("ak_expenses") as string) || dumdumData;
-        return repairExpenseAmounts([...tempExp]);
-    }
+    //visual state
+    const [graphAbleExpenses, setGraphAbleExpenses] = useState([] as Expense[]);
+    const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(OptionsPanels.none);
+    const [currentHomePanel, setCurrentHomePanel] = useState(HomePanels.none);
 
-    function loadSettings() {
-        return JSON.parse(localStorage.getItem("ak_settings") as string) || baseSettings;
-    }
+    const [viewMode, setViewMode] = useState(ViewModes.week);
+    const [successMessage, setSuccessMessage] = useState(null as any);
+
 
     useEffect(() => {
-        // console.log(loadExpenses());
-        modifyExpenses(loadExpenses());
+        modifyExpenses(loadExpenses(),setExpenses);
         modifySettings(loadSettings());
     }, []);
 
 
-    function modifyExpenses(modifiedExpenses: Expense[]) {
-        modifiedExpenses = modifiedExpenses.sort(sortfunction);
 
-        setExpenses(modifiedExpenses);
-        localStorage.setItem("ak_expenses", JSON.stringify(modifiedExpenses));
-    }
 
     function modifySettings(modifiedSettings: SettingsObj) {
         // console.log("YELLO");
@@ -123,43 +107,22 @@ export function HomePage({switchWindow}: Props) {
 
         if (sampleDataExists) {
             setSampleDataExists(false);
-            newExpenseList = removeSampleData([...expenses, tempObj])
+            newExpenseList = removeSampleData([...expenses, tempObj], setSuccessMessage)
         }
 
-        modifyExpenses(newExpenseList)
+        modifyExpenses(newExpenseList, setExpenses)
 
     }
 
-    function matchPatter(pattern: any, id: string) {
-        return pattern.test(id);
-    }
 
-    function removeSampleData(expenses: Expense[]) {
-        let pattern = /^ak_sample_data/i;
-        let filteredExpenses = [];
-        filteredExpenses = expenses.filter(expense => !matchPatter(pattern, expense.id))
-        if (filteredExpenses.length < expenses.length) {
-            setSuccessMessage("SAMPLE DATA REMOVED!");
-        }
-        return filteredExpenses;
-    }
 
     function deleteExpense(toDelete: Expense) {
 
-
         let newExpenseList = expenses.filter((expense: Expense) => expense.id !== toDelete.id);
-        modifyExpenses(newExpenseList);
+        modifyExpenses(newExpenseList, setExpenses);
 
     }
 
-
-    //visual state
-    const [graphAbleExpenses, setGraphAbleExpenses] = useState([] as Expense[]);
-    const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(OptionsPanels.none);
-    const [currentHomePanel, setCurrentHomePanel] = useState(HomePanels.none);
-
-    const [viewMode, setViewMode] = useState(ViewModes.week);
-    const [nextViewMode, setNextViewMode] = useState(1);
 
 
     function openPanel(panel: OptionsPanels) {
@@ -203,7 +166,7 @@ export function HomePage({switchWindow}: Props) {
             }
             if (viewMode === ViewModes.week) {
                 tempcurrentExpenses = getRenderableCurrentWeeksExpenses(getSortedExpenses(expenses));
-                tempgraphAbleExpenses = getCurrentWeeksExpenses(getSortedExpenses(expenses));
+                tempgraphAbleExpenses = currentWeekGraphables(getSortedExpenses(expenses));
                 stateUpdated = true;
             }
             if (stateUpdated) {
@@ -244,88 +207,12 @@ export function HomePage({switchWindow}: Props) {
     }
 
 
-    function buildDescription(name: string, price: number, location?: any) {
-        return price + " spent on " + name + " from " + location ? location : "";
-    }
-
-    function repairExpenses(validExpenses: Expense[]) {
-        let repairedExpenses: any = [];
-        let removeIndexes: number[] = [];
-        validExpenses = repairExpenseAmounts(validExpenses);
-
-        for (let i = 0; i < validExpenses.length; i++) {
-            const expense = validExpenses[i];
-            if (!moment(expense.date).isValid()) {
-                removeIndexes.push(i);
-                continue;
-            }
 
 
-            if (!expense.id) {
-                expense.id = uuidv4();
-            }
-
-            if (!expense.description) {
-                expense.description = buildDescription(expense.name, expense.price, expense.location);
-            }
-            repairedExpenses.push(expense);
-        }
 
 
-        return removeArrIndexes(repairedExpenses, removeIndexes);
-    }
-
-    function validate(expenses: any) {
-        let validatedExpenses: Expense[] = [];
-
-        expenses.forEach((expense: any) => {
-            if (hasRequiredProps(RequiredFields, expense)) {
-                validatedExpenses.push(expense);
-            }
-        })
-
-        return repairExpenses(validatedExpenses);
-
-    }
-
-    function mergeExpenses(newExpenses: any[], oldExpenses: Expense[]) {
-        let ids = new Set(oldExpenses.map(d => d.id));
-        return [...oldExpenses, ...newExpenses.filter(d => !ids.has(d.id))];
-    }
-
-    function loadFromFile(file: any, updateExpenses: any, expenses: Expense[]) {
-        // let loadedExp = loadData(file);
-        // console.log(loadedExp);
-        let fileReader = new FileReader();
 
 
-        fileReader.readAsBinaryString(file);
-        // fileReader.readAsText(file);
-        fileReader.onload = (res) => {
-            // if(res?.target?.readyState===2){
-            let data = res?.target?.result;
-            let readDataSheet1 = readDataSheet(data, {type: "binary", cellDates: true, cellNF: false, cellText: false});
-            // console.log("FROM FILE ", readDataSheet1);
-
-            let current = expenses.length;
-            let mergedExpenses = mergeExpenses(validate(readDataSheet1), removeSampleData(expenses));
-            let newlyAdded = mergedExpenses.length - current;
-            updateExpenses(mergedExpenses);
-
-            if (newlyAdded >= 0) {
-                setSuccessMessage("ADDED " + newlyAdded + " new expenses!");
-            } else {
-                setSuccessMessage("Removed sample data. And added " + mergedExpenses.length + " new expenses.")
-
-            }
-
-            // }
-
-        }
-    }
-
-
-    const [successMessage, setSuccessMessage] = useState(null as any);
 
     return (
 
@@ -340,10 +227,6 @@ export function HomePage({switchWindow}: Props) {
                 </Backdrop>
             }
 
-            {/*<label htmlFor={"file_input"}>YO*/}
-            {/*</label>*/}
-            {/*<input id={"file_input"} type={"file"} />*/}
-            {/*<PurpleButton onClick={()=>readFile()}>DOWNLOAD</PurpleButton>*/}
             {currentlyOpenPanel === OptionsPanels.AddExpensePanel &&
                 <div className={" w-100 flex items-center justify-center flex-column px-3 h-100"}>
 
@@ -417,77 +300,7 @@ export function HomePage({switchWindow}: Props) {
                             <Backdrop onClick={(e: any) => {
                                 closeAllPanels(e)
                             }}>
-                                <div
-                                    className={"ak_max_600px ak_card w-100 flex align-items-center justify-content-center"}>
-                                    <div
-                                        className={"w-75 flex  align-items-center justify-content-center mx-0 px-0 flex-column my-3"}>
-
-                                        <label htmlFor={"download_button"}> <Image height={40} width={40}
-                                                                                   src={saveIcon}/>
-                                        </label>
-
-
-                                        <PurpleButton id={"download_button"} onClick={(e: any) => {
-                                            // window.open(document.URL, '_blank');
-                                            let script: any = document.createElement('script');
-                                            // script.src = 'js/myScript.js';
-
-                                            const win: any = window.open(
-                                                document.URL+"/actions/DownloadPage",
-                                                "_blank");
-                                            // win.onload = function(){
-                                            //     openPanel(OptionsPanels.DownloadUploadForm);
-                                            //     saveExpenses(expenses);
-                                            //     // win.close();
-                                            // };
-                                            // // win.document.head.appendChild(script);
-                                            win.onload = () => {
-
-                                                    const timer = setInterval(() => {
-                                                        // saveExpenses(expenses);
-
-                                                        // win.close();
-                                                        if (win.closed) {
-                                                            clearInterval(timer);
-                                                            setSuccessMessage("Downloaded all!");
-                                                        }
-                                                    }, 200);
-                                            //
-                                            //
-                                            }
-
-                                            closeAllPanels(e);
-                                            // saveExpenses(expenses);
-
-                                            // setSuccessMessage("Downloaded all!");
-                                            // closeAllPanels(e);
-                                        }}>DOWNLOAD</PurpleButton>
-                                        {/*<Link href={"/actions/DownloadPage"}>DOWNLOAD LINK</Link>*/}
-
-                                        <div className={"flex flex-column align-items-center p-2"}>
-                                            <label htmlFor="myfile">
-
-                                                <Image height={40} width={40} src={loadIcon}/>
-
-                                            </label>
-                                            <input
-                                                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                                                className={"form-control form-control-file"} type="file" id="myfile"
-                                                name="myfile" onChange={function (e) {
-                                                if (e.target.files) {
-                                                    let file = e.target.files[0];
-                                                    loadFromFile(file, modifyExpenses, expenses);
-                                                    //@ts-ignore
-                                                    e.target.value = null;
-
-                                                    closeAllPanels(e);
-                                                }
-                                            }}/>
-                                        </div>
-
-
-                                    </div>
-                                </div>
+                            <DownloadForm setExpenses={setExpenses} closeAllPanels={closeAllPanels} setSuccessMessage={setSuccessMessage} modifyExpenses={modifyExpenses} expenses={expenses}/>
                             </Backdrop>
                         }
 

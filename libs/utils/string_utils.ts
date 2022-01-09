@@ -24,3 +24,6 @@ export function startsWithSpace(line:string) {
         newStr = newStr.toLowerCase();
         return newStr;
     }
+export function matchPatter(pattern: any, id: string) {
+    return pattern.test(id);
+}
