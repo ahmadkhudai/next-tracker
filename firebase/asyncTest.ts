@@ -1,11 +1,12 @@
 import {addDoc, collection, doc, getDoc, getDocs, query, setDoc, where} from "firebase/firestore";
 import {app, db} from "./firebase";
 import {Expense} from "../Definitions/Expense";
-import {repairExpenseAmounts} from "../libs/Data/data_repair";
+// import {repairExpenseAmounts} from "../libs/Data/data_repair";
 import {SettingsObj} from "../Definitions/SettingsObj";
 import moment from "moment";
 import exp from "constants";
 import {val} from "dom7";
+import {repairExpenseAmounts} from "../libs/utils/expense/repair";
 
 function getMonthId(date:Date|string){
     return moment(new Date()).format("yyyy-MM");
