@@ -48,6 +48,7 @@ import DownloadForm from "./_components/DownloadForm";
 import {repairExpenseAmounts} from "../../libs/utils/expense/repair";
 import {removeSampleData} from "../../libs/utils/expense/clearing";
 import {loadExpenses, loadSettings, modifyExpenses} from "../../libs/pages/_common/loaders";
+import MainView from "./_partials/main_view";
 
 type Props = {
     switchWindow: any;
@@ -272,29 +273,7 @@ export function HomePage({switchWindow}: Props) {
                                     </div>
                                 </div>
                             }
-
-                            {currentHomePanel === HomePanels.Visualize &&
-                                <div className={" ak_max_600px w-100 h-full"}>
-
-                                    <div className={"h-auto "}>
-                                        <CurrentVisual quota={settings[SettingLabels.maxAcceptableRange].value} nameOfX={"Money Spent"} nameOfY={getGraphY(viewMode)}
-                                                       expenses={graphAbleExpenses}
-                                                       dateFunction={dateFunctions[viewMode]}/>
-                                    </div>
-                                </div>
-                            }
-
-
-                            {(currentHomePanel === HomePanels.ExpensesPanel) &&
-                                <>
-
-
-                                    <HomeExpensesView currentExpenses={currentExpenses} settings={settings}
-                                                      deleteExpense={deleteExpense}/>
-
-                                </>
-
-                            }
+                            <MainView currentHomePanel={currentHomePanel} settings={settings} graphAbleExpenses={graphAbleExpenses} currentExpenses={currentExpenses} deleteExpense={deleteExpense} viewMode={viewMode}/>
                         </div>
                         {currentlyOpenPanel === OptionsPanels.DownloadUploadForm &&
                             <Backdrop onClick={(e: any) => {
