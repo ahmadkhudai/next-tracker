@@ -37,7 +37,7 @@ export function HomePage({switchWindow}: Props) {
     const [currentlyOpenPanel, setCurrentlyOpenPanel] = useState(OptionsPanels.none);
 
 
-    const [viewMode, setViewMode] = useState(ViewModes.week);
+
     const [successMessage, setSuccessMessage] = useState(null as any);
 
 
@@ -102,13 +102,11 @@ export function HomePage({switchWindow}: Props) {
     }
 
 
-    function updateViewMode(newMode: ViewModes) {
-
-        if (viewMode !== newMode) {
-            setViewMode(newMode);
-        }
-
-    }
+    // function updateViewMode(newMode: ViewModes) {
+    //     if (viewMode !== newMode) {
+    //         setViewMode(newMode);
+    //     }
+    // }
 
 
     return (
@@ -149,9 +147,9 @@ export function HomePage({switchWindow}: Props) {
                     <div className={" flex items-center flex-column justify-center ak_max_600px w-100 "}>
 
 
-                        <MainView openPanel={openPanel} updateViewMode={updateViewMode}
+                        <MainView openPanel={openPanel}
                                   currentlyOpenPanel={currentlyOpenPanel} settings={settings} expenses={expenses}
-                                  deleteExpense={deleteExpense} viewMode={viewMode}/>
+                                  deleteExpense={deleteExpense} />
 
                         {currentlyOpenPanel === OptionsPanels.DownloadUploadForm &&
                             <Backdrop onClick={(e: any) => {

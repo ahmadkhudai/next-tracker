@@ -12,3 +12,4 @@ export function TopBar(props: Props) {
         </div>
     );
 };
+export default TopBar;

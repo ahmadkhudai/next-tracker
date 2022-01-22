@@ -38,35 +38,19 @@ export function DownloadForm({closeAllPanels, setExpenses, setSuccessMessage, ex
                     const win: any = window.open(
                         document.URL+"/actions/DownloadPage",
                         "_blank");
-                    // win.onload = function(){
-                    //     openPanel(OptionsPanels.DownloadUploadForm);
-                    //     saveExpenses(expenses);
-                    //     // win.close();
-                    // };
-                    // // win.document.head.appendChild(script);
                     win.onload = () => {
 
                         const timer = setInterval(() => {
-                            // saveExpenses(expenses);
-
-                            // win.close();
                             if (win.closed) {
                                 clearInterval(timer);
                                 setSuccessMessage("Downloaded all!");
                             }
                         }, 200);
-                        //
-                        //
                     }
 
                     closeAllPanels(e);
-                    // saveExpenses(expenses);
 
-                    // setSuccessMessage("Downloaded all!");
-                    // closeAllPanels(e);
                 }}>DOWNLOAD</PurpleButton>
-                {/*<Link href={"/actions/DownloadPage"}>DOWNLOAD LINK</Link>*/}
-
                 <div className={"flex flex-column align-items-center p-2"}>
                     <label htmlFor="myfile">
 

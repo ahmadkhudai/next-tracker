@@ -12,10 +12,6 @@ import DateTimeInput from "./_components/DateTimeInput";
 import Non_DateInputs from "./_components/Non_DateInputs";
 import moment from "moment";
 import OutlineRoundedButton from "../components/buttons/OutlineRoundedButton";
-import {add} from "dom7";
-
-//
-// let itemsList = ["chai", "Shwarma", "Steak Burger", "GB Ginger Special"];
 
 type Props = {
 
